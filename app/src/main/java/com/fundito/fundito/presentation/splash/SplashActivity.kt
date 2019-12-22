@@ -6,7 +6,9 @@ import android.os.Handler
 import android.os.Looper
 import androidx.appcompat.app.AppCompatActivity
 import com.fundito.fundito.R
+import com.fundito.fundito.common.util.NativeUtil
 import com.fundito.fundito.presentation.main.MainActivity
+import timber.log.Timber
 
 /**
  * Created by mj on 22, December, 2019
@@ -20,6 +22,8 @@ class SplashActivity : AppCompatActivity() {
         Handler(Looper.getMainLooper()).postDelayed({
             startActivity(Intent(this, MainActivity::class.java))
         },2000L)
+
+        Timber.e(NativeUtil.sayHello())
     }
 
 }

@@ -47,6 +47,12 @@ android {
             assets.srcDirs(File("$projectDir/schemas"))
         }
     }
+
+    externalNativeBuild {
+        cmake {
+            setPath("src/main/jni/CMakeLists.txt")
+        }
+    }
 }
 
 dependencies {
