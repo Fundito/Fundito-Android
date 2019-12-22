@@ -23,6 +23,7 @@ android {
             }
         }
     }
+
     buildTypes {
         getByName("release") {
             isMinifyEnabled = false
@@ -53,6 +54,13 @@ android {
             setPath("src/main/jni/CMakeLists.txt")
         }
     }
+
+    tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile::class.java).all {
+        kotlinOptions {
+            jvmTarget = "1.8"
+        }
+    }
+
 }
 
 dependencies {
