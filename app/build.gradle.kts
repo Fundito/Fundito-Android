@@ -108,6 +108,10 @@ dependencies {
     implementation("com.github.bumptech.glide:glide:4.10.0")
     kapt("com.github.bumptech.glide:compiler:4.10.0")
 
+    /**
+     * Timber for logging
+     */
+    implementation("com.jakewharton.timber:timber:4.7.1")
 
 
 

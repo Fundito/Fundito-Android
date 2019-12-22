@@ -1,7 +1,8 @@
-package com.fundito.fundito
+package com.fundito.fundito.presentation.main
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
+import com.fundito.fundito.R
 
 class MainActivity : AppCompatActivity() {
 
