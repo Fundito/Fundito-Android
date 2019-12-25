@@ -11,4 +11,32 @@
         <item name="fontFamily">@font/spoqa_han_sans_regular</item>
     </style>
 
+
+
+    <style name="KeyboardBottomSheetDialog" parent="Theme.Design.Light.BottomSheetDialog">
+        <item name="android:windowCloseOnTouchOutside">false</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:colorBackground">#0fff</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:backgroundDimEnabled">false</item>
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowIsFloating">true</item>
+    </style>
+<!--    <style name="KeyboardBottomSheet" parent="Widget.Design.BottomSheet.Modal">-->
+<!--        <item name="android:background">@drawable/round_bottom_sheet_background</item>-->
+<!--    </style>-->
+
+    <style name="KeyboardButtonStyle" parent="Widget.MaterialComponents.Button.TextButton">
+        <item name="android:insetTop">0dp</item>
+        <item name="android:insetRight">0dp</item>
+        <item name="android:insetLeft">0dp</item>
+        <item name="android:insetBottom">0dp</item>
+        <item name="elevation">0dp</item>
+        <item name="android:textAppearance">@style/KeyboardButtonTextAppearance</item>
+        <item name="android:textColor">@color/colorPrimary</item>
+        <item name="rippleColor">@color/colorPrimary</item>
+    </style>
+    <style name="KeyboardButtonTextAppearance" parent="TextAppearance.MaterialComponents.Button">
+        <item name="android:textSize">18sp</item>
+    </style>
 </resources>

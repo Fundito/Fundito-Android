@@ -1,5 +1,7 @@
 package com.fundito.fundito.common.util
 
+import kotlin.math.min
+
 /**
  * Created by mj on 24, December, 2019
  */
@@ -20,7 +22,14 @@ infix fun String.addCharForMoneyRepresentation(nextChar : Char) : String {
 
     val newCharIntValue = (nextChar.toInt() - '0'.toInt())
 
-    return ((intValue * 10) + newCharIntValue).toMoney()
+    val lastIntValue = min((intValue * 10) + newCharIntValue,5000)
+
+    return lastIntValue.toMoney()
+}
+
+fun String.removeLatestMoneyCharacter() : String {
+    val dropped = dropLast(1)
+    return if(dropped.isEmpty()) return "0" else dropped.replace(",","").toInt().toMoney()
 }
 
 /**
