@@ -17,4 +17,5 @@ class MainApplication : Application() {
     private fun initLogging() {
         Timber.plant(Timber.DebugTree())
     }
+
 }

@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:gravity="center"
+            app:layout_constraintHorizontal_chainStyle="spread_inside"
+            app:layout_constraintBottom_toTopOf="@id/guide"
+            android:layout_marginBottom="30dp"
+            android:id="@+id/text1000"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:text="1,000"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toStartOf="@+id/text1500"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:gravity="center"
+            app:layout_constraintBottom_toTopOf="@id/guide"
+            android:layout_marginBottom="30dp"
+            android:id="@+id/text1500"
+            android:layout_height="wrap_content"
+            android:text="1,500"
+            android:layout_width="100dp"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toStartOf="@+id/text2000"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/text1000" />
+
+        <TextView
+            android:gravity="center"
+            android:layout_width="100dp"
+            app:layout_constraintBottom_toTopOf="@id/guide"
+            android:layout_marginBottom="30dp"
+            android:id="@+id/text2000"
+            android:layout_height="wrap_content"
+            android:text="2,000"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toStartOf="@+id/text2500"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/text1500" />
+
+        <TextView
+            android:gravity="center"
+            app:layout_constraintBottom_toTopOf="@id/guide"
+            android:layout_marginBottom="30dp"
+            android:id="@+id/text2500"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:text="2,500"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toStartOf="@+id/text3000"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/text2000" />
+
+        <TextView
+            android:gravity="center"
+            app:layout_constraintBottom_toTopOf="@id/guide"
+            android:layout_marginBottom="30dp"
+            android:id="@+id/text3000"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:text="3,000"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toStartOf="@+id/text3500"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/text2500" />
+
+        <TextView
+            android:gravity="center"
+            app:layout_constraintBottom_toTopOf="@id/guide"
+            android:layout_marginBottom="30dp"
+            android:id="@+id/text3500"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:text="3,500"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toStartOf="@+id/text4000"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/text3000" />
+
+        <TextView
+            android:gravity="center"
+            app:layout_constraintBottom_toTopOf="@id/guide"
+            android:layout_marginBottom="30dp"
+            android:id="@+id/text4000"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:text="4,000"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toStartOf="@+id/text4500"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/text3500" />
+
+        <TextView
+            android:gravity="center"
+            app:layout_constraintBottom_toTopOf="@id/guide"
+            android:layout_marginBottom="30dp"
+            android:id="@+id/text4500"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:text="4,500"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toStartOf="@+id/text5000"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/text4000" />
+
+        <TextView
+            android:gravity="center"
+            app:layout_constraintBottom_toTopOf="@id/guide"
+            android:layout_marginBottom="30dp"
+            android:id="@+id/text5000"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:text="5,000"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/text4500" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guide"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.5"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
+

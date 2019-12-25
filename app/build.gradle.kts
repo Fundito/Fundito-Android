@@ -71,7 +71,7 @@ dependencies {
     implementation("androidx.appcompat:appcompat:1.1.0")
     implementation("androidx.core:core-ktx:1.1.0")
 
-    implementation("com.google.android.material:material:1.2.0-alpha02")
+    implementation("com.google.android.material:material:1.2.0-alpha03")
     //endregion
 
     /**
@@ -130,6 +130,11 @@ dependencies {
 
 
     //endregion
+
+    implementation("com.google.dagger:dagger:2.24")
+    implementation("com.google.dagger:dagger-android-support:2.24")
+    kapt("com.google.dagger:dagger-compiler:2.24")
+    kapt("com.google.dagger:dagger-android-processor:2.24")
 
 
 }
