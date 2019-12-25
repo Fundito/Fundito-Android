@@ -1,5 +1,6 @@
 package com.fundito.fundito.common.view
 
+import android.animation.Animator
 import android.animation.ObjectAnimator
 import android.content.Context
 import android.util.AttributeSet
@@ -27,6 +28,8 @@ class ListenableHorizontalScrollView @JvmOverloads constructor(
     private var onScrollEnd: ListenableScrollListener? = null
     private var onDidScroll: ListenableScrollListener? = null
 
+    private var currentAnimator : Animator? = null
+
 
     fun setOnScrollEndListener(listener: ListenableScrollListener) {
         this.onScrollEnd = listener
@@ -36,7 +39,6 @@ class ListenableHorizontalScrollView @JvmOverloads constructor(
     }
 
     override fun onScrollChanged(l: Int, t: Int, oldl: Int, oldt: Int) {
-
         onDidScroll?.invoke(l)
 
         if (canEmitEvent) {
@@ -44,22 +46,29 @@ class ListenableHorizontalScrollView @JvmOverloads constructor(
         }
 
         super.onScrollChanged(l, t, oldl, oldt)
-
     }
 
+
     override fun onTouchEvent(ev: MotionEvent?): Boolean {
-        if (isAnimating) return false
+        currentAnimator?.cancel()
         when (ev?.actionMasked) {
-            MotionEvent.ACTION_DOWN -> userTouched = true
-            MotionEvent.ACTION_UP -> userTouched = false
+            MotionEvent.ACTION_DOWN -> {
+                userTouched = true
+            }
+            MotionEvent.ACTION_UP -> {
+                onScrollEnd?.invoke(this.scrollX)
+                userTouched = false
+            }
+
         }
         return super.onTouchEvent(ev)
     }
 
     fun toScrollWthAnim(scrollX: Int, duration: Long = 200L) {
         if (isAnimating) return
-        ObjectAnimator.ofInt(this, "scrollX", scrollX).apply {
-            startDelay = 10L
+
+        currentAnimator = ObjectAnimator.ofInt(this, "scrollX", scrollX).apply {
+            startDelay = 150L
             setAutoCancel(true)
             this.duration = duration
 

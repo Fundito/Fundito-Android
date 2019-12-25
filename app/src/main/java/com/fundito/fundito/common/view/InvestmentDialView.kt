@@ -17,13 +17,13 @@ import android.widget.HorizontalScrollView
 import androidx.annotation.Px
 import com.fundito.fundito.R
 import com.fundito.fundito.databinding.ViewInvestmentDialBinding
-import timber.log.Timber
 import kotlin.math.roundToInt
 
 
 /**
  * Created by mj on 25, December, 2019
  */
+typealias OnInvestmentValueChangedListener = (Int) -> Unit
 class InvestmentDialView @JvmOverloads constructor(
     context: Context,
     attributeSet: AttributeSet? = null
@@ -40,7 +40,6 @@ class InvestmentDialView @JvmOverloads constructor(
         isHorizontalScrollBarEnabled = false
     }
 
-
     /**
      * LineWidth
      */
@@ -56,27 +55,6 @@ class InvestmentDialView @JvmOverloads constructor(
     private var middleLinePaint = Paint(Paint.ANTI_ALIAS_FLAG).apply { color = Color.GRAY }
     private var smallLinePaint = Paint(Paint.ANTI_ALIAS_FLAG).apply { color = Color.LTGRAY }
 
-
-    /**
-     * Line Length
-     */
-    var bigLineLength: Float = 60.toPixel()
-        set(value) {
-            invalidate()
-            field = value
-        }
-    var middleLineLength: Float = 30.toPixel()
-        set(value) {
-            invalidate()
-            field = value
-        }
-
-    var smallLineLength: Float = 15.toPixel()
-        set(value) {
-            invalidate()
-            field = value
-        }
-
     /**
      * Side Padding For
      */
@@ -89,6 +67,19 @@ class InvestmentDialView @JvmOverloads constructor(
     private lateinit var dial: InvestmentDial
 
     private var currentTextIndex = 0
+
+    private var currentGridIndex = 0
+
+
+    /**
+     * Line Length
+     */
+    private val bigLineLength: Float = 60.toPixel()
+    private val middleLineLength: Float = 30.toPixel()
+    private val smallLineLength: Float = 15.toPixel()
+
+    var onInvestmentValueChangedListener : OnInvestmentValueChangedListener? = null
+
 
     /**
      * Custom Properties
@@ -129,26 +120,25 @@ class InvestmentDialView @JvmOverloads constructor(
 
         scrollView.apply {
             setOnScrollEndListener {
+                val newGridIndex = ((it / (contentWidth - 100.toPixel())) * (smallLineCount - 1)).roundToInt()
 
-                // it = 0~contentWidth
-
-
-                //TODO 고쳐야됨
-                val index =
-                    ((it / (contentWidth - 100.toPixel())) * (smallLineCount)).roundToInt() // 0 ~ smallLineCount
-                val pos = (index * smallLineSpacing).roundToInt()
-
-
-                toScrollWthAnim(pos)
+                if(currentGridIndex != newGridIndex) {
+                    val scrollPos = (newGridIndex * smallLineSpacing).roundToInt()
+                    toScrollWthAnim(scrollPos)
+                    currentGridIndex = newGridIndex
+                }
             }
             setOnDidScrollListener {
-                //TODO 고쳐야됨
+
+                val newGridIndex = ((it / (contentWidth - 100.toPixel())) * (smallLineCount - 1)).roundToInt()
+                onInvestmentValueChangedListener?.invoke(newGridIndex * 100 + minPrice)
 
                 val newTextIndex = ((it / (contentWidth)) * (middleLineCount)).roundToInt()
 
-                Timber.e(newTextIndex.toString())
-
                 if (currentTextIndex != newTextIndex) {
+
+
+
                     dial.textViews[currentTextIndex].apply {
                         ObjectAnimator.ofArgb(
                             this,
@@ -159,15 +149,18 @@ class InvestmentDialView @JvmOverloads constructor(
                             duration = 500L
                             start()
                         }
-                        ValueAnimator.ofInt(20.toPixel().roundToInt(), 0).let { animator ->
+                        ValueAnimator.ofFloat(1f,0f).let {animator->
                             animator.duration = 300L
                             animator.addUpdateListener {
-                                val value = it.animatedValue as Int
-                                this.setPadding(0, 0, 0, value)
+                                val value = it.animatedValue as Float
+
+                                this.setPadding(0,0,0,(value * 20).roundToInt())
+                                this.textSize = 18 + value * 6
                             }
                             animator.start()
                         }
                     }
+
                     dial.textViews[newTextIndex].apply {
                         ObjectAnimator.ofArgb(
                             this,
@@ -178,11 +171,13 @@ class InvestmentDialView @JvmOverloads constructor(
                             duration = 500L
                             start()
                         }
-                        ValueAnimator.ofInt(0, 20.toPixel().roundToInt()).let { animator ->
+                        ValueAnimator.ofFloat(0f,1f).let {animator->
                             animator.duration = 300L
                             animator.addUpdateListener {
-                                val value = it.animatedValue as Int
-                                this.setPadding(0, 0, 0, value)
+                                val value = it.animatedValue as Float
+
+                                this.setPadding(0,0,0,(value * 20).roundToInt())
+                                this.textSize = 18 + value * 6
                             }
                             animator.start()
                         }
@@ -190,14 +185,7 @@ class InvestmentDialView @JvmOverloads constructor(
 //                        .setPadding(0,0,0,20.toPixel().roundToInt())
                     currentTextIndex = newTextIndex
                 }
-                //distance 0~1
-                //padding 0~50
-                val distanceFromBeforeTextView = 1
-                val distnaceFromNextTextView = 1
-
-//                dial.textViews[index].setPadding(0,0,0,0)
             }
-
         }
     }
 
