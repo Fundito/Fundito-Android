@@ -1,5 +1,3 @@
-@file:Suppress("DEPRECATION")
-
 package com.fundito.fundito.common.view
 
 import android.animation.ObjectAnimator
@@ -110,7 +108,6 @@ class InvestmentDialView @JvmOverloads constructor(
         get() = smallLineSpacing * 5
 
     init {
-        setBackgroundColor(Color.WHITE)
 
         dial = InvestmentDial(context, null).apply {
             layoutParams = LayoutParams(WRAP_CONTENT, WRAP_CONTENT)

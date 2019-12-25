@@ -8,8 +8,15 @@ import timber.log.Timber
  */
 class MainApplication : Application() {
 
+    companion object {
+        lateinit var GlobalApp : MainApplication
+    }
+
     override fun onCreate() {
         super.onCreate()
+
+        GlobalApp = this
+
 
         initLogging()
     }
