@@ -15,18 +15,29 @@ import com.fundito.fundito.databinding.DialogLoadingBinding
 /**
  * Created by mj on 24, December, 2019
  */
-fun Fragment.showProgress() {
+fun Fragment.showLoading() {
     val dialog = LoadingDialog()
-    dialog.show(childFragmentManager, dialog.tag)
+    dialog.show(childFragmentManager, "Loading")
 }
 
-fun AppCompatActivity.showProgress() {
+fun AppCompatActivity.showLoading() {
     val dialog = LoadingDialog()
-    dialog.show(supportFragmentManager, dialog.tag)
+    dialog.show(supportFragmentManager, "Loading")
+}
+
+fun Fragment.hideLoading() {
+    childFragmentManager.findFragmentByTag("Loading")?.let {
+        childFragmentManager.beginTransaction().remove(it).commit()
+    }
+}
+
+fun AppCompatActivity.hideLoading() {
+    supportFragmentManager.findFragmentByTag("Loading")?.let {
+        supportFragmentManager.beginTransaction().remove(it).commit()
+    }
 }
 
 class LoadingDialog : DialogFragment() {
-
 
     private lateinit var mBinding: DialogLoadingBinding
 

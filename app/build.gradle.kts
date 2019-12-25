@@ -128,13 +128,22 @@ dependencies {
     implementation("com.jakewharton.timber:timber:4.7.1")
 
 
-
-    //endregion
-
+    /**
+     * Dagger for DI
+     */
     implementation("com.google.dagger:dagger:2.24")
     implementation("com.google.dagger:dagger-android-support:2.24")
     kapt("com.google.dagger:dagger-compiler:2.24")
     kapt("com.google.dagger:dagger-android-processor:2.24")
+
+    /**
+     * Dexter for permissions
+     */
+    implementation("com.karumi:dexter:6.0.1")
+
+    //endregion
+
+
 
 
 }

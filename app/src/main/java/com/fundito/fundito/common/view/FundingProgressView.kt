@@ -79,22 +79,15 @@ class FundingProgressView @JvmOverloads constructor(context: Context, attrs: Att
 
             val isActive = isActiveCircleIndex(i)
 
-            circlePaint.color = if(isActive) activeCircleColor else inActiveCircleColor
+            circlePaint.color = if (isActive) activeCircleColor else inActiveCircleColor
 
             canvas.drawCircle(centerX, height / 2f, circleRadius, circlePaint)
 
-            if(isActive && (i + 1 == circleCount || !isActiveCircleIndex(i + 1))) {
-                canvas.drawCircle(centerX, height/2f,circleRadius * 1.3f, circlePaint)
-                canvas.drawCircle(centerX,height/2f,circleRadius *1.7f,outlineCirclePaint)
-
-
+            if (isActive && (i + 1 == circleCount || !isActiveCircleIndex(i + 1))) {
+                canvas.drawCircle(centerX, height / 2f, circleRadius * 1.3f, circlePaint)
+                canvas.drawCircle(centerX, height / 2f, circleRadius * 1.7f, outlineCirclePaint)
             }
-
-
-
         }
-
-
     }
 
     private fun isActiveCircleIndex(circleIndex : Int) : Boolean {

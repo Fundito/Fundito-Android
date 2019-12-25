@@ -1,6 +1,7 @@
 package com.fundito.fundito.data.service
 
 import com.fundito.fundito.common.Constants
+import com.fundito.fundito.common.util.SPUtil
 import com.google.gson.GsonBuilder
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
@@ -21,13 +22,15 @@ object RetrofitClient {
 
     private val commonNetworkInterceptor = object : Interceptor {
         override fun intercept(chain: Interceptor.Chain): Response {
-            return chain.proceed(chain.request())
+            val newRequest = chain.request().newBuilder()
+                .addHeader("token",SPUtil.accessToken).build()
+            return chain.proceed(newRequest)
         }
     }
 
     private val client = OkHttpClient.Builder()
         .addInterceptor(loggingInterceptor)
-//        .addNetworkInterceptor(commonNetworkInterceptor)
+        .addNetworkInterceptor(commonNetworkInterceptor)
         .build()
 
     private val gson = GsonBuilder()

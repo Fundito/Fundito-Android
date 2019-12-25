@@ -16,6 +16,7 @@ object DateParsingUtil {
         val date = src[Calendar.DATE]
         return String.format("%04d",year) + separator + String.format("%02d",month) + separator + String.format("%02d",date)
     }
+
     fun parseToYMDHM(src : Calendar, ymdSeparator: String = ".", timeSeparator : String = ":") : String {
         val ymd = parseToYMD(src,ymdSeparator)
         val hour = src[Calendar.HOUR_OF_DAY]

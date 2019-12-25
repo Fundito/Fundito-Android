@@ -3,7 +3,9 @@ package com.fundito.fundito.presentation.main
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.fundito.fundito.R
-import com.fundito.fundito.common.widget.showProgress
+import com.fundito.fundito.common.widget.hideLoading
+import com.fundito.fundito.common.widget.showLoading
+import kotlin.concurrent.thread
 
 class MainActivity : AppCompatActivity() {
 
@@ -11,7 +13,6 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        showProgress()
 
     }
 
