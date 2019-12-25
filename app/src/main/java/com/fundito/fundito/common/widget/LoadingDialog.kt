@@ -19,22 +19,23 @@ fun Fragment.showProgress() {
     val dialog = LoadingDialog()
     dialog.show(childFragmentManager, dialog.tag)
 }
-fun AppCompatActivity.showProgress(){
+
+fun AppCompatActivity.showProgress() {
     val dialog = LoadingDialog()
-    dialog.show(supportFragmentManager,dialog.tag)
+    dialog.show(supportFragmentManager, dialog.tag)
 }
+
 class LoadingDialog : DialogFragment() {
 
 
-
-    private lateinit var mBinding:DialogLoadingBinding
+    private lateinit var mBinding: DialogLoadingBinding
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        mBinding = DialogLoadingBinding.inflate(inflater,container,false)
+        mBinding = DialogLoadingBinding.inflate(inflater, container, false)
         return mBinding.root
     }
 
@@ -45,16 +46,16 @@ class LoadingDialog : DialogFragment() {
             dialog?.window?.requestFeature(Window.FEATURE_NO_TITLE)
         }
     }
- 
+
     /**
      * For Size
      */
     override fun onResume() {
         super.onResume()
-    
+
         val wm = context!!.getSystemService(Context.WINDOW_SERVICE) as WindowManager
         val point = Point()
         wm.defaultDisplay.getSize(point)
-        dialog?.window?.setLayout(MATCH_PARENT , MATCH_PARENT)
+        dialog?.window?.setLayout(MATCH_PARENT, MATCH_PARENT)
     }
 }
