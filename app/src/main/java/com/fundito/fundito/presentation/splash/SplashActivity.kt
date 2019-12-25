@@ -2,16 +2,22 @@ package com.fundito.fundito.presentation.splash
 
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.fundito.fundito.R
 import com.fundito.fundito.common.widget.setOnDebounceClickListener
+import com.fundito.fundito.databinding.ItemSample2Binding
 import com.fundito.fundito.databinding.ItemSampleBinding
+import com.fundito.fundito.presentation.main.MainActivity
 import kotlinx.android.synthetic.main.activity_splash.*
+import kotlinx.android.synthetic.main.item_sample2.*
 
 /**
  * Created by mj on 22, December, 2019
@@ -23,9 +29,9 @@ class SplashActivity : AppCompatActivity() {
         setContentView(R.layout.activity_splash)
 
 
-//        Handler(Looper.getMainLooper()).postDelayed({
-//            startActivity(Intent(this, MainActivity::class.java))
-//        },2000L)
+        Handler(Looper.getMainLooper()).postDelayed({
+            startActivity(Intent(this, MainActivity::class.java))
+        },2000L)
 
 //        ObjectAnimator.ofFloat(button,"translationX",500f).apply {
 //            duration = 1000L
@@ -42,18 +48,17 @@ class SplashActivity : AppCompatActivity() {
             button.text = it.toString()
         }
 
-        recyclerView.apply {
+        recyclerView2.apply {
             adapter = SampleAdapter {
 
             }.apply {
-                submitItems(listOf("1","2","3","4"))
+                submitItems(listOf("hi","2","3","4","1","2","3","4","1","2","3","4"))
             }
         }
     }
 }
 
 class SampleAdapter(private val itemClick : (String) -> Unit) : ListAdapter<String, SampleAdapter.SampleHolder>(DIFF) {
-
 
     companion object {
         private val DIFF = object : DiffUtil.ItemCallback<String>() {
@@ -74,7 +79,8 @@ class SampleAdapter(private val itemClick : (String) -> Unit) : ListAdapter<Stri
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SampleHolder {
         val inflater = LayoutInflater.from(parent.context)
-        val binding = ItemSampleBinding.inflate(inflater, parent, false)
+
+        val binding = ItemSample2Binding.inflate(inflater,parent,false)
 
         return SampleHolder(binding)
     }
@@ -84,16 +90,17 @@ class SampleAdapter(private val itemClick : (String) -> Unit) : ListAdapter<Stri
     }
 
 
-    inner class SampleHolder(private val binding: ItemSampleBinding) : RecyclerView.ViewHolder(binding.root) {
+    inner class SampleHolder(private val binding: ItemSample2Binding) : RecyclerView.ViewHolder(binding.root) {
 
         init {
-            binding.button.setOnDebounceClickListener {
+            binding.button2.setOnDebounceClickListener {
                 itemClick(currentList[layoutPosition])
             }
         }
 
         fun bind(item : String) {
-            binding.button.text = item
+            binding.button2.text = item
+
         }
     }
 }

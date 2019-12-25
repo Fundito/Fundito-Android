@@ -18,14 +18,26 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
 
-    <androidx.recyclerview.widget.RecyclerView xmlns:tools="http://schemas.android.com/tools"
-        tools:listitem="@layout/item_sample"
-        tools:itemCount="4"
+<!--    <androidx.recyclerview.widget.RecyclerView-->
+<!--        xmlns:tools="http://schemas.android.com/tools"-->
+<!--        tools:listitem="@layout/item_sample"-->
+<!--        tools:itemCount="4"-->
+<!--        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"-->
+<!--        android:orientation="vertical"-->
+<!--        android:id="@+id/recyclerView"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="300dp"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"/>-->
+    <androidx.recyclerview.widget.RecyclerView
+        xmlns:tools="http://schemas.android.com/tools"
+        tools:listitem="@layout/item_sample2"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        android:id="@+id/recyclerView2"
         android:orientation="vertical"
-        android:id="@+id/recyclerView"
         android:layout_width="match_parent"
-        android:layout_height="300dp"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+        android:layout_height="500dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+
+        />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
