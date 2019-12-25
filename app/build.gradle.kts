@@ -72,7 +72,7 @@ dependencies {
     implementation("androidx.core:core-ktx:1.1.0")
 
     implementation("com.google.android.material:material:1.2.0-alpha03")
-    //endregion
+    //endregionㅁ
 
     /**
      * For [MotionLayout] version upper 2.0.0

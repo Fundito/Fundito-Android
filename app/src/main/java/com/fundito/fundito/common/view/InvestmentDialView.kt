@@ -5,11 +5,16 @@ package com.fundito.fundito.common.view
 import android.animation.ObjectAnimator
 import android.animation.ValueAnimator
 import android.content.Context
+import android.content.res.ColorStateList
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
+import android.graphics.drawable.ShapeDrawable
+import android.graphics.drawable.shapes.RoundRectShape
 import android.util.AttributeSet
+import android.view.Gravity
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import android.view.ViewGroup.LayoutParams.WRAP_CONTENT
 import android.widget.FrameLayout
@@ -50,8 +55,6 @@ class InvestmentDialView @JvmOverloads constructor(
     /**
      * LinePaint
      */
-    private var bigLinePaint =
-        Paint(Paint.ANTI_ALIAS_FLAG).apply { color = resources.getColor(R.color.colorPrimary) }
     private var middleLinePaint = Paint(Paint.ANTI_ALIAS_FLAG).apply { color = Color.GRAY }
     private var smallLinePaint = Paint(Paint.ANTI_ALIAS_FLAG).apply { color = Color.LTGRAY }
 
@@ -64,7 +67,7 @@ class InvestmentDialView @JvmOverloads constructor(
     /**
      * Custom Child View
      */
-    private lateinit var dial: InvestmentDial
+    private var dial: InvestmentDial
 
     private var currentTextIndex = 0
 
@@ -119,6 +122,9 @@ class InvestmentDialView @JvmOverloads constructor(
         scrollView.addView(dial)
 
         scrollView.apply {
+            /**
+             * Scroll End
+             */
             setOnScrollEndListener {
                 val newGridIndex = ((it / (contentWidth - 100.toPixel())) * (smallLineCount - 1)).roundToInt()
 
@@ -128,16 +134,23 @@ class InvestmentDialView @JvmOverloads constructor(
                     currentGridIndex = newGridIndex
                 }
             }
+            /**
+             * When Any Scroll Did
+             */
             setOnDidScrollListener {
 
+                /**
+                 * invoke Listener for emit current Value
+                 */
                 val newGridIndex = ((it / (contentWidth - 100.toPixel())) * (smallLineCount - 1)).roundToInt()
                 onInvestmentValueChangedListener?.invoke(newGridIndex * 100 + minPrice)
 
+                /**
+                 * Animation
+                 */
                 val newTextIndex = ((it / (contentWidth)) * (middleLineCount)).roundToInt()
 
                 if (currentTextIndex != newTextIndex) {
-
-
 
                     dial.textViews[currentTextIndex].apply {
                         ObjectAnimator.ofArgb(
@@ -162,6 +175,7 @@ class InvestmentDialView @JvmOverloads constructor(
                     }
 
                     dial.textViews[newTextIndex].apply {
+
                         ObjectAnimator.ofArgb(
                             this,
                             "textColor",
@@ -182,27 +196,24 @@ class InvestmentDialView @JvmOverloads constructor(
                             animator.start()
                         }
                     }
-//                        .setPadding(0,0,0,20.toPixel().roundToInt())
+
                     currentTextIndex = newTextIndex
                 }
             }
         }
+
+        View(context).apply {
+            val radius = bigLineWidth/2
+            background = ShapeDrawable(RoundRectShape(floatArrayOf(radius,radius,radius,radius,radius,radius,radius,radius),null,null))
+            backgroundTintList = ColorStateList.valueOf(resources.getColor(R.color.colorPrimary))
+
+            layoutParams = LayoutParams(bigLineWidth.roundToInt(),bigLineLength.roundToInt()).apply {
+                gravity = Gravity.BOTTOM or Gravity.CENTER_HORIZONTAL
+            }
+            addView(this)
+        }
     }
 
-
-    override fun onDraw(canvas: Canvas) {
-
-        canvas.drawRoundRect(
-            width / 2f - bigLineWidth / 2f,
-            height - bigLineLength,
-            width / 2f + bigLineWidth / 2f,
-            height.toFloat(),
-            bigLineWidth / 2f,
-            bigLineWidth / 2f,
-            bigLinePaint
-        )
-
-    }
 
 
     inner class InvestmentDial @JvmOverloads constructor(
