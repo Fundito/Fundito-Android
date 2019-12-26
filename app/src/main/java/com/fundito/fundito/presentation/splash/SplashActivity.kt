@@ -19,6 +19,8 @@ class SplashActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
 
+
+
         showKeyboard { number ->
             val nextText = if (number != -1) {
                 val newNumberChar = (number + '0'.toInt()).toChar()
@@ -33,9 +35,7 @@ class SplashActivity : AppCompatActivity() {
                 repeatCount = 1
                 repeatMode = ObjectAnimator.REVERSE
 
-                doOnRepeat {
-                    textView.text = nextText
-                }
+                doOnRepeat { textView.text = nextText }
                 start()
             }
 
