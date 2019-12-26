@@ -3,15 +3,15 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorPrimary">@color/dark_navy</item>
+        <item name="colorPrimaryDark">@color/dark_navy</item>
+        <item name="colorAccent">@color/peachy_pink</item>
 
         <item name="android:fontFamily">@font/spoqa_han_sans_regular</item>
         <item name="fontFamily">@font/spoqa_han_sans_regular</item>
+
+        <item name="android:statusBarColor">@color/dark_navy</item>
     </style>
-
-
 
     <style name="KeyboardBottomSheetDialog" parent="Theme.Design.Light.BottomSheetDialog">
         <item name="android:windowCloseOnTouchOutside">true</item>
@@ -32,8 +32,8 @@
         <item name="android:insetBottom">0dp</item>
         <item name="elevation">0dp</item>
         <item name="android:textAppearance">@style/KeyboardButtonTextAppearance</item>
-        <item name="android:textColor">@color/colorPrimary</item>
-        <item name="rippleColor">@color/colorPrimary</item>
+        <item name="android:textColor">@color/dark_navy</item>
+        <item name="rippleColor">@color/dark_navy</item>
     </style>
     <style name="KeyboardButtonTextAppearance" parent="TextAppearance.MaterialComponents.Button">
         <item name="android:textSize">18sp</item>

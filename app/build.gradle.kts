@@ -141,7 +141,13 @@ dependencies {
      */
     implementation("com.karumi:dexter:6.0.1")
 
+    /**
+     * Coroutine
+     */
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.2")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.2")
     //endregion
+
 
 
 

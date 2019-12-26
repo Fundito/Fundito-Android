@@ -2,12 +2,12 @@ package com.fundito.fundito.common.view
 
 import android.content.Context
 import android.graphics.Canvas
-import android.graphics.Color
 import android.graphics.Paint
 import android.util.AttributeSet
 import android.view.View
 import androidx.annotation.ColorInt
 import androidx.annotation.Px
+import com.fundito.fundito.R
 import kotlin.math.roundToInt
 
 /**
@@ -20,34 +20,31 @@ class FundingProgressView @JvmOverloads constructor(context: Context, attrs: Att
     private fun toPixel(dp: Int): Float {
         return context.resources.displayMetrics.density * dp
     }
+    @Px
+    private fun toPixel(dp: Float): Float {
+        return context.resources.displayMetrics.density * dp
+    }
 
-    private val linePaint = Paint(Paint.ANTI_ALIAS_FLAG)
     private val circlePaint = Paint(Paint.ANTI_ALIAS_FLAG)
     private val outlineCirclePaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
         style = Paint.Style.STROKE
     }
 
-    var lineWidth = 0.5f
-        set(value) {
-            invalidate()
-            field = value
-        }
-
-    var circleRadius: Float = toPixel(3)
+    var circleRadius: Float = toPixel(2.5f)
         set(value) {
             invalidate()
             field = value
         }
 
     @ColorInt
-    var activeCircleColor: Int = Color.BLUE
+    var activeCircleColor: Int = context.resources.getColor(R.color.dark_navy)
         set(value) {
             invalidate()
             field = value
         }
 
     @ColorInt
-    var inActiveCircleColor: Int = Color.RED
+    var inActiveCircleColor: Int = context.resources.getColor(R.color.coral)
         set(value) {
             invalidate()
             field = value
@@ -60,15 +57,8 @@ class FundingProgressView @JvmOverloads constructor(context: Context, attrs: Att
 
     override fun onDraw(canvas: Canvas) {
 
-        outlineCirclePaint.strokeWidth = 2f
+        outlineCirclePaint.strokeWidth = toPixel(1)
         outlineCirclePaint.color = activeCircleColor
-
-        /**
-         * 가로 선을 그린다
-         */
-        linePaint.color = Color.BLUE
-        linePaint.strokeWidth = lineWidth
-        canvas.drawLine(0f, height / 2f, width.toFloat(), height / 2f, linePaint)
 
 
         /**
@@ -85,7 +75,7 @@ class FundingProgressView @JvmOverloads constructor(context: Context, attrs: Att
 
             if (isActive && (i + 1 == circleCount || !isActiveCircleIndex(i + 1))) {
                 canvas.drawCircle(centerX, height / 2f, circleRadius * 1.3f, circlePaint)
-                canvas.drawCircle(centerX, height / 2f, circleRadius * 1.7f, outlineCirclePaint)
+                canvas.drawCircle(centerX, height / 2f, circleRadius * 2.2f, outlineCirclePaint)
             }
         }
     }
