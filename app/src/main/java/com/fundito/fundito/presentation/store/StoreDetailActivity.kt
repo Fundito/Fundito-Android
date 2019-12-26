@@ -7,7 +7,9 @@ import androidx.core.view.doOnLayout
 import androidx.lifecycle.HasDefaultViewModelProviderFactory
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.fundito.fundito.common.util.startActivity
 import com.fundito.fundito.common.widget.LinearItemDecoration
+import com.fundito.fundito.common.widget.setOnDebounceClickListener
 import com.fundito.fundito.databinding.ActivityStoreDetailBinding
 
 /**
@@ -43,21 +45,33 @@ class StoreDetailActivity : AppCompatActivity(), HasDefaultViewModelProviderFact
         initView()
     }
 
+    override fun onResume() {
+        super.onResume()
+
+        mBinding.content.graph1.startAnimation()
+        mBinding.content.graph2.startAnimation()
+        mBinding.content.graph3.startAnimation()
+    }
+
     private fun initView() {
 
         mBinding.header.shopName.doOnLayout {
             it.pivotY = it.height.toFloat()
             it.pivotX = it.width/2f
         }
-        mBinding.content.graph1.startAnimation()
-        mBinding.content.graph2.startAnimation()
-        mBinding.content.graph3.startAnimation()
+
 
 
         mBinding.content.timeLineRecyclerView.apply {
             adapter = TimeLineAdapter().apply { submitItems(listOf("","","","")) }
             addItemDecoration(LinearItemDecoration(12))
         }
+
+        mBinding.cheer setOnDebounceClickListener {
+            startActivity(StoreCheerActivity::class)
+        }
+
+        ProfitInfoDialog().show(supportFragmentManager,null)
 
     }
     
