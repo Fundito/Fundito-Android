@@ -7,6 +7,7 @@ import androidx.core.view.doOnLayout
 import androidx.lifecycle.HasDefaultViewModelProviderFactory
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.fundito.fundito.common.widget.LinearItemDecoration
 import com.fundito.fundito.databinding.ActivityStoreDetailBinding
 
 /**
@@ -43,10 +44,21 @@ class StoreDetailActivity : AppCompatActivity(), HasDefaultViewModelProviderFact
     }
 
     private fun initView() {
+
         mBinding.header.shopName.doOnLayout {
             it.pivotY = it.height.toFloat()
             it.pivotX = it.width/2f
         }
+        mBinding.content.graph1.startAnimation()
+        mBinding.content.graph2.startAnimation()
+        mBinding.content.graph3.startAnimation()
+
+
+        mBinding.content.timeLineRecyclerView.apply {
+            adapter = TimeLineAdapter().apply { submitItems(listOf("","","","")) }
+            addItemDecoration(LinearItemDecoration(12))
+        }
+
     }
     
 }

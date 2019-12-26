@@ -12,6 +12,11 @@
 
         <item name="android:windowLightStatusBar">true</item>
         <item name="android:statusBarColor">@color/white</item>
+
+        <item name="materialButtonStyle">@style/MaterialButtonStyle</item>
+        <item name="materialButtonOutlinedStyle">@style/MaterialButtonOutlinedStyle</item>
+
+        <item name="textAppearanceButton">@style/ButtonTextAppearance</item>
     </style>
 
 </resources>

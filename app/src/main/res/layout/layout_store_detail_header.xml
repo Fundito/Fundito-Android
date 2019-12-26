@@ -4,13 +4,19 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <data>
+        <variable
+            name="vm"
+            type="com.fundito.fundito.presentation.store.StoreDetailViewModel" />
+    </data>
+
     <com.fundito.fundito.common.view.CollapsibleToolbar
         android:id="@+id/motionLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:minHeight="64dp"
         app:layoutDescription="@xml/motion_scene_store_detail"
-        app:layout_scrollFlags="scroll|enterAlways|exitUntilCollapsed|snap"
+        app:layout_scrollFlags="scroll|exitUntilCollapsed|snap"
         tools:context=".presentation.store.StoreDetailActivity">
 
         <FrameLayout

@@ -11,15 +11,15 @@
             <KeyAttribute
                 app:framePosition="50"
                 app:motionTarget="@id/shopName"
-                android:alpha="0"/>
+                android:alpha="0.5"/>
             <KeyAttribute
                 app:framePosition="50"
                 app:motionTarget="@id/dueRemain2"
-                android:alpha="0"/>
+                android:alpha="0.5"/>
             <KeyAttribute
                 app:framePosition="50"
                 app:motionTarget="@id/fundingProgress"
-                android:alpha="0"/>
+                android:alpha="0.5"/>
 
 
         </KeyFrameSet>

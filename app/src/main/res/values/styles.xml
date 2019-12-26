@@ -11,6 +11,38 @@
         <item name="fontFamily">@font/spoqa_han_sans_regular</item>
 
         <item name="android:statusBarColor">@color/dark_navy</item>
+
+        <item name="materialButtonStyle">@style/MaterialButtonStyle</item>
+        <item name="materialButtonOutlinedStyle">@style/MaterialButtonOutlinedStyle</item>
+
+        <item name="textAppearanceButton">@style/ButtonTextAppearance</item>
+
+    </style>
+
+
+    <style name="MaterialButtonStyle" parent="Widget.MaterialComponents.Button">
+        <item name="backgroundTint">@color/dark_navy</item>
+        <item name="android:insetBottom">0dp</item>
+        <item name="android:insetTop">0dp</item>
+        <item name="android:insetLeft">0dp</item>
+        <item name="android:insetRight">0dp</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="cornerRadius">8dp</item>
+
+    </style>
+    <style name="MaterialButtonOutlinedStyle" parent="Widget.MaterialComponents.Button.OutlinedButton">
+        <item name="strokeColor">@color/dark_navy</item>
+        <item name="strokeWidth">1dp</item>
+        <item name="android:insetBottom">0dp</item>
+        <item name="android:insetTop">0dp</item>
+        <item name="android:insetLeft">0dp</item>
+        <item name="android:insetRight">0dp</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="cornerRadius">8dp</item>
+    </style>
+    
+    <style name="ButtonTextAppearance" parent="TextAppearance.AppCompat">
+        <item name="android:textSize">16sp</item>
     </style>
 
     <style name="KeyboardBottomSheetDialog" parent="Theme.Design.Light.BottomSheetDialog">
