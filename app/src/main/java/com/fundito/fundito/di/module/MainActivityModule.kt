@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import com.fundito.fundito.di.ActivityScope
 import com.fundito.fundito.di.FragmentScope
 import com.fundito.fundito.presentation.main.MainViewModel
-import com.fundito.fundito.presentation.main.status.StatusBackgroundFragment
+import com.fundito.fundito.presentation.main.status.StatusFragment
 import dagger.Binds
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
@@ -23,6 +23,6 @@ abstract class MainActivityModule {
 
     @ContributesAndroidInjector(modules=[StatusModule::class])
     @FragmentScope
-    abstract fun contributesStatusBackgroundFragment() : StatusBackgroundFragment
+    abstract fun contributesStatusBackgroundFragment() : StatusFragment
 
 }

@@ -14,7 +14,7 @@ import com.fundito.fundito.di.module.ViewModelFactory
 import com.fundito.fundito.presentation.main.feed.FeedFriendListFragment
 import com.fundito.fundito.presentation.main.home.HomeFragment
 import com.fundito.fundito.presentation.main.more.MoreFragment
-import com.fundito.fundito.presentation.main.status.StatusBackgroundFragment
+import com.fundito.fundito.presentation.main.status.StatusFragment
 import dagger.android.support.DaggerAppCompatActivity
 import javax.inject.Inject
 
@@ -50,7 +50,7 @@ class MainActivity : DaggerAppCompatActivity() {
 
     private val fragment1 = HomeFragment.newInstance()
     private val fragment2 = FeedFriendListFragment.newInstance()
-    private val fragment3 = StatusBackgroundFragment.newInstance()
+    private val fragment3 = StatusFragment.newInstance()
     private val fragment4 = MoreFragment.newInstance()
     private var curFragment: Fragment = fragment1
 

@@ -17,6 +17,8 @@
         <item name="materialButtonOutlinedStyle">@style/MaterialButtonOutlinedStyle</item>
 
         <item name="textAppearanceButton">@style/ButtonTextAppearance</item>
+
+        <item name="android:includeFontPadding">false</item>
     </style>
 
 </resources>

@@ -1,5 +1,6 @@
 package com.fundito.fundito.presentation.splash
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
@@ -23,7 +24,7 @@ class SplashActivity : AppCompatActivity() {
 
         lifecycleScope.launchWhenResumed {
             delay(1000L)
-            startActivity(MainActivity::class)
+            startActivity(MainActivity::class, Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
         }
     }
 }
