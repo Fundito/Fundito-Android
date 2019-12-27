@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="vm"
+            type="com.fundito.fundito.presentation.store.StoreDetailViewModel" />
+    </data>
+
+    <com.fundito.fundito.common.view.CollapsibleToolbar
+        android:id="@+id/motionLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:minHeight="64dp"
+        app:layoutDescription="@xml/motion_scene_store_detail"
+        app:layout_scrollFlags="scroll|exitUntilCollapsed|snap"
+        tools:context=".presentation.store.StoreDetailActivity">
+
+        <FrameLayout
+            android:id="@+id/toolbarContainer"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/toolbarHeight"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageButton
+            android:id="@+id/backButton"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            app:layout_constraintBottom_toBottomOf="@id/toolbarContainer"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="@id/toolbarContainer"
+            app:srcCompat="@drawable/ic_sample" />
+
+        <androidx.constraintlayout.utils.widget.ImageFilterView
+            android:id="@+id/coverImage"
+            android:layout_width="match_parent"
+            android:layout_height="155dp"
+
+            android:scaleType="centerCrop"
+            android:src="@drawable/sky"
+            app:layout_constraintTop_toBottomOf="@id/toolbarContainer"
+            app:saturation="2" />
+
+        <TextView
+
+            android:id="@+id/shopName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_marginBottom="8dp"
+            android:text="유나네 감자탕"
+            android:textColor="@color/black"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/dueRemain1"
+            app:layout_constraintLeft_toLeftOf="@id/progressText1" />
+
+        <TextView
+            android:id="@+id/dueRemain1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:text="남은기간"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@id/archeiveAmmount"
+            app:layout_constraintLeft_toLeftOf="@id/progressText1" />
+
+        <TextView
+            android:id="@+id/dueRemain2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_marginBottom="8dp"
+            android:text="16일"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@id/archeiveAmmount"
+            app:layout_constraintLeft_toRightOf="@id/dueRemain1"
+            />
+
+        <TextView
+            android:id="@+id/dueDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:lineSpacingExtra="6sp"
+            android:text="2019.12.31 15:00 마감"
+            android:textColor="#444649"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="@id/dueRemain1"
+            app:layout_constraintLeft_toRightOf="@id/dueRemain2"
+            app:layout_constraintTop_toTopOf="@id/dueRemain1" />
+
+        <TextView
+            android:id="@+id/progressText1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:lineSpacingExtra="8sp"
+            android:text="목표금액"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toTopOf="@id/fundingProgress"
+            app:layout_constraintLeft_toLeftOf="@id/fundingProgress" />
+
+        <TextView
+            android:id="@+id/progressText2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:lineSpacingExtra="8sp"
+            android:text="83%"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@id/fundingProgress"
+            app:layout_constraintLeft_toRightOf="@id/progressText1" />
+
+        <TextView
+            android:id="@+id/progressText3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:lineSpacingExtra="8sp"
+            android:text="달성 중"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toTopOf="@id/fundingProgress"
+            app:layout_constraintLeft_toRightOf="@id/progressText2" />
+
+        <TextView
+            android:id="@+id/archeiveAmmount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:lineSpacingExtra="6sp"
+            android:textColor="#444649"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="@id/progressText1"
+            app:layout_constraintLeft_toRightOf="@id/progressText3"
+            app:layout_constraintTop_toTopOf="@id/progressText1"
+            tools:text="목표금액 49,993,600" />
+
+        <com.fundito.fundito.common.view.FundingProgressView
+            android:id="@+id/fundingProgress"
+            android:layout_width="0dp"
+            android:layout_height="20dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent" />
+
+
+    </com.fundito.fundito.common.view.CollapsibleToolbar>
+</layout>
+

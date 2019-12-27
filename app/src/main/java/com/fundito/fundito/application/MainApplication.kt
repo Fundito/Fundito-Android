@@ -1,25 +1,27 @@
 package com.fundito.fundito.application
 
-import android.app.Application
-import com.facebook.FacebookSdk
-import com.facebook.appevents.AppEventsLogger
+import com.fundito.fundito.di.DaggerAppComponent
+import dagger.android.AndroidInjector
+import dagger.android.DaggerApplication
 import timber.log.Timber
 
 /**
  * Created by mj on 22, December, 2019
  */
-class MainApplication : Application() {
-
+class MainApplication : DaggerApplication() {
     companion object {
         lateinit var GlobalApp : MainApplication
+    }
+
+    override fun applicationInjector(): AndroidInjector<out DaggerApplication> {
+       return DaggerAppComponent.builder().app(this).build().also {  it.inject(this) }
     }
 
     override fun onCreate() {
         super.onCreate()
 
         GlobalApp = this
-        FacebookSdk.sdkInitialize(applicationContext)
-        AppEventsLogger.activateApp(this)
+
 
         initLogging()
     }
