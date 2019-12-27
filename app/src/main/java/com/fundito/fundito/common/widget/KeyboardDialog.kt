@@ -61,37 +61,37 @@ class KeyboardDialogFragment : BottomSheetDialogFragment() {
     ) = DialogKeyboardBinding.inflate(inflater, container, false).also { mBinding = it }.root
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        button0 setOnDebounceClickListener {
+        button0.setOnClickListener {
             onNumberClick?.invoke(0)
         }
-        button1 setOnDebounceClickListener {
+        button1.setOnClickListener {
             onNumberClick?.invoke(1)
         }
-        button2 setOnDebounceClickListener {
+        button2.setOnClickListener {
             onNumberClick?.invoke(2)
         }
-        button3 setOnDebounceClickListener {
+        button3.setOnClickListener {
             onNumberClick?.invoke(3)
         }
-        button4 setOnDebounceClickListener {
+        button4.setOnClickListener {
             onNumberClick?.invoke(4)
         }
-        button5 setOnDebounceClickListener {
+        button5.setOnClickListener {
             onNumberClick?.invoke(5)
         }
-        button6 setOnDebounceClickListener {
+        button6.setOnClickListener {
             onNumberClick?.invoke(6)
         }
-        button7 setOnDebounceClickListener {
+        button7.setOnClickListener {
             onNumberClick?.invoke(7)
         }
-        button8 setOnDebounceClickListener {
+        button8.setOnClickListener {
             onNumberClick?.invoke(8)
         }
-        button9 setOnDebounceClickListener {
+        button9.setOnClickListener {
             onNumberClick?.invoke(9)
         }
-        buttonBack setOnDebounceClickListener {
+        buttonBack.setOnClickListener {
             onNumberClick?.invoke(-1)
         }
 

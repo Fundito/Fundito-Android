@@ -12,32 +12,35 @@ import kotlin.math.min
  *
  * 예를 들어, 100,000 에 0을 입력하면 1,000,000 을 반환해준다
  */
+infix fun String.addCharForMoneyRepresentation(nextNumber : Int) : String {
+    return addCharForMoneyRepresentation((nextNumber + '0'.toInt()).toChar())
+}
 infix fun String.addCharForMoneyRepresentation(nextChar : Char) : String {
     if(nextChar !in '0'..'9')
         throw IllegalArgumentException("nextChar can be only a number ASCI character")
 
     val src = trim().replace(",","")
 
-    val intValue = src.toIntOrNull() ?: throw IllegalStateException("a src string cannot be converted to integer")
+    val intValue = src.toLongOrNull() ?: throw IllegalStateException("a src string cannot be converted to integer")
 
-    val newCharIntValue = (nextChar.toInt() - '0'.toInt())
+    val newCharLongValue = (nextChar.toLong() - '0'.toLong())
 
-    val lastIntValue = min((intValue * 10) + newCharIntValue,5000)
+    val lastLongValue = min((intValue * 10) + newCharLongValue,50_000_000L)
 
-    return lastIntValue.toMoney()
+    return lastLongValue.toMoney()
 }
 
 fun String.removeLatestMoneyCharacter() : String {
     val dropped = dropLast(1)
-    return if(dropped.isEmpty()) return "0" else dropped.replace(",","").toInt().toMoney()
+    return if(dropped.isEmpty()) return "0" else dropped.replace(",","").toLong().toMoney()
 }
 
 /**
- * Int값인 숫자에 3단위마다 콤마(,)를 추가해준 문자열을 반환한다.
+ * Long값인 숫자에 3단위마다 콤마(,)를 추가해준 문자열을 반환한다.
  *
  * @return A [String] converted with source int value adding comma separation
  */
-fun Int.toMoney() : String {
+fun Long.toMoney() : String {
     val src = toString().toMutableList().reversed().toMutableList()
 
     val willAddedCommaCount = (src.size - 1)/3
@@ -47,5 +50,11 @@ fun Int.toMoney() : String {
     }
 
     return src.reversed().joinToString("")
+}
+
+fun String.toMoneyLong() : Long {
+    return filter {
+        it !in listOf(' ',',')
+    }.toLongOrNull() ?: 0
 }
 

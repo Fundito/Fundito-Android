@@ -1,12 +1,12 @@
 package com.fundito.fundito.presentation.store
 
 import android.content.Context
+import android.graphics.Color
 import android.graphics.Point
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.ViewGroup
+import android.view.*
 import android.view.ViewGroup.LayoutParams.WRAP_CONTENT
-import android.view.WindowManager
 import androidx.fragment.app.DialogFragment
 import com.fundito.fundito.common.widget.AutoClearedValue
 import com.fundito.fundito.databinding.DialogProfitInfoBinding
@@ -23,8 +23,15 @@ class ProfitInfoDialog : DialogFragment() {
      */
     private var mBinding: DialogProfitInfoBinding by AutoClearedValue()
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?)
-            = DialogProfitInfoBinding.inflate(inflater, container, false).also { mBinding = it }.root
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?):View{
+
+        if (dialog != null && dialog?.window != null) {
+                    dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+                    dialog?.window?.requestFeature(Window.FEATURE_NO_TITLE)
+                }
+
+        return DialogProfitInfoBinding.inflate(inflater, container, false).also { mBinding = it }.root
+    }
 
     /**
      * For Size
