@@ -153,6 +153,10 @@ dependencies {
 //    implementation("com.github.mym0404:OroraImageView:1.1")
     //endregion
 
+    //파이어베이스
+    implementation ("com.google.firebase:firebase-auth:19.1.0")
+    implementation ("com.facebook.android:facebook-android-sdk:[4,5)")
+
 
 
 
