@@ -18,13 +18,6 @@ import kotlinx.android.synthetic.main.activity_card_register.*
 class CardRegisterActivity : AppCompatActivity() {
     private val TAG = "CardRegisterActivity"
 
-    private val checkboxAll: CheckBox? = null
-    private val check2: CheckBox? = null
-    private val check3: CheckBox? = null
-    private val check4: CheckBox? = null
-    private val check5: CheckBox? = null
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_card_register)
@@ -88,14 +81,17 @@ class CardRegisterActivity : AppCompatActivity() {
             }
         })
 
-// checkAll 선택했을때 모두 선택되게{
 
-
+        checkbox_all.setOnClickListener {
+            checkbox_all.isSelected = true
+            checkbox2.isSelected = true
+            checkbox3.isSelected = true
+            checkbox4.isSelected = true
+            checkbox5.isSelected = true
+        }
     }
 
 }
-
-
 
 
 /**
