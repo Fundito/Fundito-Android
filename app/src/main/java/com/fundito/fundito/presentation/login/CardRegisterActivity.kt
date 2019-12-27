@@ -88,7 +88,7 @@ class CardRegisterActivity : AppCompatActivity() {
             }
         })
 
-// checkAll 선택했을때 모두 선택되게
+// checkAll 선택했을때 모두 선택되게{
 
 
     }
