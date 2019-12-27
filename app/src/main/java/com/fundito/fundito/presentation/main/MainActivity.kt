@@ -4,6 +4,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import androidx.annotation.IdRes
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.observe
 import com.fundito.fundito.R
@@ -17,6 +19,12 @@ import dagger.android.support.DaggerAppCompatActivity
 import javax.inject.Inject
 
 class MainActivity : DaggerAppCompatActivity() {
+
+
+    companion object {
+        private val _menu : MutableLiveData<MainMenu> = MutableLiveData(MainMenu.HOME)
+        val menu : LiveData<MainMenu> = _menu
+    }
 
     enum class MainMenu(@IdRes val menuId: Int, val index: Int) {
         HOME(R.id.main_menu_1,0),
@@ -64,7 +72,7 @@ class MainActivity : DaggerAppCompatActivity() {
 
     private fun initView() {
         mBinding.bottomNavigation.setOnNavigationItemSelectedListener {
-            changeFragment(MainMenu.parseMenuId(it.itemId))
+            _menu.value = MainMenu.parseMenuId(it.itemId)
             true
         }
     }
@@ -92,15 +100,15 @@ class MainActivity : DaggerAppCompatActivity() {
     }
 
     private fun observeViewModel() {
+        menu.observe(this@MainActivity) { menu->
+            changeFragment(menu)
+
+            if(mBinding.bottomNavigation.selectedItemId != menu.menuId)
+                mBinding.bottomNavigation.selectedItemId = menu.menuId
+        }
+
         mViewModel.apply {
-            menuIndex.observe(this@MainActivity) {menu->
-                changeFragment(menu)
 
-
-
-                if(mBinding.bottomNavigation.selectedItemId != menu.menuId)
-                    mBinding.bottomNavigation.selectedItemId = menu.menuId
-            }
         }
     }
 }

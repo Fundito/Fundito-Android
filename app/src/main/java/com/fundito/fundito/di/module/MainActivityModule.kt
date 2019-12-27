@@ -2,9 +2,12 @@ package com.fundito.fundito.di.module
 
 import androidx.lifecycle.ViewModel
 import com.fundito.fundito.di.ActivityScope
+import com.fundito.fundito.di.FragmentScope
 import com.fundito.fundito.presentation.main.MainViewModel
+import com.fundito.fundito.presentation.main.status.StatusBackgroundFragment
 import dagger.Binds
 import dagger.Module
+import dagger.android.ContributesAndroidInjector
 import dagger.multibindings.IntoMap
 
 /**
@@ -17,5 +20,9 @@ abstract class MainActivityModule {
     @ActivityScope
     @ViewModelKey(MainViewModel::class)
     abstract fun bindMainViewModel(viewModel : MainViewModel) : ViewModel
+
+    @ContributesAndroidInjector(modules=[StatusModule::class])
+    @FragmentScope
+    abstract fun contributesStatusBackgroundFragment() : StatusBackgroundFragment
 
 }

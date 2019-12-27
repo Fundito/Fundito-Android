@@ -148,14 +148,16 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.2")
 
     /**
-     * OroraImageView
+     * AutofitTextView
      */
-//    implementation("com.github.mym0404:OroraImageView:1.1")
+    implementation("me.grantland:autofittextview:0.2.1")
+
+
     //endregion
 
     //파이어베이스
-    implementation ("com.google.firebase:firebase-auth:19.1.0")
-    implementation ("com.facebook.android:facebook-android-sdk:[4,5)")
+    implementation ("com.google.firebase:firebase-auth:19.2.0")
+    implementation ("com.facebook.android:facebook-android-sdk:4.42.0")
 
 
 
