@@ -12,6 +12,10 @@ import com.fundito.fundito.R
  */
 class MoreFragment : Fragment() {
 
+    companion object {
+        fun newInstance() = MoreFragment()
+    }
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return LayoutInflater.from(context).inflate(R.layout.fragment_more,container,false)
     }
