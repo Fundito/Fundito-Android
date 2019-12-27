@@ -17,6 +17,7 @@ import kotlinx.android.synthetic.main.dialog_keyboard.*
  */
 
 fun AppCompatActivity.showKeyboard(onNumberClick : (Int) -> Unit) {
+    if(supportFragmentManager.findFragmentByTag("KeyboardDialog") != null) return
     val dialog = KeyboardDialogFragment()
     dialog.onNumberClick = onNumberClick
     dialog.show(supportFragmentManager,"KeyboardDialog")
@@ -47,6 +48,11 @@ class KeyboardDialogFragment : BottomSheetDialogFragment() {
      * 우리가 원하는 Style 대로 BottomSheet 를 동작시킬 수 있다는 것이다.
      */
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog = BottomSheetDialog(activity!!, theme)
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        dialog?.window?.attributes?.windowAnimations = R.style.DialogAnimation
+    }
 
     /**
      * Binding Instance
