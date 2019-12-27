@@ -2,6 +2,7 @@ package com.fundito.fundito.presentation.main
 
 import android.os.Bundle
 import android.view.LayoutInflater
+import androidx.annotation.IdRes
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.observe
@@ -16,6 +17,10 @@ import dagger.android.support.DaggerAppCompatActivity
 import javax.inject.Inject
 
 class MainActivity : DaggerAppCompatActivity() {
+
+    enum class MainMenu(@IdRes val menuId : Int) {
+        HOME(R.id.main_menu_1)
+    }
 
     @Inject
     lateinit var viewModelFactory : ViewModelFactory
