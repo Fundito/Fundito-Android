@@ -10,7 +10,11 @@ import com.fundito.fundito.R
 /**
  * Created by mj on 26, December, 2019
  */
-class StatusBackgrundFragment : Fragment() {
+class StatusBackgroundFragment : Fragment() {
+
+    companion object {
+        fun newInstance() = StatusBackgroundFragment()
+    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return LayoutInflater.from(context).inflate(R.layout.fragment_status_background,container,false)
