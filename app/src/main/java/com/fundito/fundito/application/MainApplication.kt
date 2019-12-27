@@ -1,6 +1,8 @@
 package com.fundito.fundito.application
 
 import android.app.Application
+import com.facebook.FacebookSdk
+import com.facebook.appevents.AppEventsLogger
 import timber.log.Timber
 
 /**
@@ -16,7 +18,8 @@ class MainApplication : Application() {
         super.onCreate()
 
         GlobalApp = this
-
+        FacebookSdk.sdkInitialize(applicationContext)
+        AppEventsLogger.activateApp(this)
 
         initLogging()
     }

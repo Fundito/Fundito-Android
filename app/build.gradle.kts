@@ -143,6 +143,10 @@ dependencies {
 
     //endregion
 
+    //파이어베이스
+    implementation ("com.google.firebase:firebase-auth:19.1.0")
+    implementation ("com.facebook.android:facebook-android-sdk:[4,5)")
+
 
 
 
