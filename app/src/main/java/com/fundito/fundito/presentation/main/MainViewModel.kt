@@ -10,7 +10,6 @@ import javax.inject.Inject
  */
 class MainViewModel @Inject constructor()  : ViewModel() {
 
-    private val _menuIndex : MutableLiveData<MainActivity.MainMenu> = MutableLiveData(MainActivity.MainMenu.HOME)
-    val menuIndex : LiveData<MainActivity.MainMenu> = _menuIndex
+
 
 }
