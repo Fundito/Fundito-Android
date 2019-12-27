@@ -18,8 +18,19 @@ import javax.inject.Inject
 
 class MainActivity : DaggerAppCompatActivity() {
 
-    enum class MainMenu(@IdRes val menuId : Int) {
-        HOME(R.id.main_menu_1)
+    enum class MainMenu(@IdRes val menuId: Int, val index: Int) {
+        HOME(R.id.main_menu_1,0),
+        FEED(R.id.main_menu_2,1),
+        STATUS(R.id.main_menu_3,2),
+        MORE(R.id.main_menu_4,3)
+
+        ;
+
+        companion object {
+            fun parseIndex(index: Int) = values().firstOrNull { it.index == index } ?: HOME
+            fun parseMenuId(@IdRes menuId: Int) = values().firstOrNull { it.menuId == menuId } ?: HOME
+        }
+
     }
 
     @Inject
@@ -53,20 +64,7 @@ class MainActivity : DaggerAppCompatActivity() {
 
     private fun initView() {
         mBinding.bottomNavigation.setOnNavigationItemSelectedListener {
-            when(it.itemId) {
-                R.id.main_menu_1-> {
-                    changeFragment(0)
-                }
-                R.id.main_menu_2-> {
-                    changeFragment(1)
-                }
-                R.id.main_menu_3-> {
-                    changeFragment(2)
-                }
-                R.id.main_menu_4-> {
-                    changeFragment(3)
-                }
-            }
+            changeFragment(MainMenu.parseMenuId(it.itemId))
             true
         }
     }
@@ -81,13 +79,13 @@ class MainActivity : DaggerAppCompatActivity() {
     }
 
 
-    private fun changeFragment(index: Int) {
+    private fun changeFragment(menu : MainMenu) {
 
-        val willShow = when (index) {
-            0 -> fragment1
-            1 -> fragment2
-            2 -> fragment3
-            else -> fragment4
+        val willShow = when (menu) {
+            MainMenu.HOME -> fragment1
+            MainMenu.FEED -> fragment2
+            MainMenu.STATUS -> fragment3
+            MainMenu.MORE -> fragment4
         }
         supportFragmentManager.beginTransaction().hide(curFragment).show(willShow).commit()
         curFragment = willShow
@@ -95,8 +93,13 @@ class MainActivity : DaggerAppCompatActivity() {
 
     private fun observeViewModel() {
         mViewModel.apply {
-            menuIndex.observe(this@MainActivity) {index->
-                changeFragment(index)
+            menuIndex.observe(this@MainActivity) {menu->
+                changeFragment(menu)
+
+
+
+                if(mBinding.bottomNavigation.selectedItemId != menu.menuId)
+                    mBinding.bottomNavigation.selectedItemId = menu.menuId
             }
         }
     }
