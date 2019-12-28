@@ -63,6 +63,7 @@
             />
         <activity android:name=".presentation.main.feed.FeedFriendDetailActivity"
             android:screenOrientation="portrait"
+            android:exported="true"
             android:configChanges="screenLayout|orientation|fontScale|locale|screenSize"
             />
 

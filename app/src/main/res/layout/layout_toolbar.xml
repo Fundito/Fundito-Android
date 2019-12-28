@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="title"
+            type="String" />
+    </data>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
         android:layout_height="44dp">
@@ -29,7 +37,8 @@
             android:textColor="@color/black"
             android:lineSpacingExtra="9sp"
             android:gravity="center_horizontal"
-            android:text="펀디토 충전"
+            android:text="@{title}"
+            tools:text="제목"
             />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
