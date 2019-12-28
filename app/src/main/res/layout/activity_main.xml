@@ -21,8 +21,8 @@
             android:layout_height="0dp"/>
 
         <com.google.android.material.bottomnavigation.BottomNavigationView
-            app:itemTextAppearanceActive="@style/TextAppearance.AppCompat.BottomNavigation"
-            app:itemTextAppearanceInactive="@style/TextAppearance.AppCompat.BottomNavigation"
+            app:itemTextAppearanceActive="@style/TextAppearance.AppCompat.Fundito.BottomNavigation"
+            app:itemTextAppearanceInactive="@style/TextAppearance.AppCompat.Fundito.BottomNavigation"
             app:labelVisibilityMode="labeled"
             app:itemTextColor="@color/menu_selector"
             app:menu="@menu/main_menu"

@@ -60,6 +60,9 @@ class StoreDetailActivity : AppCompatActivity(), HasDefaultViewModelProviderFact
             it.pivotX = it.width/2f
         }
 
+        mBinding.header.backButton setOnDebounceClickListener {
+            onBackPressed()
+        }
 
 
         mBinding.content.timeLineRecyclerView.apply {

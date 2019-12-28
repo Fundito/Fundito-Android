@@ -5,6 +5,7 @@
     <color name="colorPrimaryDark">@color/dark_navy</color>
     <color name="colorAccent">@color/peachy_pink</color>
 
+    <color name="transparent">#0000</color>
 
     <color name="black_16">#29000000</color>
     <color name="peachy_pink">#ff9c81</color>

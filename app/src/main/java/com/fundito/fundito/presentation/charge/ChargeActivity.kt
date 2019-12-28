@@ -70,6 +70,10 @@ class ChargeActivity : DaggerAppCompatActivity() {
 
             }
         }
+
+        mBinding.toolbar.backButton setOnDebounceClickListener {
+            onBackPressed()
+        }
     }
 
 }
