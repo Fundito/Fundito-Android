@@ -52,6 +52,7 @@
             />
 
         <androidx.recyclerview.widget.RecyclerView
+            android:background="@color/transparent"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:recyclerview_FundingOnGoing_items="@{vm.items}"
             android:orientation="vertical"

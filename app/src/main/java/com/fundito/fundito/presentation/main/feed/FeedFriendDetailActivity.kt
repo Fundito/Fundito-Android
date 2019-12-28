@@ -1,14 +1,19 @@
 package com.fundito.fundito.presentation.main.feed
 
 import android.graphics.Canvas
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import androidx.lifecycle.HasDefaultViewModelProviderFactory
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
+import com.fundito.fundito.common.util.startActivity
+import com.fundito.fundito.common.widget.LinearItemDecoration
+import com.fundito.fundito.common.widget.setOnDebounceClickListener
 import com.fundito.fundito.databinding.ActivityFeedFriendDetailBinding
 import com.fundito.fundito.di.module.ViewModelFactory
 import com.fundito.fundito.presentation.main.status.FundingOnGoingAdapter
+import com.fundito.fundito.presentation.store.StoreDetailActivity
 import dagger.android.support.DaggerAppCompatActivity
 import javax.inject.Inject
 
@@ -41,13 +46,18 @@ class FeedFriendDetailActivity : DaggerAppCompatActivity(), HasDefaultViewModelP
     private fun initView() {
         mBinding.recyclerView.apply {
             adapter = FundingOnGoingAdapter {
-
+                startActivity(StoreDetailActivity::class)
             }
+            addItemDecoration(LinearItemDecoration(1))
             addItemDecoration(object : RecyclerView.ItemDecoration() {
                 override fun onDraw(c: Canvas, parent: RecyclerView, state: RecyclerView.State) {
-                    super.onDraw(c, parent, state)
+                    c.drawColor(Color.parseColor("#80eae8e8"))
                 }
             })
+        }
+
+        mBinding.toolbar.backButton setOnDebounceClickListener {
+            onBackPressedDispatcher.onBackPressed()
         }
     }
 
