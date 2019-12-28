@@ -9,7 +9,6 @@ import androidx.core.animation.doOnStart
 import androidx.core.view.isVisible
 import androidx.lifecycle.MutableLiveData
 import com.fundito.fundito.common.util.toMoney
-import timber.log.Timber
 
 /**
  * Created by mj on 24, December, 2019

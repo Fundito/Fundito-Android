@@ -9,104 +9,82 @@
             type="com.fundito.fundito.presentation.main.status.StatusViewModel" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        tools:background="@color/black"
+    <androidx.constraintlayout.widget.ConstraintLayout android:background="@color/white"
         android:clipChildren="false"
         android:clipToPadding="false"
-        android:elevation="24dp"
+        android:elevation="12dp"
 
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
-        app:layout_behavior="@string/bottom_sheet_behavior"
+        app:layout_behavior="com.fundito.fundito.common.widget.LockableBottomSheetBehavior"
         app:behavior_hideable="false"
         app:behavior_peekHeight="50dp"
-        android:background="@color/white"
+        tools:background="@color/black"
         android:layout_width="match_parent"
 
         android:layout_height="match_parent">
 
         <View
             android:id="@+id/zigzag"
-            app:layout_constraintTop_toTopOf="parent"
-            android:background="@drawable/background_status"
             android:layout_width="match_parent"
-            android:layout_height="12dp"/>
+            android:layout_height="12dp"
+            android:background="@drawable/background_status"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.cardview.widget.CardView
-            app:cardBackgroundColor="@color/brown_grey"
+            android:layout_width="46dp"
+            android:layout_height="2dp"
             android:layout_marginTop="32dp"
+            app:cardBackgroundColor="@color/brown_grey"
             app:cardCornerRadius="1dp"
-            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            android:layout_width="46dp"
-            android:layout_height="2dp"/>
-
+            app:layout_constraintTop_toTopOf="parent" />
 
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:paddingLeft="16dp"
             android:paddingRight="16dp"
-            android:paddingTop="40dp"
-            android:background="@color/white"
-            app:layout_constraintTop_toBottomOf="@id/zigzag"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:id="@+id/topContainer"
             android:layout_width="match_parent"
-            android:layout_height="0dp">
-            <TextView
-                android:id="@+id/remainLabel"
+            android:layout_height="match_parent"
+            android:layout_marginTop="12dp"
+            android:background="@color/white"
+            android:paddingTop="40dp"
+
+            app:layout_constraintTop_toBottomOf="@id/zigzag">
+
+
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/tabLayout"
+                app:tabTextAppearance="@style/TextAppearance.AppCompat.Fundito.TabLayout"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintLeft_toLeftOf="parent"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="12sp"
-                android:textColor="#2c2c2c"
-                android:lineSpacingExtra="6sp"
-                android:text="펀디토머니 잔액2"
-                />
-            <TextView
-                android:id="@+id/remain"
-                android:layout_marginTop="4dp"
-                app:layout_constraintTop_toBottomOf="@id/remainLabel"
-                android:textStyle="bold"
-                app:layout_constraintLeft_toLeftOf="parent"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="30sp"
-                android:textColor="#2c2c2c"
-                android:lineSpacingExtra="15sp"
-                android:text="120,000 원"
-                />
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <com.google.android.material.tabs.TabItem
+                    android:text="투자중인 음식점"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+                <com.google.android.material.tabs.TabItem
+                    android:text="투자완료된 음식점"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+            </com.google.android.material.tabs.TabLayout>
+            <androidx.recyclerview.widget.RecyclerView
+                tools:itemCount="4"
+                tools:listitem="@layout/item_funding_status"
+                android:clipToPadding="false"
+                android:paddingTop="24dp"
+                android:paddingBottom="24dp"
 
-            <View
-                android:layout_marginBottom="4dp"
-                app:layout_constraintBottom_toBottomOf="@id/charge"
-                app:layout_constraintRight_toRightOf="@id/charge"
-                app:layout_constraintLeft_toLeftOf="@id/charge"
-                android:background="@color/peachy_pink"
-                android:layout_width="0dp"
-                android:layout_height="6dp"
-
-                />
-            <TextView
-                android:background="?attr/selectableItemBackground"
-                android:padding="2dp"
-                android:id="@+id/charge"
-
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="@id/remain"
-                app:layout_constraintBottom_toBottomOf="@id/remain"
-                android:textStyle="bold"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="18sp"
-                android:textColor="@color/dark_navy"
-                android:lineSpacingExtra="9sp"
-                android:gravity="end"
-                android:text="충전 하기"
-                />
+                app:layout_constraintTop_toBottomOf="@id/tabLayout"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
+
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
 

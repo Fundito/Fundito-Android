@@ -48,11 +48,11 @@ class MainActivity : DaggerAppCompatActivity() {
 
     private lateinit var mViewModel : MainViewModel
 
-    private val fragment1 = HomeFragment.newInstance()
-    private val fragment2 = FeedFriendListFragment.newInstance()
-    private val fragment3 = StatusFragment.newInstance()
-    private val fragment4 = MoreFragment.newInstance()
-    private var curFragment: Fragment = fragment1
+    private lateinit var fragment1 : HomeFragment
+    private lateinit var fragment2 : FeedFriendListFragment
+    private lateinit var fragment3 : StatusFragment
+    private lateinit var fragment4 : MoreFragment
+    private lateinit var curFragment: Fragment
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -65,7 +65,10 @@ class MainActivity : DaggerAppCompatActivity() {
         mBinding.lifecycleOwner = this
         mBinding.vm = mViewModel
 
-        initFragments()
+
+        initFragments(savedInstanceState == null)
+
+
         initView()
         observeViewModel()
     }
@@ -77,13 +80,27 @@ class MainActivity : DaggerAppCompatActivity() {
         }
     }
 
-    private fun initFragments() {
-        val fm = supportFragmentManager
+    private fun initFragments(isFirstCreation : Boolean) {
 
-        fm.beginTransaction().add(R.id.fragmentContainer, fragment4, null).hide(fragment4).commit()
-        fm.beginTransaction().add(R.id.fragmentContainer, fragment3, null).hide(fragment3).commit()
-        fm.beginTransaction().add(R.id.fragmentContainer, fragment2, null).hide(fragment2).commit()
-        fm.beginTransaction().add(R.id.fragmentContainer, fragment1, null).commit()
+        fragment1 = supportFragmentManager.findFragmentByTag("0") as? HomeFragment ?: HomeFragment.newInstance()
+        fragment2 = supportFragmentManager.findFragmentByTag("1") as? FeedFriendListFragment ?:FeedFriendListFragment.newInstance()
+        fragment3 = supportFragmentManager.findFragmentByTag("2") as? StatusFragment ?: StatusFragment.newInstance()
+        fragment4 = supportFragmentManager.findFragmentByTag("3") as? MoreFragment ?: MoreFragment.newInstance()
+        curFragment = when(menu.value) {
+            MainMenu.HOME->fragment1
+            MainMenu.FEED->fragment2
+            MainMenu.STATUS->fragment3
+            MainMenu.MORE->fragment4
+            else -> throw IllegalStateException()
+        }
+
+        if(isFirstCreation) {
+            val fm = supportFragmentManager
+            fm.beginTransaction().add(R.id.fragmentContainer, fragment4, "0").hide(fragment4).commit()
+            fm.beginTransaction().add(R.id.fragmentContainer, fragment3, "1").hide(fragment3).commit()
+            fm.beginTransaction().add(R.id.fragmentContainer, fragment2, "2").hide(fragment2).commit()
+            fm.beginTransaction().add(R.id.fragmentContainer, fragment1, "3").commit()
+        }
     }
 
 
