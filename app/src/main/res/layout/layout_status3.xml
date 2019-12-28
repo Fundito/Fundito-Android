@@ -12,7 +12,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout android:background="@color/white"
         android:clipChildren="false"
         android:clipToPadding="false"
-        android:elevation="12dp"
+        android:elevation="24dp"
 
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -43,8 +43,6 @@
 
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:paddingLeft="16dp"
-            android:paddingRight="16dp"
             android:id="@+id/topContainer"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -71,11 +69,33 @@
                     android:layout_height="wrap_content"/>
             </com.google.android.material.tabs.TabLayout>
             <androidx.recyclerview.widget.RecyclerView
+                android:visibility="@{vm.sheet2TabIndex == 0}"
+                app:recyclerview_FundingOnGoing_items="@{vm.onGoingFundingItems}"
+                android:id="@+id/onGoingRecyclerView"
+                tools:visibility="gone"
                 tools:itemCount="4"
                 tools:listitem="@layout/item_funding_status"
                 android:clipToPadding="false"
                 android:paddingTop="24dp"
                 android:paddingBottom="24dp"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                android:orientation="vertical"
+
+                app:layout_constraintTop_toBottomOf="@id/tabLayout"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"/>
+            <androidx.recyclerview.widget.RecyclerView
+                android:visibility="@{vm.sheet2TabIndex == 1}"
+                app:recyclerview_FundingComplete_items="@{vm.completeFundingItem}"
+                android:id="@+id/completeRecyclerView"
+                tools:itemCount="4"
+                tools:listitem="@layout/item_funding_complete"
+                android:clipToPadding="false"
+                android:paddingTop="24dp"
+                android:paddingBottom="24dp"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                android:orientation="vertical"
 
                 app:layout_constraintTop_toBottomOf="@id/tabLayout"
                 app:layout_constraintBottom_toBottomOf="parent"

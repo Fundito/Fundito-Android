@@ -202,6 +202,7 @@
                         />
 
                     <androidx.recyclerview.widget.RecyclerView
+                        app:recyclerview_RecentFunding_items="@{vm.recentFundingHistories}"
                         android:id="@+id/recyclerView"
                         tools:itemCount="4"
                         tools:listitem="@layout/item_recent_funding"
