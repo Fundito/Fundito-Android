@@ -141,10 +141,27 @@ dependencies {
      */
     implementation("com.karumi:dexter:6.0.1")
 
+    /**
+     * Coroutine
+     */
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.2")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.2")
+
+    /**
+     * AutofitTextView
+     */
+    implementation("me.grantland:autofittextview:0.2.1")
+
+
     //endregion
 
+    //파이어베이스
+    implementation ("com.google.firebase:firebase-auth:19.2.0")
+    implementation ("com.facebook.android:facebook-android-sdk:4.42.0")
 
 
+    implementation ("de.hdodenhof:circleimageview:3.0.0")
+    implementation ("androidx.core:core-ktx:1.1.0")
 
 }
 

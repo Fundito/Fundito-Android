@@ -1,6 +1,70 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="match_parent">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="vm"
+            type="com.fundito.fundito.presentation.store.StoreDetailViewModel" />
+    </data>
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <include
+            vm = "@{vm}"
+            android:id="@+id/content"
+            layout="@layout/layout_store_detail_content"/>
+
+
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:background="@color/white"
+            android:layout_width="match_parent"
+            android:layout_height="330dp">
+
+            <include
+                vm = "@{vm}"
+                android:id="@+id/header"
+                layout="@layout/layout_store_detail_header"/>
+
+
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <LinearLayout
+            android:padding="6dp"
+            android:layout_gravity="bottom"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/investment"
+
+                android:layout_marginLeft="10dp"
+
+                android:text="결제 / 투자하기"
+                android:layout_width="wrap_content"
+                android:layout_weight="4"
+                android:layout_height="48dp"/>
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/cheer"
+                android:layout_marginRight="10dp"
+                android:layout_marginLeft="8dp"
+                app:backgroundTint="@color/dark_navy"
+
+                android:text="응원하기"
+                android:layout_weight="1"
+                android:layout_width="wrap_content"
+                android:layout_height="48dp"/>
+        </LinearLayout>
+
+
+
+
+
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+</layout>
+

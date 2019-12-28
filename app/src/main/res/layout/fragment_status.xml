@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout>
+    <data>
+        <variable
+            name="vm"
+            type="com.fundito.fundito.presentation.main.status.StatusViewModel" />
+    </data>
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:clipChildren="false"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:animateLayoutChanges="true"
+            android:background="@{vm.sceneIndex == 1 ? @drawable/background_status_store_detail : @drawable/empty}"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            >
+
+            <ImageButton
+                android:visibility="@{vm.sheetOpenCount &gt; 0}"
+                android:tint="@color/black"
+                android:onDebounceClick="@{() -> vm.onClickBack()}"
+                android:id="@+id/backButton"
+                android:layout_marginLeft="16dp"
+                android:scaleType="fitCenter"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/toolbarHeight"
+                android:src="@drawable/ic_back"/>
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guide"
+                app:layout_constraintGuide_percent="0.35"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"/>
+            <me.grantland.widget.AutofitTextView
+                android:layout_marginLeft="16dp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="@id/guide"
+                app:layout_constraintBottom_toBottomOf="@id/guide"
+                android:id="@+id/info"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:textColor="@color/black"
+                android:lineSpacingExtra="9sp"
+                android:gravity="center_horizontal"
+                android:text="주윤님이 현재 얻을 수 있는 금액은?"
+                />
+
+            <me.grantland.widget.AutofitTextView
+                android:id="@+id/price"
+                android:textStyle="bold"
+                android:layout_marginRight="16dp"
+                app:layout_constraintTop_toBottomOf="@id/info"
+                app:layout_constraintRight_toRightOf="parent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="51sp"
+                android:textColor="@color/black"
+                android:lineSpacingExtra="24sp"
+                android:gravity="end"
+                android:text="+13,500 원"
+                />
+            <TextView
+                android:id="@+id/info2"
+                android:layout_marginRight="16dp"
+                app:layout_constraintTop_toBottomOf="@id/price"
+                app:layout_constraintRight_toRightOf="parent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="24sp"
+                android:textColor="@color/black"
+                android:lineSpacingExtra="12sp"
+                android:gravity="center_horizontal"
+                android:text="원금대비 170% 상승!"
+                />
+
+            <ImageView
+                android:id="@+id/arrow"
+                android:scaleType="fitCenter"
+                app:layout_constraintWidth_percent="0.48"
+                android:layout_marginRight="16dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                android:src="@drawable/img_arrow"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <include
+            vm = "@{vm}"
+            android:id="@+id/bottomSheet1"
+            layout="@layout/layout_status2"
+            />
+        <include
+            vm = "@{vm}"
+            android:id="@+id/bottomSheet2"
+            layout="@layout/layout_status3_container"
+            />
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+
+</layout>
+

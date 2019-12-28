@@ -1,7 +1,9 @@
 package com.fundito.fundito.common
 
 import android.graphics.drawable.Drawable
+import android.view.View
 import android.widget.ImageView
+import androidx.core.view.isVisible
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
 
@@ -21,4 +23,9 @@ fun ImageView.loadUrlAsync(url : String?, placeholder : Drawable? = null) {
             }
             .into(this)
     }
+}
+
+@BindingAdapter("android:visibility")
+fun View.setVisibilityBinding(isVisible : Boolean) {
+    this.isVisible = isVisible
 }

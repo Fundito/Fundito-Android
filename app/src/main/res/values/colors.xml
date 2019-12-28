@@ -1,10 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#000839</color>
-    <color name="colorPrimaryDark">#000839</color>
-    <color name="colorAccent">#D81B60</color>
 
-    <color name="black">#000</color>
-    <color name="white">#fff</color>
+    <color name="colorPrimary">@color/dark_navy</color>
+    <color name="colorPrimaryDark">@color/dark_navy</color>
+    <color name="colorAccent">@color/peachy_pink</color>
+
     <color name="transparent">#0000</color>
+
+    <color name="black_16">#29000000</color>
+    <color name="peachy_pink">#ff9c81</color>
+    <color name="coral">#ff5643</color>
+    <color name="blueberry">#4d4bb1</color>
+    <color name="black">#000000</color>
+    <color name="pale_grey">#f0f1f5</color>
+    <color name="white">#ffffff</color>
+    <color name="white_two">#f8f8f8</color>
+    <color name="charcoal_grey">#444649</color>
+    <color name="very_light_pink">#cccccc</color>
+    <color name="dark">#13161a</color>
+    <color name="blueberry_two">#312f86</color>
+    <color name="brown_grey">#afafaf</color>
+    <color name="dark_navy">#000839</color>
 </resources>

@@ -12,6 +12,10 @@ import com.fundito.fundito.R
  */
 class FeedFriendListFragment : Fragment() {
 
+    companion object {
+        fun newInstance() = FeedFriendListFragment()
+    }
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return LayoutInflater.from(context).inflate(R.layout.fragment_feed_friend_list, container, false)
     }

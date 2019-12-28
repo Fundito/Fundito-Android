@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="vm"
+            type="com.fundito.fundito.presentation.main.status.StatusViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout android:background="@color/white"
+        android:clipChildren="false"
+        android:clipToPadding="false"
+        android:elevation="12dp"
+
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        app:layout_behavior="com.fundito.fundito.common.widget.LockableBottomSheetBehavior"
+        app:behavior_hideable="false"
+        app:behavior_peekHeight="50dp"
+        tools:background="@color/black"
+        android:layout_width="match_parent"
+
+        android:layout_height="match_parent">
+
+        <View
+            android:id="@+id/zigzag"
+            android:layout_width="match_parent"
+            android:layout_height="12dp"
+            android:background="@drawable/background_status"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="46dp"
+            android:layout_height="2dp"
+            android:layout_marginTop="32dp"
+            app:cardBackgroundColor="@color/brown_grey"
+            app:cardCornerRadius="1dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/scrollView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white"
+            android:layout_marginTop="12dp"
+            android:paddingTop="40dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/topContainer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:paddingLeft="16dp"
+                    android:paddingRight="16dp"
+
+                    app:layout_constraintTop_toBottomOf="@id/zigzag">
+
+                    <TextView
+                        android:id="@+id/remainLabel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:lineSpacingExtra="6sp"
+                        android:text="펀디토머니 잔액"
+                        android:textColor="#2c2c2c"
+                        android:textSize="12sp"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/remain"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:lineSpacingExtra="15sp"
+                        android:text="120,000 원"
+                        android:textColor="#2c2c2c"
+                        android:textSize="30sp"
+                        android:textStyle="bold"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/remainLabel" />
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="6dp"
+                        android:layout_marginBottom="4dp"
+                        android:background="@color/peachy_pink"
+                        app:layout_constraintBottom_toBottomOf="@id/charge"
+                        app:layout_constraintLeft_toLeftOf="@id/charge"
+                        app:layout_constraintRight_toRightOf="@id/charge"
+
+                        />
+
+                    <TextView
+                        android:id="@+id/charge"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+
+                        android:background="?attr/selectableItemBackground"
+                        android:gravity="end"
+                        android:lineSpacingExtra="9sp"
+                        android:padding="2dp"
+                        android:text="충전 하기"
+                        android:textColor="@color/dark_navy"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="@id/remain"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toTopOf="@id/remain" />
+
+                    <TextView
+                        android:id="@+id/fundingLabel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="25dp"
+                        android:lineSpacingExtra="6sp"
+                        android:text="투자중인 금액"
+                        android:textColor="#2c2c2c"
+                        android:textSize="12sp"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/remain" />
+
+                    <TextView
+                        android:id="@+id/funding"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:gravity="end"
+                        android:lineSpacingExtra="15sp"
+                        android:text="30,000 원"
+                        android:textColor="#2c2c2c"
+                        android:textSize="30sp"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/fundingLabel" />
+
+                    <TextView
+                        android:id="@+id/maxReturnPriceLabel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="9dp"
+                        android:lineSpacingExtra="6sp"
+                        android:text="예상 최대 회수금액"
+                        android:textColor="#2c2c2c"
+                        android:textSize="12sp"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/funding" />
+
+                    <TextView
+                        android:id="@+id/maxReturnPrice"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginBottom="16dp"
+                        android:gravity="end"
+                        android:lineSpacingExtra="15sp"
+                        android:text="58,500 원"
+                        android:textColor="#2c2c2c"
+                        android:textSize="30sp"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/maxReturnPriceLabel" />
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <View
+                    android:alpha="0.27"
+                    android:id="@+id/divider"
+                    android:layout_width="match_parent"
+                    android:layout_height="5dp"
+                    android:background="@color/brown_grey" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:paddingLeft="16dp"
+                    android:paddingRight="16dp"
+                    android:id="@+id/bottomContainer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white">
+
+                    <TextView
+                        android:id="@+id/recentFundingLabel"
+                        android:layout_marginTop="19dp"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="16sp"
+                        android:textColor="@color/black"
+                        android:lineSpacingExtra="8sp"
+                        android:gravity="center_horizontal"
+                        android:text="최근 투자내역"
+                        />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        app:recyclerview_RecentFunding_items="@{vm.recentFundingHistories}"
+                        android:id="@+id/recyclerView"
+                        tools:itemCount="4"
+                        android:paddingBottom="48dp"
+                        android:clipToPadding="false"
+                        tools:listitem="@layout/item_recent_funding"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                        android:orientation="vertical"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        android:layout_marginTop="16dp"
+                        app:layout_constraintTop_toBottomOf="@id/recentFundingLabel"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"/>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </LinearLayout>
+        </androidx.core.widget.NestedScrollView>
+
+        <View
+            android:id="@+id/shadow"
+            android:stateListAnimator="@animator/shadow_selector_animator"
+            android:layout_marginTop="48dp"
+            app:layout_constraintTop_toTopOf="parent"
+            android:background="@drawable/status_sheet_toolbar_shadow"
+            android:layout_width="match_parent"
+            android:alpha="0"
+            android:layout_height="4dp"/>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>
+

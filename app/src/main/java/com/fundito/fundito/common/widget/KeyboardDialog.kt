@@ -1,11 +1,15 @@
 package com.fundito.fundito.common.widget
 
+import android.animation.ObjectAnimator
 import android.app.Dialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.os.bundleOf
+import androidx.core.view.children
+import androidx.core.view.isVisible
 import com.fundito.fundito.R
 import com.fundito.fundito.databinding.DialogKeyboardBinding
 import com.google.android.material.bottomsheet.BottomSheetDialog
@@ -16,9 +20,11 @@ import kotlinx.android.synthetic.main.dialog_keyboard.*
  * Created by mj on 26, December, 2019
  */
 
-fun AppCompatActivity.showKeyboard(onNumberClick : (Int) -> Unit) {
-    val dialog = KeyboardDialogFragment()
+fun AppCompatActivity.showKeyboard(isPasswordCheck: Boolean = false, onNumberClick: (Int) -> Unit, onPasswordChanged: ((String) -> Unit)? = null) {
+    if(supportFragmentManager.findFragmentByTag("KeyboardDialog") != null) return
+    val dialog = KeyboardDialogFragment.newInstance(isPasswordCheck)
     dialog.onNumberClick = onNumberClick
+    dialog.onPasswordChanged = onPasswordChanged
     dialog.show(supportFragmentManager,"KeyboardDialog")
 }
 
@@ -31,7 +37,28 @@ fun AppCompatActivity.hideKeyboard() {
 
 class KeyboardDialogFragment : BottomSheetDialogFragment() {
 
+    companion object {
+        const val PASSWORD_MAX_LEN = 6
+
+        private const val ARG_IS_PASSWORD_CHECK = "ARG_IS_PASSWORD_CHECK"
+
+        fun newInstance(isPasswordCheck: Boolean): KeyboardDialogFragment {
+            return KeyboardDialogFragment().apply {
+                arguments = bundleOf(ARG_IS_PASSWORD_CHECK to isPasswordCheck)
+            }
+        }
+    }
+
+    private val isPasswordCheck: Boolean by lazy {
+        arguments?.getBoolean(ARG_IS_PASSWORD_CHECK) ?: false
+    }
+
+    private var password = ""
+
     var onNumberClick : ((Int) -> Unit)? = null
+
+    var onPasswordChanged: ((String) -> Unit)? = null
+
     /**
      * 현재 BottomSheet(Fragment)의 Theme를 얻어오는 메서드를 오버라이딩 해서 우리가 커스텀하게 정의한
      *
@@ -48,6 +75,11 @@ class KeyboardDialogFragment : BottomSheetDialogFragment() {
      */
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog = BottomSheetDialog(activity!!, theme)
 
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        dialog?.window?.attributes?.windowAnimations = R.style.DialogAnimation
+    }
+
     /**
      * Binding Instance
      */
@@ -61,40 +93,104 @@ class KeyboardDialogFragment : BottomSheetDialogFragment() {
     ) = DialogKeyboardBinding.inflate(inflater, container, false).also { mBinding = it }.root
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        button0 setOnDebounceClickListener {
+        button0.setOnClickListener {
             onNumberClick?.invoke(0)
+            appendPassword(0)
         }
-        button1 setOnDebounceClickListener {
+        button1.setOnClickListener {
             onNumberClick?.invoke(1)
+            appendPassword(1)
         }
-        button2 setOnDebounceClickListener {
+        button2.setOnClickListener {
             onNumberClick?.invoke(2)
+            appendPassword(2)
         }
-        button3 setOnDebounceClickListener {
+        button3.setOnClickListener {
             onNumberClick?.invoke(3)
+            appendPassword(3)
         }
-        button4 setOnDebounceClickListener {
+        button4.setOnClickListener {
             onNumberClick?.invoke(4)
+            appendPassword(4)
         }
-        button5 setOnDebounceClickListener {
+        button5.setOnClickListener {
             onNumberClick?.invoke(5)
+            appendPassword(5)
         }
-        button6 setOnDebounceClickListener {
+        button6.setOnClickListener {
             onNumberClick?.invoke(6)
+            appendPassword(6)
         }
-        button7 setOnDebounceClickListener {
+        button7.setOnClickListener {
             onNumberClick?.invoke(7)
+            appendPassword(7)
         }
-        button8 setOnDebounceClickListener {
+        button8.setOnClickListener {
             onNumberClick?.invoke(8)
+            appendPassword(8)
         }
-        button9 setOnDebounceClickListener {
+        button9.setOnClickListener {
             onNumberClick?.invoke(9)
+            appendPassword(9)
         }
-        buttonBack setOnDebounceClickListener {
+        buttonBack.setOnClickListener {
             onNumberClick?.invoke(-1)
+            appendPassword(-1)
         }
 
+        if (isPasswordCheck) {
+            mBinding.passwordContainer.isVisible = true
+        }
+
+    }
+
+    private fun appendPassword(num: Int) {
+        if (!isPasswordCheck) return
+
+        val curLength = password.length
+
+        if ((password.length >= PASSWORD_MAX_LEN && num != -1) || (curLength == 0 && num == -1)) {
+            startShakeAnim()
+            return
+        }
+
+        if (num == -1) {
+            password = password.dropLast(1)
+        } else {
+            password += "$num"
+        }
+
+        adjustCircleImages()
+        startBounceAnim(password.length)
+
+        onPasswordChanged?.invoke(password)
+
+    }
+
+    private fun adjustCircleImages() {
+        circleContainer.children.forEachIndexed { index, view ->
+            //            view.setBackgroundResource(if(password.length > index) R.drawable.white_circle else R.drawable.white_circle_stroke)
+            view.isActivated = password.length > index
+        }
+    }
+
+    private fun startShakeAnim() {
+        ObjectAnimator.ofFloat(circleContainer, "translationX", 0f, 20f).apply {
+            duration = 40L
+            repeatCount = 3
+            repeatMode = ObjectAnimator.REVERSE
+            start()
+        }
+    }
+
+    private fun startBounceAnim(circleIdx: Int) {
+        /*val circleView = circleContainer.getChildAt(circleIdx)
+        ObjectAnimator.ofFloat(circleView,"translationY",0f,-150f).apply {
+            duration = 100L
+            repeatCount = 1
+            repeatMode = ObjectAnimator.REVERSE
+            start()
+        }*/
     }
 
 
