@@ -38,6 +38,7 @@ import com.fundito.fundito.databinding.LayoutStatus3Scene2Binding
 import com.fundito.fundito.di.module.ViewModelFactory
 import com.fundito.fundito.presentation.charge.ChargeActivity
 import com.fundito.fundito.presentation.main.MainActivity
+import com.fundito.fundito.presentation.store.StoreDetailActivity
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.tabs.TabLayout
 import dagger.android.support.DaggerFragment
@@ -238,6 +239,11 @@ class StatusFragment : DaggerFragment(), HasDefaultViewModelProviderFactory {
                 mViewModel.sheet2TabIndex.value = tab?.position
             }
         })
+
+        scene2Binding.detail setOnDebounceClickListener {
+            startActivity(StoreDetailActivity::class)
+        }
+
         //endregion
 
 
@@ -260,6 +266,7 @@ class StatusFragment : DaggerFragment(), HasDefaultViewModelProviderFactory {
             if(it == MainActivity.MainMenu.STATUS) {
                 startBackgroundAnimations()
             }
+            adjustSystemUIs()
         }
 
         mViewModel.apply {
@@ -306,18 +313,20 @@ class StatusFragment : DaggerFragment(), HasDefaultViewModelProviderFactory {
                 val scene = Scene(mBinding.bottomSheet2.sceneContainer, if (index == 0) scene1Binding.root else scene2Binding.root)
                 TransitionManager.go(scene)
 
-                if(index == 1) {
-                    requireActivity().window.statusBarColor = resources.getColor(R.color.blueberry_two)
-                    View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or View.SYSTEM_UI_FLAG_FULLSCREEN or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
-                }else {
-                    requireActivity().window.statusBarColor = Color.WHITE
-                    View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
-                }
-
+                adjustSystemUIs()
 
             }
         }
     }
 
+    private fun adjustSystemUIs() {
+        if(mViewModel.sceneIndex.value == 1 && MainActivity.menu.value == MainActivity.MainMenu.STATUS) {
+            requireActivity().window.statusBarColor = resources.getColor(R.color.blueberry_two)
+            View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or View.SYSTEM_UI_FLAG_FULLSCREEN or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+        }else {
+            requireActivity().window.statusBarColor = Color.WHITE
+            View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+        }
+    }
 
 }
