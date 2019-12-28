@@ -1,13 +1,20 @@
 package com.fundito.fundito.presentation.login
 
+import android.graphics.Color
 import android.os.Bundle
 import android.text.Editable
+import android.text.SpannableStringBuilder
 import android.text.TextWatcher
+import android.text.style.ClickableSpan
 import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.CheckBox
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.text.bold
+import androidx.core.text.buildSpannedString
+import androidx.core.text.color
+import androidx.core.text.inSpans
 import com.fundito.fundito.R
 import kotlinx.android.synthetic.main.activity_card_register.*
 
@@ -88,6 +95,14 @@ class CardRegisterActivity : AppCompatActivity() {
             checkbox3.isSelected = true
             checkbox4.isSelected = true
             checkbox5.isSelected = true
+        }
+        buildSpannedString{
+                color(Color.BLUE){
+                    bold{
+                        append("홍지원님")
+                    }
+                }
+            append("string")
         }
     }
 

@@ -1,36 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools">
+    android:layout_height="match_parent">
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginVertical="10dp"
         android:src="@drawable/ic_back"
+        app:layout_constraintBottom_toTopOf="@+id/scrollView"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"/>
 
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
         android:fontFamily="@font/spoqa_han_sans_bold"
         android:gravity="center_horizontal"
         android:lineSpacingExtra="8sp"
         android:text="계좌등록"
         android:textColor="@color/black"
         android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@+id/scrollView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ScrollView
+        android:id="@+id/scrollView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="58dp"
@@ -51,9 +53,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
+                android:layout_marginTop="10dp"
                 android:lineSpacingExtra="6sp"
+                android:fontFamily="@font/spoqa_han_sans_regular"
                 android:text="홍지원 님 본인명의 신용/체크 카드만 등록 가능합니다."
-                android:textColor="@color/dark_navy"
+                android:textColor="#a0a1a2"
                 android:textSize="12sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -79,13 +83,14 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="10dp"
+                android:fontFamily="@font/spoqa_han_sans_regular"
                 android:hint="본인명의 카드번호를 ”-”없이 입력하세요."
                 android:inputType="number"
                 android:lineSpacingExtra="6sp"
                 android:maxLength="19"
                 android:textColor="#a0a1a2"
-                android:textSize="12sp"
                 android:textCursorDrawable="@drawable/cursor"
+                android:textSize="12sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
@@ -111,10 +116,10 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
                 android:hint="MM/YY"
-                android:textCursorDrawable="@drawable/cursor"
-
                 android:inputType="number"
+
                 android:maxLength="5"
+                android:textCursorDrawable="@drawable/cursor"
                 android:textSize="12dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView4" />
@@ -140,12 +145,12 @@
                 android:layout_marginStart="40dp"
                 android:layout_marginTop="8dp"
                 android:hint="비밀번호 앞 2자리"
-                android:textCursorDrawable="@drawable/cursor"
-
                 android:inputType="numberPassword"
+
                 android:lineSpacingExtra="6sp"
                 android:maxLength="2"
                 android:textColor="#a0a1a2"
+                android:textCursorDrawable="@drawable/cursor"
                 android:textSize="12sp"
                 app:layout_constraintStart_toEndOf="@+id/expirydateEditText"
                 app:layout_constraintTop_toBottomOf="@+id/textView5" />
@@ -170,6 +175,7 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="44dp"
                 android:lineSpacingExtra="6sp"
+                android:fontFamily="@font/spoqa_han_sans_regular"
                 android:text="(선택사항)"
                 android:textColor="#a0a1a2"
                 android:textSize="12sp"
@@ -183,11 +189,11 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
                 android:hint="6자 이내"
-                android:textCursorDrawable="@drawable/cursor"
-
                 android:lineSpacingExtra="6sp"
+                android:fontFamily="@font/spoqa_han_sans_regular"
                 android:maxLength="6"
                 android:textColor="#a0a1a2"
+                android:textCursorDrawable="@drawable/cursor"
                 android:textSize="12sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView6" />
@@ -200,6 +206,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="32dp"
                 android:layout_marginEnd="26dp"
+                android:fontFamily="@font/spoqa_han_sans_regular"
                 android:text="*결제카드 정보는 롯데멤버스(주)에 안전하게 등록되며, 시스템에는 저장되지 않습니다. "
                 android:textColor="@color/dark_navy"
                 android:textSize="12sp"
@@ -231,12 +238,12 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
-                android:button="@null"
                 android:background="@null"
+                android:button="@null"
                 android:drawableLeft="@drawable/checkbox"
-                android:paddingLeft="12dp"
                 android:drawablePadding="8dp"
-
+                android:paddingLeft="12dp"
+                android:fontFamily="@font/spoqa_han_sans_bold"
                 android:text="전체약관의 동의"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView10" />
@@ -271,14 +278,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
-                    android:button="@null"
                     android:background="@null"
+                    android:button="@null"
+                    android:fontFamily="@font/spoqa_han_sans_regular"
                     android:drawableLeft="@drawable/checkbox"
                     android:drawablePadding="8dp"
                     android:text="전자금융거래 이용약관"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
-
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -288,6 +295,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:layout_marginHorizontal="16dp"
+                android:fontFamily="@font/spoqa_han_sans_regular"
+
                 android:layout_marginTop="8dp"
                 android:background="@color/white_two"
                 app:layout_constraintStart_toStartOf="parent"
@@ -299,8 +308,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
-                    android:button="@null"
                     android:background="@null"
+                    android:button="@null"
                     android:drawableLeft="@drawable/checkbox"
                     android:drawablePadding="8dp"
                     android:text="개인정보의 수집 및 이용에 대한 동의"
@@ -339,10 +348,12 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
-                    android:button="@null"
                     android:background="@null"
+                    android:button="@null"
                     android:drawableLeft="@drawable/checkbox"
                     android:drawablePadding="8dp"
+                    android:fontFamily="@font/spoqa_han_sans_regular"
+
                     android:text="개인정보의 제공 및 위탁동의"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -379,8 +390,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
-                    android:button="@null"
                     android:background="@null"
+                    android:button="@null"
                     android:drawableLeft="@drawable/checkbox"
                     android:drawablePadding="8dp"
                     android:text="정기과금 이용약관"
@@ -394,6 +405,7 @@
                     android:layout_marginTop="8dp"
                     android:lineSpacingExtra="6sp"
                     android:text="정기과금 이용약관"
+                    android:fontFamily="@font/spoqa_han_sans_regular"
                     android:textColor="#444649"
                     android:textSize="12sp"
                     android:visibility="gone"
@@ -405,12 +417,13 @@
                 android:id="@+id/textView11"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="16sp"
-                android:textColor="#444649"
-                android:lineSpacingExtra="8sp"
-                android:text="안내사항"
-                android:layout_marginTop="36dp"
                 android:layout_marginStart="16dp"
+                android:layout_marginTop="36dp"
+                android:lineSpacingExtra="8sp"
+                android:fontFamily="@font/spoqa_han_sans_bold"
+                android:text="안내사항"
+                android:textColor="#444649"
+                android:textSize="16sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/constraintLayout4" />
 
@@ -428,21 +441,24 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:lineSpacingExtra="6sp"
-                    android:text="전자금융거래 이용자 유의사항"
                     android:layout_marginStart="20dp"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="8dp"
+                    android:lineSpacingExtra="6sp"
+                    android:fontFamily="@font/spoqa_han_sans_regular"
+                    android:text="전자금융거래 이용자 유의사항"
                     android:textColor="@color/dark_navy"
                     android:textSize="14sp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
             </androidx.constraintlayout.widget.ConstraintLayout>
+
             <Button
                 android:id="@+id/registerButton"
                 android:layout_width="match_parent"
                 android:layout_height="58dp"
                 android:layout_marginHorizontal="16dp"
                 android:layout_marginTop="21dp"
+                android:fontFamily="@font/spoqa_han_sans_regular"
                 android:background="@drawable/background_login"
                 android:gravity="center"
                 android:text="등록하기"

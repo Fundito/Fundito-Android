@@ -160,8 +160,8 @@ dependencies {
     implementation ("com.facebook.android:facebook-android-sdk:4.42.0")
 
 
-
-
+    implementation ("de.hdodenhof:circleimageview:3.0.0")
+    implementation ("androidx.core:core-ktx:1.1.0")
 
 }
 
