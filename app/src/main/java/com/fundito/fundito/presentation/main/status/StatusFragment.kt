@@ -25,6 +25,7 @@ import com.fundito.fundito.common.startMoneyAnimation
 import com.fundito.fundito.common.util.startActivity
 import com.fundito.fundito.common.util.toMoney
 import com.fundito.fundito.common.util.toPixel
+import com.fundito.fundito.common.widget.LinearItemDecoration
 import com.fundito.fundito.common.widget.LockableBottomSheetBehavior
 import com.fundito.fundito.common.widget.setOnDebounceClickListener
 import com.fundito.fundito.databinding.FragmentStatusBinding
@@ -32,6 +33,7 @@ import com.fundito.fundito.di.module.ViewModelFactory
 import com.fundito.fundito.presentation.charge.ChargeActivity
 import com.fundito.fundito.presentation.main.MainActivity
 import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.google.android.material.tabs.TabLayout
 import dagger.android.support.DaggerFragment
 import timber.log.Timber
 import javax.inject.Inject
@@ -86,9 +88,12 @@ class StatusFragment : DaggerFragment(), HasDefaultViewModelProviderFactory {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         mViewModel = ViewModelProvider(this)[StatusViewModel::class.java]
         mBinding.lifecycleOwner= viewLifecycleOwner
+        mBinding.bottomSheet1.lifecycleOwner = viewLifecycleOwner
+        mBinding.bottomSheet2.lifecycleOwner = viewLifecycleOwner
         mBinding.vm = mViewModel
 
         adjustBottomSheetHeight()
+        initBottomSheets()
         initView()
         observeViewModel()
         backPressedDispatcher.addCallback(viewLifecycleOwner,backPressedCallback)
@@ -109,29 +114,7 @@ class StatusFragment : DaggerFragment(), HasDefaultViewModelProviderFactory {
         }
     }
 
-    private fun initView() {
-
-        mBinding.bottomSheet1.scrollView.setOnScrollChangeListener { v: NestedScrollView?, _: Int, _: Int, _: Int, _: Int ->
-            mBinding.bottomSheet1.shadow.isActivated = v?.canScrollVertically(-1) ?: false
-        }
-
-        mBinding.arrow.doOnLayout {
-            it.pivotY = it.height.toFloat()
-        }
-        mBinding.info2.text = buildSpannedString {
-            append("원금대비 ")
-            bold {
-                color(resources.getColor(R.color.blueberry)) {
-                    append("170%")
-                }
-            }
-            color(resources.getColor(R.color.coral)){
-                append(" 상승!")
-            }
-        }
-        mBinding.bottomSheet1.charge setOnDebounceClickListener {
-            startActivity(ChargeActivity::class)
-        }
+    private fun initBottomSheets() {
         sheet1Behavior.addBottomSheetCallback(object : BottomSheetBehavior.BottomSheetCallback() {
             @SuppressLint("SetTextI18n")
             override fun onSlide(bottomSheet: View, slideOffset: Float) {
@@ -168,11 +151,69 @@ class StatusFragment : DaggerFragment(), HasDefaultViewModelProviderFactory {
                 }
             }
         })
+    }
+
+    private fun initView() {
+
+        //region base screen
+        mBinding.arrow.doOnLayout {
+            it.pivotY = it.height.toFloat()
+        }
+        mBinding.info2.text = buildSpannedString {
+            append("원금대비 ")
+            bold {
+                color(resources.getColor(R.color.blueberry)) {
+                    append("170%")
+                }
+            }
+            color(resources.getColor(R.color.coral)){
+                append(" 상승!")
+            }
+        }
+        //endregion
+
+        //region Sheet1
+        mBinding.bottomSheet1.scrollView.setOnScrollChangeListener { v: NestedScrollView?, _: Int, _: Int, _: Int, _: Int ->
+            mBinding.bottomSheet1.shadow.isActivated = v?.canScrollVertically(-1) ?: false
+        }
+
+        mBinding.bottomSheet1.charge setOnDebounceClickListener {
+            startActivity(ChargeActivity::class)
+        }
 
         mBinding.bottomSheet1.recyclerView.apply {
-            adapter = RecentFundingAdapter().apply { submitList(listOf("","","","")) }
-
+            adapter = RecentFundingAdapter()
         }
+        //endregion
+
+        //region Sheet2
+        mBinding.bottomSheet2.onGoingRecyclerView.apply {
+            adapter = FundingOnGoingAdapter()
+            addItemDecoration(LinearItemDecoration(15))
+        }
+
+        mBinding.bottomSheet2.completeRecyclerView.apply {
+            adapter = FundingCompleteAdapter()
+            addItemDecoration(LinearItemDecoration(15))
+        }
+
+        mBinding.bottomSheet2.tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+            override fun onTabReselected(tab: TabLayout.Tab?) {
+            }
+
+            override fun onTabUnselected(tab: TabLayout.Tab?) {
+            }
+
+            override fun onTabSelected(tab: TabLayout.Tab?) {
+                mViewModel.sheet2TabIndex.value = tab?.position
+            }
+        })
+        //endregion
+
+
+
+
+
     }
 
     private fun startBackgroundAnimations() {
@@ -219,6 +260,11 @@ class StatusFragment : DaggerFragment(), HasDefaultViewModelProviderFactory {
                         sheet2Behavior.swipeEnabled = true
                     }
                 }
+            }
+
+            sheet2TabIndex.observe(viewLifecycleOwner) {index->
+                if(mBinding.bottomSheet2.tabLayout?.selectedTabPosition != index)
+                    mBinding.bottomSheet2.tabLayout.getTabAt(index)?.select()
             }
         }
     }

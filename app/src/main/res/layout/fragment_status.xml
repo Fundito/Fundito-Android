@@ -82,11 +82,12 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <include
+            vm = "@{vm}"
             android:id="@+id/bottomSheet1"
             layout="@layout/layout_status2"
             />
         <include
-
+            vm = "@{vm}"
             android:id="@+id/bottomSheet2"
             layout="@layout/layout_status3"
             />
