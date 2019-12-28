@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="vm"
+            type="com.fundito.fundito.presentation.main.status.StatusViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout android:background="@color/white"
+        android:clipChildren="false"
+        android:clipToPadding="false"
+        android:elevation="24dp"
+
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        app:layout_behavior="com.fundito.fundito.common.widget.LockableBottomSheetBehavior"
+        app:behavior_hideable="false"
+        app:behavior_peekHeight="50dp"
+        tools:background="@color/black"
+        android:layout_width="match_parent"
+
+        android:layout_height="match_parent">
+
+        <View
+            android:id="@+id/zigzag"
+            android:layout_width="match_parent"
+            android:layout_height="12dp"
+            android:background="@drawable/background_status"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="46dp"
+            android:layout_height="2dp"
+            android:layout_marginTop="32dp"
+            app:cardBackgroundColor="@color/brown_grey"
+            app:cardCornerRadius="1dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <FrameLayout
+            android:layout_marginTop="12dp"
+            android:paddingTop="40dp"
+            android:background="@color/white"
+            android:id="@+id/sceneContainer"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <include
+                vm = "@{vm}"
+                layout="@layout/layout_status3_scene2"/>
+
+        </FrameLayout>
+
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
+

@@ -2,6 +2,7 @@ package com.fundito.fundito.presentation.main.status
 
 import android.animation.ObjectAnimator
 import android.annotation.SuppressLint
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -18,6 +19,8 @@ import androidx.core.widget.NestedScrollView
 import androidx.lifecycle.HasDefaultViewModelProviderFactory
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.observe
+import androidx.transition.Scene
+import androidx.transition.TransitionManager
 import com.fundito.fundito.R
 import com.fundito.fundito.common.fadeIn
 import com.fundito.fundito.common.post
@@ -27,15 +30,17 @@ import com.fundito.fundito.common.util.toMoney
 import com.fundito.fundito.common.util.toPixel
 import com.fundito.fundito.common.widget.LinearItemDecoration
 import com.fundito.fundito.common.widget.LockableBottomSheetBehavior
+import com.fundito.fundito.common.widget.observeOnce
 import com.fundito.fundito.common.widget.setOnDebounceClickListener
 import com.fundito.fundito.databinding.FragmentStatusBinding
+import com.fundito.fundito.databinding.LayoutStatus3Scene1Binding
+import com.fundito.fundito.databinding.LayoutStatus3Scene2Binding
 import com.fundito.fundito.di.module.ViewModelFactory
 import com.fundito.fundito.presentation.charge.ChargeActivity
 import com.fundito.fundito.presentation.main.MainActivity
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.tabs.TabLayout
 import dagger.android.support.DaggerFragment
-import timber.log.Timber
 import javax.inject.Inject
 import kotlin.math.roundToInt
 import kotlin.math.roundToLong
@@ -63,11 +68,33 @@ class StatusFragment : DaggerFragment(), HasDefaultViewModelProviderFactory {
     private val sheet2Behavior : LockableBottomSheetBehavior<*> by lazy { (mBinding.bottomSheet2.root.layoutParams as CoordinatorLayout.LayoutParams).behavior as LockableBottomSheetBehavior }
 
     /**
+     * Sheet2 Scene Bindings
+     */
+    private val scene1Binding: LayoutStatus3Scene1Binding by lazy {
+        LayoutStatus3Scene1Binding.inflate(LayoutInflater.from(requireContext())).also {
+            it.lifecycleOwner = viewLifecycleOwner
+            it.vm = mViewModel
+        }
+    }
+    private val scene2Binding: LayoutStatus3Scene2Binding by lazy {
+        LayoutStatus3Scene2Binding.inflate(LayoutInflater.from(requireContext())).also {
+            it.lifecycleOwner = viewLifecycleOwner
+            it.vm = mViewModel
+        }
+    }
+
+    /**
      * Backpress event handling
      */
     private val backPressedDispatcher by lazy { requireActivity().onBackPressedDispatcher }
     private val backPressedCallback = object : OnBackPressedCallback(true) {
         override fun handleOnBackPressed() {
+
+            if (mViewModel.sceneIndex.value == 1) {
+                mViewModel.sceneIndex.value = 0
+                return
+            }
+
             val curSheetCount = mViewModel.sheetOpenCount.value ?: 0
 
             when(curSheetCount) {
@@ -105,7 +132,6 @@ class StatusFragment : DaggerFragment(), HasDefaultViewModelProviderFactory {
          * 스크린 크기 - 하단 메뉴높이 - 툴바 높이 - 대략의 status bar 높이
          */
         val estimatedSheetHeight = resources.displayMetrics.heightPixels - resources.getDimension(R.dimen.bottomNavigiationViewHeight) - resources.getDimension(R.dimen.toolbarHeight) - 30.toPixel()
-        Timber.e(estimatedSheetHeight.toString())
         mBinding.bottomSheet1.root.doOnLayout {
             it.updateLayoutParams { height = estimatedSheetHeight.roundToInt() }
         }
@@ -135,6 +161,7 @@ class StatusFragment : DaggerFragment(), HasDefaultViewModelProviderFactory {
                 }
             }
         })
+
         sheet2Behavior.addBottomSheetCallback(object : BottomSheetBehavior.BottomSheetCallback() {
             override fun onSlide(bottomSheet: View, slideOffset: Float) {
             }
@@ -187,17 +214,20 @@ class StatusFragment : DaggerFragment(), HasDefaultViewModelProviderFactory {
         //endregion
 
         //region Sheet2
-        mBinding.bottomSheet2.onGoingRecyclerView.apply {
-            adapter = FundingOnGoingAdapter()
+
+        scene1Binding.onGoingRecyclerView.apply {
+            adapter = FundingOnGoingAdapter {
+                mViewModel.sceneIndex.value = 1
+            }
             addItemDecoration(LinearItemDecoration(15))
         }
 
-        mBinding.bottomSheet2.completeRecyclerView.apply {
+        scene1Binding.completeRecyclerView.apply {
             adapter = FundingCompleteAdapter()
             addItemDecoration(LinearItemDecoration(15))
         }
 
-        mBinding.bottomSheet2.tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+        scene1Binding.tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabReselected(tab: TabLayout.Tab?) {
             }
 
@@ -233,6 +263,11 @@ class StatusFragment : DaggerFragment(), HasDefaultViewModelProviderFactory {
         }
 
         mViewModel.apply {
+
+            dispatchBackPressEvent.observeOnce(viewLifecycleOwner) {
+                backPressedDispatcher.onBackPressed()
+            }
+
             sheetOpenCount.observe(viewLifecycleOwner) {count->
                 when(count) {
 
@@ -247,7 +282,7 @@ class StatusFragment : DaggerFragment(), HasDefaultViewModelProviderFactory {
                     }
 
                     1 -> {
-                        sheet1Behavior.swipeEnabled = true
+                        sheet1Behavior.swipeEnabled = false
                         sheet2Behavior.swipeEnabled = true
 
                         backPressedCallback.isEnabled = true
@@ -257,14 +292,29 @@ class StatusFragment : DaggerFragment(), HasDefaultViewModelProviderFactory {
 
                     2-> {
                         sheet1Behavior.swipeEnabled = false
-                        sheet2Behavior.swipeEnabled = true
+                        sheet2Behavior.swipeEnabled = false
                     }
                 }
             }
 
             sheet2TabIndex.observe(viewLifecycleOwner) {index->
-                if(mBinding.bottomSheet2.tabLayout?.selectedTabPosition != index)
-                    mBinding.bottomSheet2.tabLayout.getTabAt(index)?.select()
+                if (scene1Binding.tabLayout?.selectedTabPosition != index)
+                    scene1Binding.tabLayout.getTabAt(index)?.select()
+            }
+
+            sceneIndex.observe(viewLifecycleOwner) { index ->
+                val scene = Scene(mBinding.bottomSheet2.sceneContainer, if (index == 0) scene1Binding.root else scene2Binding.root)
+                TransitionManager.go(scene)
+
+                if(index == 1) {
+                    requireActivity().window.statusBarColor = resources.getColor(R.color.blueberry_two)
+                    View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or View.SYSTEM_UI_FLAG_FULLSCREEN or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+                }else {
+                    requireActivity().window.statusBarColor = Color.WHITE
+                    View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+                }
+
+
             }
         }
     }

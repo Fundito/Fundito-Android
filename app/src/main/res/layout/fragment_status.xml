@@ -14,11 +14,27 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
 
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:animateLayoutChanges="true"
+            android:background="@{vm.sceneIndex == 1 ? @drawable/background_status_store_detail : @drawable/empty}"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             >
+
+            <ImageButton
+                android:visibility="@{vm.sheetOpenCount &gt; 0}"
+                android:tint="@color/black"
+                android:onDebounceClick="@{() -> vm.onClickBack()}"
+                android:id="@+id/backButton"
+                android:layout_marginLeft="16dp"
+                android:scaleType="fitCenter"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/toolbarHeight"
+                android:src="@drawable/ic_back"/>
 
             <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/guide"
@@ -89,7 +105,7 @@
         <include
             vm = "@{vm}"
             android:id="@+id/bottomSheet2"
-            layout="@layout/layout_status3"
+            layout="@layout/layout_status3_container"
             />
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>

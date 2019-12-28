@@ -7,12 +7,13 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.fundito.fundito.BR
+import com.fundito.fundito.common.widget.setOnDebounceClickListener
 import com.fundito.fundito.databinding.ItemFundingOngoingBinding
 
 /**
  * Created by mj on 28, December, 2019
  */
-class FundingOnGoingAdapter : ListAdapter<String, FundingOnGoingAdapter.FundingOnGoingHolder>(DIFF) {
+class FundingOnGoingAdapter(private val onItemClick : () -> Unit) : ListAdapter<String, FundingOnGoingAdapter.FundingOnGoingHolder>(DIFF) {
 
     companion object {
         private val DIFF = object : DiffUtil.ItemCallback<String>() {
@@ -43,6 +44,13 @@ class FundingOnGoingAdapter : ListAdapter<String, FundingOnGoingAdapter.FundingO
 
 
     inner class FundingOnGoingHolder(private val binding: ItemFundingOngoingBinding) : RecyclerView.ViewHolder(binding.root) {
+
+        init {
+            binding.root setOnDebounceClickListener {
+                onItemClick()
+            }
+        }
+
         fun bind(item: String) {
             binding.setVariable(BR.item, item)
             binding.executePendingBindings()
