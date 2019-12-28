@@ -19,4 +19,8 @@ abstract class ActivityContributor {
     @ContributesAndroidInjector(modules = [ChargeActivityModule::class])
     @ActivityScope
     abstract fun contributesChargeActivity() : ChargeActivity
+
+    @ContributesAndroidInjector(modules = [FeedFriendDetailActivityModule::class])
+    @ActivityScope
+    abstract fun contributesFeedFriendDetailActivity() : FeedFriendDetailActivityModule
 }
