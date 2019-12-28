@@ -16,7 +16,9 @@
             app:layout_constraintTop_toTopOf="parent"
             android:id="@+id/toolbar"
             layout="@layout/layout_toolbar"/>
-        
+
+
+
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_marginTop="22dp"
             android:layout_marginLeft="24dp"
@@ -127,7 +129,7 @@
                 app:layout_constraintRight_toRightOf="parent"
                 android:layout_width="0dp"
                 android:layout_height="0.5dp"
-                android:background="#cccccc"/>
+                android:background="@{vm.visiblePlaceHolder ? @color/brown_grey : @color/colorPrimary}"/>
 
             <TextView
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -144,6 +146,11 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
         
         <com.google.android.material.button.MaterialButton
+            android:clickable="@{!vm.visiblePlaceHolder}"
+            android:backgroundTint="@{!vm.visiblePlaceHolder ? @color/colorPrimary : @color/white}"
+            android:textColor="@{!vm.visiblePlaceHolder ? @color/white : @color/brown_grey}"
+            app:strokeColor="@color/brown_grey"
+
             android:id="@+id/completeButton"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -154,6 +161,19 @@
             android:text="입력 완료"
             android:layout_width="0dp"
             android:layout_height="58dp"/>
+
+        <androidx.fragment.app.FragmentContainerView
+            android:visibility="gone"
+            android:elevation="24dp"
+            android:outlineProvider="none"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            android:background="@color/white"
+            android:id="@+id/completeFragmentContainer"
+            app:layout_constraintTop_toBottomOf="@id/toolbar"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

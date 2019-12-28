@@ -2,9 +2,12 @@ package com.fundito.fundito.di.module
 
 import androidx.lifecycle.ViewModel
 import com.fundito.fundito.di.ActivityScope
+import com.fundito.fundito.di.FragmentScope
+import com.fundito.fundito.presentation.charge.ChargeCompleteFragment
 import com.fundito.fundito.presentation.charge.ChargeViewModel
 import dagger.Binds
 import dagger.Module
+import dagger.android.ContributesAndroidInjector
 import dagger.multibindings.IntoMap
 
 /**
@@ -18,4 +21,7 @@ abstract class ChargeActivityModule {
     @ViewModelKey(ChargeViewModel::class)
     abstract fun bindViewModel(viewModel : ChargeViewModel) : ViewModel
 
+    @ContributesAndroidInjector
+    @FragmentScope
+    abstract fun contributesChargeCompleteFragment() : ChargeCompleteFragment
 }

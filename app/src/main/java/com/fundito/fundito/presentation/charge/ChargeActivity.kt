@@ -4,10 +4,14 @@ import android.animation.ObjectAnimator
 import android.os.Bundle
 import android.view.LayoutInflater
 import androidx.core.animation.doOnStart
+import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
 import com.fundito.fundito.common.util.addCharForMoneyRepresentation
 import com.fundito.fundito.common.util.removeLatestMoneyCharacter
 import com.fundito.fundito.common.util.toMoneyLong
+import com.fundito.fundito.common.widget.KeyboardDialogFragment.Companion.PASSWORD_MAX_LEN
+import com.fundito.fundito.common.widget.hideKeyboard
+import com.fundito.fundito.common.widget.observeOnce
 import com.fundito.fundito.common.widget.setOnDebounceClickListener
 import com.fundito.fundito.common.widget.showKeyboard
 import com.fundito.fundito.databinding.ActivityChargeBinding
@@ -37,11 +41,12 @@ class ChargeActivity : DaggerAppCompatActivity() {
         mBinding.vm = mViewModel
 
         initView()
+        observeViewModel()
     }
 
     private fun initView() {
         mBinding.moneyContainer setOnDebounceClickListener {
-            showKeyboard {number->
+            showKeyboard(onNumberClick = { number ->
 
                 val nextText = if (number != -1) {
                     mBinding.moneyText.text.toString().addCharForMoneyRepresentation(number)
@@ -68,12 +73,59 @@ class ChargeActivity : DaggerAppCompatActivity() {
 
                 mViewModel.chargeMoney.value = nextText.toMoneyLong()
 
-            }
+            })
         }
 
         mBinding.toolbar.backButton setOnDebounceClickListener {
             onBackPressed()
         }
+
+        mBinding.completeButton setOnDebounceClickListener {
+            showKeyboard(true, {
+
+            }, { password ->
+                /**
+                 * Password Change
+                 */
+                if (password.length == PASSWORD_MAX_LEN)
+                    mViewModel.onTypedPasswordComplete(password)
+            })
+        }
+    }
+
+    private fun observeViewModel() {
+        mViewModel.apply {
+            passwordMatch.observeOnce(this@ChargeActivity) { matched ->
+
+                /**
+                 * 패스워드 매칭 성공
+                 */
+                if (matched) {
+                    showCompleteScreen()
+                }
+                /**
+                 * 패스워드 매칭 실패
+                 */
+                else {
+
+                }
+
+            }
+        }
+    }
+
+    private fun showCompleteScreen() {
+        hideKeyboard()
+        supportFragmentManager.beginTransaction()
+            .add(mBinding.completeFragmentContainer.id, ChargeCompleteFragment.newInstance(), "CompleteScreen").commit()
+        mBinding.completeFragmentContainer.isVisible = true
+    }
+
+    private fun hideCompleteScreen() {
+        supportFragmentManager.findFragmentByTag("CompleteScreen")?.let {
+            supportFragmentManager.beginTransaction().remove(it).commit()
+        }
+        mBinding.completeFragmentContainer.isVisible = false
     }
 
 }
