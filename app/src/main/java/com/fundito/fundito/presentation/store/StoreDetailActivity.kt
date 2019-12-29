@@ -174,15 +174,15 @@ class StoreDetailActivity : AppCompatActivity(), HasDefaultViewModelProviderFact
                     RefundType.REFUND_150 -> {
                         mBinding.content.graph1.progress = 0f
                         mBinding.content.graph2.progress = 0f
-                        mBinding.content.graph3.progress = (1f - store.refundPercentOfPercent/100f)
+                        mBinding.content.graph3.progress = store.refundPercentOfPercent/100f
                     }
                     RefundType.REFUND_175-> {
                         mBinding.content.graph1.progress = 0f
-                        mBinding.content.graph2.progress = (1f - store.refundPercentOfPercent/100f)
+                        mBinding.content.graph2.progress = store.refundPercentOfPercent/100f
                         mBinding.content.graph3.progress = 1f
                     }
                     RefundType.REFUND_200-> {
-                        mBinding.content.graph1.progress = (1f - store.refundPercentOfPercent/100f)
+                        mBinding.content.graph1.progress = store.refundPercentOfPercent/100f
                         mBinding.content.graph2.progress = 1f
                         mBinding.content.graph3.progress = 1f
                     }

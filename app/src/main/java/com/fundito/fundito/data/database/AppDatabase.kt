@@ -11,7 +11,7 @@ import com.google.gson.annotations.SerializedName
 abstract class AppDatabase : RoomDatabase() {
 
     companion object {
-        const val DATABASE_NAME = "1"
+        const val DATABASE_NAME = "2"
     }
 
     abstract fun searchDao() : SearchDao

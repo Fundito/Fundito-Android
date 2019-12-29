@@ -20,10 +20,11 @@ class StoreDetailViewModel(private val storeIdx : Int) : ViewModel() {
 
     private val _store : MutableLiveData<Store> = MutableLiveData()
     val store : LiveData<Store> = _store
-    
+
     val menus = store.map {
         it.menus.map { StoreDetailItem(it.name,it.price) }
     }
+
     val etcs: LiveData<List<StoreDetailItem>> = store.map {
         listOf(
             "영업 시간" to it.businessHour,

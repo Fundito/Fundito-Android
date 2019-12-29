@@ -7,6 +7,7 @@ import android.view.inputmethod.InputMethodManager
 import androidx.lifecycle.HasDefaultViewModelProviderFactory
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.observe
 import androidx.recyclerview.widget.RecyclerView
 import com.fundito.fundito.common.util.startActivity
 import com.fundito.fundito.common.widget.setOnDebounceClickListener
@@ -19,7 +20,6 @@ import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import reactivecircus.flowbinding.android.widget.textChanges
-import timber.log.Timber
 
 /**
  * Created by mj on 26, December, 2019
@@ -44,6 +44,7 @@ class SearchActivity : DaggerAppCompatActivity(),HasDefaultViewModelProviderFact
         mBinding.vm = mViewModel
 
         initView()
+        observeViewModel()
     }
 
     private fun initView() {
@@ -56,8 +57,9 @@ class SearchActivity : DaggerAppCompatActivity(),HasDefaultViewModelProviderFact
         mBinding.textField.apply {
             textChanges()
                 .debounce(300L)
+//                .distinctUntilChanged()
                 .onEach {
-                    Timber.e(it.toString())
+                    mViewModel.onQueryChanged()
                 }
                 .launchIn(lifecycleScope)
         }
@@ -88,6 +90,14 @@ class SearchActivity : DaggerAppCompatActivity(),HasDefaultViewModelProviderFact
             }
         }
 
+    }
+
+    private fun observeViewModel() {
+        mViewModel.apply {
+            this.items.observe(this@SearchActivity) {
+                mBinding.result.text = it.size.toString() + "건"
+            }
+        }
     }
     
 }
