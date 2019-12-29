@@ -3,6 +3,7 @@ package com.fundito.fundito.data.service
 import android.os.Parcelable
 import com.fundito.fundito.common.util.SPUtil
 import com.google.gson.GsonBuilder
+import com.google.gson.JsonSyntaxException
 import com.google.gson.annotations.SerializedName
 import com.google.gson.reflect.TypeToken
 import kotlinx.android.parcel.Parcelize
@@ -18,10 +19,12 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 /**
  * Created by mj on 22, December, 2019
+ *
+ * @author MJ
  */
 object NetworkClient {
 
-    private const val BASE_URL = "http://15.165.109.29:8080"
+    private const val BASE_URL = "http://15.165.109.29:3000"
 
     private val loggingInterceptor = HttpLoggingInterceptor(HttpLoggingInterceptor.Logger.DEFAULT).apply {
         this.level = HttpLoggingInterceptor.Level.BODY
@@ -29,26 +32,45 @@ object NetworkClient {
 
     private val commonNetworkInterceptor = object : Interceptor {
         override fun intercept(chain: Interceptor.Chain): Response {
+
+            /**
+             * 1) Common Header with API Access Token
+             */
             val newRequest = chain.request().newBuilder()
                 .addHeader("token",SPUtil.accessToken).build()
-            val response = chain.proceed(newRequest)
-            val json = response.body?.string() ?: """
-                {
-                    "status": -999,
-                    "success": false,
-                    "message": json parsing fail"
-                }
-                """.trimIndent()
 
+            /**
+             * 2) General Response from Server (Unwrapping data)
+             */
+            val response = chain.proceed(newRequest)
+
+            /**
+             * 3) Parse body to json
+             */
+            val rawJson = response.body?.string() ?: "{}"
+
+            /**
+             * 4) declare type instance of general response wrapper
+             */
             val type = object : TypeToken<ResponseWrapper<*>>(){}.type
 
-            val res = gson.fromJson<ResponseWrapper<*>>(json,type)
+            /**
+             * 5) Wrap body with gson
+             */
+            val res = try{
+                gson.fromJson<ResponseWrapper<*>>(rawJson,type) ?: throw JsonSyntaxException("Parse Fail")
+            } catch(e : JsonSyntaxException) {
+                ResponseWrapper<Any>(-999,false,"json parsing fail : $e",false)
+            }
 
-            if(!res.success)
-                return response
-
+            /**
+             * 6) get data json from data
+             */
             val dataJson = gson.toJson(res.data!!)
 
+            /**
+             * 7) return unwrapped response with body
+             */
             return response.newBuilder()
                 .body(dataJson.toResponseBody())
                 .build()
@@ -95,7 +117,7 @@ data class ResponseWrapper<T>(
     @SerializedName("message")
     val message : String,
     @SerializedName("data")
-    val data : @RawValue T?
+    val data : @RawValue T? = null
 ) : Parcelable
 
 //fun <T> ResponseWrapper<T>.unwrap() : T {

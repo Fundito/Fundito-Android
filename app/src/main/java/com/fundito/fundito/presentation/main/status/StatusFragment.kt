@@ -240,6 +240,10 @@ class StatusFragment : DaggerFragment(), HasDefaultViewModelProviderFactory {
             }
         })
 
+        scene2Binding.recyclerView.apply {
+            adapter = RecentFundingAdapter()
+        }
+
         scene2Binding.detail setOnDebounceClickListener {
             startActivity(StoreDetailActivity::class)
         }

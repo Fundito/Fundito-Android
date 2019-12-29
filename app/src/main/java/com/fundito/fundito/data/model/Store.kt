@@ -31,4 +31,12 @@ data class Store(
     val thumbnail : String,
     @SerializedName("wifi_SSID")
     val wifiSSID : String
-) : Parcelable
+) : Parcelable {
+    @Parcelize
+    data class Menu(
+        @SerializedName("menu_name")
+        val name : String,
+        @SerializedName("menu_price")
+        val price : String
+    ) : Parcelable
+}

@@ -17,7 +17,7 @@ class MainViewModel @Inject constructor()  : ViewModel() {
         viewModelScope.launch {
 
             runCatching {
-                fundingService.getMyFundingHistories(1)
+                fundingService.fundWithPassword(1,"123123",1,5000)
             }.onSuccess {
                 Timber.e(it.toString())
             }.onFailure {
