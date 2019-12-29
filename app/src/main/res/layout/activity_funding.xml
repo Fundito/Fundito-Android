@@ -13,12 +13,39 @@
 
 
     <!--   이미지 -->
-    
     <androidx.constraintlayout.widget.ConstraintLayout
         app:layout_constraintTop_toBottomOf="@id/toolbar"
         android:id="@+id/imageContainer"
         android:layout_width="match_parent"
-        android:layout_height="120dp"/>
+        android:layout_marginLeft="28dp"
+        android:layout_marginRight="28dp"
+        android:layout_height="120dp">
+
+        <ImageView
+        android:id="@+id/progressFirstImg"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/progress_first_img"
+        />
+        <ImageView
+            android:id="@+id/progressSecondImg"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/progress_second_img"
+            android:visibility="gone"
+            />
+        <ImageView
+            android:id="@+id/progressThirdImg"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/progress_third_img"
+            android:visibility="gone"
+            />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+
 
     <com.fundito.fundito.common.view.NoScrollViewPager
         android:id="@+id/fundingViewpager"
