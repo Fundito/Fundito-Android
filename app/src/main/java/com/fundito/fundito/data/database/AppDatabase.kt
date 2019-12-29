@@ -1,5 +1,6 @@
 package com.fundito.fundito.data.database
 
+import androidx.lifecycle.LiveData
 import androidx.room.*
 
 /**
@@ -43,7 +44,7 @@ interface SearchDao{
     suspend fun delete(item : SearchItem)
 
     @Query("SELECT * FROM SearchItem ORDER BY id DESC LIMIT :limit")
-    suspend fun list(limit : Int = 10) : List<SearchItem>
+    fun list(limit : Int = 10) : LiveData<List<SearchItem>>
 
     @Query("DELETE FROM SearchItem WHERE id IN (SELECT id FROM SearchItem ORDER BY id ASC LIMIT 10)")
     suspend fun deleteTenItems() : Int

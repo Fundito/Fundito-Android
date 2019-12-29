@@ -11,5 +11,14 @@ import kotlinx.android.parcel.Parcelize
 data class User(
     @SerializedName("user_idx")
     val userIdx : Int,
-    val name : String
+    @SerializedName("id")
+    var id : String,
+    @SerializedName("name")
+    val name : String,
+    @SerializedName("nickname")
+    val nickname : String?,
+    @SerializedName("pay_password")
+    val payPassword : String?,
+    @SerializedName("point")
+    val point : Int
 ) : Parcelable

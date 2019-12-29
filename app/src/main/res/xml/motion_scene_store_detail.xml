@@ -47,10 +47,12 @@
 
         <Constraint
             android:id="@+id/shopName"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
 
             android:layout_marginBottom="8dp"
+            app:layout_constraintRight_toRightOf="parent"
+            android:layout_marginRight="16dp"
             app:layout_constraintBottom_toTopOf="@+id/dueRemain1"
             app:layout_constraintLeft_toLeftOf="@id/progressText1" />
 
@@ -148,11 +150,13 @@
 
         <Constraint
             android:id="@+id/shopName"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
             android:scaleX="0.833"
 
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="40dp"
             android:scaleY="0.833"
             app:layout_constraintBottom_toBottomOf="@id/toolbarContainer"
             app:layout_constraintLeft_toLeftOf="@id/toolbarContainer"

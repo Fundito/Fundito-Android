@@ -19,8 +19,6 @@
             android:id="@+id/content"
             layout="@layout/layout_store_detail_content"/>
 
-
-
         <com.google.android.material.appbar.AppBarLayout
             android:background="@color/white"
             android:layout_width="match_parent"
@@ -40,7 +38,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/investment"
+                android:id="@+id/fund"
 
                 android:layout_marginLeft="10dp"
 

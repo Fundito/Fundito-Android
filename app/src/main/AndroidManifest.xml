@@ -46,6 +46,7 @@
 
         <activity android:name=".presentation.main.MainActivity"
             android:screenOrientation="portrait"
+            android:exported="true"
             android:configChanges="screenLayout|orientation|fontScale|locale|screenSize"
             />
         <activity android:name=".presentation.store.StoreDetailActivity"
