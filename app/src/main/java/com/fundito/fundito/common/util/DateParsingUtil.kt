@@ -8,8 +8,8 @@ import java.util.*
  */
 object DateParsingUtil {
 
-    private val simpleDateFormat = SimpleDateFormat("YYYY-MM-dd HH:mm:ss", Locale.KOREA)
-    private val fallbackFormat = SimpleDateFormat("YYYY-MM-dd'T'HH:mm:ss.SSSZ",Locale.KOREA)
+    private val simpleDateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.KOREA)
+    private val fallbackFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ",Locale.KOREA)
 
     fun parseToYMD(src : Calendar, separator : String = ".") : String {
         val year = src[Calendar.YEAR]

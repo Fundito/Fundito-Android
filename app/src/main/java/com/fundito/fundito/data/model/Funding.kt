@@ -9,6 +9,8 @@ import kotlinx.android.parcel.Parcelize
  */
 @Parcelize
 data class Funding(
+    @SerializedName("nickname")
+    val nickname : String = "닉네임",
     @SerializedName("funding_idx")
     val fundingIdx : Int,
     @SerializedName("user_idx")
@@ -20,5 +22,7 @@ data class Funding(
     @SerializedName("reward_percent")
     val rewardPercent : Int,
     @SerializedName("funding_time")
-    val fundingTime : String
+    val fundingTime : String,
+    @SerializedName("reward_money")
+    val rewardMoney : Int
 ) : Parcelable

@@ -35,6 +35,8 @@ class SearchViewModel @Inject constructor(
         kotlin.runCatching {
             NetworkClient.storeInfoService.searchStoreWithKeyword(query.value!!)
         }.onSuccess {
+
+
             Timber.e(it.toString())
             _items.value = it.mapNotNull {
                 try {
