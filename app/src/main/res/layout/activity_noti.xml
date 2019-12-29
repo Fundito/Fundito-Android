@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    >
+
+    <data>
+        <variable
+            name="vm"
+            type="com.fundito.fundito.presentation.noti.NotiViewModel" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <include
+            android:id="@+id/toolbar"
+            app:layout_constraintTop_toTopOf="parent"
+            title = '@{"알림"}'
+            layout="@layout/layout_toolbar"/>
+        <View
+            app:layout_constraintTop_toBottomOf="@id/toolbar"
+            android:id="@+id/shadow"
+            android:stateListAnimator="@animator/shadow_selector_animator"
+            android:background="@drawable/status_sheet_toolbar_shadow"
+            android:layout_width="match_parent"
+            android:alpha="0"
+            android:layout_height="4dp"/>
+
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            app:recyclerview_Noti_items="@{vm.notiItems}"
+            android:id="@+id/recyclerView"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/toolbar"
+
+            android:layout_width="match_parent"
+            android:layout_height="0dp"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+    
+</layout>

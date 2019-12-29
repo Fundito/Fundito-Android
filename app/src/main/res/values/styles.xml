@@ -91,7 +91,7 @@
 
 
     <style name="TextAppearance.AppCompat.Fundito.BottomNavigation">
-        <item name="android:textSize">13sp</item>
+        <item name="android:textSize">10sp</item>
     </style>
 
     <style name="TextAppearance.AppCompat.Fundito.TabLayout">

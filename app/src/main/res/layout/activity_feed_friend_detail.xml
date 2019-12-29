@@ -13,13 +13,60 @@
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:background="@color/pale_grey"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <include
+            title='@{"강영우님의 투자현황"}'
             android:id="@+id/toolbar"
             app:layout_constraintTop_toTopOf="parent"
             layout="@layout/layout_toolbar"/>
+
+        <TextView
+            android:id="@+id/name"
+            android:layout_marginTop="13dp"
+            android:layout_marginLeft="16dp"
+            app:layout_constraintTop_toBottomOf="@id/toolbar"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:textColor="@color/dark_navy"
+            android:lineSpacingExtra="12sp"
+            android:text="강영우 님"
+            />
+        <TextView
+            android:layout_marginLeft="16dp"
+            android:id="@+id/fundingInfo"
+            android:layout_marginTop="6dp"
+            app:layout_constraintTop_toBottomOf="@id/name"
+            app:layout_constraintLeft_toLeftOf="parent"
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            android:textColor="#707070"
+            android:lineSpacingExtra="6sp"
+            android:text="총 3개의 지점 투자 중 "
+            />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:background="@color/transparent"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:recyclerview_FundingOnGoing_items="@{vm.items}"
+            android:orientation="vertical"
+            android:id="@+id/recyclerView"
+            tools:listitem="@layout/item_funding_ongoing"
+            tools:itemCount="4"
+            android:paddingTop="24dp"
+            android:paddingBottom="24dp"
+            android:clipToPadding="false"
+            app:layout_constraintTop_toBottomOf="@id/fundingInfo"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"/>
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
     

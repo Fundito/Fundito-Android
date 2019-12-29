@@ -13,6 +13,7 @@
         android:layout_height="match_parent">
 
         <include
+            title='@{"펀디토 충전"}'
             app:layout_constraintTop_toTopOf="parent"
             android:id="@+id/toolbar"
             layout="@layout/layout_toolbar"/>
@@ -71,7 +72,6 @@
             app:layout_constraintBottom_toBottomOf="@id/guide"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-
 
             <TextView
                 android:visibility="@{vm.visiblePlaceHolder}"

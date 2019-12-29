@@ -29,3 +29,8 @@ fun ImageView.loadUrlAsync(url : String?, placeholder : Drawable? = null) {
 fun View.setVisibilityBinding(isVisible : Boolean) {
     this.isVisible = isVisible
 }
+
+@BindingAdapter("app:selected_binding")
+fun View.setSelectedBinding(isSelected : Boolean) {
+    this.isSelected = isSelected
+}

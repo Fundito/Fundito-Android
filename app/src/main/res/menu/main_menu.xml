@@ -1,18 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
+        android:icon="@drawable/tab1_selector"
         android:id="@+id/main_menu_1"
         android:title="홈"
         />
     <item
+        android:icon="@drawable/tab2_selector"
         android:id="@+id/main_menu_2"
         android:title="피드"
         />
     <item
+        android:icon="@drawable/tab3_selector"
         android:id="@+id/main_menu_3"
-        android:title="현황"
+        android:title="내투자현황"
         />
     <item
+        android:icon="@drawable/tab4_selector"
         android:id="@+id/main_menu_4"
         android:title="더보기"
         />
