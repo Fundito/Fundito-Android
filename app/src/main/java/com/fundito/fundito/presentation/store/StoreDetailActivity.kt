@@ -1,5 +1,7 @@
 package com.fundito.fundito.presentation.store
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import androidx.appcompat.app.AppCompatActivity
@@ -11,11 +13,23 @@ import com.fundito.fundito.common.util.startActivity
 import com.fundito.fundito.common.widget.LinearItemDecoration
 import com.fundito.fundito.common.widget.setOnDebounceClickListener
 import com.fundito.fundito.databinding.ActivityStoreDetailBinding
+import com.fundito.fundito.presentation.funding.FundingActivity
 
 /**
  * Created by mj on 26, December, 2019
  */
 class StoreDetailActivity : AppCompatActivity(), HasDefaultViewModelProviderFactory {
+
+    companion object {
+
+        private const val ARG_STORE_IDX = "ARG_STORE_IDX"
+
+        fun newIntent(context : Context, storeIdx : Int) : Intent {
+            return Intent(context, StoreDetailActivity::class.java).apply {
+                putExtra(ARG_STORE_IDX, storeIdx)
+            }
+        }
+    }
 
     override fun getDefaultViewModelProviderFactory(): ViewModelProvider.Factory {
         return ViewModelFactory()
@@ -68,6 +82,10 @@ class StoreDetailActivity : AppCompatActivity(), HasDefaultViewModelProviderFact
         mBinding.content.timeLineRecyclerView.apply {
             adapter = TimeLineAdapter().apply { submitItems(listOf("","","","")) }
             addItemDecoration(LinearItemDecoration(12))
+        }
+
+        mBinding.fund setOnDebounceClickListener {
+            startActivity(FundingActivity::class)
         }
 
         mBinding.cheer setOnDebounceClickListener {

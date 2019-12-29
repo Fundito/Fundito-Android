@@ -60,7 +60,9 @@ object NetworkClient {
             val res = try{
                 gson.fromJson<ResponseWrapper<*>>(rawJson,type) ?: throw JsonSyntaxException("Parse Fail")
             } catch(e : JsonSyntaxException) {
-                ResponseWrapper<Any>(-999,false,"json parsing fail : $e",false)
+                ResponseWrapper<Any>(-12345,false,"json parsing fail : $e",false)
+            } catch(t : Throwable) {
+                ResponseWrapper<Any>(-99999,false,"unknown error : $t",false)
             }
 
             /**

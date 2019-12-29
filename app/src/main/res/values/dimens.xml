@@ -5,5 +5,5 @@
     <dimen name="keyboardNumberButtonHeight">50dp</dimen>
 
     <dimen name="cardCornerRadius">8dp</dimen>
-    <dimen name="cardElevation">4dp</dimen>
+    <dimen name="cardElevation">2dp</dimen>
 </resources>

@@ -47,7 +47,6 @@
             app:saturation="2" />
 
         <TextView
-
             app:layout_constraintRight_toRightOf="parent"
             android:scrollHorizontally="true"
             app:selected_binding="@{true}"

@@ -13,12 +13,6 @@ data class Store(
     val storeIdx : Int,
     @SerializedName("name")
     var name : String,
-    @SerializedName("tel_number")
-    val telNumber : String,
-    @SerializedName("location_latitude")
-    val latitude : String,
-    @SerializedName("location_longitude")
-    val longitude : String,
     @SerializedName("address")
     val address : String,
     @SerializedName("business_hour")
@@ -28,9 +22,19 @@ data class Store(
     @SerializedName("holiday")
     val holiday : String,
     @SerializedName("thumbnail")
-    val thumbnail : String,
-    @SerializedName("wifi_SSID")
-    val wifiSSID : String
+    val thumbnail : String?,
+    @SerializedName("menu")
+    val menus : List<Menu>,
+    @SerializedName("goal_money")
+    val goalMoney : Int,
+    @SerializedName("current_goal_percent")
+    val currentGoalPercent : Int,
+    @SerializedName("refund_percent")
+    val refundPercent : Int,
+    @SerializedName("refund_percent_of_percent")
+    val refundPercentOfPercent : Int,
+    @SerializedName("left_day")
+    val leftDay: String
 ) : Parcelable {
     @Parcelize
     data class Menu(
