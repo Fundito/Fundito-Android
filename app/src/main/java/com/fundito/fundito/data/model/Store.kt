@@ -34,7 +34,9 @@ data class Store(
     @SerializedName("refund_percent_of_percent")
     val refundPercentOfPercent : Int,
     @SerializedName("left_day")
-    val leftDay: String
+    val leftDay: Int,
+    @SerializedName("due_date")
+    val dueDate : String
 ) : Parcelable {
     @Parcelize
     data class Menu(

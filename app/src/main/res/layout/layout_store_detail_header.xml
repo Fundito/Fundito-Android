@@ -41,8 +41,8 @@
             android:layout_width="match_parent"
             android:layout_height="155dp"
 
+            android:background="#cecece"
             android:scaleType="centerCrop"
-            android:src="@drawable/sky"
             app:layout_constraintTop_toBottomOf="@id/toolbarContainer"
             app:saturation="2" />
 
@@ -52,15 +52,18 @@
             app:selected_binding="@{true}"
             android:ellipsize="marquee"
             android:fadingEdge="horizontal"
+            android:requiresFadingEdge="horizontal"
+            android:fadingEdgeLength="40dp"
+
             android:marqueeRepeatLimit="marquee_forever"
             android:singleLine="true"
-
             android:id="@+id/shopName"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
 
             android:layout_marginBottom="8dp"
-            android:text="유나네 어머니가 하는 맛있는 감자탕 집임 아빠는 안함"
+            tools:text="이소희네 닭발집"
+            android:text="@{vm.store.name}"
             android:textColor="@color/black"
             android:textSize="24sp"
             android:textStyle="bold"
@@ -85,7 +88,8 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="16dp"
             android:layout_marginBottom="8dp"
-            android:text="16일"
+            tools:text="16일"
+
             android:textColor="@color/black"
             android:textSize="16sp"
             android:textStyle="bold"

@@ -6,6 +6,7 @@ import android.widget.ImageView
 import androidx.core.view.isVisible
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
+import com.fundito.fundito.R
 
 /**
  * Created by mj on 24, December, 2019
@@ -14,13 +15,14 @@ import com.bumptech.glide.Glide
 @BindingAdapter("srcUrl","placeholder",requireAll = false)
 fun ImageView.loadUrlAsync(url : String?, placeholder : Drawable? = null) {
     if(url == null) {
-        Glide.with(this).load(placeholder).into(this)
+        Glide.with(this).load(placeholder ?: R.drawable.logo_img).error(R.drawable.logo_img).into(this)
     }else {
         Glide.with(this).load(url)
             .apply {
                 if(placeholder != null)
                     placeholder(placeholder)
             }
+            .error(R.drawable.logo_img)
             .into(this)
     }
 }

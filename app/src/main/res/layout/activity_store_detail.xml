@@ -42,7 +42,7 @@
 
                 android:layout_marginLeft="10dp"
 
-                android:text="결제 / 투자하기"
+                android:text="투자하기"
                 android:layout_width="wrap_content"
                 android:layout_weight="4"
                 android:layout_height="48dp"/>

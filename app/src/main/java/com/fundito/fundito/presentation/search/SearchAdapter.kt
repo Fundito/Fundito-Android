@@ -8,26 +8,27 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.fundito.fundito.common.widget.setOnDebounceClickListener
+import com.fundito.fundito.data.model.Store
 import com.fundito.fundito.databinding.ItemSearchBinding
 
 /**
  * Created by mj on 29, December, 2019
  */
-class SearchAdapter(private val onItemClick : () -> Unit) : ListAdapter<String, SearchAdapter.SearchHolder>(DIFF) {
+class SearchAdapter(private val onItemClick : (Store) -> Unit) : ListAdapter<Store, SearchAdapter.SearchHolder>(DIFF) {
 
     companion object {
-        private val DIFF = object : DiffUtil.ItemCallback<String>() {
-            override fun areItemsTheSame(oldItem: String, newItem: String): Boolean {
-                return oldItem == newItem
+        private val DIFF = object : DiffUtil.ItemCallback<Store>() {
+            override fun areItemsTheSame(oldItem: Store, newItem: Store): Boolean {
+                return oldItem.storeIdx == newItem.storeIdx
             }
 
-            override fun areContentsTheSame(oldItem: String, newItem: String): Boolean {
+            override fun areContentsTheSame(oldItem: Store, newItem: Store): Boolean {
                 return oldItem == newItem
             }
         }
     }
 
-    fun submitItems(items : List<String>) {
+    fun submitItems(items : List<Store>) {
         submitList(items)
     }
 
@@ -47,19 +48,22 @@ class SearchAdapter(private val onItemClick : () -> Unit) : ListAdapter<String, 
 
         init {
             binding.root setOnDebounceClickListener {
-                onItemClick()
+                onItemClick(currentList[layoutPosition])
             }
         }
 
-        fun bind(item: String) {
-//            binding.setVariable(BR.item, item)
+        fun bind(item: Store) {
+            binding.setVariable(BR.item, item)
             binding.executePendingBindings()
+
+            binding.progress.text = "${item.currentGoalPercent}% 달성중"
+            binding.due.text = "남은기간 ${item.leftDay}일"
         }
     }
 }
 
 @BindingAdapter("app:recyclerview_Search_items")
-fun RecyclerView.setItems(items: List<String>?) {
+fun RecyclerView.setItems(items: List<Store>?) {
      if(items == null) return
     (adapter as? SearchAdapter)?.run {
         this.submitItems(items)
