@@ -85,7 +85,7 @@ class FeedFriendListFragment : Fragment() {
             friendFundingListadapter.data = listOf(
                 FriendFunding(
                     profileImg = R.drawable.profile1,
-                    profileName = "포크tfv포크",
+                    profileName = "포키포키",
                     fundingNumber = 13
                 ),
                 FriendFunding(
