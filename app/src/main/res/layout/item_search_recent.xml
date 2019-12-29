@@ -6,6 +6,9 @@
     >
 
     <data>
+        <variable
+            name="item"
+            type="com.fundito.fundito.data.database.SearchItem" />
 
     </data>
 
@@ -34,6 +37,7 @@
             android:textColor="@color/brown_grey"
             android:lineSpacingExtra="8sp"
             tools:text="못난이 지원감자"
+            android:text="@{item.name}"
             />
         <ImageButton
             android:id="@+id/delete"

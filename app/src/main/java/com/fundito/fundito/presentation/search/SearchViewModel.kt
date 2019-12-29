@@ -14,7 +14,7 @@ class SearchViewModel @Inject constructor(
     private val searchDao : SearchDao
 ) : ViewModel() {
 
-    private val _items : MutableLiveData<List<String>> = MutableLiveData(listOf("","","","","","","","","",""))
+    private val _items : MutableLiveData<List<String>> = MutableLiveData(listOf())
     val items : LiveData<List<String>> = _items
 
 
@@ -23,5 +23,6 @@ class SearchViewModel @Inject constructor(
     }
     
     val query : MutableLiveData<String> = MutableLiveData("")
+
 
 }
