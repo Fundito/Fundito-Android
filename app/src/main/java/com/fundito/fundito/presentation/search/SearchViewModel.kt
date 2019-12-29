@@ -1,10 +1,9 @@
 package com.fundito.fundito.presentation.search
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.liveData
+import androidx.lifecycle.*
 import com.fundito.fundito.data.database.SearchDao
+import com.fundito.fundito.data.database.SearchItem
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 /**
@@ -19,10 +18,21 @@ class SearchViewModel @Inject constructor(
 
 
     val recentItems = liveData {
-        this.emit(searchDao.list(50))
+        this.emitSource(searchDao.list(50))
     }
     
     val query : MutableLiveData<String> = MutableLiveData("")
 
+
+    fun onItemDeleted(item : SearchItem) = viewModelScope.launch{
+        kotlin.runCatching {
+            searchDao.delete(item)
+        }.onSuccess {
+
+        }.onFailure {
+
+        }
+
+    }
 
 }
