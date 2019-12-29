@@ -132,7 +132,7 @@ class StatusFragment : DaggerFragment(), HasDefaultViewModelProviderFactory {
         /**
          * 스크린 크기 - 하단 메뉴높이 - 툴바 높이 - 대략의 status bar 높이
          */
-        val estimatedSheetHeight = resources.displayMetrics.heightPixels - resources.getDimension(R.dimen.bottomNavigiationViewHeight) - resources.getDimension(R.dimen.toolbarHeight) - 30.toPixel()
+        val estimatedSheetHeight = resources.displayMetrics.heightPixels - resources.getDimension(R.dimen.bottomNavigiationViewHeight)  /* - resources.getDimension(R.dimen.toolbarHeight) */ - 44.toPixel()
         mBinding.bottomSheet1.root.doOnLayout {
             it.updateLayoutParams { height = estimatedSheetHeight.roundToInt() }
         }

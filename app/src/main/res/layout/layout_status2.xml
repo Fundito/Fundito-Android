@@ -9,7 +9,9 @@
             type="com.fundito.fundito.presentation.main.status.StatusViewModel" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout android:background="@color/white"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:background="@drawable/status_sheet_background_shadow"
+        android:paddingTop="24dp"
         android:clipChildren="false"
         android:clipToPadding="false"
         android:elevation="12dp"
@@ -18,8 +20,7 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         app:layout_behavior="com.fundito.fundito.common.widget.LockableBottomSheetBehavior"
         app:behavior_hideable="false"
-        app:behavior_peekHeight="50dp"
-        tools:background="@color/black"
+        app:behavior_peekHeight="74dp"
         android:layout_width="match_parent"
 
         android:layout_height="match_parent">
