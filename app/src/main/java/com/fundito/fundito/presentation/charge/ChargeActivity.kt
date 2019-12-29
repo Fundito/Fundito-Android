@@ -37,7 +37,7 @@ class ChargeActivity : DaggerAppCompatActivity() {
 
         setContentView(mBinding.root)
 
-        mViewModel = ViewModStorelProvider(this,viewModelFactory)[ChargeViewModel::class.java]
+        mViewModel = ViewModelProvider(this,viewModelFactory)[ChargeViewModel::class.java]
         mBinding.lifecycleOwner = this
         mBinding.vm = mViewModel
 

@@ -15,9 +15,7 @@ import timber.log.Timber
 class StoreDetailViewModel(private val storeIdx : Int) : ViewModel() {
 
 
-    //region STATUS
 
-    //endregion
 
     //region DATA
 
@@ -38,10 +36,14 @@ class StoreDetailViewModel(private val storeIdx : Int) : ViewModel() {
             "휴무" to it.holiday
         )
     }
-    
-    
 
+    //endregion
 
+    //region STATUS
+    val investmentActive : LiveData<Boolean> = store.map {
+        it.leftDay > 0 && it.currentGoalPercent < 99
+        false
+    }
     //endregion
 
     //region EVENT
