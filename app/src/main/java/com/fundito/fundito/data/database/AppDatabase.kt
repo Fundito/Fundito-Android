@@ -40,13 +40,13 @@ interface SearchDao{
     suspend fun insert(item : SearchItem) : Long
 
     @Delete
-    suspend fun delete(item : SearchItem) : Long
+    suspend fun delete(item : SearchItem)
 
     @Query("SELECT * FROM SearchItem ORDER BY id DESC LIMIT :limit")
     suspend fun list(limit : Int = 10) : List<SearchItem>
 
-    @Query("DELETE FROM SearchItem ORDER BY id ASC LIMIT 10")
-    suspend fun deleteTenItems() : List<Long>
+    @Query("DELETE FROM SearchItem WHERE id IN (SELECT id FROM SearchItem ORDER BY id ASC LIMIT 10)")
+    suspend fun deleteTenItems() : Int
 
     @Query("SELECT COUNT(id) FROM SearchItem")
     suspend fun countAll() : Int

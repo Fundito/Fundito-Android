@@ -57,6 +57,12 @@ class SearchActivity : DaggerAppCompatActivity(),HasDefaultViewModelProviderFact
             })
 
         }
+
+        mBinding.recentRecyclerView.apply {
+            adapter = SearchRecentAdapter {
+
+            }
+        }
     }
     
 }

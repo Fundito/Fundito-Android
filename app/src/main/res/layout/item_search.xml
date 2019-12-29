@@ -33,18 +33,28 @@
 
         <TextView
 
+            android:scrollHorizontally="true"
+            app:selected_binding="@{true}"
+            android:ellipsize="marquee"
+            android:fadingEdge="horizontal"
+            android:marqueeRepeatLimit="marquee_forever"
+            android:singleLine="true"
+
+            app:layout_constraintRight_toLeftOf="@id/due"
+            android:layout_marginRight="16dp"
+
             android:id="@+id/name"
             app:layout_constraintTop_toTopOf="@id/image"
             app:layout_constraintLeft_toRightOf="@id/image"
             android:layout_marginLeft="16dp"
 
             android:textStyle="bold"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:textSize="16sp"
             android:textColor="@color/black"
             android:lineSpacingExtra="8sp"
-            android:text="유나네 감자탕"
+            android:text="유나네 감자탕 유나네 감유나네 감유나네 감유나네 감유나네 감"
             />
 
         <TextView

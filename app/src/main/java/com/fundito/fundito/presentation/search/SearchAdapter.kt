@@ -52,7 +52,7 @@ class SearchAdapter(private val onItemClick : () -> Unit) : ListAdapter<String, 
         }
 
         fun bind(item: String) {
-            binding.setVariable(BR.item, item)
+//            binding.setVariable(BR.item, item)
             binding.executePendingBindings()
         }
     }
