@@ -37,7 +37,7 @@
         android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView8"
-        tools:text="총 투자액\n회수 예정 금액" />
+        android:text="총 투자액\n회수 예정 금액" />
 
     <TextView
         android:id="@+id/textView10"
@@ -53,7 +53,7 @@
         app:layout_constraintHorizontal_bias="0.409"
         app:layout_constraintStart_toEndOf="@+id/textView9"
         app:layout_constraintTop_toBottomOf="@+id/textView8"
-        tools:text="5,000 원" />
+        android:text="5,000 원" />
 
     <View
         android:id="@+id/underline"
@@ -81,7 +81,7 @@
         app:layout_constraintHorizontal_bias="0.402"
         app:layout_constraintStart_toEndOf="@+id/textView9"
         app:layout_constraintTop_toBottomOf="@+id/textView8"
-        tools:text="(+ " />
+        android:text="(+ " />
 
     <TextView
         android:id="@+id/textView12"
@@ -97,7 +97,7 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/textView11"
         app:layout_constraintTop_toBottomOf="@+id/textView10"
-        tools:text="3,500 원" />
+        android:text="3,500 원" />
 
     <TextView
         android:id="@+id/textView13"
@@ -113,7 +113,7 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/textView12"
         app:layout_constraintTop_toBottomOf="@+id/textView8"
-        tools:text=")" />
+        android:text=")" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -128,5 +128,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/textView13"
         app:layout_constraintTop_toBottomOf="@+id/textView10"
-        tools:text="8,500 원" />
+        android:text="8,500 원" />
 </androidx.constraintlayout.widget.ConstraintLayout>
