@@ -13,7 +13,7 @@ import com.fundito.fundito.databinding.ItemSearchRecentBinding
 /**
  * Created by mj on 29, December, 2019
  */
-class SearchRecentAdapter(private val onItemClick: (SearchItem) -> Unit): androidx.recyclerview.widget.ListAdapter<SearchItem, SearchRecentAdapter.SearchRecentHolder>(DIFF) {
+class SearchRecentAdapter(private val onItemDelete: (SearchItem) -> Unit): androidx.recyclerview.widget.ListAdapter<SearchItem, SearchRecentAdapter.SearchRecentHolder>(DIFF) {
 
     companion object {
         private val DIFF = object : DiffUtil.ItemCallback<SearchItem>() {
@@ -46,8 +46,8 @@ class SearchRecentAdapter(private val onItemClick: (SearchItem) -> Unit): androi
     inner class SearchRecentHolder(private val binding: ItemSearchRecentBinding) : RecyclerView.ViewHolder(binding.root) {
 
         init {
-            binding.root setOnDebounceClickListener {
-                onItemClick(currentList[layoutPosition])
+            binding.delete setOnDebounceClickListener {
+                onItemDelete(currentList[layoutPosition])
             }
         }
 

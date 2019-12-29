@@ -63,6 +63,7 @@ android {
 
 }
 
+
 dependencies {
     //region DEFAULT
     implementation(fileTree(mapOf("dir" to "libs", "include" to arrayOf("*.jar"))))
@@ -72,7 +73,7 @@ dependencies {
     implementation("androidx.core:core-ktx:1.1.0")
 
     implementation("com.google.android.material:material:1.2.0-alpha03")
-    //endregionㅁ
+    //endregion
 
     /**
      * For [MotionLayout] version upper 2.0.0
@@ -96,7 +97,6 @@ dependencies {
     implementation("androidx.room:room-runtime:2.2.3")
     kapt("androidx.room:room-compiler:2.2.3")
     implementation("androidx.room:room-ktx:2.2.3")
-    implementation("androidx.room:room-rxjava2:2.2.3")
     testImplementation("androidx.room:room-testing:2.2.3")
 
 
@@ -148,20 +148,32 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.2")
 
     /**
+     * Flow Binding
+     */
+    implementation("io.github.reactivecircus.flowbinding:flowbinding-android:0.6.0")
+    implementation("io.github.reactivecircus.flowbinding:flowbinding-material:0.6.0")
+
+    /**
      * AutofitTextView
      */
     implementation("me.grantland:autofittextview:0.2.1")
 
-
-    //endregion
-
-    //파이어베이스
+    /**
+     * Firebase
+     */
     implementation ("com.google.firebase:firebase-auth:19.2.0")
     implementation ("com.facebook.android:facebook-android-sdk:4.42.0")
 
 
-    implementation ("de.hdodenhof:circleimageview:3.0.0")
-    implementation ("androidx.core:core-ktx:1.1.0")
+    /**
+     * Circle ImageView
+     */
+    implementation ("de.hdodenhof:circleimageview:3.0.1")
+
+
+    //endregion
+
+
 
 }
 
