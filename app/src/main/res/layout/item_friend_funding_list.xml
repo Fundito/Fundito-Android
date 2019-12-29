@@ -8,7 +8,7 @@
     <data>
 
     </data>
-//clipChildren = false 그림자
+
     <androidx.cardview.widget.CardView
         app:cardElevation="@dimen/cardElevation"
         app:cardCornerRadius="0dp"

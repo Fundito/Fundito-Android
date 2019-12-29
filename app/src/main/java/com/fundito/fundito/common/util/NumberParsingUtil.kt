@@ -52,6 +52,9 @@ fun Long.toMoney() : String {
     return src.reversed().joinToString("")
 }
 
+fun Int.toMoney() = toLong().toMoney()
+
+
 fun String.toMoneyLong() : Long {
     return filter {
         it !in listOf(' ',',')

@@ -10,5 +10,5 @@ import retrofit2.http.Path
 interface StoreInfoService {
 
     @GET("storeInfo/{storeIdx}")
-    suspend fun getStoreInfo(@Path("storeIdx") storeIdx : Int) : List<Store>
+    suspend fun getStoreInfo(@Path("storeIdx") storeIdx : Int) : Store
 }

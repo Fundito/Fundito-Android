@@ -14,21 +14,18 @@ import com.fundito.fundito.common.util.toPixel
  */
 class FundingGraphView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null) : View(context, attrs) {
 
-    /**
-     *
-     */
-    var progress: Float = 0.5f
+    var progress: Float = 1.0f
     set(value) {
 
         progressForAnimation = value
         field = value
         startAnimation()
     }
-    var progressForAnimation: Float = 0.5f
+    var progressForAnimation: Float = 1.0f
 
     fun startAnimation() {
 
-        ObjectAnimator.ofFloat(this,"progressForAnimation",0f,progress).apply {
+        ObjectAnimator.ofFloat(this,"progressForAnimation",1f,progress).apply {
             duration = 1500L
             addUpdateListener {
                 invalidate()
