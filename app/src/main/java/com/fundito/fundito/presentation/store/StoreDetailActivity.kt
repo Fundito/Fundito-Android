@@ -56,10 +56,6 @@ class StoreDetailActivity : AppCompatActivity(), HasDefaultViewModelProviderFact
 
     private var storeIdx = -1
 
-    override fun onNewIntent(intent: Intent?) {
-        super.onNewIntent(intent)
-        storeIdx = intent?.getIntExtra(ARG_STORE_IDX,-1) ?: -1
-    }
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
@@ -77,7 +73,9 @@ class StoreDetailActivity : AppCompatActivity(), HasDefaultViewModelProviderFact
         mBinding = ActivityStoreDetailBinding.inflate(LayoutInflater.from(this))
         setContentView(mBinding.root)
 
-
+        intent?.getIntExtra(ARG_STORE_IDX,-1)?.let {
+            storeIdx = it
+        }
         mViewModel = ViewModelProvider(this)[StoreDetailViewModel::class.java]
         mBinding.lifecycleOwner = this
         mBinding.vm = mViewModel
@@ -112,7 +110,7 @@ class StoreDetailActivity : AppCompatActivity(), HasDefaultViewModelProviderFact
 
 
         mBinding.content.timeLineRecyclerView.apply {
-            adapter = TimeLineAdapter().apply { submitItems(listOf("","","","")) }
+            adapter = TimeLineAdapter()
             addItemDecoration(LinearItemDecoration(12))
         }
 

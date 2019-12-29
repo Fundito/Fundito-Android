@@ -13,36 +13,43 @@ import javax.inject.Inject
  * Created by mj on 28, December, 2019
  */
 class SearchViewModel @Inject constructor(
-    private val searchDao : SearchDao
+    private val searchDao: SearchDao
 ) : ViewModel() {
 
-    private val _items : MutableLiveData<List<Store>> = MutableLiveData(listOf())
-    val items : LiveData<List<Store>> = _items
+    private val _items: MutableLiveData<List<Store>> = MutableLiveData(listOf())
+    val items: LiveData<List<Store>> = _items
 
 
     val recentItems = liveData {
         this.emitSource(searchDao.list(50))
     }
-    
-    val query : MutableLiveData<String> = MutableLiveData("")
+
+    val query: MutableLiveData<String> = MutableLiveData("")
 
 
-    fun onQueryChanged() {
-        viewModelScope.launch {
-            kotlin.runCatching {
-                NetworkClient.storeInfoService.searchStoreWithKeyword(query.value!!)
-            }.onSuccess {
-                _items.value = it.mapNotNull {
-                    try{NetworkClient.storeInfoService.getStoreInfo(it.storeIdx)}catch(t : Throwable){null}
+    fun onSearchItemSaved(item: SearchItem) = viewModelScope.launch {
+        searchDao.insert(item)
+    }
+
+    fun onQueryChanged() = viewModelScope.launch {
+        kotlin.runCatching {
+            NetworkClient.storeInfoService.searchStoreWithKeyword(query.value!!)
+        }.onSuccess {
+            Timber.e(it.toString())
+            _items.value = it.mapNotNull {
+                try {
+                    NetworkClient.storeInfoService.getStoreInfo(it.storeIdx)
+                } catch (t: Throwable) {
+                    null
                 }
-            }.onFailure {
-                Timber.e(it)
             }
+        }.onFailure {
+            Timber.e(it)
         }
 
     }
 
-    fun onItemDeleted(item : SearchItem) = viewModelScope.launch{
+    fun onItemDeleted(item: SearchItem) = viewModelScope.launch {
         kotlin.runCatching {
             searchDao.delete(item)
         }.onSuccess {

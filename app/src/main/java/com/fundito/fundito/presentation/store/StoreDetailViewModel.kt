@@ -1,8 +1,11 @@
 package com.fundito.fundito.presentation.store
 
 import androidx.lifecycle.*
+import com.fundito.fundito.data.model.Funding
 import com.fundito.fundito.data.model.Store
 import com.fundito.fundito.data.service.NetworkClient
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
@@ -20,6 +23,9 @@ class StoreDetailViewModel(private val storeIdx : Int) : ViewModel() {
 
     private val _store : MutableLiveData<Store> = MutableLiveData()
     val store : LiveData<Store> = _store
+    
+    private val _timeLineItems : MutableLiveData<List<Funding>> = MutableLiveData(listOf())
+    val timeLineItems : LiveData<List<Funding>> = _timeLineItems
 
     val menus = store.map {
         it.menus.map { StoreDetailItem(it.name,it.price) }
@@ -32,6 +38,8 @@ class StoreDetailViewModel(private val storeIdx : Int) : ViewModel() {
             "휴무" to it.holiday
         )
     }
+    
+    
 
 
     //endregion
@@ -43,11 +51,24 @@ class StoreDetailViewModel(private val storeIdx : Int) : ViewModel() {
     init {
         viewModelScope.launch {
             kotlin.runCatching {
-                NetworkClient.storeInfoService.getStoreInfo(8)//TODO
+                NetworkClient.storeInfoService.getStoreInfo(storeIdx)
             }.onSuccess {
                 _store.value = it
             }.onFailure {
                 Timber.e(it)
+            }
+        }
+
+        viewModelScope.launch {
+            while(this.isActive) {
+                kotlin.runCatching {
+                    NetworkClient.storeInfoService.listStoreFundingTimeLine(storeIdx)
+                }.onSuccess {
+                    _timeLineItems.value = it
+                }.onFailure {
+                    Timber.e(it)
+                }
+                delay(5000L)
             }
         }
     }

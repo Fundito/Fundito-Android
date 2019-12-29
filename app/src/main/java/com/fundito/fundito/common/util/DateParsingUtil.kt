@@ -9,6 +9,7 @@ import java.util.*
 object DateParsingUtil {
 
     private val simpleDateFormat = SimpleDateFormat("YYYY-MM-dd HH:mm:ss", Locale.KOREA)
+    private val fallbackFormat = SimpleDateFormat("YYYY-MM-dd'T'HH:mm:ss.SSSZ",Locale.KOREA)
 
     fun parseToYMD(src : Calendar, separator : String = ".") : String {
         val year = src[Calendar.YEAR]
@@ -25,9 +26,29 @@ object DateParsingUtil {
     }
 
     fun parseString(raw : String) : Calendar {
-        val date = simpleDateFormat.parse(raw)
+        val date = try{simpleDateFormat.parse(raw) ?: throw RuntimeException()}catch(t:Throwable) {
+            fallbackFormat.parse(raw) ?: Date()
+        }
 
-        return Calendar.getInstance().apply { time = date!! }
+        return Calendar.getInstance().apply { time = date }
+    }
+
+    fun calculateDiffWithCurrent(rawString : String) : String {
+        return calculateDiffWithCurrent(parseString(rawString).timeInMillis)
+    }
+
+    fun calculateDiffWithCurrent(timeMs : Long) : String {
+        val diff = System.currentTimeMillis() - timeMs
+        val diffMin = diff / 1000 / 60
+
+        val dayDiff = diffMin / 60 / 24
+        val hourDiff = diffMin / 60
+
+        return when {
+            dayDiff > 0 -> "${dayDiff}일전"
+            hourDiff > 0 ->"${hourDiff}시간전"
+            else -> "${diffMin}분전"
+        }
     }
 
 }

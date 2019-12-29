@@ -9,8 +9,8 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.observe
 import androidx.recyclerview.widget.RecyclerView
-import com.fundito.fundito.common.util.startActivity
 import com.fundito.fundito.common.widget.setOnDebounceClickListener
+import com.fundito.fundito.data.database.SearchItem
 import com.fundito.fundito.databinding.ActivitySearchBinding
 import com.fundito.fundito.di.module.ViewModelFactory
 import com.fundito.fundito.presentation.store.StoreDetailActivity
@@ -70,8 +70,8 @@ class SearchActivity : DaggerAppCompatActivity(),HasDefaultViewModelProviderFact
 
         mBinding.recyclerView.apply {
             adapter = SearchAdapter {
-                //TODO
-                startActivity(StoreDetailActivity::class)
+                mViewModel.onSearchItemSaved(SearchItem(storeIdx = it.storeIdx, name = it.name))
+                startActivity(StoreDetailActivity.newIntent(this@SearchActivity,it.storeIdx))
             }
 
             addOnScrollListener(object : RecyclerView.OnScrollListener() {
@@ -85,9 +85,12 @@ class SearchActivity : DaggerAppCompatActivity(),HasDefaultViewModelProviderFact
         }
 
         mBinding.recentRecyclerView.apply {
-            adapter = SearchRecentAdapter {
+            adapter = SearchRecentAdapter({
+                mViewModel.onSearchItemSaved(SearchItem(storeIdx = it.storeIdx, name = it.name))
+                startActivity(StoreDetailActivity.newIntent(this@SearchActivity,it.storeIdx))
+            },{
                 mViewModel.onItemDeleted(it)
-            }
+            })
         }
 
     }
@@ -95,7 +98,10 @@ class SearchActivity : DaggerAppCompatActivity(),HasDefaultViewModelProviderFact
     private fun observeViewModel() {
         mViewModel.apply {
             this.items.observe(this@SearchActivity) {
-                mBinding.result.text = it.size.toString() + "건"
+                if (it.isNotEmpty())
+                    mBinding.result.text = it.size.toString() + "건"
+                else
+                    mBinding.result.text = ""
             }
         }
     }
