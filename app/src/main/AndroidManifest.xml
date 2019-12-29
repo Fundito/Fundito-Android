@@ -63,9 +63,19 @@
             />
         <activity android:name=".presentation.main.feed.FeedFriendDetailActivity"
             android:screenOrientation="portrait"
+            android:exported="true"
             android:configChanges="screenLayout|orientation|fontScale|locale|screenSize"
             />
-
+        <activity android:name=".presentation.search.SearchActivity"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:configChanges="screenLayout|orientation|fontScale|locale|screenSize"
+            />
+        <activity android:name=".presentation.noti.NotiActivity"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:configChanges="screenLayout|orientation|fontScale|locale|screenSize"
+            />
     </application>
 
 </manifest>

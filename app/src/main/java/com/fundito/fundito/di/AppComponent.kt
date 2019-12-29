@@ -1,5 +1,6 @@
 package com.fundito.fundito.di
 
+import android.content.Context
 import com.fundito.fundito.application.MainApplication
 import com.fundito.fundito.di.module.ActivityContributor
 import com.fundito.fundito.di.module.AppModule
@@ -25,7 +26,7 @@ interface AppComponent : AndroidInjector<MainApplication> {
     @Component.Builder
     interface Builder {
         @BindsInstance
-        fun app(app: MainApplication) : Builder
+        fun app(app: Context) : Builder
 
         fun build() :AppComponent
     }

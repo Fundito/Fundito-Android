@@ -37,7 +37,7 @@
             android:id="@+id/onGoingRecyclerView"
             tools:visibility="gone"
             tools:itemCount="4"
-            tools:listitem="@layout/item_funding_status"
+            tools:listitem="@layout/item_funding_ongoing"
             android:clipToPadding="false"
             android:paddingTop="24dp"
             android:paddingBottom="24dp"

@@ -22,7 +22,7 @@ class FundingActivity : AppCompatActivity() {
     private fun adaptviewpager(){
         fundingViewpager.adapter = FundingPagerAdapter(supportFragmentManager,3)
         fundingViewpager.offscreenPageLimit = 2
-        
+
     }
 
 }
