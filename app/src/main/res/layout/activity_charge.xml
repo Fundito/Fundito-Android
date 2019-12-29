@@ -73,7 +73,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-
             <TextView
                 android:visibility="@{vm.visiblePlaceHolder}"
                 app:layout_constraintTop_toTopOf="@id/wonText"
