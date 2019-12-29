@@ -10,7 +10,6 @@
     </data>
 
     <androidx.cardview.widget.CardView
-        android:elevation="2dp"
         android:clipChildren="false"
         app:cardElevation="@dimen/cardElevation"
         app:cardCornerRadius="0dp"
