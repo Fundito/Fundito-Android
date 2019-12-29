@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    >
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:layout_width="match_parent"
+        android:layout_height="88dp">
+
+        <View
+
+            android:background="#eae8e8"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"/>
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/image"
+            tools:src="@tools:sample/avatars[0]"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_width="61dp"
+            android:layout_height="61dp"/>
+
+        <TextView
+
+            android:id="@+id/name"
+            app:layout_constraintTop_toTopOf="@id/image"
+            app:layout_constraintLeft_toRightOf="@id/image"
+            android:layout_marginLeft="16dp"
+
+            android:textStyle="bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:textColor="@color/black"
+            android:lineSpacingExtra="8sp"
+            android:text="유나네 감자탕"
+            />
+
+        <TextView
+            app:layout_constraintLeft_toLeftOf="@id/name"
+            app:layout_constraintTop_toBottomOf="@id/name"
+            android:id="@+id/address"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="12sp"
+            android:textColor="@color/black"
+            android:lineSpacingExtra="6sp"
+            android:text="서울시 서대문구 36길"
+            />
+        <TextView
+            android:layout_marginLeft="16dp"
+            android:textStyle="bold"
+            app:layout_constraintLeft_toRightOf="@id/image"
+            app:layout_constraintTop_toBottomOf="@id/address"
+            android:id="@+id/progress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:textColor="@color/blueberry_two"
+            android:lineSpacingExtra="8sp"
+            android:gravity="end"
+            android:text=" 83% 달성중"
+            />
+
+        <TextView
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            android:layout_marginTop="16dp"
+            android:id="@+id/due"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            android:textColor="@color/black"
+            android:lineSpacingExtra="6sp"
+            tools:text="남은기간 16일"
+            />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

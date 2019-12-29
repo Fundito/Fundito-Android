@@ -4,6 +4,7 @@ import com.fundito.fundito.di.ActivityScope
 import com.fundito.fundito.presentation.charge.ChargeActivity
 import com.fundito.fundito.presentation.main.MainActivity
 import com.fundito.fundito.presentation.main.feed.FeedFriendDetailActivity
+import com.fundito.fundito.presentation.search.SearchActivity
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 
@@ -24,4 +25,8 @@ abstract class ActivityContributor {
     @ContributesAndroidInjector(modules = [FeedFriendDetailActivityModule::class])
     @ActivityScope
     abstract fun contributesFeedFriendDetailActivity() : FeedFriendDetailActivity
+
+    @ContributesAndroidInjector(modules = [SearchActivityModule::class])
+    @ActivityScope
+    abstract fun contributesSearchActivity() : SearchActivity
 }
