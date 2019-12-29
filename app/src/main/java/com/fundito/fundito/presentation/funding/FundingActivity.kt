@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager.widget.ViewPager
 import com.fundito.fundito.R
+import com.fundito.fundito.common.setVisibilityBinding
 import com.fundito.fundito.common.widget.setOnDebounceClickListener
 import kotlinx.android.synthetic.main.activity_funding.*
 
@@ -17,7 +18,6 @@ class FundingActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_funding)
-
         adaptViewPager()
         initView()
     }
@@ -57,12 +57,15 @@ class FundingActivity : AppCompatActivity() {
             when(currentPage) {
                 0-> {
                     fundingViewpager.currentItem = 1
+                    progressFirstImg.setVisibilityBinding(false)
+                    progressSecondImg.setVisibilityBinding(true)
                 }
                 1-> {
-
+                    fundingViewpager.currentItem = 2
+                    progressSecondImg.setVisibilityBinding(false)
+                    progressThirdImg.setVisibilityBinding(true)
                 }
                 2-> {
-
                 }
             }
         }
