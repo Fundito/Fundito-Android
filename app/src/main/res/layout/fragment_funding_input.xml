@@ -31,17 +31,27 @@
         app:layout_constraintStart_toEndOf="@+id/fundinginput_txt"
         app:layout_constraintTop_toTopOf="parent" />
 
-
-<!--    구분선 이미지-->
+    <View
+        android:id="@+id/underline"
+        android:layout_width="0dp"
+        android:layout_height="0.5dp"
+        android:background="@color/brown_grey"
+        app:layout_constraintBottom_toTopOf="@+id/textView14"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.607"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/fundinginput_txt"
+        app:layout_constraintVertical_bias="0.562"
+        app:layout_constraintWidth_percent="0.75" />
 
     <TextView
+        android:id="@+id/textView14"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="152dp"
         android:layout_marginTop="16dp"
         android:fontFamily="@font/spoqa_han_sans_regular"
         android:gravity="center_horizontal"
-
         android:text="펀디토머니:4900원/부족금액은 자동충전 됨"
         android:textSize="12dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -49,7 +59,35 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/fundinginput_txt" />
 
-<!--   투자 다이얼 뷰 -->
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="68dp"
+        android:layout_marginTop="8dp"
+        android:gravity="center_horizontal"
+        android:lineSpacingExtra="6sp"
+        android:textColor="#df6358"
+        android:textSize="12sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/underline"
+        tools:text="국민 9490-**" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="300dp"
+        android:layout_marginTop="8dp"
+        android:gravity="center_horizontal"
+        android:lineSpacingExtra="6sp"
+        android:textColor="#df6358"
+        android:textSize="12sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/underline"
+        tools:text="충전: 1,000원" />
+
+
+    <!--   투자 다이얼 뷰 -->
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

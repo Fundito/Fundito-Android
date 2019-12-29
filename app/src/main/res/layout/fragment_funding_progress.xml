@@ -82,6 +82,15 @@
         app:layout_constraintTop_toBottomOf="@+id/textView6"
         tools:text="총" />
 
+    <View
+        android:id="@+id/underline"
+        android:layout_width="0dp"
+        android:layout_height="0.5dp"
+        android:background="@color/brown_grey"
+        app:layout_constraintWidth_percent="0.75"
+        tools:layout_editor_absoluteX="74dp"
+        tools:layout_editor_absoluteY="214dp" />
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

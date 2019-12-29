@@ -1,6 +1,7 @@
 package com.fundito.fundito.presentation.funding
 
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.fundito.fundito.R
@@ -16,12 +17,12 @@ class FundingActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_funding)
 
-        completeInput_btn.setOnClickListener{
-            var fundinginput:String = fundinginput_txt.toString()
-            if(fundinginput != ""){
+    }
 
-            }
-        }
+    private fun adaptviewpager(){
+        fundingViewpager.adapter = FundingPagerAdapter(supportFragmentManager,3)
+        fundingViewpager.offscreenPageLimit = 2
+        
     }
 
 }

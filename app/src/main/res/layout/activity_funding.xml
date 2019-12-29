@@ -5,112 +5,42 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:backgroundTint="#ffffff">
-<!-- title 3개 -->
-    <TextView
-        android:id="@+id/fundingTitle1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="56dp"
-        android:gravity="center_horizontal"
-        android:lineSpacingExtra="8sp"
-        android:text="투자금액"
-        android:textColor="@color/black"
-        android:fontFamily="@font/spoqa_han_sans_regular"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_weight="1" />
 
-    <TextView
-        android:visibility="gone"
-        android:id="@+id/fundingTitle2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="56dp"
-        android:gravity="center_horizontal"
-        android:lineSpacingExtra="8sp"
-        android:text="나의 투자현황"
-        android:textColor="@color/black"
-        android:fontFamily="@font/spoqa_han_sans_regular"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
+    <include
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_weight="1" />
+        android:id="@+id/toolbar"
+        layout="@layout/layout_toolbar"/>
 
-    <TextView
-        android:visibility="gone"
-        android:id="@+id/fundingTitle3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="56dp"
-        android:gravity="center_horizontal"
-        android:lineSpacingExtra="8sp"
-        android:text="목표도달까지 17%남음"
-        android:textColor="@color/black"
-        android:fontFamily="@font/spoqa_han_sans_regular"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_weight="1" />
 
 <!--   이미지 -->
 
     <androidx.viewpager.widget.ViewPager
+        android:id="@+id/fundingViewpager"
         android:layout_width="416dp"
         android:layout_height="446dp"
-        app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
+        app:layout_constraintBottom_toTopOf="@+id/completeButton"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintVertical_bias="1.0">
 
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottomNavigationView"
-        android:layout_width="411dp"
-        android:layout_height="77dp"
-        android:background="#fffffff"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
-
-<!--        버튼 세가지 -->
-
-        <Button
-            android:id="@+id/completeInput_btn"
-            android:layout_width="343dp"
-            android:layout_height="58dp"
-            android:layout_gravity="center"
-            android:text="입력완료"
-            android:fontFamily="@font/spoqa_han_sans_regular"
-            app:layout_constraintStart_toStartOf="parent"
-           />
-
-        <Button
-            android:visibility="gone"
-            android:id="@+id/completePay_btn"
-            android:layout_width="343dp"
-            android:layout_height="58dp"
-            android:layout_gravity="center"
-            android:fontFamily="@font/spoqa_han_sans_regular"
-            android:text="결제/투자하기"
-            app:layout_constraintStart_toStartOf="parent" />
-
-        <Button
-            android:visibility="gone"
-            android:id="@+id/completeFunding_btn"
-            android:layout_width="343dp"
-            android:layout_height="58dp"
-            android:layout_gravity="center"
-            android:text="완료"
-            android:fontFamily="@font/spoqa_han_sans_regular"
-            app:layout_constraintStart_toStartOf="parent"
-            />
+    </androidx.viewpager.widget.ViewPager>
 
 
-    </com.google.android.material.bottomnavigation.BottomNavigationView>
+        <com.google.android.material.button.MaterialButton
+            android:clickable="@{!vm.visiblePlaceHolder}"
+            android:backgroundTint="@{!vm.visiblePlaceHolder ? @color/colorPrimary : @color/white}"
+            android:textColor="@{!vm.visiblePlaceHolder ? @color/white : @color/brown_grey}"
+            app:strokeColor="@color/brown_grey"
+            android:id="@+id/completeButton"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            android:layout_marginBottom="6dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:text="입력 완료"
+            android:layout_width="0dp"
+            android:layout_height="58dp"/>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
