@@ -2,15 +2,21 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "aa39e116ee2c4a423cc87c732c3e53a5",
+    "identityHash": "0a34d5a08b5c172cfc71b40974a42646",
     "entities": [
       {
         "tableName": "SearchItem",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `name` TEXT NOT NULL)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `storeIdx` INTEGER NOT NULL, `name` TEXT NOT NULL)",
         "fields": [
           {
             "fieldPath": "id",
             "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "storeIdx",
+            "columnName": "storeIdx",
             "affinity": "INTEGER",
             "notNull": true
           },
@@ -34,7 +40,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'aa39e116ee2c4a423cc87c732c3e53a5')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '0a34d5a08b5c172cfc71b40974a42646')"
     ]
   }
 }
