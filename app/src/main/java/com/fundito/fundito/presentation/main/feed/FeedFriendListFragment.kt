@@ -1,6 +1,7 @@
 package com.fundito.fundito.presentation.main.feed
 
 import android.os.Bundle
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,8 +10,15 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.fundito.fundito.R
+import com.fundito.fundito.common.util.startActivity
 import com.fundito.fundito.common.widget.LinearItemDecoration
+import com.fundito.fundito.common.widget.setOnDebounceClickListener
+import com.fundito.fundito.data.database.SearchItem
 import com.fundito.fundito.data.model.FriendFunding
+import com.fundito.fundito.presentation.charge.ChargeActivity
+import com.fundito.fundito.presentation.main.status.FundingOnGoingAdapter
+import com.fundito.fundito.presentation.search.SearchRecentAdapter
+import com.fundito.fundito.presentation.store.StoreDetailActivity
 import kotlinx.android.synthetic.main.fragment_feed_friend_list.*
 
 /**
@@ -36,64 +44,64 @@ class FeedFriendListFragment : Fragment() {
         return view
     }
 
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        // 리사이클러뷰 어댑터 생성
-        friendFundingListadapter = FriendFundingListAdapter(activity?.baseContext!!)
-
-        // 리사이클러뷰 생성
-        friendFundingRecyclerView = view.findViewById(R.id.friendFundngRecyclerView)
-
-        // 리사이클러뷰 레이아웃매니저 설정
-        friendFundingRecyclerView.layoutManager = LinearLayoutManager(activity?.baseContext, LinearLayoutManager.VERTICAL, false)
 
 
-        // 리사이클러뷰 어댑터 설정
-        friendFundingRecyclerView.adapter = friendFundingListadapter
+                friendFundingListadapter = FriendFundingListAdapter(activity?.baseContext!!)
 
-        friendFundingRecyclerView.addItemDecoration(LinearItemDecoration(10))
+                friendFundingRecyclerView = view.findViewById(R.id.friendFundingRecyclerView)
 
-        // 리사이클러뷰 데이터 설정
-        friendFundingListadapter.data = listOf(
-            FriendFunding(
-                profileImg = R.drawable.profile1,
-                profileName = "포키포키",
-                fundingNumber = 13
-            ),
-            FriendFunding(
-                profileImg = R.drawable.profile2,
-                profileName = "진수",
-                fundingNumber = 12
-            ),
-            FriendFunding(
-                profileImg = R.drawable.profile3,
-                profileName = "영우공쥬",
-                fundingNumber = 12
-            ),
-            FriendFunding(
-                profileImg = R.drawable.profile4,
-                profileName = "망원피바지",
-                fundingNumber = 12
-            ),
-            FriendFunding(
-                profileImg = R.drawable.profile5,
-                profileName = "민쥬찡",
-                fundingNumber = 12
-            ),
-            FriendFunding(
-                profileImg = R.drawable.profile6,
-                profileName = "꼰대시끼",
-                fundingNumber = 12
-            )
-        ) // listOf
+                friendFundingRecyclerView.layoutManager = LinearLayoutManager(activity?.baseContext, LinearLayoutManager.VERTICAL, false)
 
-        friendFundingListadapter.notifyDataSetChanged()
 
-        scrollView.setOnScrollChangeListener { v: NestedScrollView?, _: Int, _: Int, _: Int, _: Int ->
-            shadow.isActivated = v?.canScrollVertically(-1) ?: false
-        }
-        
-    }
+                friendFundingRecyclerView.adapter = friendFundingListadapter
+
+                friendFundingRecyclerView.addItemDecoration(LinearItemDecoration(10))
+
+                // 리사이클러뷰 임의데이터 설정
+                friendFundingListadapter.data = listOf(
+                    FriendFunding(
+                        profileImg = R.drawable.profile1,
+                        profileName = "포키포키",
+                        fundingNumber = 13
+                    ),
+                    FriendFunding(
+                        profileImg = R.drawable.profile2,
+                        profileName = "진수",
+                        fundingNumber = 12
+                    ),
+                    FriendFunding(
+                        profileImg = R.drawable.profile3,
+                        profileName = "영우공쥬",
+                        fundingNumber = 12
+                    ),
+                    FriendFunding(
+                        profileImg = R.drawable.profile4,
+                        profileName = "망원피바지",
+                        fundingNumber = 12
+                    ),
+                    FriendFunding(
+                        profileImg = R.drawable.profile5,
+                        profileName = "민쥬찡",
+                        fundingNumber = 12
+                    ),
+                    FriendFunding(
+                        profileImg = R.drawable.profile6,
+                        profileName = "꼰대시끼",
+                        fundingNumber = 12
+                    )
+                ) // listOf
+
+                friendFundingListadapter.notifyDataSetChanged()
+
+                scrollView.setOnScrollChangeListener { v: NestedScrollView?, _: Int, _: Int, _: Int, _: Int ->
+                    shadow.isActivated = v?.canScrollVertically(-1) ?: false
+                }
+
+            }
+
+
 
 
 } // end class
-

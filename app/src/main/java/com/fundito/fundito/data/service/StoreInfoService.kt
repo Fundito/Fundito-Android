@@ -22,5 +22,8 @@ interface StoreInfoService {
 
     //7
     @GET("storefund/timeline/{storeIdx}")
+
     suspend fun listStoreFundingTimeLine(@Path("storeIdx") storeIdx: Int) : List<Funding>
+
+
 }

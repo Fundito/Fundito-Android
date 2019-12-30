@@ -4,6 +4,7 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.fundito.fundito.R
@@ -20,14 +21,12 @@ class FriendFundingListAdapter(private val context: Context) : RecyclerView.Adap
         return data.size
     }
 
-    // 만들어진 ViewHolder에 데이터를 연결한다.
+    // ViewHolder에 데이터 연결
     override fun onBindViewHolder(holder: FriendFundingViewHolder, position: Int) {
 
         Glide.with(context)
             .load(data[position].profileImg)
             .into(holder.profileImage)
-
-        holder.onBind(data[position])
 
 
     }
