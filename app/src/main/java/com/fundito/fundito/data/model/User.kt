@@ -20,7 +20,7 @@ data class User(
     @SerializedName("pay_password")
     val payPassword : String?,
     @SerializedName("point")
-    val point : Int,
+    val point :List<User>,
     @SerializedName("affectedRows")
     val affectedRows: Int,
     @SerializedName("changedRows")
@@ -47,5 +47,11 @@ data class User(
     val warningCount: Int,
     @SerializedName("token")
     val token : String
-): Parcelable
+): Parcelable{
+    @Parcelize
+    data class PointNum(
+        @SerializedName("point")
+        val point : Int
+    ):Parcelable
+}
 

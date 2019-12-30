@@ -18,17 +18,19 @@ interface UserService {
     suspend fun Signup(
         @Field("nickname") nickname: String,
         @Field("pay_password") pay_password: String
-    )
+    ): User
 
     //2
     @GET("auth/signin")
     suspend fun Signin(
 
-    )
+    ):User
 
     //3
     @GET("auth/user")
-    suspend fun getListUser()
+    suspend fun getListUser(
+
+    ):User
 
     //5
     @PUT("mypage/point")
@@ -49,8 +51,6 @@ interface UserService {
 
     @GET("mypage/point")
     suspend fun getListFunditoMoney(
-//    @Header("Content-Type") content_type : String,
-//    @Header("access_token") access_token : String
 
     ): User
 
