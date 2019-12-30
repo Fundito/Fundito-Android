@@ -212,3 +212,7 @@ dependencies {
 
     androidTestImplementation("android.arch.core:core-testing:1.1.1")
 }
+
+apply {
+    plugin("com.google.gms.google-services")
+}
