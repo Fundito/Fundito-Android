@@ -20,5 +20,31 @@ data class User(
     @SerializedName("pay_password")
     val payPassword : String?,
     @SerializedName("point")
-    val point : Int
-) : Parcelable
+    val point : Int,
+    @SerializedName("affectedRows")
+    val affectedRows: Int,
+    @SerializedName("changedRows")
+    val changedRows: Int,
+    @SerializedName("fieldCount")
+    val fieldCount: Int,
+    @SerializedName("insertId")
+    val insertId: Int,
+    @SerializedName("totalFundedMoney")
+    val totalFundedMoney: Int,
+    @SerializedName("totalGetMoney")
+    val totalGetMoney: Int,
+    @SerializedName("totalRewardMoney")
+    val totalRewardMoney: Int,
+    @SerializedName("affectedRows")
+    val totalRewardPercent: Int,
+    @SerializedName("message")
+    val message: String,
+    @SerializedName("protocol41")
+    val protocol41: Boolean,
+    @SerializedName("serverStatus")
+    val serverStatus: Int,
+    @SerializedName("warningCount")
+    val warningCount: Int,
+    @SerializedName("token")
+    val token : String
+): Parcelable

@@ -35,25 +35,5 @@ interface UserService {
     )
 
 
-
-
-    @Parcelize
-    data class User(
-        val point: Int,
-    val affectedRows: Int,
-    val changedRows: Int,
-    val fieldCount: Int,
-    val insertId: Int,
-    val totalFundedMoney: Int,
-    val totalGetMoney: Int,
-    val totalRewardMoney: Int,
-    val totalRewardPercent: Int,
-
-    val message: String,
-    val protocol41: Boolean,
-    val serverStatus: Int,
-    val warningCount: Int
-): Parcelable
-
 }
 
