@@ -6,26 +6,27 @@ import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.fundito.fundito.data.model.Funding
 import com.fundito.fundito.databinding.ItemRecentFundingBinding
 
 /**
  * Created by mj on 28, December, 2019
  */
-class RecentFundingAdapter : ListAdapter<String, RecentFundingAdapter.RecentFundingHolder>(DIFF) {
+class RecentFundingAdapter : ListAdapter<Funding, RecentFundingAdapter.RecentFundingHolder>(DIFF) {
     
     companion object {
-        private val DIFF = object : DiffUtil.ItemCallback<String>() {
-            override fun areItemsTheSame(oldItem: String, newItem: String): Boolean {
-                return oldItem == newItem
+        private val DIFF = object : DiffUtil.ItemCallback<Funding>() {
+            override fun areItemsTheSame(oldItem: Funding, newItem: Funding): Boolean {
+                return oldItem.fundingIdx == newItem.fundingIdx
             }
 
-            override fun areContentsTheSame(oldItem: String, newItem: String): Boolean {
+            override fun areContentsTheSame(oldItem: Funding, newItem: Funding): Boolean {
                 return oldItem == newItem
             }
         }
     }
 
-    fun submitItems(items : List<String>) {
+    fun submitItems(items : List<Funding>) {
         submitList(items)
     }
 
@@ -42,7 +43,7 @@ class RecentFundingAdapter : ListAdapter<String, RecentFundingAdapter.RecentFund
 
 
     inner class RecentFundingHolder(private val binding: ItemRecentFundingBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(item: String) {
+        fun bind(item: Funding) {
 //            binding.setVariable(BR.item, item)
             binding.executePendingBindings()
         }
@@ -50,7 +51,7 @@ class RecentFundingAdapter : ListAdapter<String, RecentFundingAdapter.RecentFund
 }
 
 @BindingAdapter("app:recyclerview_RecentFunding_items")
-fun RecyclerView.setItems(items: List<String>?) {
+fun RecyclerView.setItems(items: List<Funding>?) {
      if(items == null) return
     (adapter as? RecentFundingAdapter)?.run {
         this.submitItems(items)

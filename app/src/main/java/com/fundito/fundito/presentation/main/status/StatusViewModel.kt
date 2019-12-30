@@ -28,9 +28,7 @@ class StatusViewModel @Inject constructor() : ViewModel() {
      */
     val sceneIndex : MutableLiveData<Int> = MutableLiveData(0)
 
-    private val _recentFundingHistories : MutableLiveData<List<String>> = MutableLiveData(listOf("","","",""))
-    val recentFundingHistories : LiveData<List<String>> = _recentFundingHistories
-    
+
     private val _onGoingFundingItems : MutableLiveData<List<String>> = MutableLiveData(listOf("","","",""))
     val onGoingFundingItems : LiveData<List<String>> = _onGoingFundingItems
 
@@ -52,6 +50,22 @@ class StatusViewModel @Inject constructor() : ViewModel() {
     val fundingData = liveData {
         kotlin.runCatching {
             NetworkClient.userService.getUsingFunditoMoney()
+        }.onSuccess {
+            emit(it)
+        }
+    }
+
+    val funditoMoney = liveData {
+        kotlin.runCatching {
+            NetworkClient.userService.getFunditoMoney()
+        }.onSuccess {
+            it.getOrNull(0)?.let { emit(it.point) }
+        }
+    }
+
+    val recentFundingHistories = liveData {
+        kotlin.runCatching {
+            NetworkClient.fundingService.getMyFundingHistories()
         }.onSuccess {
             emit(it)
         }
