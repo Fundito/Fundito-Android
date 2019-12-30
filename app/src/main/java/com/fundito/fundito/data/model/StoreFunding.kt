@@ -8,7 +8,7 @@ import kotlinx.android.parcel.Parcelize
  * Created by mj on 29, December, 2019
  */
 @Parcelize
-data class StoreFund(
+data class StoreFunding(
     @SerializedName("storefund_idx")
     val storeFundIdx : Int,
     @SerializedName("store_idx")
