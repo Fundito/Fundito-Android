@@ -25,7 +25,7 @@ class FundingInputFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         dialView.onInvestmentValueChangedListener = {number->
             fundinginput_txt.setTextColor(Color.BLACK)
-            fundinginput_txt.text = number.toLong().toMoney()
+            fundinginput_txt.text = "${number.toLong().toMoney()}"
         }
     }
 
