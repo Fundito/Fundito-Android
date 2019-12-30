@@ -42,7 +42,7 @@ class StoreDetailViewModel(private val storeIdx : Int) : ViewModel() {
     //region STATUS
     val investmentActive : LiveData<Boolean> = store.map {
         it.leftDay > 0 && it.currentGoalPercent < 99
-        false
+//        false
     }
     //endregion
 

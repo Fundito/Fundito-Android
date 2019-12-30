@@ -50,7 +50,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
 
-            android:layout_marginBottom="8dp"
+            android:layout_marginBottom="16dp"
             app:layout_constraintHorizontal_bias="0"
             app:layout_constraintRight_toRightOf="parent"
             android:layout_marginRight="16dp"
@@ -70,6 +70,7 @@
             app:layout_constraintTop_toTopOf="@id/dueRemain1" />
 
         <Constraint
+            android:layout_marginBottom="16dp"
             android:id="@+id/progressText1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -77,6 +78,7 @@
             app:layout_constraintLeft_toLeftOf="@id/fundingProgress" />
 
         <Constraint
+            android:layout_marginBottom="16dp"
             android:id="@+id/progressText2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -85,6 +87,7 @@
             app:layout_constraintLeft_toRightOf="@id/progressText1" />
 
         <Constraint
+            android:layout_marginBottom="16dp"
             android:id="@+id/progressText3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -119,7 +122,7 @@
             android:id="@id/toolbarContainer"
             android:layout_width="match_parent"
             android:layout_height="@dimen/toolbarHeight"
-            android:layout_marginTop="266dp"
+            android:layout_marginTop="290dp"
             app:layout_constraintTop_toTopOf="parent" />
 
         <Constraint
