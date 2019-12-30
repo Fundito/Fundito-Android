@@ -34,6 +34,8 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.cardview.widget.CardView
+            android:stateListAnimator="@animator/shadow_selector_animator"
+            app:activated="@{vm.sheetOpenCount == 0}"
             android:layout_width="46dp"
             android:layout_height="2dp"
             android:layout_marginTop="32dp"
