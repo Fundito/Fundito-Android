@@ -6,9 +6,7 @@ import com.fundito.fundito.data.model.Store
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 import kotlinx.android.parcel.Parcelize
-import retrofit2.http.GET
-import retrofit2.http.Path
-import retrofit2.http.Query
+import retrofit2.http.*
 
 
 /**
@@ -19,6 +17,18 @@ interface StoreInfoService {
     //1
     @GET("storeInfo/{storeIdx}")
     suspend fun getStoreInfo(@Path("storeIdx") storeIdx : Int) : Store
+
+    //2
+    @POST("storeInfo/wifi")
+    suspend fun checkWifi(
+        @Field("storeIdx") storeIdx: Int,
+        @Field("wifiSSID") wifiSSID: String
+    )
+
+    //3
+    @GET("storeInfo")
+    suspend fun listStoreInfo() : List<Store>
+
 
     //6
     @GET("storefund/search")

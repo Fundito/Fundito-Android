@@ -138,11 +138,7 @@
         app:layout_constraintTop_toTopOf="@+id/guide"
         android:text="총" />
 
-    <com.fundito.fundito.common.view.dialog_keyboard
-        android:id="@+id/dialKeyboard"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

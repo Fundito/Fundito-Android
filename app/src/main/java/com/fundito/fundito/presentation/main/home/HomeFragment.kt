@@ -1,7 +1,10 @@
 package com.fundito.fundito.presentation.main.home
 
+import android.app.ActivityOptions
+import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
+import android.util.Pair
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,6 +16,7 @@ import com.fundito.fundito.common.widget.setOnDebounceClickListener
 import com.fundito.fundito.databinding.FragmentHomeBinding
 import com.fundito.fundito.presentation.main.MainActivity
 import com.fundito.fundito.presentation.noti.NotiActivity
+import com.fundito.fundito.presentation.search.SearchActivity
 import dagger.android.support.DaggerFragment
 import javax.inject.Inject
 
@@ -51,6 +55,12 @@ class HomeFragment : DaggerFragment(), HasDefaultViewModelProviderFactory {
     private fun initView() {
         mBinding.notiButton setOnDebounceClickListener {
             startActivity(NotiActivity::class)
+        }
+        mBinding.searchContainer setOnDebounceClickListener {
+            startActivity(
+                Intent(requireContext(),SearchActivity::class.java),
+                ActivityOptions.makeSceneTransitionAnimation(requireActivity(), Pair.create( mBinding.searchContainer,"searchbar")  ).toBundle()
+            )
         }
     }
 
