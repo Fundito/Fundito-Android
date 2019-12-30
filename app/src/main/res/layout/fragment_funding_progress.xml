@@ -14,19 +14,31 @@
         />
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/fundingPriceProgress"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="240dp"
         android:fontFamily="@font/spoqa_han_sans_regular"
         android:gravity="center_horizontal"
         android:lineSpacingExtra="15sp"
+        android:text="5,000"
         android:textColor="@color/black"
         android:textSize="32sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.261"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guide"
-        android:text="5,000 원" />
+        app:layout_constraintTop_toTopOf="@+id/guide" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:fontFamily="@font/spoqa_han_sans_regular"
+        android:text="원"
+        android:textColor="@color/black"
+        android:textSize="32sp"
+        app:layout_constraintStart_toEndOf="@+id/fundingPriceProgress"
+        app:layout_constraintTop_toTopOf="@+id/guide" />
 
     <TextView
         android:id="@+id/textView4"
@@ -34,13 +46,13 @@
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
         android:lineSpacingExtra="6sp"
+        android:text="펀디토 머니:  48,000원"
         android:textColor="#5c5c5c"
         android:textSize="12sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.911"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView3"
-        android:text="펀디토 머니:  48,000원" />
+        app:layout_constraintTop_toBottomOf="@+id/fundingPriceProgress" />
 
     <!--    플러스 이미지 / 구분선 이미지 -->
 
@@ -125,6 +137,12 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/guide"
         android:text="총" />
+
+    <com.fundito.fundito.common.view.dialog_keyboard
+        android:id="@+id/dialKeyboard"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
