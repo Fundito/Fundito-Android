@@ -30,31 +30,24 @@ interface UserService {
 
     //3
     @GET("auth/user")
-    suspend fun getListUser(
-
-    ):User
+    suspend fun getUser():UserResponse
 
     //5
     @PUT("mypage/point")
     @FormUrlEncoded
     suspend fun putChargeFunditoMoney(
-        @Field("userIdx") userIdx: Int,
         @Field("funditoMoney") fundingMoney: Int,
         @Field("payPassword") payPassword: Int
-    ): User
+    )
 
     //6
-    @GET("mypage/fund/reward/{userIdx}")
-    suspend fun getUsingFunditoMoney(
-        @Path("userIdx") userIdx: Int
-    ): User
+    @GET("mypage/fund/reward")
+    suspend fun getUsingFunditoMoney(): CurrentFundingStatus
 
     //7
 
     @GET("mypage/point")
-    suspend fun getListFunditoMoney(
-
-    ): User
+    suspend fun getFunditoMoney(): List<FunditoMoneyResponse>
 
 
 
@@ -65,6 +58,44 @@ data class TokenResponse(
     @SerializedName("token")
     @Expose(serialize = true, deserialize = true)
     val token: String
+) : Parcelable
+
+@Parcelize
+data class UserResponse(
+    @SerializedName("name")
+    @Expose(serialize = true, deserialize = true)
+    val name: String,
+    @SerializedName("nickname")
+    @Expose(serialize = true, deserialize = true)
+    val nickname: String,
+    @SerializedName("point")
+    @Expose(serialize = true, deserialize = true)
+    val point: Int
+) : Parcelable
+
+@SuppressLint("ParcelCreator")
+@Parcelize
+data class CurrentFundingStatus(
+    @SerializedName("totalGetMoney")
+    @Expose(serialize = true, deserialize = true)
+    val totalGetMoney: Int,
+    @SerializedName("totalFundedMoney")
+    @Expose(serialize = true, deserialize = true)
+    val totalFundedMoney: Int,
+    @SerializedName("totalRewardMoney")
+    @Expose(serialize = true, deserialize = true)
+    val totalRewardMoney: Int,
+    @SerializedName("totalRewardPercent")
+    @Expose(serialize = true, deserialize = true)
+    val totalRewardPercent: Int
+) : Parcelable
+
+@SuppressLint("ParcelCreator")
+@Parcelize
+data class FunditoMoneyResponse(
+    @SerializedName("point")
+    @Expose(serialize = true, deserialize = true)
+    val point: Int
 ) : Parcelable
 
 

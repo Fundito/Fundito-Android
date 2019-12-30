@@ -10,9 +10,9 @@
         android:usesCleartextTraffic="true"
         android:name=".application.MainApplication"
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/sample_image"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@mipmap/sample_image_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:targetApi="m">
@@ -37,6 +37,10 @@
                 <data android:scheme="@string/fb_login_protocol_scheme" />
             </intent-filter>
         </activity>
+
+        <provider android:authorities="com.facebook.app.FacebookContentProvider458706525080336"
+            android:name="com.facebook.FacebookContentProvider"
+            android:exported="true"/>
 <!--ENDFACEBOOK-->
 
 
