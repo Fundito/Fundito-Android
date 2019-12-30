@@ -51,8 +51,20 @@ class FundingProgressView @JvmOverloads constructor(context: Context, attrs: Att
         }
 
     var max: Int = 100
+        set(value) {
+            invalidate()
+            field = value
+        }
     var circleCount = 25
+        set(value) {
+            invalidate()
+            field = value
+        }
     var progress: Int = 83
+        set(value) {
+            invalidate()
+            field = value
+        }
 
 
     override fun onDraw(canvas: Canvas) {

@@ -163,7 +163,7 @@ dependencies {
      * Firebase
      */
     implementation ("com.google.firebase:firebase-auth:19.2.0")
-    implementation ("com.facebook.android:facebook-android-sdk:4.42.0")
+    implementation ("com.facebook.android:facebook-android-sdk:5.13.0")
 
 
     /**

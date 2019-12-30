@@ -2,31 +2,38 @@ package com.fundito.fundito.presentation.noti
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.ListAdapter
+import androidx.core.text.buildSpannedString
+import androidx.core.text.color
 import androidx.databinding.BindingAdapter
 import androidx.databinding.library.baseAdapters.BR
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.fundito.fundito.R
+import com.fundito.fundito.application.MainApplication.Companion.GlobalApp
+import com.fundito.fundito.common.util.DateParsingUtil
+import com.fundito.fundito.data.enumerator.FundStatus
+import com.fundito.fundito.data.service.NotificationResponse
 import com.fundito.fundito.databinding.ItemNotiBinding
+import java.util.*
 
 /**
  * Created by mj on 29, December, 2019
  */
-class NotiAdapter : androidx.recyclerview.widget.ListAdapter<String,NotiAdapter.NotiHolder>(DIFF) {
+class NotiAdapter : androidx.recyclerview.widget.ListAdapter<NotificationResponse,NotiAdapter.NotiHolder>(DIFF) {
 
     companion object {
-        private val DIFF = object : DiffUtil.ItemCallback<String>() {
-            override fun areItemsTheSame(oldItem: String, newItem: String): Boolean {
-                return oldItem == newItem
+        private val DIFF = object : DiffUtil.ItemCallback<NotificationResponse>() {
+            override fun areItemsTheSame(oldItem: NotificationResponse, newItem: NotificationResponse): Boolean {
+                return oldItem.notificationIdx == newItem.notificationIdx
             }
 
-            override fun areContentsTheSame(oldItem: String, newItem: String): Boolean {
+            override fun areContentsTheSame(oldItem: NotificationResponse, newItem: NotificationResponse): Boolean {
                 return oldItem == newItem
             }
         }
     }
 
-    fun submitItems(items : List<String>) {
+    fun submitItems(items : List<NotificationResponse>) {
         submitList(items)
     }
 
@@ -43,15 +50,29 @@ class NotiAdapter : androidx.recyclerview.widget.ListAdapter<String,NotiAdapter.
 
 
     inner class NotiHolder(private val binding: ItemNotiBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(item: String) {
+        fun bind(item: NotificationResponse) {
             binding.setVariable(BR.item, item)
             binding.executePendingBindings()
+
+            val cal = DateParsingUtil.parseString(item.date)
+            binding.date.text = "%02d월 %02일".format(cal[Calendar.MONTH] + 1,cal[Calendar.DAY_OF_MONTH])
+            binding.name.text = item.storeInfo.name + "(이/가)"
+            binding.progress.text = when(item.storeInfo.fundStatus) {
+                FundStatus.SUCCESS-> buildSpannedString {
+                    append("목표매출 ")
+                    color(GlobalApp.resources.getColor(R.color.dark_navy)){append("도달!")}
+                }
+                else-> buildSpannedString {
+                    append("목표매출 ")
+                    color(GlobalApp.resources.getColor(R.color.dark_navy)){append("실패")}
+                }
+            }
         }
     }
 }
 
 @BindingAdapter("app:recyclerview_Noti_items")
-fun RecyclerView.setItems(items: List<String>?) {
+fun RecyclerView.setItems(items: List<NotificationResponse>?) {
      if(items == null) return
     (adapter as? NotiAdapter)?.run {
         this.submitItems(items)
