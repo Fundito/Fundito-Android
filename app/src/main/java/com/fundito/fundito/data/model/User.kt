@@ -44,8 +44,6 @@ data class User(
     @SerializedName("serverStatus")
     val serverStatus: Int,
     @SerializedName("warningCount")
-    val warningCount: Int,
-    @SerializedName("token")
-    val token : String
+    val warningCount: Int
 ): Parcelable
 
