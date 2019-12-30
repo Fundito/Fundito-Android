@@ -1,11 +1,6 @@
 package com.fundito.fundito.data.service
 
-import android.os.Parcelable
-import com.fundito.fundito.data.model.Funding
 import com.fundito.fundito.data.model.User
-import com.google.gson.annotations.Expose
-import com.google.gson.annotations.SerializedName
-import kotlinx.android.parcel.Parcelize
 import retrofit2.http.*
 
 /**
@@ -16,14 +11,15 @@ interface UserService {
     //1
     @PUT("auth/signuup")
     suspend fun Signup(
+        @Header("access_token") facebookAccessToken : String,
         @Field("nickname") nickname: String,
         @Field("pay_password") pay_password: String
-    ): User
+    ):User
 
     //2
     @GET("auth/signin")
     suspend fun Signin(
-
+        @Header("access_token") facebookAccessToken : String
     ):User
 
     //3

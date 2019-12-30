@@ -23,6 +23,7 @@
             android:layout_height="0dp"/>
 
         <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:elevation="24dp"
             app:itemTextAppearanceActive="@style/TextAppearance.AppCompat.Fundito.BottomNavigation"
             app:itemTextAppearanceInactive="@style/TextAppearance.AppCompat.Fundito.BottomNavigation"
             app:labelVisibilityMode="labeled"
