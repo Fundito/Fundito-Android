@@ -3,7 +3,9 @@ package com.fundito.fundito.presentation.main.status
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.liveData
 import com.fundito.fundito.common.widget.Once
+import com.fundito.fundito.data.service.NetworkClient
 import javax.inject.Inject
 
 /**
@@ -38,6 +40,23 @@ class StatusViewModel @Inject constructor() : ViewModel() {
     
     private val _dispatchBackPressEvent : MutableLiveData<Once<Unit>> = MutableLiveData()
     val dispatchBackPressEvent : LiveData<Once<Unit>> = _dispatchBackPressEvent
+
+    val userData = liveData {
+        kotlin.runCatching {
+            NetworkClient.userService.getUser()
+        }.onSuccess {
+            emit(it)
+        }
+    }
+
+    val fundingData = liveData {
+        kotlin.runCatching {
+            NetworkClient.userService.getUsingFunditoMoney()
+        }.onSuccess {
+            emit(it)
+        }
+    }
+
 
 
     fun onClickBack() {
