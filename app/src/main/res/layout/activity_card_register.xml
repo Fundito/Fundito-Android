@@ -107,6 +107,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="10dp"
                 android:fontFamily="@font/spoqa_han_sans_regular"
+                android:backgroundTint="@color/dark_navy"
                 android:hint="본인명의 카드번호를 ”-”없이 입력하세요."
                 android:inputType="number"
                 android:lineSpacingExtra="6sp"
@@ -140,7 +141,7 @@
                 android:layout_marginTop="8dp"
                 android:hint="MM/YY"
                 android:inputType="number"
-
+                android:backgroundTint="@color/dark_navy"
                 android:maxLength="5"
                 android:textCursorDrawable="@drawable/cursor"
                 android:textSize="12dp"
@@ -169,7 +170,7 @@
                 android:layout_marginTop="8dp"
                 android:hint="비밀번호 앞 2자리"
                 android:inputType="numberPassword"
-
+                android:backgroundTint="@color/dark_navy"
                 android:lineSpacingExtra="6sp"
                 android:maxLength="2"
                 android:textColor="#a0a1a2"
@@ -212,6 +213,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
                 android:hint="6자 이내"
+                android:backgroundTint="@color/dark_navy"
                 android:lineSpacingExtra="6sp"
                 android:fontFamily="@font/spoqa_han_sans_regular"
                 android:maxLength="6"

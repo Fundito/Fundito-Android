@@ -31,6 +31,9 @@ class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
+
+
+
         loginButton.setOnClickListener(View.OnClickListener {
             //login
             callbackManager = CallbackManager.Factory.create()
@@ -56,10 +59,11 @@ class LoginActivity : AppCompatActivity() {
             lifecycleScope.launch {
 
                 kotlin.runCatching {
-                    NetworkClient.userService.Signin()
+                    NetworkClient.userService.Signin(
+                        "")
                 }.onSuccess {
                     Log.d(TAG, "success")
-                        val intent = Intent(this@LoginActivity, ChargeActivity::class.java)
+                        val intent = Intent(this@LoginActivity, LoginNicknameActivity::class.java)
                         startActivity(intent)
                 }.onFailure {
                     Log.e(TAG, "fail")
@@ -68,6 +72,8 @@ class LoginActivity : AppCompatActivity() {
                 }
 
             }
+
+
             LoginManager.getInstance().logInWithReadPermissions(this, Arrays.asList("public_profile"));
         })
 
