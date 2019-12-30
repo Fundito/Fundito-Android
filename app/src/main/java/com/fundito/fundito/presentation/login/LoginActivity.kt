@@ -1,10 +1,12 @@
 package com.fundito.fundito.presentation.login
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
 import com.facebook.AccessToken
 import com.facebook.CallbackManager
 import com.facebook.FacebookCallback
@@ -12,7 +14,10 @@ import com.facebook.FacebookException
 import com.facebook.login.LoginManager
 import com.facebook.login.LoginResult
 import com.fundito.fundito.R
+import com.fundito.fundito.data.service.NetworkClient
+import com.fundito.fundito.presentation.charge.ChargeActivity
 import kotlinx.android.synthetic.main.activity_login.*
+import kotlinx.coroutines.launch
 import java.util.*
 
 
@@ -20,7 +25,7 @@ import java.util.*
  * Created by mj on 26, December, 2019
  */
 class LoginActivity : AppCompatActivity() {
-
+    private var TAG = "LoginActivity"
     private var callbackManager: CallbackManager? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -48,7 +53,21 @@ class LoginActivity : AppCompatActivity() {
 
                 })
 
+            lifecycleScope.launch {
 
+                kotlin.runCatching {
+                    NetworkClient.userService.Signin()
+                }.onSuccess {
+                    Log.d(TAG, "success")
+                        val intent = Intent(this@LoginActivity, ChargeActivity::class.java)
+                        startActivity(intent)
+                }.onFailure {
+                    Log.e(TAG, "fail")
+                    Log.e(TAG, it.message.toString())
+
+                }
+
+            }
             LoginManager.getInstance().logInWithReadPermissions(this, Arrays.asList("public_profile"));
         })
 
