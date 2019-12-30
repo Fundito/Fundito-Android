@@ -1,22 +1,22 @@
 package com.fundito.fundito.presentation.login
 
+import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.text.Editable
-import android.text.SpannableStringBuilder
 import android.text.TextWatcher
-import android.text.style.ClickableSpan
 import android.util.Log
-import android.view.View
-import android.widget.Button
-import android.widget.CheckBox
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.text.bold
 import androidx.core.text.buildSpannedString
 import androidx.core.text.color
-import androidx.core.text.inSpans
 import com.fundito.fundito.R
+import com.fundito.fundito.presentation.main.MainActivity
 import kotlinx.android.synthetic.main.activity_card_register.*
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 
 /**
@@ -28,6 +28,12 @@ class CardRegisterActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_card_register)
+
+
+        registerButton.setOnClickListener{
+            val intent = Intent(this@CardRegisterActivity, MainActivity::class.java)
+            startActivity(intent)
+        }
 
         /**
          * Formatting a credit card number: ####-####-####-####
