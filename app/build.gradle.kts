@@ -146,6 +146,7 @@ dependencies {
      */
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.2")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.2")
+    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.3.2")
 
     /**
      * Flow Binding
