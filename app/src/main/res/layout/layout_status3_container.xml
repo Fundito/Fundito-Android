@@ -10,7 +10,6 @@
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:animateLayoutChanges="true"
         android:paddingTop="24dp"
         android:background="@drawable/status_sheet_background_shadow"
         android:clipChildren="false"
@@ -34,7 +33,8 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.cardview.widget.CardView
-            android:visibility="@{vm.sheetOpenCount == 1}"
+            android:stateListAnimator="@animator/shadow_selector_animator"
+            app:activated="@{vm.sheetOpenCount == 1}"
             android:layout_width="46dp"
             android:layout_height="2dp"
             android:layout_marginTop="32dp"
