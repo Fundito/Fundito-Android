@@ -8,7 +8,7 @@
     <data>
         <variable
             name="item"
-            type="com.fundito.fundito.data.model.Store" />
+            type="com.fundito.fundito.data.service.SearchResponseItem" />
 
     </data>
 

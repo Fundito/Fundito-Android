@@ -33,12 +33,13 @@ object DateParsingUtil {
         return Calendar.getInstance().apply { time = date }
     }
 
-    fun calculateDiffWithCurrent(rawString : String) : String {
-        return calculateDiffWithCurrent(parseString(rawString).timeInMillis)
+    fun calculateDiffWithCurrent(rawString : String, isFuture : Boolean = false) : String {
+        return calculateDiffWithCurrent(parseString(rawString).timeInMillis,isFuture)
     }
 
-    fun calculateDiffWithCurrent(timeMs : Long) : String {
-        val diff = System.currentTimeMillis() - timeMs
+    fun calculateDiffWithCurrent(timeMs : Long, isFuture : Boolean = false) : String {
+        var diff = System.currentTimeMillis() - timeMs
+        if(isFuture) diff = -diff
         val diffMin = diff / 1000 / 60
 
         val dayDiff = diffMin / 60 / 24
