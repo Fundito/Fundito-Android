@@ -11,10 +11,9 @@ import retrofit2.http.*
  * Created by mj on 29, December, 2019
  */
 interface CardService {
-    @POST("mypage/card/{userIdx}")
+    @POST("mypage/card")
     @FormUrlEncoded
     suspend fun createCard(
-        @Path("userIdx") userIdx : Int,
         @Field("cardCompany") cardCompany : String,
         @Field("cardNickname") cardNickname : String,
         @Field("cardNumber") cardNumber : String,
