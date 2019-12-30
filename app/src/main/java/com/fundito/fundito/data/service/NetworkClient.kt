@@ -16,6 +16,7 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
+import timber.log.Timber
 
 /**
  * Created by mj on 22, December, 2019
@@ -39,6 +40,7 @@ object NetworkClient {
             val newRequest = chain.request().newBuilder()
                 .addHeader("token", SPUtil.accessToken).build()
 
+
             /**
              * 2) General Response from Server (Unwrapping data)
              */
@@ -49,6 +51,8 @@ object NetworkClient {
              */
             val rawJson = response.body?.string() ?: "{}"
 
+            Timber.e(rawJson)
+
             /**
              * 4) Wrap body with gson
              */
@@ -57,15 +61,16 @@ object NetworkClient {
                 val r = gson.fromJson<ResponseWrapper<*>>(rawJson, type) ?: throw JsonSyntaxException("Parse Fail")
 
                 if(!r.success)
-                    ResponseWrapper<Any>(-999, false, "Server Logic Fail : ${r.message}", false)
+                    ResponseWrapper<Any>(-999, false, "Server Logic Fail : ${r.message}", null)
                 else
                     r
 
             } catch (e: JsonSyntaxException) {
-                ResponseWrapper<Any>(-999, false, "json parsing fail : $e", false)
+                ResponseWrapper<Any>(-999, false, "json parsing fail : $e", null)
             } catch (t: Throwable) {
-                ResponseWrapper<Any>(-999, false, "unknown error : $t", false)
+                ResponseWrapper<Any>(-999, false, "unknown error : $t", null)
             }
+
 
             /**
              * 5) get data json from data
@@ -124,5 +129,3 @@ data class ResponseWrapper<T>(
     @SerializedName("data")
     val data: @RawValue T? = null
 ) : Parcelable
-
-class ServerLogicFailException(message: String) : Exception(message)

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<layout>
+<layout xmlns:tools="http://schemas.android.com/tools">
     <data>
         <variable
             name="vm"
@@ -54,7 +54,7 @@
                 android:textColor="@color/black"
                 android:lineSpacingExtra="9sp"
                 android:gravity="center_horizontal"
-                android:text="주윤님이 현재 얻을 수 있는 금액은?"
+                tools:text="주윤님이 현재 얻을 수 있는 금액은?"
                 />
 
             <me.grantland.widget.AutofitTextView
@@ -69,7 +69,7 @@
                 android:textColor="@color/black"
                 android:lineSpacingExtra="24sp"
                 android:gravity="end"
-                android:text="+13,500 원"
+                tools:text="+13,500 원"
                 />
             <TextView
                 android:id="@+id/info2"

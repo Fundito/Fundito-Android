@@ -1,12 +1,358 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="match_parent">
 
-    <TextView
-        android:text="home"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        />
+<layout>
+    <data>
+        <variable
+            name="vm"
+            type="com.fundito.fundito.presentation.main.home.HomeViewModel" />
+    </data>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:background="#f6f5f5"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+
+        <ImageView
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintVertical_bias="0.55"
+            android:src="@drawable/cherryontop"
+            app:layout_constraintDimensionRatio="478:414"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"/>
+
+        <ImageView
+            android:id="@+id/headerLogo"
+            android:layout_marginTop="16dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            android:src="@drawable/logo_home_img"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <ImageButton
+            android:id="@+id/notiButton"
+            android:layout_marginTop="8dp"
+            android:layout_marginRight="20dp"
+            android:padding="12dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:src="@drawable/notice_icon_off"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+
+            android:id="@+id/searchContainer"
+            android:layout_marginTop="24dp"
+            app:layout_constraintTop_toBottomOf="@id/headerLogo"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:background="@drawable/background_search_textfield"
+            android:layout_width="match_parent"
+            android:layout_height="37dp">
+            <TextView
+                android:layout_marginLeft="32dp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:textColor="@color/brown_grey"
+                android:lineSpacingExtra="8sp"
+                android:text="가게 검색하기"
+                />
+            <ImageView
+                android:layout_marginRight="16dp"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/search_icon"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <TextView
+            android:fontFamily="@font/spoqa_han_sans_light"
+            android:layout_marginLeft="16dp"
+            android:id="@+id/info"
+            android:layout_marginTop="24dp"
+            app:layout_constraintLeft_toLeftOf="@id/searchContainer"
+            app:layout_constraintTop_toBottomOf="@id/searchContainer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="24sp"
+            android:textColor="@color/dark_navy"
+            android:lineSpacingExtra="0sp"
+            android:text="홍지원님,\n식사는 잘 하셨나요?"
+            />
+
+        <TextView
+            android:visibility="gone"
+            android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toTopOf="@id/storeCard"
+            app:layout_constraintLeft_toLeftOf="@id/storeCard"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="12sp"
+            android:textColor="@color/black"
+            android:lineSpacingExtra="6sp"
+            android:textStyle="bold"
+            android:text="연결된 식당"
+
+            />
+
+        <androidx.cardview.widget.CardView
+            android:visibility="gone"
+            android:id="@+id/storeCard"
+            android:elevation="@dimen/cardElevation"
+            app:cardCornerRadius="8dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginBottom="16dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            android:layout_width="match_parent"
+            android:layout_height="174dp">
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:padding="16dp"
+                android:background="@drawable/background_home_card"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    tools:src="@tools:sample/avatars[0]"
+                    android:id="@+id/thumbnail"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    android:layout_width="42dp"
+                    android:layout_height="42dp"/>
+
+                <TextView
+                    android:id="@+id/shopName"
+                    android:layout_marginLeft="16dp"
+                    app:layout_constraintLeft_toRightOf="@id/thumbnail"
+                    app:layout_constraintTop_toTopOf="@id/thumbnail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="16sp"
+                    android:textColor="@color/black"
+                    android:lineSpacingExtra="8sp"
+                    android:textStyle="bold"
+                    tools:text="유나네 감자탕"
+                    />
+                <ImageView
+                    android:id="@+id/wifiIcon"
+                    app:layout_constraintBottom_toBottomOf="@id/thumbnail"
+                    app:layout_constraintLeft_toLeftOf="@id/shopName"
+                    android:src="@drawable/rss_feed_24_px"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+                <TextView
+                    android:layout_marginLeft="2.3dp"
+                    android:alpha="0.5"
+                    app:layout_constraintBottom_toBottomOf="@id/thumbnail"
+                    app:layout_constraintLeft_toRightOf="@id/wifiIcon"
+                    android:id="@+id/ssidName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="12sp"
+                    android:textColor="@color/black"
+                    android:lineSpacingExtra="6sp"
+                    tools:text="yunapotato5G"
+                    />
+
+                <TextView
+                    android:textStyle="bold"
+                    android:layout_marginRight="4dp"
+                    app:layout_constraintBottom_toBottomOf="@id/thumbnail"
+                    app:layout_constraintRight_toLeftOf="@id/remain"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="12sp"
+                    android:textColor="@color/charcoal_grey"
+                    android:lineSpacingExtra="6sp"
+                    android:text="남은기간 "
+                    />
+
+                <TextView
+                    android:id="@+id/remain"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="@id/thumbnail"
+                    app:layout_constraintRight_toRightOf="parent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="16sp"
+                    android:textColor="@color/charcoal_grey"
+                    android:lineSpacingExtra="8sp"
+                    tools:text="16일 "
+                    />
+
+                <com.fundito.fundito.common.view.FundingProgressView
+                    android:id="@+id/progressView"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="4dp"
+                    app:layout_constraintTop_toBottomOf="@id/thumbnail"
+                    android:layout_width="match_parent"
+                    android:layout_height="13dp"/>
+
+                <TextView
+                    android:id="@+id/timelineLabel"
+                    android:layout_marginTop="6dp"
+                    android:layout_marginLeft="2dp"
+                    app:layout_constraintLeft_toLeftOf="@id/thumbnail"
+                    android:textStyle="bold"
+                    app:layout_constraintTop_toBottomOf="@id/progressView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="12sp"
+                    android:textColor="@color/charcoal_grey"
+                    android:lineSpacingExtra="6sp"
+                    android:text="타임라인 "
+                    />
+
+
+
+                <androidx.cardview.widget.CardView
+                    app:cardCornerRadius="8dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/timelineLabel"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp">
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:background="@drawable/background_home_card_pink"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <TextView
+                            android:id="@+id/fundingAmmount"
+                            android:layout_marginLeft="10dp"
+                            android:textStyle="bold"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="15sp"
+                            android:textColor="@color/black"
+                            android:lineSpacingExtra="7sp"
+                            tools:text="3500원 투자"
+                            />
+
+                        <ImageView
+                            android:id="@+id/upArrow"
+                            android:layout_marginLeft="3dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/uparrow_img"
+                            app:layout_constraintLeft_toRightOf="@id/fundingAmmount"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"/>
+
+                        <TextView
+                            android:layout_marginLeft="7dp"
+                            app:layout_constraintLeft_toRightOf="@id/upArrow"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            android:id="@+id/nickName"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="15sp"
+                            android:textColor="@color/black"
+                            android:lineSpacingExtra="7sp"
+                            tools:text="말똥이"
+                            />
+
+                        <TextView
+                            android:id="@+id/timeDiff"
+                            android:layout_marginRight="12dp"
+                            app:layout_constraintRight_toRightOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="12sp"
+                            android:textColor="@color/black"
+                            android:lineSpacingExtra="6sp"
+                            tools:text="2분전"
+                            />
+
+
+
+
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </androidx.cardview.widget.CardView>
+
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.cardview.widget.CardView>
+        <androidx.cardview.widget.CardView
+            android:id="@+id/wifiCard"
+            android:elevation="@dimen/cardElevation"
+            app:cardCornerRadius="8dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginBottom="16dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            android:layout_width="match_parent"
+            android:layout_height="76dp">
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:padding="16dp"
+                android:background="@drawable/background_home_card"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:id="@+id/bigWifiIcon"
+                    android:layout_marginLeft="20dp"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    android:src="@drawable/rss_feed_41_px"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+                <TextView
+                    android:id="@+id/wifiConnectionInfo"
+                    android:layout_marginLeft="19dp"
+                    app:layout_constraintTop_toTopOf="@id/bigWifiIcon"
+                    app:layout_constraintLeft_toRightOf="@id/bigWifiIcon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="12sp"
+                    android:textColor="#838383"
+                    android:lineSpacingExtra="12sp"
+                    android:text="스마트폰 설정 -&gt; Wi-Fi"
+                    />
+
+                <TextView
+                    android:textSize="16sp"
+                    android:textColor="@color/dark"
+                    android:text="매장 와이파이를 연결해 주세요."
+                    app:layout_constraintBottom_toBottomOf="@id/bigWifiIcon"
+                    app:layout_constraintLeft_toLeftOf="@id/wifiConnectionInfo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.cardview.widget.CardView>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
+

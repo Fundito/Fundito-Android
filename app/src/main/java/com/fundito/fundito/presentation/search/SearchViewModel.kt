@@ -28,7 +28,7 @@ class SearchViewModel @Inject constructor(
 
 
     fun onSearchItemSaved(item: SearchItem) = viewModelScope.launch {
-        searchDao.insert(item)
+        searchDao.insertNewItem(item)
     }
 
     fun onQueryChanged() = viewModelScope.launch {
