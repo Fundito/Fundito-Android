@@ -13,6 +13,18 @@ import retrofit2.http.*
  */
 interface UserService {
 
+    //1
+    @PUT("auth/signuup")
+    suspend fun Signup(
+        @Field("nickname") nickname : String,
+        @Field("pay_password") pay_password : String
+    )
+
+    //2
+    @GET("auth/signin")
+    suspend fun Signin(
+
+    )
 
     //5
     @PUT("mypage/point")
@@ -35,25 +47,6 @@ interface UserService {
     )
 
 
-
-
-    @Parcelize
-    data class User(
-        val point: Int,
-    val affectedRows: Int,
-    val changedRows: Int,
-    val fieldCount: Int,
-    val insertId: Int,
-    val totalFundedMoney: Int,
-    val totalGetMoney: Int,
-    val totalRewardMoney: Int,
-    val totalRewardPercent: Int,
-
-    val message: String,
-    val protocol41: Boolean,
-    val serverStatus: Int,
-    val warningCount: Int
-): Parcelable
 
 }
 
