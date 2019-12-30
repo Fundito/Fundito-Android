@@ -16,8 +16,8 @@ interface UserService {
     //1
     @PUT("auth/signuup")
     suspend fun Signup(
-        @Field("nickname") nickname : String,
-        @Field("pay_password") pay_password : String
+        @Field("nickname") nickname: String,
+        @Field("pay_password") pay_password: String
     )
 
     //2
@@ -26,25 +26,37 @@ interface UserService {
 
     )
 
+    //3
+    @GET("auth/user")
+    suspend fun getListUser()
+
     //5
     @PUT("mypage/point")
     @FormUrlEncoded
     suspend fun putChargeFunditoMoney(
-        @Field("userIdx") userIdx : Int,
+        @Field("userIdx") userIdx: Int,
         @Field("funditoMoney") fundingMoney: Int,
         @Field("payPassword") payPassword: Int
-    ) : List<User>
+    ): User
 
     //6
     @GET("mypage/fund/reward/{userIdx}")
     suspend fun getUsingFunditoMoney(
         @Path("userIdx") userIdx: Int
-    ) : List<User>
+    ): User
 
     //7
+
     @GET("mypage/point")
     suspend fun getListFunditoMoney(
-    )
+//    @Header("Content-Type") content_type : String,
+//    @Header("access_token") access_token : String
+
+    ): User
+
+
 
 }
+
+
 
