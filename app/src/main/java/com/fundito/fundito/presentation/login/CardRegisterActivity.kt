@@ -96,14 +96,6 @@ class CardRegisterActivity : AppCompatActivity() {
             checkbox4.isSelected = true
             checkbox5.isSelected = true
         }
-        buildSpannedString{
-                color(Color.BLUE){
-                    bold{
-                        append("홍지원님")
-                    }
-                }
-            append("string")
-        }
     }
 
 }
