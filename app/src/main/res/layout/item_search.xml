@@ -6,6 +6,9 @@
     >
 
     <data>
+        <variable
+            name="item"
+            type="com.fundito.fundito.data.model.Store" />
 
     </data>
 
@@ -23,6 +26,7 @@
             android:layout_height="1dp"/>
 
         <de.hdodenhof.circleimageview.CircleImageView
+            srcUrl="@{item.thumbnail}"
             android:id="@+id/image"
             tools:src="@tools:sample/avatars[0]"
             app:layout_constraintTop_toTopOf="parent"
@@ -54,7 +58,8 @@
             android:textSize="16sp"
             android:textColor="@color/black"
             android:lineSpacingExtra="8sp"
-            android:text="유나네 감자탕 유나네 감유나네 감유나네 감유나네 감유나네 감"
+            tools:text="유나네 감자탕 유나네 감유나네 감유나네 감유나네 감유나네 감"
+            android:text="@{item.name}"
             />
 
         <TextView
@@ -66,7 +71,8 @@
             android:textSize="12sp"
             android:textColor="@color/black"
             android:lineSpacingExtra="6sp"
-            android:text="서울시 서대문구 36길"
+            tools:text="서울시 서대문구 36길"
+            android:text="@{item.address}"
             />
         <TextView
             android:layout_marginLeft="16dp"
@@ -80,7 +86,7 @@
             android:textColor="@color/blueberry_two"
             android:lineSpacingExtra="8sp"
             android:gravity="end"
-            android:text=" 83% 달성중"
+            tools:text=" 83% 달성중"
             />
 
         <TextView

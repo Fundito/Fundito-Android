@@ -7,9 +7,10 @@ import android.view.inputmethod.InputMethodManager
 import androidx.lifecycle.HasDefaultViewModelProviderFactory
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.observe
 import androidx.recyclerview.widget.RecyclerView
-import com.fundito.fundito.common.util.startActivity
 import com.fundito.fundito.common.widget.setOnDebounceClickListener
+import com.fundito.fundito.data.database.SearchItem
 import com.fundito.fundito.databinding.ActivitySearchBinding
 import com.fundito.fundito.di.module.ViewModelFactory
 import com.fundito.fundito.presentation.store.StoreDetailActivity
@@ -19,7 +20,6 @@ import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import reactivecircus.flowbinding.android.widget.textChanges
-import timber.log.Timber
 
 /**
  * Created by mj on 26, December, 2019
@@ -44,6 +44,7 @@ class SearchActivity : DaggerAppCompatActivity(),HasDefaultViewModelProviderFact
         mBinding.vm = mViewModel
 
         initView()
+        observeViewModel()
     }
 
     private fun initView() {
@@ -56,8 +57,9 @@ class SearchActivity : DaggerAppCompatActivity(),HasDefaultViewModelProviderFact
         mBinding.textField.apply {
             textChanges()
                 .debounce(300L)
+//                .distinctUntilChanged()
                 .onEach {
-                    Timber.e(it.toString())
+                    mViewModel.onQueryChanged()
                 }
                 .launchIn(lifecycleScope)
         }
@@ -68,8 +70,8 @@ class SearchActivity : DaggerAppCompatActivity(),HasDefaultViewModelProviderFact
 
         mBinding.recyclerView.apply {
             adapter = SearchAdapter {
-                //TODO
-                startActivity(StoreDetailActivity::class)
+                mViewModel.onSearchItemSaved(SearchItem(storeIdx = it.storeIdx, name = it.name))
+                startActivity(StoreDetailActivity.newIntent(this@SearchActivity,it.storeIdx))
             }
 
             addOnScrollListener(object : RecyclerView.OnScrollListener() {
@@ -83,11 +85,25 @@ class SearchActivity : DaggerAppCompatActivity(),HasDefaultViewModelProviderFact
         }
 
         mBinding.recentRecyclerView.apply {
-            adapter = SearchRecentAdapter {
+            adapter = SearchRecentAdapter({
+                mViewModel.onSearchItemSaved(SearchItem(storeIdx = it.storeIdx, name = it.name))
+                startActivity(StoreDetailActivity.newIntent(this@SearchActivity,it.storeIdx))
+            },{
                 mViewModel.onItemDeleted(it)
-            }
+            })
         }
 
+    }
+
+    private fun observeViewModel() {
+        mViewModel.apply {
+            this.items.observe(this@SearchActivity) {
+                if (it.isNotEmpty())
+                    mBinding.result.text = it.size.toString() + "건"
+                else
+                    mBinding.result.text = ""
+            }
+        }
     }
     
 }

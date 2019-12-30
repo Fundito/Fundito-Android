@@ -2,6 +2,7 @@ package com.fundito.fundito.data.database
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
+import com.google.gson.annotations.SerializedName
 
 /**
  * Created by mj on 29, December, 2019
@@ -10,7 +11,7 @@ import androidx.room.*
 abstract class AppDatabase : RoomDatabase() {
 
     companion object {
-        const val DATABASE_NAME = "1"
+        const val DATABASE_NAME = "2"
     }
 
     abstract fun searchDao() : SearchDao
@@ -20,6 +21,11 @@ abstract class AppDatabase : RoomDatabase() {
 data class SearchItem(
     @PrimaryKey(autoGenerate = true)
     val id : Int = 0,
+
+    @SerializedName("store_idx")
+    val storeIdx : Int,
+
+    @SerializedName("name")
     val name : String
 )
 

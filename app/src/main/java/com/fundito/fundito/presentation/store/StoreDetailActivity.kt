@@ -5,13 +5,22 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.text.bold
+import androidx.core.text.buildSpannedString
+import androidx.core.text.color
 import androidx.core.view.doOnLayout
+import androidx.core.view.isVisible
 import androidx.lifecycle.HasDefaultViewModelProviderFactory
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.observe
+import com.fundito.fundito.R
+import com.fundito.fundito.common.loadUrlAsync
 import com.fundito.fundito.common.util.startActivity
+import com.fundito.fundito.common.util.toMoney
 import com.fundito.fundito.common.widget.LinearItemDecoration
 import com.fundito.fundito.common.widget.setOnDebounceClickListener
+import com.fundito.fundito.data.enumerator.RefundType
 import com.fundito.fundito.databinding.ActivityStoreDetailBinding
 import com.fundito.fundito.presentation.funding.FundingActivity
 
@@ -38,12 +47,25 @@ class StoreDetailActivity : AppCompatActivity(), HasDefaultViewModelProviderFact
     @Suppress("UNCHECKED_CAST")
     inner class ViewModelFactory : ViewModelProvider.Factory {
         override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-            return StoreDetailViewModel() as T
+            return StoreDetailViewModel(storeIdx) as T
         }
     }
 
     private lateinit var mBinding: ActivityStoreDetailBinding
     private lateinit var mViewModel: StoreDetailViewModel
+
+    private var storeIdx = -1
+
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putInt(ARG_STORE_IDX,storeIdx)
+    }
+
+    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+        super.onRestoreInstanceState(savedInstanceState)
+        storeIdx = savedInstanceState.getInt(ARG_STORE_IDX)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -51,12 +73,15 @@ class StoreDetailActivity : AppCompatActivity(), HasDefaultViewModelProviderFact
         mBinding = ActivityStoreDetailBinding.inflate(LayoutInflater.from(this))
         setContentView(mBinding.root)
 
-
+        intent?.getIntExtra(ARG_STORE_IDX,-1)?.let {
+            storeIdx = it
+        }
         mViewModel = ViewModelProvider(this)[StoreDetailViewModel::class.java]
         mBinding.lifecycleOwner = this
         mBinding.vm = mViewModel
 
         initView()
+        observeViewModel()
     }
 
     override fun onResume() {
@@ -69,18 +94,23 @@ class StoreDetailActivity : AppCompatActivity(), HasDefaultViewModelProviderFact
 
     private fun initView() {
 
-        mBinding.header.shopName.doOnLayout {
-            it.pivotY = it.height.toFloat()
-            it.pivotX = it.width/2f
+        mBinding.header.shopName.addOnLayoutChangeListener { v, left, top, right, bottom, oldLeft, oldTop, oldRight, oldBottom ->
+            v.pivotX = v.width/2f
+            v.pivotY = v.height/2f
         }
 
         mBinding.header.backButton setOnDebounceClickListener {
             onBackPressed()
         }
 
+        mBinding.header.shopName.doOnLayout {
+            it.pivotX = it.width.toFloat()
+            it.pivotY = it.height.toFloat()
+        }
+
 
         mBinding.content.timeLineRecyclerView.apply {
-            adapter = TimeLineAdapter().apply { submitItems(listOf("","","","")) }
+            adapter = TimeLineAdapter()
             addItemDecoration(LinearItemDecoration(12))
         }
 
@@ -92,8 +122,76 @@ class StoreDetailActivity : AppCompatActivity(), HasDefaultViewModelProviderFact
             startActivity(StoreCheerActivity::class)
         }
 
-        ProfitInfoDialog().show(supportFragmentManager,null)
+        mBinding.content.menuRecyclerView.apply {
+            adapter = StoreDetailAdapter()
+        }
+        mBinding.content.etcRecyclerView.apply {
+            adapter = StoreDetailAdapter()
+        }
 
+//        ProfitInfoDialog().show(supportFragmentManager,null)
+
+    }
+
+    private fun observeViewModel() {
+        mViewModel.apply {
+            store.observe(this@StoreDetailActivity) {store->
+
+
+
+                mBinding.header.coverImage.loadUrlAsync(store.thumbnail)
+
+                if(store.leftDay > 0) {
+                    mBinding.header.dueRemain1.text = "남은기간"
+                    mBinding.header.dueRemain2.isVisible = true
+                    mBinding.header.dueRemain2.text = "${store.leftDay} 일"
+                }else {
+                    mBinding.header.dueRemain1.text = "마감"
+                    mBinding.header.dueRemain2.isVisible = false
+                }
+
+                mBinding.header.dueDate.text = "${store.dueDate} 마감"
+
+                mBinding.header.progressText2.text = store.currentGoalPercent.toString() + "%"
+
+                mBinding.header.archeiveAmmount.text = "목표금액 ${store.goalMoney.toMoney()}"
+
+                mBinding.header.fundingProgress.progress = store.currentGoalPercent
+
+                mBinding.content.info.text = buildSpannedString {
+                    append("지금 투자 하면 ")
+                    bold {
+                        color(resources.getColor(R.color.colorPrimary)){
+                            append("${store.refundPercent}%")
+                        }
+                    }
+                    append(" 환급!")
+                }
+
+                when(RefundType.parseValue(store.refundPercent)) {
+                    RefundType.REFUND_150 -> {
+                        mBinding.content.graph1.progress = 0f
+                        mBinding.content.graph2.progress = 0f
+                        mBinding.content.graph3.progress = store.refundPercentOfPercent/100f
+                    }
+                    RefundType.REFUND_175-> {
+                        mBinding.content.graph1.progress = 0f
+                        mBinding.content.graph2.progress = store.refundPercentOfPercent/100f
+                        mBinding.content.graph3.progress = 1f
+                    }
+                    RefundType.REFUND_200-> {
+                        mBinding.content.graph1.progress = store.refundPercentOfPercent/100f
+                        mBinding.content.graph2.progress = 1f
+                        mBinding.content.graph3.progress = 1f
+                    }
+                }
+                mBinding.content.graph1.startAnimation()
+                mBinding.content.graph2.startAnimation()
+                mBinding.content.graph3.startAnimation()
+
+
+            }
+        }
     }
     
 }

@@ -3,6 +3,7 @@ package com.fundito.fundito.presentation.main.feed
 import android.graphics.Canvas
 import android.graphics.Color
 import android.os.Bundle
+import android.view.Gravity
 import android.view.LayoutInflater
 import androidx.lifecycle.HasDefaultViewModelProviderFactory
 import androidx.lifecycle.ViewModelProvider
@@ -44,6 +45,7 @@ class FeedFriendDetailActivity : DaggerAppCompatActivity(), HasDefaultViewModelP
     }
 
     private fun initView() {
+        mBinding.name.gravity = Gravity.LEFT
         mBinding.recyclerView.apply {
             adapter = FundingOnGoingAdapter {
                 startActivity(StoreDetailActivity::class)

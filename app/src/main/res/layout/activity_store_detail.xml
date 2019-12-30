@@ -8,10 +8,14 @@
             type="com.fundito.fundito.presentation.store.StoreDetailViewModel" />
     </data>
 
+
     <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:animateLayoutChanges="true"
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
+
 
 
         <include
@@ -32,17 +36,35 @@
 
         </com.google.android.material.appbar.AppBarLayout>
 
+
+        <View
+            android:visibility="@{vm.store.leftDay &lt; 1}"
+            android:outlineProvider="none"
+            android:background="#8fff"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
         <LinearLayout
+            android:clipToPadding="false"
+            android:clipChildren="false"
             android:padding="6dp"
             android:layout_gravity="bottom"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
+
             <com.google.android.material.button.MaterialButton
+                android:elevation="24dp"
+
+
+                android:clickable="@{vm.investmentActive}"
+                android:backgroundTint="@{vm.investmentActive ? @color/colorPrimary : @color/white}"
+                android:textColor="@{vm.investmentActive ? @color/white : @color/brown_grey}"
+
                 android:id="@+id/fund"
 
                 android:layout_marginLeft="10dp"
 
-                android:text="결제 / 투자하기"
+                android:text="투자하기"
                 android:layout_width="wrap_content"
                 android:layout_weight="4"
                 android:layout_height="48dp"/>

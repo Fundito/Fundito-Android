@@ -16,6 +16,7 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
+import timber.log.Timber
 
 /**
  * Created by mj on 22, December, 2019
@@ -66,9 +67,17 @@ object NetworkClient {
             }
 
             /**
+             * If data not exist, dump it
+             */
+            if(!res.success) {
+                Timber.e(rawJson)
+            }
+
+
+            /**
              * 6) get data json from data
              */
-            val dataJson = gson.toJson(res.data!!)
+            val dataJson = gson.toJson(res.data)
 
             /**
              * 7) return unwrapped response with body

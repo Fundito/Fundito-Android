@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import androidx.core.animation.doOnStart
 import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
+import com.fundito.fundito.R
 import com.fundito.fundito.common.util.addCharForMoneyRepresentation
 import com.fundito.fundito.common.util.removeLatestMoneyCharacter
 import com.fundito.fundito.common.util.toMoneyLong
@@ -116,8 +117,11 @@ class ChargeActivity : DaggerAppCompatActivity() {
 
     private fun showCompleteScreen() {
         hideKeyboard()
-        supportFragmentManager.beginTransaction()
-            .add(mBinding.completeFragmentContainer.id, ChargeCompleteFragment.newInstance(), "CompleteScreen").commit()
+        supportFragmentManager
+            .beginTransaction()
+            .setCustomAnimations(R.anim.fade_in,R.anim.fade_out)
+            .add(mBinding.completeFragmentContainer.id, ChargeCompleteFragment.newInstance(), "CompleteScreen")
+            .commit()
         mBinding.completeFragmentContainer.isVisible = true
     }
 
