@@ -1,6 +1,7 @@
 package com.fundito.fundito.presentation.main.feed
 
 import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -28,6 +29,15 @@ class FriendFundingListAdapter(private val context: Context) : RecyclerView.Adap
             .load(data[position].profileImg)
             .into(holder.profileImage)
 
+        holder.onBind(data[position])
+
+        holder.cardView.setOnClickListener {
+
+            context.startActivity(Intent(context, FeedFriendDetailActivity::class.java)
+                .putExtra("key", data[position].profileName))
+
+
+        }
 
     }
 

@@ -48,60 +48,58 @@ class FeedFriendListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
 
-                friendFundingListadapter = FriendFundingListAdapter(activity?.baseContext!!)
+        friendFundingListadapter = FriendFundingListAdapter(this.context!!)
 
-                friendFundingRecyclerView = view.findViewById(R.id.friendFundingRecyclerView)
+        friendFundingRecyclerView = view.findViewById(R.id.friendFundingRecyclerView)
 
-                friendFundingRecyclerView.layoutManager = LinearLayoutManager(activity?.baseContext, LinearLayoutManager.VERTICAL, false)
-
-
-                friendFundingRecyclerView.adapter = friendFundingListadapter
-
-                friendFundingRecyclerView.addItemDecoration(LinearItemDecoration(10))
-
-                // 리사이클러뷰 임의데이터 설정
-                friendFundingListadapter.data = listOf(
-                    FriendFunding(
-                        profileImg = R.drawable.profile1,
-                        profileName = "포키포키",
-                        fundingNumber = 13
-                    ),
-                    FriendFunding(
-                        profileImg = R.drawable.profile2,
-                        profileName = "진수",
-                        fundingNumber = 12
-                    ),
-                    FriendFunding(
-                        profileImg = R.drawable.profile3,
-                        profileName = "영우공쥬",
-                        fundingNumber = 12
-                    ),
-                    FriendFunding(
-                        profileImg = R.drawable.profile4,
-                        profileName = "망원피바지",
-                        fundingNumber = 12
-                    ),
-                    FriendFunding(
-                        profileImg = R.drawable.profile5,
-                        profileName = "민쥬찡",
-                        fundingNumber = 12
-                    ),
-                    FriendFunding(
-                        profileImg = R.drawable.profile6,
-                        profileName = "꼰대시끼",
-                        fundingNumber = 12
-                    )
-                ) // listOf
-
-                friendFundingListadapter.notifyDataSetChanged()
-
-                scrollView.setOnScrollChangeListener { v: NestedScrollView?, _: Int, _: Int, _: Int, _: Int ->
-                    shadow.isActivated = v?.canScrollVertically(-1) ?: false
-                }
-
-            }
+        friendFundingRecyclerView.layoutManager = LinearLayoutManager(activity?.baseContext, LinearLayoutManager.VERTICAL, false)
 
 
+        friendFundingRecyclerView.adapter = friendFundingListadapter
+
+        friendFundingRecyclerView.addItemDecoration(LinearItemDecoration(10))
+
+        // 리사이클러뷰 임의데이터 설정
+        friendFundingListadapter.data = listOf(
+            FriendFunding(
+                profileImg = R.drawable.profile1,
+                profileName = "포키포키",
+                fundingNumber = 13
+            ),
+            FriendFunding(
+                profileImg = R.drawable.profile2,
+                profileName = "진수",
+                fundingNumber = 12
+            ),
+            FriendFunding(
+                profileImg = R.drawable.profile3,
+                profileName = "영우공쥬",
+                fundingNumber = 12
+            ),
+            FriendFunding(
+                profileImg = R.drawable.profile4,
+                profileName = "망원피바지",
+                fundingNumber = 12
+            ),
+            FriendFunding(
+                profileImg = R.drawable.profile5,
+                profileName = "민쥬찡",
+                fundingNumber = 12
+            ),
+            FriendFunding(
+                profileImg = R.drawable.profile6,
+                profileName = "꼰대시끼",
+                fundingNumber = 12
+            )
+        ) // listOf
+
+        friendFundingListadapter.notifyDataSetChanged()
+
+        scrollView.setOnScrollChangeListener { v: NestedScrollView?, _: Int, _: Int, _: Int, _: Int ->
+            shadow.isActivated = v?.canScrollVertically(-1) ?: false
+        }
+
+    }
 
 
 } // end class

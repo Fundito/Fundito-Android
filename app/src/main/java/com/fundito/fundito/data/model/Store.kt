@@ -45,4 +45,5 @@ data class Store(
         @SerializedName("menu_price")
         val price : String
     ) : Parcelable
+
 }
