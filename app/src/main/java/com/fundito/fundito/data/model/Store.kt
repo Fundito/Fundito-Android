@@ -1,6 +1,9 @@
 package com.fundito.fundito.data.model
 
 import android.os.Parcelable
+import com.fundito.fundito.data.enumerator.FundStatus
+import com.fundito.fundito.data.enumerator.FundStatusSerializer
+import com.google.gson.annotations.JsonAdapter
 import com.google.gson.annotations.SerializedName
 import kotlinx.android.parcel.Parcelize
 
@@ -36,7 +39,10 @@ data class Store(
     @SerializedName("left_day")
     val leftDay: Int,
     @SerializedName("due_date")
-    val dueDate : String
+    val dueDate : String,
+    @SerializedName("fund_status")
+    @JsonAdapter(FundStatusSerializer::class)
+    val fundStatus : FundStatus
 ) : Parcelable {
     @Parcelize
     data class Menu(
