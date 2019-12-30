@@ -13,6 +13,18 @@ import retrofit2.http.*
  */
 interface UserService {
 
+    //1
+    @PUT("auth/signuup")
+    suspend fun Signup(
+        @Field("nickname") nickname : String,
+        @Field("pay_password") pay_password : String
+    )
+
+    //2
+    @GET("auth/signin")
+    suspend fun Signin(
+
+    )
 
     //5
     @PUT("mypage/point")
@@ -33,7 +45,6 @@ interface UserService {
     @GET("mypage/point")
     suspend fun getListFunditoMoney(
     )
-
 
 }
 

@@ -48,3 +48,4 @@ data class User(
     @SerializedName("token")
     val token : String
 ): Parcelable
+
