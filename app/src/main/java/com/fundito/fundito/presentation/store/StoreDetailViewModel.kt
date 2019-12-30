@@ -1,6 +1,7 @@
 package com.fundito.fundito.presentation.store
 
 import androidx.lifecycle.*
+import com.fundito.fundito.data.enumerator.FundStatus
 import com.fundito.fundito.data.model.Funding
 import com.fundito.fundito.data.model.Store
 import com.fundito.fundito.data.service.NetworkClient
@@ -41,8 +42,7 @@ class StoreDetailViewModel(private val storeIdx : Int) : ViewModel() {
 
     //region STATUS
     val investmentActive : LiveData<Boolean> = store.map {
-        it.leftDay > 0 && it.currentGoalPercent < 99
-        false
+        it.fundStatus == FundStatus.ONGOING
     }
     //endregion
 

@@ -16,7 +16,6 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
-import timber.log.Timber
 
 /**
  * Created by mj on 22, December, 2019
@@ -38,7 +37,7 @@ object NetworkClient {
              * 1) Common Header with API Access Token
              */
             val newRequest = chain.request().newBuilder()
-                .addHeader("token",SPUtil.accessToken).build()
+                .addHeader("token", SPUtil.accessToken).build()
 
             /**
              * 2) General Response from Server (Unwrapping data)
@@ -51,38 +50,33 @@ object NetworkClient {
             val rawJson = response.body?.string() ?: "{}"
 
             /**
-             * 4) declare type instance of general response wrapper
+             * 4) Wrap body with gson
              */
-            val type = object : TypeToken<ResponseWrapper<*>>(){}.type
+            val type = object : TypeToken<ResponseWrapper<*>>() {}.type
+            val res = try {
+                val r = gson.fromJson<ResponseWrapper<*>>(rawJson, type) ?: throw JsonSyntaxException("Parse Fail")
 
-            /**
-             * 5) Wrap body with gson
-             */
-            val res = try{
-                gson.fromJson<ResponseWrapper<*>>(rawJson,type) ?: throw JsonSyntaxException("Parse Fail")
-            } catch(e : JsonSyntaxException) {
-                ResponseWrapper<Any>(-12345,false,"json parsing fail : $e",false)
-            } catch(t : Throwable) {
-                ResponseWrapper<Any>(-99999,false,"unknown error : $t",false)
+                if(!r.success)
+                    ResponseWrapper<Any>(-999, false, "Server Logic Fail : ${r.message}", false)
+                else
+                    r
+
+            } catch (e: JsonSyntaxException) {
+                ResponseWrapper<Any>(-999, false, "json parsing fail : $e", false)
+            } catch (t: Throwable) {
+                ResponseWrapper<Any>(-999, false, "unknown error : $t", false)
             }
 
             /**
-             * If data not exist, dump it
-             */
-            if(!res.success) {
-                Timber.e(rawJson)
-            }
-
-
-            /**
-             * 6) get data json from data
+             * 5) get data json from data
              */
             val dataJson = gson.toJson(res.data)
 
             /**
-             * 7) return unwrapped response with body
+             * 6) return unwrapped response with body
              */
             return response.newBuilder()
+                .message(res.message)
                 .body(dataJson.toResponseBody())
                 .build()
         }
@@ -106,13 +100,13 @@ object NetworkClient {
     /**
      * Services
      */
-    val cardService : CardService = retrofit.create(CardService::class.java)
-    val friendService : FriendService = retrofit.create(FriendService::class.java)
-    val fundingService : FundingService = retrofit.create(FundingService::class.java)
-    val notificationService : NotificationService = retrofit.create(NotificationService::class.java)
-    val storeFundService : StoreFundService = retrofit.create(StoreFundService::class.java)
-    val storeInfoService : StoreInfoService = retrofit.create(StoreInfoService::class.java)
-    val userService : UserService = retrofit.create(UserService::class.java)
+    val cardService: CardService = retrofit.create(CardService::class.java)
+    val friendService: FriendService = retrofit.create(FriendService::class.java)
+    val fundingService: FundingService = retrofit.create(FundingService::class.java)
+    val notificationService: NotificationService = retrofit.create(NotificationService::class.java)
+    val storeFundService: StoreFundService = retrofit.create(StoreFundService::class.java)
+    val storeInfoService: StoreInfoService = retrofit.create(StoreInfoService::class.java)
+    val userService: UserService = retrofit.create(UserService::class.java)
 
 }
 
@@ -122,15 +116,13 @@ object NetworkClient {
 @Parcelize
 data class ResponseWrapper<T>(
     @SerializedName("status")
-    val status : Int,
+    val status: Int,
     @SerializedName("success")
-    val success : Boolean,
+    val success: Boolean,
     @SerializedName("message")
-    val message : String,
+    val message: String,
     @SerializedName("data")
-    val data : @RawValue T? = null
+    val data: @RawValue T? = null
 ) : Parcelable
 
-//fun <T> ResponseWrapper<T>.unwrap() : T {
-//    return data!!
-//}
+class ServerLogicFailException(message: String) : Exception(message)
