@@ -20,12 +20,13 @@ import kotlinx.android.synthetic.main.dialog_keyboard.*
  * Created by mj on 26, December, 2019
  */
 
-fun AppCompatActivity.showKeyboard(isPasswordCheck: Boolean = false, onNumberClick: (Int) -> Unit, onPasswordChanged: ((String) -> Unit)? = null) {
-    if(supportFragmentManager.findFragmentByTag("KeyboardDialog") != null) return
+fun AppCompatActivity.showKeyboard(isPasswordCheck: Boolean = false, onNumberClick: (Int) -> Unit, onPasswordChanged: ((String) -> Unit)? = null) : KeyboardDialogFragment? {
+    if(supportFragmentManager.findFragmentByTag("KeyboardDialog") != null) return null
     val dialog = KeyboardDialogFragment.newInstance(isPasswordCheck)
     dialog.onNumberClick = onNumberClick
     dialog.onPasswordChanged = onPasswordChanged
     dialog.show(supportFragmentManager,"KeyboardDialog")
+    return dialog
 }
 
 fun AppCompatActivity.hideKeyboard() {
@@ -191,6 +192,11 @@ class KeyboardDialogFragment : BottomSheetDialogFragment() {
             repeatMode = ObjectAnimator.REVERSE
             start()
         }*/
+    }
+
+    fun onPasswordMatchFailed() {
+        startShakeAnim()
+        mBinding.passwordInfoLabel.text = "비밀번호가 일치하지 않습니다."
     }
 
 

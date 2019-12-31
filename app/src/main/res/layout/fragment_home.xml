@@ -17,13 +17,12 @@
         xmlns:app="http://schemas.android.com/apk/res-auto">
 
         <ImageView
+            android:scaleType="centerCrop"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintVertical_bias="0.55"
-            android:src="@drawable/cherryontop"
-            app:layout_constraintDimensionRatio="478:414"
+            android:src="@drawable/home_background_img"
             android:layout_width="match_parent"
-            android:layout_height="0dp"/>
+            android:layout_height="match_parent"/>
 
         <ImageView
             android:id="@+id/headerLogo"
