@@ -51,6 +51,7 @@
         android:id="@+id/nicknameEditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:maxLength="5"
         android:layout_marginHorizontal="20dp"
         android:layout_marginTop="108dp"
         android:backgroundTint="@color/dark_navy"

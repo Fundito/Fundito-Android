@@ -1,22 +1,16 @@
 package com.fundito.fundito.presentation.login
 
 import android.content.Intent
-import android.graphics.Color
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.text.bold
-import androidx.core.text.buildSpannedString
-import androidx.core.text.color
 import com.fundito.fundito.R
 import com.fundito.fundito.presentation.main.MainActivity
 import kotlinx.android.synthetic.main.activity_card_register.*
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+import kotlinx.android.synthetic.main.item_search.view.*
 
 
 /**
@@ -29,13 +23,7 @@ class CardRegisterActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_card_register)
 
-
-        registerButton.setOnClickListener{
-            val intent = Intent(this@CardRegisterActivity, MainActivity::class.java)
-            startActivity(intent)
-        }
-
-        /**
+                /**
          * Formatting a credit card number: ####-####-####-####
          */
         cardNumberEditText.addTextChangedListener(object : TextWatcher {
@@ -94,60 +82,56 @@ class CardRegisterActivity : AppCompatActivity() {
             }
         })
 
-
+        //전체선택
         checkbox_all.setOnClickListener {
-            checkbox_all.isSelected = true
-            checkbox2.isSelected = true
-            checkbox3.isSelected = true
-            checkbox4.isSelected = true
-            checkbox5.isSelected = true
+            checkbox_all.toggle()
+            checkbox2.toggle()
+            checkbox3.toggle()
+            checkbox5.toggle()
+//
+//            checkbox_all.isSelected = true
+//            checkbox2.isSelected = true
+//            checkbox3.isSelected = true
+//            checkbox4.isSelected = true
+//            checkbox5.isSelected = true
+//
+
+
+        }
+//        (checkbox2.isSelected = true || checkbox3.isSelected = true  || checkbox4.isSelected =true  || checkbox5.isSelected =true  ){
+//            checkbox_all.isSelected = true
+//        }
+
+    }
+
+    fun makeController() {
+
+        registerButton.setOnClickListener {
+            val cardnumber = cardNumberEditText.text.toString()
+            val date = expirydateEditText.text.toString()
+            val pw = passwordEditText.text.toString()
+            val cardname = cardnameEditText.text.toString()
+            val checkboxAll  = checkbox_all.image.toString()
+
+            // 빈 칸이 있으면 안되므로 빈 칸 체크
+            if (cardnumber.isEmpty() || date.isEmpty() || pw.isEmpty() || cardname.isEmpty()) {
+                Toast.makeText(this, "빈칸을 채워주세요.", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+
+            }
+//            else if (checkboxAll.isSelected = false){
+//
+//                Toast.makeText(this, "약관동의를 선택해주세요.", Toast.LENGTH_SHORT).show()
+//                return@setOnClickListener
+//            }
+            val intent = Intent(this@CardRegisterActivity, MainActivity::class.java)
+            startActivity(intent)
+        }
+
         }
     }
 
-}
 
-
-/**
- * Formatting a credit card number: #### #### #### #######
- */
-
-//    class CreditCardNumberFormattingTextWatcher : TextWatcher {
-//        private var lock = false
-//        override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {}
-//        override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
-//        override fun afterTextChanged(s: Editable) {
-//            if (lock || s.length > 16) {
-//                return
-//            }
-//            lock = true
-//            var i = 4
-//            while (i < s.length) {
-//                if (s.toString()[i] != ' ') {
-//                    s.insert(i, " ")
-//                }
-//                i += 5
-//            }
-//            lock = false
-//        }
-//    }
-/**
- * Formatting a credit card expire date : MM/YY
- */
-//    class CreditCardExpiryDateFormattingTextWatcher : TextWatcher {
-//
-//        val expirydateEditText  = findViewById(R.id.expirydateEditText)
-//        override fun afterTextChanged(p0: Editable?) {}
-//
-//        override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
-//
-//        override fun onTextChanged(p0: CharSequence?, start: Int, removed: Int, added: Int) {
-//            if (start == 1 && start+added == 2 && p0?.contains('/') == false) {
-//                expirydateEditText.setText(p0.toString() + "/")
-//            } else if (start == 3 && start-removed == 2 && p0?.contains('/') == true) {
-//                expirydateEditText.setText(p0.toString().replace("/", ""))
-//            }
-//        }
-//    }
 
 
 
