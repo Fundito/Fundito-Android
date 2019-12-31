@@ -93,6 +93,7 @@ class FeedFriendListFragment : Fragment() {
             )
         ) // listOf
 
+
         friendFundingListadapter.notifyDataSetChanged()
 
         scrollView.setOnScrollChangeListener { v: NestedScrollView?, _: Int, _: Int, _: Int, _: Int ->

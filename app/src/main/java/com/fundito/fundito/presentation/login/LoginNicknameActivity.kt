@@ -1,5 +1,6 @@
 package com.fundito.fundito.presentation.login
 
+import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.text.Editable
@@ -8,6 +9,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.fundito.fundito.R
+import com.fundito.fundito.presentation.main.MainActivity
 import kotlinx.android.synthetic.main.activity_card_register.*
 import kotlinx.android.synthetic.main.activity_login_nickname.*
 import kotlinx.android.synthetic.main.activity_login_nickname.nicknameEditText
@@ -58,9 +60,12 @@ class LoginNicknameActivity : AppCompatActivity() {
            val nickname = nicknameEditText.text.toString()
             // 빈 칸이 있으면 안되므로 빈 칸 체크
             if (nickname.isEmpty()) {
-                Toast.makeText(this, "빈칸을 채워주세요.", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "닉네임을 입력해주세요.", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
-            }
+
+        }
+            val intent = Intent(this@LoginNicknameActivity, CardRegisterActivity::class.java)
+            startActivity(intent)
         }
     }
 

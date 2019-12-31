@@ -23,6 +23,8 @@ class CardRegisterActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_card_register)
 
+
+        makeController()
                 /**
          * Formatting a credit card number: ####-####-####-####
          */
@@ -84,20 +86,24 @@ class CardRegisterActivity : AppCompatActivity() {
 
         //전체선택
         checkbox_all.setOnClickListener {
-            checkbox_all.toggle()
-            checkbox2.toggle()
-            checkbox3.toggle()
-            checkbox5.toggle()
-//
-//            checkbox_all.isSelected = true
-//            checkbox2.isSelected = true
-//            checkbox3.isSelected = true
-//            checkbox4.isSelected = true
-//            checkbox5.isSelected = true
-//
-
-
+//            checkbox_all.toggle()
+//            checkbox2.toggle()
+//            checkbox3.toggle()
+//            checkbox5.toggle()
+            checkbox_all.isSelected = true
+            checkbox2.isSelected = true
+            checkbox3.isSelected = true
+            checkbox4.isSelected = true
+            checkbox5.isSelected = true
+            if(checkbox_all.isChecked == false){
+                checkbox_all.isSelected = false
+                checkbox2.isSelected = false
+                checkbox3.isSelected = false
+                checkbox4.isSelected = false
+                checkbox5.isSelected = false
+            }
         }
+
 //        (checkbox2.isSelected = true || checkbox3.isSelected = true  || checkbox4.isSelected =true  || checkbox5.isSelected =true  ){
 //            checkbox_all.isSelected = true
 //        }
@@ -111,7 +117,7 @@ class CardRegisterActivity : AppCompatActivity() {
             val date = expirydateEditText.text.toString()
             val pw = passwordEditText.text.toString()
             val cardname = cardnameEditText.text.toString()
-            val checkboxAll  = checkbox_all.image.toString()
+            val checkboxAll  = checkbox_all
 
             // 빈 칸이 있으면 안되므로 빈 칸 체크
             if (cardnumber.isEmpty() || date.isEmpty() || pw.isEmpty() || cardname.isEmpty()) {
@@ -119,11 +125,11 @@ class CardRegisterActivity : AppCompatActivity() {
                 return@setOnClickListener
 
             }
-//            else if (checkboxAll.isSelected = false){
-//
-//                Toast.makeText(this, "약관동의를 선택해주세요.", Toast.LENGTH_SHORT).show()
-//                return@setOnClickListener
-//            }
+            else if (checkboxAll.isSelected == false){
+
+                Toast.makeText(this, "약관동의를 선택해주세요.", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
             val intent = Intent(this@CardRegisterActivity, MainActivity::class.java)
             startActivity(intent)
         }
