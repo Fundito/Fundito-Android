@@ -12,11 +12,8 @@ import com.fundito.fundito.common.util.addCharForMoneyRepresentation
 import com.fundito.fundito.common.util.removeLatestMoneyCharacter
 import com.fundito.fundito.common.util.toMoney
 import com.fundito.fundito.common.util.toMoneyLong
+import com.fundito.fundito.common.widget.*
 import com.fundito.fundito.common.widget.KeyboardDialogFragment.Companion.PASSWORD_MAX_LEN
-import com.fundito.fundito.common.widget.hideKeyboard
-import com.fundito.fundito.common.widget.observeOnce
-import com.fundito.fundito.common.widget.setOnDebounceClickListener
-import com.fundito.fundito.common.widget.showKeyboard
 import com.fundito.fundito.databinding.ActivityChargeBinding
 import com.fundito.fundito.di.module.ViewModelFactory
 import dagger.android.support.DaggerAppCompatActivity
@@ -32,6 +29,8 @@ class ChargeActivity : DaggerAppCompatActivity() {
 
     private lateinit var mBinding : ActivityChargeBinding
     private lateinit var mViewModel:ChargeViewModel
+
+    private var keyboardDialog : KeyboardDialogFragment? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -84,7 +83,7 @@ class ChargeActivity : DaggerAppCompatActivity() {
         }
 
         mBinding.completeButton setOnDebounceClickListener {
-            showKeyboard(true, {
+            keyboardDialog = showKeyboard(true, {
 
             }, { password ->
                 /**
@@ -110,7 +109,7 @@ class ChargeActivity : DaggerAppCompatActivity() {
                  * 패스워드 매칭 실패
                  */
                 else {
-
+                    keyboardDialog?.onPasswordMatchFailed()
                 }
 
             }
@@ -124,6 +123,7 @@ class ChargeActivity : DaggerAppCompatActivity() {
 
     private fun showCompleteScreen() {
         hideKeyboard()
+        keyboardDialog = null
         supportFragmentManager
             .beginTransaction()
             .setCustomAnimations(R.anim.fade_in,R.anim.fade_out)
