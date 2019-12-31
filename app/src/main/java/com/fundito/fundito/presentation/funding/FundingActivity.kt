@@ -5,8 +5,11 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager.widget.ViewPager
 import com.fundito.fundito.R
 import com.fundito.fundito.common.setVisibilityBinding
+import com.fundito.fundito.common.util.toMoney
 import com.fundito.fundito.common.widget.setOnDebounceClickListener
 import kotlinx.android.synthetic.main.activity_funding.*
+import kotlinx.android.synthetic.main.fragment_funding_input.*
+import kotlinx.android.synthetic.main.layout_toolbar.*
 
 /**
  * Created by mj on 26, December, 2019
@@ -18,6 +21,7 @@ class FundingActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_funding)
+        toolbartitle.text = "투자금액"
         adaptViewPager()
         initView()
     }
@@ -57,10 +61,12 @@ class FundingActivity : AppCompatActivity() {
             when(currentPage) {
                 0-> {
                     fundingViewpager.currentItem = 1
+                    toolbartitle.text = "나의 투자현황"
                     progressFirstImg.setVisibilityBinding(false)
                     progressSecondImg.setVisibilityBinding(true)
                 }
                 1-> {
+                    toolbartitle.text = "목표도달까지 17% 남음"
                     fundingViewpager.currentItem = 2
                     progressSecondImg.setVisibilityBinding(false)
                     progressThirdImg.setVisibilityBinding(true)
