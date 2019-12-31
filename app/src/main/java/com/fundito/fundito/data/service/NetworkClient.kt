@@ -40,6 +40,8 @@ object NetworkClient {
             val newRequest = chain.request().newBuilder()
                 .addHeader("token", SPUtil.accessToken).build()
 
+            Timber.e("TOKEN : ${SPUtil.accessToken}")
+
 
             /**
              * 2) General Response from Server (Unwrapping data)

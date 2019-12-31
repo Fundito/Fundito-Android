@@ -6,9 +6,11 @@ import android.view.LayoutInflater
 import androidx.core.animation.doOnStart
 import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.observe
 import com.fundito.fundito.R
 import com.fundito.fundito.common.util.addCharForMoneyRepresentation
 import com.fundito.fundito.common.util.removeLatestMoneyCharacter
+import com.fundito.fundito.common.util.toMoney
 import com.fundito.fundito.common.util.toMoneyLong
 import com.fundito.fundito.common.widget.KeyboardDialogFragment.Companion.PASSWORD_MAX_LEN
 import com.fundito.fundito.common.widget.hideKeyboard
@@ -111,6 +113,11 @@ class ChargeActivity : DaggerAppCompatActivity() {
 
                 }
 
+            }
+
+
+            funditoMoney.observe(this@ChargeActivity) {
+                mBinding.beforeAmmount.text = "충전 전 펀디토 머니: ${it.toMoney()}원"
             }
         }
     }

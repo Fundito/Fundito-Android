@@ -145,9 +145,9 @@ class StatusFragment : DaggerFragment(), HasDefaultViewModelProviderFactory {
         sheet1Behavior.addBottomSheetCallback(object : BottomSheetBehavior.BottomSheetCallback() {
             @SuppressLint("SetTextI18n")
             override fun onSlide(bottomSheet: View, slideOffset: Float) {
-                mBinding.bottomSheet1.remain.text = "${(120_000 * slideOffset).roundToLong().toMoney()} 원"
-                mBinding.bottomSheet1.funding.text = "${(30000 * slideOffset).roundToLong().toMoney()} 원"
-                mBinding.bottomSheet1.maxReturnPrice.text = "${(58500 * slideOffset).roundToLong().toMoney()} 원"
+                mBinding.bottomSheet1.remain.text = "${((mViewModel.funditoMoney.value?:0) * slideOffset).roundToLong().toMoney()} 원"
+                mBinding.bottomSheet1.funding.text = "${((mViewModel.fundingData.value?.totalFundedMoney?:0) * slideOffset).roundToLong().toMoney()} 원"
+                mBinding.bottomSheet1.maxReturnPrice.text = "${((mViewModel.fundingData.value?.totalRewardPercent?:0) * slideOffset).roundToLong().toMoney()} 원"
             }
 
             override fun onStateChanged(bottomSheet: View, newState: Int) {
@@ -315,7 +315,7 @@ class StatusFragment : DaggerFragment(), HasDefaultViewModelProviderFactory {
             }
 
             userData.observe(viewLifecycleOwner) {
-                mBinding.info.text = "${it.nickname}님이 현재 얻을 수 있는 금액은?"
+                mBinding.info.text = "${it.name}님이 현재 얻을 수 있는 금액은?"
             }
             fundingData.observe(viewLifecycleOwner) {
                 mBinding.info2.text = buildSpannedString {
@@ -331,6 +331,12 @@ class StatusFragment : DaggerFragment(), HasDefaultViewModelProviderFactory {
                 }
 
                 startBackgroundAnimations()
+
+                mBinding.bottomSheet1.funding.text = it.totalFundedMoney.toMoney() + " 원"
+                mBinding.bottomSheet1.maxReturnPrice.text = it.totalRewardMoney.toMoney()+ " 원"
+            }
+            funditoMoney.observe(viewLifecycleOwner) {
+                mBinding.bottomSheet1.remain.text = it.toMoney() + " 원"
             }
         }
     }

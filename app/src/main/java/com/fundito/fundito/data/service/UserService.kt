@@ -37,9 +37,9 @@ interface UserService {
     //5
     @PUT("mypage/point")
     @FormUrlEncoded
-    suspend fun putChargeFunditoMoney(
+    suspend fun chargeFunditoMoney(
         @Field("funditoMoney") fundingMoney: Int,
-        @Field("payPassword") payPassword: Int
+        @Field("payPassword") payPassword: String
     )
 
     //6

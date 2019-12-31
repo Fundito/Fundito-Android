@@ -8,6 +8,7 @@
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:animateLayoutChanges="true"
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -92,7 +93,7 @@
             android:textSize="24sp"
             android:textColor="@color/dark_navy"
             android:lineSpacingExtra="0sp"
-            android:text="홍지원님,\n식사는 잘 하셨나요?"
+            tools:text="홍지원님,\n식사는 잘 하셨나요?"
             />
 
         <TextView
