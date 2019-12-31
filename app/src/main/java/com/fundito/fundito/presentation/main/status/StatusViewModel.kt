@@ -35,7 +35,6 @@ class StatusViewModel @Inject constructor() : ViewModel() {
     private val _completeFundingItem : MutableLiveData<List<String>> = MutableLiveData(listOf("","","",""))
     val completeFundingItem : LiveData<List<String>> = _completeFundingItem
 
-    
     private val _dispatchBackPressEvent : MutableLiveData<Once<Unit>> = MutableLiveData()
     val dispatchBackPressEvent : LiveData<Once<Unit>> = _dispatchBackPressEvent
 
@@ -70,6 +69,9 @@ class StatusViewModel @Inject constructor() : ViewModel() {
             emit(it)
         }
     }
+
+
+
 
 
 

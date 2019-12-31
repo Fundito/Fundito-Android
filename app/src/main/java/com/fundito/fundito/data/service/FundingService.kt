@@ -34,6 +34,15 @@ interface FundingService {
         @Field("fundingMoney") fundingMoney : Int
     )
 
+    //4
+    @GET("mypage/fundlist/0")
+    suspend fun listCurrentFundingStore() : List<CurrentFundingResponse>
+
+
+    //5
+    @GET("mypage/fundlist/1")
+    suspend fun listCompleteFundingStore() : List<CompleteFundingResponse>
+
 
 }
 
@@ -43,4 +52,35 @@ data class MaxInterestRateResponse(
     @SerializedName("refundPercent")
     @Expose(serialize = true, deserialize = true)
     val refundPercent: Int
+) : Parcelable
+
+@SuppressLint("ParcelCreator")
+@Parcelize
+data class CurrentFundingResponse(
+    @SerializedName("storeName")
+    @Expose(serialize = true, deserialize = true)
+    val storeName: String,
+    @SerializedName("remainingDays")
+    @Expose(serialize = true, deserialize = true)
+    val remainingDays: Int,
+    @SerializedName("progressPercent")
+    @Expose(serialize = true, deserialize = true)
+    val progressPercent: Int
+) : Parcelable
+
+@SuppressLint("ParcelCreator")
+@Parcelize
+data class CompleteFundingResponse(
+    @SerializedName("storeName")
+    @Expose(serialize = true, deserialize = true)
+    val storeName: String,
+    @SerializedName("dueDate")
+    @Expose(serialize = true, deserialize = true)
+    val dueDate: String,
+    @SerializedName("fundingMoney")
+    @Expose(serialize = true, deserialize = true)
+    val fundingMoney: Int,
+    @SerializedName("refundMoney")
+    @Expose(serialize = true, deserialize = true)
+    val refundMoney: Int
 ) : Parcelable

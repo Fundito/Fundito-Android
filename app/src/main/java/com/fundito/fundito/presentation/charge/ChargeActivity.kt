@@ -127,7 +127,14 @@ class ChargeActivity : DaggerAppCompatActivity() {
         supportFragmentManager
             .beginTransaction()
             .setCustomAnimations(R.anim.fade_in,R.anim.fade_out)
-            .add(mBinding.completeFragmentContainer.id, ChargeCompleteFragment.newInstance(), "CompleteScreen")
+            .add(
+                mBinding.completeFragmentContainer.id, ChargeCompleteFragment.newInstance(
+                    mViewModel.cardData.value?.userName ?: "",
+                    mViewModel.cardData.value?.cardNickname ?: "",
+                    mViewModel.chargeMoney.value?.toInt() ?: 0,
+                    (mViewModel.funditoMoney.value ?: 0) + (mViewModel.chargeMoney.value?.toInt() ?: 0)
+                ), "CompleteScreen"
+            )
             .commit()
         mBinding.completeFragmentContainer.isVisible = true
     }

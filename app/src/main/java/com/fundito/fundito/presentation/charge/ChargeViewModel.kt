@@ -4,6 +4,7 @@ import androidx.lifecycle.*
 import com.fundito.fundito.common.widget.Once
 import com.fundito.fundito.data.service.NetworkClient
 import kotlinx.coroutines.launch
+import timber.log.Timber
 import javax.inject.Inject
 
 /**
@@ -43,8 +44,10 @@ class ChargeViewModel @Inject constructor() : ViewModel() {
             kotlin.runCatching {
                 NetworkClient.userService.chargeFunditoMoney(chargeMoney.value?.toInt() ?: 0,password)
             }.onSuccess {
+                Timber.e("비밀번호 일치")
                 _passwordMatch.value = Once(true)
             }.onFailure {
+                Timber.e(it)
                 _passwordMatch.value = Once(false)
             }
         }
