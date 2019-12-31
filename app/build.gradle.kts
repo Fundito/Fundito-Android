@@ -146,6 +146,7 @@ dependencies {
      */
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.2")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.2")
+    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.3.2")
 
     /**
      * Flow Binding
@@ -162,7 +163,8 @@ dependencies {
      * Firebase
      */
     implementation ("com.google.firebase:firebase-auth:19.2.0")
-    implementation ("com.facebook.android:facebook-android-sdk:4.42.0")
+    implementation ("com.facebook.android:facebook-android-sdk:5.13.0")
+    implementation("com.facebook.android:facebook-share:5.13.0")
 
 
     /**
@@ -211,4 +213,8 @@ dependencies {
     androidTestImplementation("androidx.test.espresso:espresso-contrib:3.2.0")
 
     androidTestImplementation("android.arch.core:core-testing:1.1.1")
+}
+
+apply {
+    plugin("com.google.gms.google-services")
 }

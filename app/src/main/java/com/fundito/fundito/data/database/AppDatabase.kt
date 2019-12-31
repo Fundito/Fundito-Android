@@ -38,6 +38,8 @@ interface SearchDao{
 
     @Transaction
     suspend fun insertNewItem(item : SearchItem) {
+        if(findSameItem(item.name) > 0)
+            return
         insert(item)
         if(countAll() > MAX)
             deleteTenItems()
@@ -48,6 +50,9 @@ interface SearchDao{
 
     @Delete
     suspend fun delete(item : SearchItem)
+
+    @Query("SELECT COUNT(id) FROM SearchItem WHERE :name == name")
+    fun findSameItem(name : String) : Int
 
     @Query("SELECT * FROM SearchItem ORDER BY id DESC LIMIT :limit")
     fun list(limit : Int = 10) : LiveData<List<SearchItem>>

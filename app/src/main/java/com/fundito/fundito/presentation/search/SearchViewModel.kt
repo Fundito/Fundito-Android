@@ -3,8 +3,8 @@ package com.fundito.fundito.presentation.search
 import androidx.lifecycle.*
 import com.fundito.fundito.data.database.SearchDao
 import com.fundito.fundito.data.database.SearchItem
-import com.fundito.fundito.data.model.Store
 import com.fundito.fundito.data.service.NetworkClient
+import com.fundito.fundito.data.service.SearchResponseItem
 import kotlinx.coroutines.launch
 import timber.log.Timber
 import javax.inject.Inject
@@ -16,8 +16,8 @@ class SearchViewModel @Inject constructor(
     private val searchDao: SearchDao
 ) : ViewModel() {
 
-    private val _items: MutableLiveData<List<Store>> = MutableLiveData(listOf())
-    val items: LiveData<List<Store>> = _items
+    private val _items: MutableLiveData<List<SearchResponseItem>> = MutableLiveData(listOf())
+    val items: LiveData<List<SearchResponseItem>> = _items
 
 
     val recentItems = liveData {
@@ -28,23 +28,14 @@ class SearchViewModel @Inject constructor(
 
 
     fun onSearchItemSaved(item: SearchItem) = viewModelScope.launch {
-        searchDao.insert(item)
+        searchDao.insertNewItem(item)
     }
 
     fun onQueryChanged() = viewModelScope.launch {
         kotlin.runCatching {
             NetworkClient.storeInfoService.searchStoreWithKeyword(query.value!!)
         }.onSuccess {
-
-
-            Timber.e(it.toString())
-            _items.value = it.mapNotNull {
-                try {
-                    NetworkClient.storeInfoService.getStoreInfo(it.storeIdx)
-                } catch (t: Throwable) {
-                    null
-                }
-            }
+            _items.value = it
         }.onFailure {
             Timber.e(it)
         }

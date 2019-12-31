@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
         <variable
@@ -9,7 +11,7 @@
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+        android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <include
@@ -19,6 +21,7 @@
             layout="@layout/layout_toolbar"/>
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:animateLayoutChanges="true"
             android:layout_marginTop="22dp"
             android:layout_marginLeft="24dp"
             android:layout_marginRight="24dp"
@@ -30,6 +33,7 @@
             android:layout_height="42dp">
 
             <TextView
+                android:text="@{vm.cardData.cardNickname}"
                 android:layout_marginLeft="11dp"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
@@ -39,9 +43,10 @@
                 android:textSize="16sp"
                 android:textColor="@color/dark_navy"
                 android:lineSpacingExtra="8sp"
-                android:text="국민 ***6506"
+                tools:text="국민 ***6506"
                 />
             <TextView
+                android:text="@{vm.cardData.userName}"
                 android:layout_marginRight="11dp"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -51,7 +56,7 @@
                 android:textSize="16sp"
                 android:textColor="@color/dark_navy"
                 android:lineSpacingExtra="8sp"
-                android:text="홍지원"
+                tools:text="홍지원"
                 />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -62,7 +67,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"/>
-        
+
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/moneyContainer"
             android:paddingRight="16dp"
@@ -130,17 +135,16 @@
                 android:background="@{vm.visiblePlaceHolder ? @color/brown_grey : @color/colorPrimary}"/>
 
             <TextView
+                android:id="@+id/beforeAmmount"
+                android:layout_width="160dp"
+                android:layout_height="19dp"
+                android:gravity="center_horizontal"
+                android:lineSpacingExtra="6sp"
+                android:textColor="#5c5c5c"
+                android:textSize="12sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                android:id="@+id/beforeAmmount"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="12sp"
-                android:textColor="#5c5c5c"
-                android:lineSpacingExtra="6sp"
-                android:gravity="center_horizontal"
-                android:text="충전 전 펀디토 머니:  38,000원"
-                />
+                tools:text="충전 전 펀디토 머니:  38,000원" />
         </androidx.constraintlayout.widget.ConstraintLayout>
         
         <com.google.android.material.button.MaterialButton

@@ -145,9 +145,9 @@ class StatusFragment : DaggerFragment(), HasDefaultViewModelProviderFactory {
         sheet1Behavior.addBottomSheetCallback(object : BottomSheetBehavior.BottomSheetCallback() {
             @SuppressLint("SetTextI18n")
             override fun onSlide(bottomSheet: View, slideOffset: Float) {
-                mBinding.bottomSheet1.remain.text = "${(120_000 * slideOffset).roundToLong().toMoney()} 원"
-                mBinding.bottomSheet1.funding.text = "${(30000 * slideOffset).roundToLong().toMoney()} 원"
-                mBinding.bottomSheet1.maxReturnPrice.text = "${(58500 * slideOffset).roundToLong().toMoney()} 원"
+                mBinding.bottomSheet1.remain.text = "${((mViewModel.funditoMoney.value?:0) * slideOffset).roundToLong().toMoney()} 원"
+                mBinding.bottomSheet1.funding.text = "${((mViewModel.fundingData.value?.totalFundedMoney?:0) * slideOffset).roundToLong().toMoney()} 원"
+                mBinding.bottomSheet1.maxReturnPrice.text = "${((mViewModel.fundingData.value?.totalRewardPercent?:0) * slideOffset).roundToLong().toMoney()} 원"
             }
 
             override fun onStateChanged(bottomSheet: View, newState: Int) {
@@ -187,17 +187,7 @@ class StatusFragment : DaggerFragment(), HasDefaultViewModelProviderFactory {
         mBinding.arrow.doOnLayout {
             it.pivotY = it.height.toFloat()
         }
-        mBinding.info2.text = buildSpannedString {
-            append("원금대비 ")
-            bold {
-                color(resources.getColor(R.color.blueberry)) {
-                    append("170%")
-                }
-            }
-            color(resources.getColor(R.color.coral)){
-                append(" 상승!")
-            }
-        }
+
         //endregion
 
         //region Sheet1
@@ -251,6 +241,9 @@ class StatusFragment : DaggerFragment(), HasDefaultViewModelProviderFactory {
         //endregion
 
 
+        MainActivity.menu.observe(viewLifecycleOwner) {
+            adjustSystemUIs()
+        }
 
 
 
@@ -262,7 +255,7 @@ class StatusFragment : DaggerFragment(), HasDefaultViewModelProviderFactory {
             start()
         }
 
-        mBinding.price.startMoneyAnimation(13_500," 원")
+        mBinding.price.startMoneyAnimation(mViewModel.fundingData.value?.totalGetMoney ?: 0," 원")
     }
 
     private fun observeViewModel() {
@@ -320,14 +313,40 @@ class StatusFragment : DaggerFragment(), HasDefaultViewModelProviderFactory {
                 adjustSystemUIs()
 
             }
+
+            userData.observe(viewLifecycleOwner) {
+                mBinding.info.text = "${it.name}님이 현재 얻을 수 있는 금액은?"
+            }
+            fundingData.observe(viewLifecycleOwner) {
+                mBinding.info2.text = buildSpannedString {
+                    append("원금대비 ")
+                    bold {
+                        color(resources.getColor(R.color.blueberry)) {
+                            append("${it.totalRewardPercent}%")
+                        }
+                    }
+                    color(resources.getColor(R.color.coral)){
+                        append(" 상승!")
+                    }
+                }
+
+                startBackgroundAnimations()
+
+                mBinding.bottomSheet1.funding.text = it.totalFundedMoney.toMoney() + " 원"
+                mBinding.bottomSheet1.maxReturnPrice.text = it.totalRewardMoney.toMoney()+ " 원"
+            }
+            funditoMoney.observe(viewLifecycleOwner) {
+                mBinding.bottomSheet1.remain.text = it.toMoney() + " 원"
+            }
         }
     }
 
     private fun adjustSystemUIs() {
+
         if(mViewModel.sceneIndex.value == 1 && MainActivity.menu.value == MainActivity.MainMenu.STATUS) {
             requireActivity().window.statusBarColor = resources.getColor(R.color.blueberry_two)
             View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or View.SYSTEM_UI_FLAG_FULLSCREEN or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
-        }else {
+        }else if(MainActivity.menu.value == MainActivity.MainMenu.STATUS){
             requireActivity().window.statusBarColor = Color.WHITE
             View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
         }

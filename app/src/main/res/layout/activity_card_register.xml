@@ -60,17 +60,29 @@
 
 
             <TextView
-                android:id="@+id/textView2"
+                android:id="@+id/nameTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="10dp"
-                android:lineSpacingExtra="6sp"
                 android:fontFamily="@font/spoqa_han_sans_regular"
-                android:text="홍지원 님 본인명의 신용/체크 카드만 등록 가능합니다."
-                android:textColor="#a0a1a2"
+                android:text="홍지원"
+                android:textColor="@color/dark_navy"
                 android:textSize="12sp"
                 app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/spoqa_han_sans_regular"
+                android:lineSpacingExtra="6sp"
+                android:text=" 님 본인명의 신용/체크 카드만 등록 가능합니다."
+                android:textColor="#a0a1a2"
+                android:textSize="12sp"
+                app:layout_constraintStart_toEndOf="@+id/nameTextView"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
@@ -95,6 +107,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="10dp"
                 android:fontFamily="@font/spoqa_han_sans_regular"
+                android:backgroundTint="@color/dark_navy"
                 android:hint="본인명의 카드번호를 ”-”없이 입력하세요."
                 android:inputType="number"
                 android:lineSpacingExtra="6sp"
@@ -128,7 +141,7 @@
                 android:layout_marginTop="8dp"
                 android:hint="MM/YY"
                 android:inputType="number"
-
+                android:backgroundTint="@color/dark_navy"
                 android:maxLength="5"
                 android:textCursorDrawable="@drawable/cursor"
                 android:textSize="12dp"
@@ -157,7 +170,7 @@
                 android:layout_marginTop="8dp"
                 android:hint="비밀번호 앞 2자리"
                 android:inputType="numberPassword"
-
+                android:backgroundTint="@color/dark_navy"
                 android:lineSpacingExtra="6sp"
                 android:maxLength="2"
                 android:textColor="#a0a1a2"
@@ -200,6 +213,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
                 android:hint="6자 이내"
+                android:backgroundTint="@color/dark_navy"
                 android:lineSpacingExtra="6sp"
                 android:fontFamily="@font/spoqa_han_sans_regular"
                 android:maxLength="6"

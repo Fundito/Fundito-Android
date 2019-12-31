@@ -10,6 +10,7 @@
     </data>
 
     <androidx.cardview.widget.CardView
+        android:id="@+id/friendFundingCardView"
         android:clipChildren="false"
         app:cardElevation="@dimen/cardElevation"
         app:cardCornerRadius="8dp"
@@ -41,7 +42,7 @@
                 android:lineSpacingExtra="6sp"
                 android:textColor="@color/black"
                 android:textSize="14sp"
-                tools:text="이름"
+                android:text="이름"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/profileImageView"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -57,7 +58,7 @@
                 android:lineSpacingExtra="6sp"
                 android:textColor="#707070"
                 android:textSize="12sp"
-                tools:text="fffff"
+                android:text="12개 지점 투자중"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -68,6 +69,15 @@
                 android:layout_marginHorizontal="3dp"
                 android:background="#eae8e8"
                 app:layout_constraintBottom_toBottomOf="parent" />
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:layout_marginEnd="12dp"
+                android:layout_marginVertical="10dp"
+                android:background="#eae8e8"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/fundingnumberTextView" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     <View

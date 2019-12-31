@@ -1,6 +1,7 @@
 package com.fundito.fundito.presentation.main.feed
 
 import android.os.Bundle
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,8 +10,15 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.fundito.fundito.R
+import com.fundito.fundito.common.util.startActivity
 import com.fundito.fundito.common.widget.LinearItemDecoration
+import com.fundito.fundito.common.widget.setOnDebounceClickListener
+import com.fundito.fundito.data.database.SearchItem
 import com.fundito.fundito.data.model.FriendFunding
+import com.fundito.fundito.presentation.charge.ChargeActivity
+import com.fundito.fundito.presentation.main.status.FundingOnGoingAdapter
+import com.fundito.fundito.presentation.search.SearchRecentAdapter
+import com.fundito.fundito.presentation.store.StoreDetailActivity
 import kotlinx.android.synthetic.main.fragment_feed_friend_list.*
 
 /**
@@ -36,23 +44,22 @@ class FeedFriendListFragment : Fragment() {
         return view
     }
 
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        // 리사이클러뷰 어댑터 생성
-        friendFundingListadapter = FriendFundingListAdapter(activity?.baseContext!!)
 
-        // 리사이클러뷰 생성
-        friendFundingRecyclerView = view.findViewById(R.id.friendFundngRecyclerView)
 
-        // 리사이클러뷰 레이아웃매니저 설정
+        friendFundingListadapter = FriendFundingListAdapter(this.context!!)
+
+        friendFundingRecyclerView = view.findViewById(R.id.friendFundingRecyclerView)
+
         friendFundingRecyclerView.layoutManager = LinearLayoutManager(activity?.baseContext, LinearLayoutManager.VERTICAL, false)
 
 
-        // 리사이클러뷰 어댑터 설정
         friendFundingRecyclerView.adapter = friendFundingListadapter
 
         friendFundingRecyclerView.addItemDecoration(LinearItemDecoration(10))
 
-        // 리사이클러뷰 데이터 설정
+        // 리사이클러뷰 임의데이터 설정
         friendFundingListadapter.data = listOf(
             FriendFunding(
                 profileImg = R.drawable.profile1,
@@ -91,9 +98,8 @@ class FeedFriendListFragment : Fragment() {
         scrollView.setOnScrollChangeListener { v: NestedScrollView?, _: Int, _: Int, _: Int, _: Int ->
             shadow.isActivated = v?.canScrollVertically(-1) ?: false
         }
-        
+
     }
 
 
 } // end class
-

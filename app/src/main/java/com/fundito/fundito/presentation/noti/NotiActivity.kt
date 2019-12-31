@@ -1,5 +1,6 @@
 package com.fundito.fundito.presentation.noti
 
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import androidx.lifecycle.HasDefaultViewModelProviderFactory
@@ -26,6 +27,7 @@ class NotiActivity : DaggerAppCompatActivity(),HasDefaultViewModelProviderFactor
     private val mViewModel by lazy { ViewModelProvider(this)[NotiViewModel::class.java] }
 
 
+    private var originalStatusBarColor = Color.WHITE
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,6 +39,14 @@ class NotiActivity : DaggerAppCompatActivity(),HasDefaultViewModelProviderFactor
 
         initView()
         observeViewModel()
+
+        originalStatusBarColor = window.statusBarColor
+        window.statusBarColor = Color.parseColor("#f7f8fa")
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        window.statusBarColor = originalStatusBarColor
     }
 
     private fun initView() {

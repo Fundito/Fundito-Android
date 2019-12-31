@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "108647052691",
+    "firebase_url": "https://fundito-123.firebaseio.com",
+    "project_id": "fundito-123",
+    "storage_bucket": "fundito-123.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:108647052691:android:f947ca462b64237e20a466",
+        "android_client_info": {
+          "package_name": "com.fundito.fundito"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "108647052691-djie3q59m5fgcfteh9rujhgn22pv2b10.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.fundito.fundito",
+            "certificate_hash": "b8ccb30f774aa18ec0899e167169ee01dc7f01dd"
+          }
+        },
+        {
+          "client_id": "108647052691-b373upntuqgd61bpt4et4ir8drk4rrk2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDnLfT3_lL74NR0qI3ve8xrxV1lduux6Zk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "108647052691-b373upntuqgd61bpt4et4ir8drk4rrk2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

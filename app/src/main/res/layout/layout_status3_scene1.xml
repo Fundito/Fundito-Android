@@ -53,6 +53,7 @@
             app:recyclerview_FundingComplete_items="@{vm.completeFundingItem}"
             android:id="@+id/completeRecyclerView"
             tools:itemCount="4"
+
             tools:listitem="@layout/item_funding_complete"
             android:clipToPadding="false"
             android:paddingTop="24dp"
