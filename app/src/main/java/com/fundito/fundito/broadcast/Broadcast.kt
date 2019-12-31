@@ -6,6 +6,6 @@ import kotlinx.coroutines.channels.Channel
 /**
  * Created by mj on 01, January, 2020
  */
-object CoroutineBroadcast {
+object Broadcast {
     val chargeCompleteEvent : BroadcastChannel<Int> = BroadcastChannel(Channel.CONFLATED)
 }

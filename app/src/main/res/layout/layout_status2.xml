@@ -85,7 +85,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="4dp"
                         android:lineSpacingExtra="15sp"
-                        android:text="120,000 원"
+                        tools:text="120,000 원"
                         android:textColor="#2c2c2c"
                         android:textSize="30sp"
                         android:textStyle="bold"
