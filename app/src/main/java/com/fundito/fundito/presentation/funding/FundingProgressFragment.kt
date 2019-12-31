@@ -23,8 +23,7 @@ class FundingProgressFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
         dialView.onInvestmentValueChangedListener = {number->
-            fundingPriceProgress.text = number.toLong().toMoney()
+            fundingPriceProgress.text = "${number.toLong().toMoney()}"
         }
     }
-    
 }
