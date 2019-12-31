@@ -7,6 +7,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <ImageView
+        android:scaleType="centerCrop"
+        android:src="@drawable/home_background_img"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/toolbar"
@@ -77,6 +83,7 @@
 
 
             <androidx.cardview.widget.CardView
+                app:cardBackgroundColor="#80ffffff"
                 app:cardCornerRadius="8dp"
                 app:cardElevation="12dp"
                 android:id="@+id/card1"

@@ -32,7 +32,7 @@
                 android:textColor="@color/black"
                 android:lineSpacingExtra="8sp"
                 android:gravity="end"
-                android:text="황호댁"
+                tools:text="황호댁"
                 />
 
             <TextView
@@ -46,10 +46,11 @@
                 android:textColor="@color/blueberry_two"
                 android:lineSpacingExtra="8sp"
                 android:gravity="end"
-                android:text="2018 / 06 / 07"
+                tools:text="2018 / 06 / 07"
                 />
 
             <TextView
+                android:id="@+id/funding"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="@id/name"
                 app:layout_constraintBottom_toBottomOf="@id/name"
@@ -59,10 +60,11 @@
                 android:textColor="@color/dark"
                 android:lineSpacingExtra="8sp"
                 android:gravity="end"
-                android:text="18,000 원  투자"
+                tools:text="18,000 원  투자"
                 />
 
             <TextView
+                android:id="@+id/getMoney"
                 android:textStyle="bold"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="@id/completeDay"
@@ -73,7 +75,7 @@
                 android:textColor="@color/blueberry_two"
                 android:lineSpacingExtra="8sp"
                 android:gravity="end"
-                android:text="30,000 원 회수"
+                tools:text="30,000 원 회수"
                 />
 
 

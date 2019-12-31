@@ -25,7 +25,8 @@ interface UserService {
     //2
     @GET("auth/signin")
     suspend fun signIn(
-        @Header("access_token") facebookAccessToken : String
+        @Header("access_token") facebookAccessToken : String,
+        @Header("firebase_token") firebaseFCMToken:String
     ):TokenResponse
 
     //3

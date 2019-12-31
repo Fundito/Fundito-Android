@@ -1,5 +1,8 @@
 package com.fundito.fundito.common.widget
 
+import android.animation.ValueAnimator
+import android.animation.ValueAnimator.INFINITE
+import android.animation.ValueAnimator.REVERSE
 import android.content.Context
 import android.graphics.Color
 import android.graphics.Point
@@ -40,6 +43,7 @@ fun AppCompatActivity.hideLoading() {
 class LoadingDialog : DialogFragment() {
 
     private lateinit var mBinding: DialogLoadingBinding
+    private lateinit var animator : ValueAnimator
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -55,6 +59,18 @@ class LoadingDialog : DialogFragment() {
         if (dialog != null && dialog?.window != null) {
             dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
             dialog?.window?.requestFeature(Window.FEATURE_NO_TITLE)
+        }
+
+        animator = ValueAnimator.ofFloat(1f,1.3f).apply {
+            duration = 500L
+            addUpdateListener {
+                val value = it.animatedValue as Float
+                mBinding.logo.scaleX = value
+                mBinding.logo.scaleY = value
+            }
+            repeatCount = INFINITE
+            repeatMode = REVERSE
+            start()
         }
     }
 

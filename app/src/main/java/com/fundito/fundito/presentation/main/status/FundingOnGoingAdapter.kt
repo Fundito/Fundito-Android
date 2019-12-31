@@ -8,26 +8,27 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.fundito.fundito.BR
 import com.fundito.fundito.common.widget.setOnDebounceClickListener
+import com.fundito.fundito.data.service.CurrentFundingResponse
 import com.fundito.fundito.databinding.ItemFundingOngoingBinding
 
 /**
  * Created by mj on 28, December, 2019
  */
-class FundingOnGoingAdapter(private val onItemClick : () -> Unit) : ListAdapter<String, FundingOnGoingAdapter.FundingOnGoingHolder>(DIFF) {
+class FundingOnGoingAdapter(private val onItemClick : () -> Unit) : ListAdapter<CurrentFundingResponse, FundingOnGoingAdapter.FundingOnGoingHolder>(DIFF) {
 
     companion object {
-        private val DIFF = object : DiffUtil.ItemCallback<String>() {
-            override fun areItemsTheSame(oldItem: String, newItem: String): Boolean {
+        private val DIFF = object : DiffUtil.ItemCallback<CurrentFundingResponse>() {
+            override fun areItemsTheSame(oldItem: CurrentFundingResponse, newItem: CurrentFundingResponse): Boolean {
                 return oldItem == newItem
             }
 
-            override fun areContentsTheSame(oldItem: String, newItem: String): Boolean {
+            override fun areContentsTheSame(oldItem: CurrentFundingResponse, newItem: CurrentFundingResponse): Boolean {
                 return oldItem == newItem
             }
         }
     }
 
-    fun submitItems(items : List<String>) {
+    fun submitItems(items : List<CurrentFundingResponse>) {
         submitList(items)
     }
 
@@ -51,15 +52,20 @@ class FundingOnGoingAdapter(private val onItemClick : () -> Unit) : ListAdapter<
             }
         }
 
-        fun bind(item: String) {
+        fun bind(item: CurrentFundingResponse) {
             binding.setVariable(BR.item, item)
             binding.executePendingBindings()
+
+            binding.name.text = item.storeName
+            binding.remainDay.text = "${item.remainingDays}일 남음"
+            binding.progress.text = "${item.progressPercent}% 달성중"
+            binding.progressView.progress = item.progressPercent
         }
     }
 }
 
 @BindingAdapter("app:recyclerview_FundingOnGoing_items")
-fun RecyclerView.setItemsFundingOnGoing(items: List<String>?) {
+fun RecyclerView.setItemsFundingOnGoing(items: List<CurrentFundingResponse>?) {
      if(items == null) return
     (adapter as? FundingOnGoingAdapter)?.run {
         this.submitItems(items)

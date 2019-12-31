@@ -29,12 +29,6 @@ class StatusViewModel @Inject constructor() : ViewModel() {
     val sceneIndex : MutableLiveData<Int> = MutableLiveData(0)
 
 
-    private val _onGoingFundingItems : MutableLiveData<List<String>> = MutableLiveData(listOf("","","",""))
-    val onGoingFundingItems : LiveData<List<String>> = _onGoingFundingItems
-
-    private val _completeFundingItem : MutableLiveData<List<String>> = MutableLiveData(listOf("","","",""))
-    val completeFundingItem : LiveData<List<String>> = _completeFundingItem
-
     private val _dispatchBackPressEvent : MutableLiveData<Once<Unit>> = MutableLiveData()
     val dispatchBackPressEvent : LiveData<Once<Unit>> = _dispatchBackPressEvent
 
@@ -65,6 +59,22 @@ class StatusViewModel @Inject constructor() : ViewModel() {
     val recentFundingHistories = liveData {
         kotlin.runCatching {
             NetworkClient.fundingService.getMyFundingHistories()
+        }.onSuccess {
+            emit(it)
+        }
+    }
+
+    val currentFundingStores = liveData {
+        kotlin.runCatching {
+            NetworkClient.fundingService.listCurrentFundingStore()
+        }.onSuccess {
+            emit(it)
+        }
+    }
+
+    val completeFundingStores = liveData {
+        kotlin.runCatching {
+            NetworkClient.fundingService.listCompleteFundingStore()
         }.onSuccess {
             emit(it)
         }
