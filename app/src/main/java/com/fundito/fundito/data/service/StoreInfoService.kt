@@ -1,5 +1,6 @@
 package com.fundito.fundito.data.service
 
+import android.annotation.SuppressLint
 import android.os.Parcelable
 import com.fundito.fundito.data.model.Funding
 import com.fundito.fundito.data.model.Store
@@ -26,7 +27,7 @@ interface StoreInfoService {
     )
 
     //3
-    @GET("storeInfo")
+    @GET("storeInfo/all")
     suspend fun listStoreInfo() : List<Store>
 
 
@@ -36,8 +37,11 @@ interface StoreInfoService {
 
     //7
     @GET("storefund/timeline/{storeIdx}")
-
     suspend fun listStoreFundingTimeLine(@Path("storeIdx") storeIdx: Int) : List<Funding>
+
+    //8
+    @GET("storeInfo/wifi/{ssid}")
+    suspend fun getStoreWithSSID(@Path("ssid") ssid: String) : WifiStoreResponse
 
 
 }
@@ -86,4 +90,27 @@ data class SearchResponseItem(
     @SerializedName("address")
     @Expose
     val address : String
+) : Parcelable
+
+@SuppressLint("ParcelCreator")
+@Parcelize
+data class WifiStoreResponse(
+    @SerializedName("storeIdx")
+    @Expose(serialize = true, deserialize = true)
+    val storeIdx: Int,
+    @SerializedName("thumbnail")
+    @Expose(serialize = true, deserialize = true)
+    val thumbnail: String,
+    @SerializedName("storeName")
+    @Expose(serialize = true, deserialize = true)
+    val storeName: String,
+    @SerializedName("wifiSSID")
+    @Expose(serialize = true, deserialize = true)
+    val wifiSSID: String,
+    @SerializedName("remainingDays")
+    @Expose(serialize = true, deserialize = true)
+    val remainingDays: Int,
+    @SerializedName("progressPercent")
+    @Expose(serialize = true, deserialize = true)
+    val progressPercent: Int
 ) : Parcelable

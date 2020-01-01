@@ -64,11 +64,23 @@ class FundingOnGoingAdapter(private val onItemClick : (CurrentFundingResponse) -
         fun bind(item: CurrentFundingResponse) {
             binding.setVariable(BR.item, item)
             binding.executePendingBindings()
-
             binding.name.text = item.storeName
-            binding.remainDay.text = "${item.remainingDays}일 남음"
-            binding.progress.text = "${item.progressPercent}% 달성중"
-            binding.progressView.progress = item.progressPercent
+
+            if(item.remainingDays == -1 && item.progressPercent == -1) {
+                binding.root.alpha = 0.5f
+                binding.remainDay.text = "마감"
+                binding.progress.text = "목표 실패"
+                binding.progressView.progress = 100
+            }else {
+                binding.root.alpha = 1.0f
+                binding.remainDay.text = "${item.remainingDays}일 남음"
+                binding.progress.text = "${item.progressPercent}% 달성중"
+                binding.progressView.progress = item.progressPercent
+            }
+
+
+
+
         }
     }
 }

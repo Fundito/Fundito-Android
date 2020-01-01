@@ -15,6 +15,10 @@ import androidx.lifecycle.HasDefaultViewModelProviderFactory
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.observe
 import com.fundito.fundito.R
+import com.fundito.fundito.application.MainApplication
+import com.fundito.fundito.common.loadUrlAsync
+import com.fundito.fundito.common.util.DateParsingUtil
+import com.fundito.fundito.common.util.PermissionUtil
 import com.fundito.fundito.common.util.startActivity
 import com.fundito.fundito.common.widget.CustomTypefaceSpan
 import com.fundito.fundito.common.widget.setOnDebounceClickListener
@@ -22,7 +26,9 @@ import com.fundito.fundito.databinding.FragmentHomeBinding
 import com.fundito.fundito.presentation.main.MainActivity
 import com.fundito.fundito.presentation.noti.NotiActivity
 import com.fundito.fundito.presentation.search.SearchActivity
+import com.fundito.fundito.presentation.store.StoreDetailActivity
 import dagger.android.support.DaggerFragment
+import timber.log.Timber
 import javax.inject.Inject
 
 /**
@@ -52,9 +58,25 @@ class HomeFragment : DaggerFragment(), HasDefaultViewModelProviderFactory {
         mBinding.lifecycleOwner = viewLifecycleOwner
         mBinding.vm = mViewModel
 
+        requestPermission()
         initView()
         adjustSystemUI()
         observeViewModel()
+        observeWifiSSID()
+    }
+
+    private fun requestPermission() {
+        PermissionUtil.requestPermissions(requireActivity(),object : PermissionUtil.PermissionListener {
+            override fun onPermissionGranted() {
+
+            }
+
+            override fun onPermissionShouldBeGranted(deniedPermissions: List<String>) {
+            }
+
+            override fun onAnyPermissionsPermanentlyDeined(deniedPermissions: List<String>, permanentDeniedPermissions: List<String>) {
+            }
+        },listOf(android.Manifest.permission.ACCESS_FINE_LOCATION))
     }
 
     private fun initView() {
@@ -95,6 +117,35 @@ class HomeFragment : DaggerFragment(), HasDefaultViewModelProviderFactory {
                     }
                 }
             }
+
+            connectedStoreData.observe(viewLifecycleOwner) {data->
+                mBinding.storeCard setOnDebounceClickListener {
+                    startActivity(StoreDetailActivity.newIntent(requireContext(),data.storeIdx))
+                }
+                mBinding.thumbnail.loadUrlAsync(data.thumbnail)
+                mBinding.shopName.text = data.storeName
+                mBinding.remain.text = "${data.remainingDays}일"
+                mBinding.ssidName.text = data.wifiSSID
+                mBinding.progressView.progress = data.progressPercent
+
+            }
+            connectedStoreTimeLineItem.observe(viewLifecycleOwner) {funding->
+                mBinding.fundingAmmount.text = "${funding.fundingMoney}원 투자"
+                mBinding.nickName.text = funding.nickname
+                mBinding.timeDiff.text = DateParsingUtil.calculateDiffWithCurrent(funding.fundingTime,false)
+
+            }
+        }
+    }
+
+    private fun observeWifiSSID() {
+        MainApplication.wifiSSID.observe(viewLifecycleOwner) {ssid->
+            if(ssid.isBlank()) {
+                mBinding.storeCard setOnDebounceClickListener {}
+            }
+            Timber.e(ssid)
+//            mViewModel.onWifiStateChanged(ssid)
+            mViewModel.onWifiStateChanged("234")
         }
     }
 

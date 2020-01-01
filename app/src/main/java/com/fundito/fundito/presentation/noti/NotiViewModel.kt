@@ -17,10 +17,13 @@ class NotiViewModel @Inject constructor() : ViewModel() {
 
     private val _notiItems : MutableLiveData<List<NotificationResponse>> = MutableLiveData(listOf())
     val notiItems : LiveData<List<NotificationResponse>> = _notiItems
-
-
+    
+    private val _loading : MutableLiveData<Boolean> = MutableLiveData()
+    val loading : LiveData<Boolean> = _loading
+    
     init {
         viewModelScope.launch {
+            _loading.value = true
             kotlin.runCatching {
                 NetworkClient.notificationService.listNotis()
             }.onSuccess {
@@ -28,6 +31,7 @@ class NotiViewModel @Inject constructor() : ViewModel() {
             }.onFailure {
                 Timber.e(it)
             }
+            _loading.value = false
         }
 
     }

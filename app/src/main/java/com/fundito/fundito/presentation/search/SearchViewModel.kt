@@ -16,6 +16,9 @@ class SearchViewModel @Inject constructor(
     private val searchDao: SearchDao
 ) : ViewModel() {
 
+    private val _isFetching : MutableLiveData<Boolean> = MutableLiveData(false)
+    val isFetching : LiveData<Boolean> = _isFetching
+
     private val _items: MutableLiveData<List<SearchResponseItem>> = MutableLiveData(listOf())
     val items: LiveData<List<SearchResponseItem>> = _items
 
@@ -32,6 +35,7 @@ class SearchViewModel @Inject constructor(
     }
 
     fun onQueryChanged() = viewModelScope.launch {
+        _isFetching.value = true
         kotlin.runCatching {
             NetworkClient.storeInfoService.searchStoreWithKeyword(query.value!!)
         }.onSuccess {
@@ -39,7 +43,7 @@ class SearchViewModel @Inject constructor(
         }.onFailure {
             Timber.e(it)
         }
-
+        _isFetching.value = false
     }
 
     fun onItemDeleted(item: SearchItem) = viewModelScope.launch {
