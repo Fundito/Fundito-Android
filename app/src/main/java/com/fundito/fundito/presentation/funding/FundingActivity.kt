@@ -28,7 +28,6 @@ class FundingActivity : AppCompatActivity() {
         }
         adaptViewPager()
         initView()
-        finish()
     }
 
     private fun adaptViewPager(){

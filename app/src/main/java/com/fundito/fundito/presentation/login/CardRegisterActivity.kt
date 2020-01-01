@@ -7,6 +7,7 @@ import android.text.TextWatcher
 import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.facebook.login.Login
 import com.fundito.fundito.R
 import com.fundito.fundito.presentation.main.MainActivity
 import kotlinx.android.synthetic.main.activity_card_register.*
@@ -83,6 +84,10 @@ class CardRegisterActivity : AppCompatActivity() {
                 }
             }
         })
+        backButton.setOnClickListener(){
+            val intent = Intent(this@CardRegisterActivity, LoginNicknameActivity::class.java)
+            startActivity(intent)
+        }
 
         //전체선택
         checkbox_all.setOnClickListener {

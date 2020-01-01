@@ -64,7 +64,7 @@ class LoginActivity : AppCompatActivity() {
                             )
                         }.onSuccess {
                             SPUtil.accessToken = it.token
-                            val intent = Intent(this@LoginActivity, MainActivity::class.java)
+                            val intent = Intent(this@LoginActivity, LoginNicknameActivity::class.java)
                             startActivity(intent)
                         }.onFailure {
                             if((it as? HttpException)?.code() == 401) {
