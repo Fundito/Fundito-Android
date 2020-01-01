@@ -87,7 +87,7 @@ Fund your taste **Fundito**
 
 ## [ Project Architecture ]
 
-MVVM using Dagger, AAC ViewModel
+MVVM using Dagger, AAC ViewModel, Data Binding
 
 ## [ Feature ]
 
@@ -115,9 +115,11 @@ MVVM using Dagger, AAC ViewModel
 
 11. **Store Cheering(Share)** (Facebook SDK for sharing link + Firebase DynamicLink + DeepLink using Intent)
 
-## [Custom View]
+12. **Wifi Connection** (WifiManager + ConnectivityManager)
 
-<img src="1.gif" width=200/>
+## [Custom View + Edge Feature]
+
+<img src="1.gif" width=200/> <img src="2.gif" width=200/> <img src="3.gif" width=200/> <img src="4.gif" width=200/>
 
 ### FundingProgressView
 
@@ -138,6 +140,17 @@ MVVM using Dagger, AAC ViewModel
 - Using Animator, start TextView color, transformation animation
 - Snap nearest value remained unit of 100₩
 - Call method of custom value change listener instance
+
+### Overlap BottomSheet + SystemUI + Scene
+
+- Little bit Massive
+
+### Custom Keyboard Dialog
+
+
+### Using Wifi Connectivity for Server Request
+
+
 
 
 
