@@ -89,16 +89,14 @@ class FeedFriendListFragment : Fragment() {
         }
     }
     private fun initview(){
-        constraintLayout1.setOnDebounceClickListener {
+        card1.setOnDebounceClickListener {
             startActivity(FeedFriendDetailActivity::class)
         }
-        constraintLayout2.setOnDebounceClickListener {
+        card2.setOnDebounceClickListener {
             startActivity(FeedFriendDetailActivity::class)
         }
-//        constraintLayout3.setOnDebounceClickListener {
-//            startActivity(FeedFriendDetailActivity::class)
-//        }
-    }
-
+        card3.setOnDebounceClickListener {
+            startActivity(FeedFriendDetailActivity::class)
+        }
 
 } // end class

@@ -82,10 +82,12 @@
             />
         <activity android:name=".presentation.store.StoreDetailActivity"
             android:screenOrientation="portrait"
+            android:exported="true"
             android:configChanges="screenLayout|orientation|fontScale|locale|screenSize"
             />
         <activity android:name=".presentation.store.StoreCheerActivity"
             android:screenOrientation="portrait"
+            android:exported="true"
             android:configChanges="screenLayout|orientation|fontScale|locale|screenSize"
 
             />

@@ -276,9 +276,7 @@
                     android:id="@+id/constraintLayout3"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="@drawable/background_darknavy_stroke"
-                    >
-
+                    android:background="@drawable/background_darknavy_stroke">
                     <de.hdodenhof.circleimageview.CircleImageView
                         android:id="@+id/profileRightImageView"
                         android:layout_width="match_parent"
@@ -290,6 +288,7 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
+
                     <ImageView
                         android:id="@+id/medalRightImageView"
                         android:layout_width="wrap_content"
