@@ -20,6 +20,7 @@ import com.fundito.fundito.databinding.ActivityChargeBinding
 import com.fundito.fundito.di.module.ViewModelFactory
 import dagger.android.support.DaggerAppCompatActivity
 import kotlinx.coroutines.launch
+import timber.log.Timber
 import javax.inject.Inject
 
 /**
@@ -126,7 +127,10 @@ class ChargeActivity : DaggerAppCompatActivity() {
 
 
             funditoMoney.observe(this@ChargeActivity) {
+                Timber.e(it.toString())
+                Timber.e(it.toMoney())
                 mBinding.beforeAmmount.text = "충전 전 펀디토 머니: ${it.toMoney()}원"
+                Timber.e(mBinding.beforeAmmount.text.toString())
             }
         }
     }

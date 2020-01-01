@@ -33,58 +33,88 @@ class StatusViewModel @Inject constructor() : ViewModel() {
     val dispatchBackPressEvent : LiveData<Once<Unit>> = _dispatchBackPressEvent
 
     val userData = liveData {
+        _loading.value = true
         kotlin.runCatching {
+
             NetworkClient.userService.getUser()
+
         }.onSuccess {
             emit(it)
         }
+        _loading.value = false
     }
 
     val fundingData = liveData {
+        _loading.value = true
         kotlin.runCatching {
+
             NetworkClient.userService.getUsingFunditoMoney()
+
         }.onSuccess {
             emit(it)
         }
+        _loading.value = false
     }
 
-    val funditoMoney = liveData {
-        kotlin.runCatching {
-            NetworkClient.userService.getFunditoMoney()
-        }.onSuccess {
-            it.getOrNull(0)?.let { emit(it.point) }
-        }
-    }
+    private val _funditoMoney: MutableLiveData<Int> = MutableLiveData()
+    val funditoMoney: LiveData<Int> = _funditoMoney
 
-    val recentFundingHistories = liveData {
+
+    val recentFundingHistories: LiveData<List<RecentFundingItem>> = liveData {
+        _loading.value = true
         kotlin.runCatching {
-            NetworkClient.fundingService.getMyFundingHistories()
+
+            val list = NetworkClient.fundingService.getMyFundingHistories()
+            val store = NetworkClient.storeInfoService.getStoreInfo(list[0].storeIdx)
+            list.map { store to it }
         }.onSuccess {
             emit(it)
         }
+        _loading.value = false
     }
 
     val currentFundingStores = liveData {
+        _loading.value = true
         kotlin.runCatching {
             NetworkClient.fundingService.listCurrentFundingStore()
         }.onSuccess {
             emit(it)
         }
+        _loading.value = false
     }
 
     val completeFundingStores = liveData {
+        _loading.value = true
         kotlin.runCatching {
             NetworkClient.fundingService.listCompleteFundingStore()
         }.onSuccess {
             emit(it)
         }
+        _loading.value = false
     }
 
-    val selectedShopData = MutableLiveData<Pair<Store, Funding>>()
+    val selectedShopData = MutableLiveData<Triple<Store, Funding, List<Funding>>>()
 
     private val _loading : MutableLiveData<Boolean> = MutableLiveData()
     val loading : LiveData<Boolean> = _loading
 
+    init {
+        getFunditoMoney()
+    }
+
+    fun getFunditoMoney() {
+        viewModelScope.launch {
+            _loading.value = true
+            kotlin.runCatching {
+                NetworkClient.userService.getFunditoMoney()
+            }.onSuccess {
+                it.getOrNull(0)?.let {
+                    _funditoMoney.value = it.point
+                }
+            }
+            _loading.value = false
+        }
+    }
 
     fun onClickBack() {
         if(sceneIndex.value == 1) {
@@ -105,8 +135,7 @@ class StatusViewModel @Inject constructor() : ViewModel() {
             kotlin.runCatching {
                 val fundings = NetworkClient.fundingService.getMyFundingHistories()
                 val funding = fundings.first { it.storeIdx == storeIdx }
-
-                Pair(NetworkClient.storeInfoService.getStoreInfo(storeIdx),funding)
+                Triple(NetworkClient.storeInfoService.getStoreInfo(storeIdx), funding, fundings)
             }.onSuccess {
                 selectedShopData.value = it
             }.onFailure {

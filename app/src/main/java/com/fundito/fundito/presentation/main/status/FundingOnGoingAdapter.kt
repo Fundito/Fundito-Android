@@ -1,12 +1,16 @@
 package com.fundito.fundito.presentation.main.status
 
+import android.content.res.ColorStateList
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.cardview.widget.CardView
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.fundito.fundito.BR
+import com.fundito.fundito.common.util.toPixel
 import com.fundito.fundito.common.widget.setOnDebounceClickListener
 import com.fundito.fundito.data.service.CurrentFundingResponse
 import com.fundito.fundito.databinding.ItemFundingOngoingBinding
@@ -14,7 +18,7 @@ import com.fundito.fundito.databinding.ItemFundingOngoingBinding
 /**
  * Created by mj on 28, December, 2019
  */
-class FundingOnGoingAdapter(private val onItemClick : (CurrentFundingResponse) -> Unit) : ListAdapter<CurrentFundingResponse, FundingOnGoingAdapter.FundingOnGoingHolder>(DIFF) {
+class FundingOnGoingAdapter(private val onItemClick : (CurrentFundingResponse) -> Unit,private val cardShadow: Boolean = false) : ListAdapter<CurrentFundingResponse, FundingOnGoingAdapter.FundingOnGoingHolder>(DIFF) {
 
     companion object {
         private val DIFF = object : DiffUtil.ItemCallback<CurrentFundingResponse>() {
@@ -36,6 +40,11 @@ class FundingOnGoingAdapter(private val onItemClick : (CurrentFundingResponse) -
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FundingOnGoingHolder {
         val inflater = LayoutInflater.from(parent.context)
         val binding = ItemFundingOngoingBinding.inflate(inflater, parent, false)
+
+        if(cardShadow) {
+            (binding.root as CardView).setCardBackgroundColor(ColorStateList.valueOf(Color.WHITE))
+            (binding.root as CardView).elevation = 16.toPixel()
+        }
 
         return FundingOnGoingHolder(binding)
     }

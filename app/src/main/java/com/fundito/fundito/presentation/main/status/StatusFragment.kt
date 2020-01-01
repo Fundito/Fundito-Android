@@ -138,7 +138,7 @@ class StatusFragment : DaggerFragment(), HasDefaultViewModelProviderFactory {
             it.updateLayoutParams { height = estimatedSheetHeight.roundToInt() }
         }
         mBinding.bottomSheet2.root.doOnLayout {
-            it.updateLayoutParams { height = estimatedSheetHeight.roundToInt() }
+            it.updateLayoutParams { height = estimatedSheetHeight.roundToInt() - 4.toPixel().roundToInt() }
         }
     }
 
@@ -208,10 +208,10 @@ class StatusFragment : DaggerFragment(), HasDefaultViewModelProviderFactory {
         //region Sheet2
 
         scene1Binding.onGoingRecyclerView.apply {
-            adapter = FundingOnGoingAdapter {
+            adapter = FundingOnGoingAdapter ({
                 mViewModel.onSelectStore(it.storeIdx)
                 mViewModel.sceneIndex.value = 1
-            }
+            },true)
             addItemDecoration(LinearItemDecoration(15))
         }
 
@@ -349,12 +349,12 @@ class StatusFragment : DaggerFragment(), HasDefaultViewModelProviderFactory {
                 if(it) showLoading() else hideLoading()
             }
 
-            selectedShopData.observe(viewLifecycleOwner) {(store, funding)->
+            selectedShopData.observe(viewLifecycleOwner) {(store, funding,fundings)->
                 scene2Binding.name.text = store.name
                 scene2Binding.fundingPrice.text = funding.fundingMoney.toMoney() +" 원"
                 scene2Binding.maximumReturnPrice.text = funding.rewardMoney.toMoney()+ " 원"
                 scene2Binding.recentFundingLabel.text = store.name+" 투자내역"
-//                (scene2Binding.recyclerView.adapter as? RecentFundingAdapter)?.submitItems(fundingList)
+                (scene2Binding.recyclerView.adapter as? RecentFundingAdapter)?.submitItems(fundings.map { store to it })
             }
         }
     }
@@ -362,6 +362,7 @@ class StatusFragment : DaggerFragment(), HasDefaultViewModelProviderFactory {
     private fun listenBroadcast() {
         lifecycleScope.launch {
             for(e in Broadcast.chargeCompleteEvent.openSubscription()) {
+                mViewModel.getFunditoMoney()
                 mBinding.bottomSheet1.remain.text = e.toMoney() + " 원"
             }
         }

@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.fundito.fundito.R
 import com.fundito.fundito.application.MainApplication.Companion.GlobalApp
 import com.fundito.fundito.common.util.DateParsingUtil
+import com.fundito.fundito.common.widget.setOnDebounceClickListener
 import com.fundito.fundito.data.enumerator.FundStatus
 import com.fundito.fundito.data.service.NotificationResponse
 import com.fundito.fundito.databinding.ItemNotiBinding
@@ -19,7 +20,7 @@ import java.util.*
 /**
  * Created by mj on 29, December, 2019
  */
-class NotiAdapter : androidx.recyclerview.widget.ListAdapter<NotificationResponse,NotiAdapter.NotiHolder>(DIFF) {
+class NotiAdapter(private val onItemClick: (NotificationResponse) -> Unit) : androidx.recyclerview.widget.ListAdapter<NotificationResponse,NotiAdapter.NotiHolder>(DIFF) {
 
     companion object {
         private val DIFF = object : DiffUtil.ItemCallback<NotificationResponse>() {
@@ -50,12 +51,19 @@ class NotiAdapter : androidx.recyclerview.widget.ListAdapter<NotificationRespons
 
 
     inner class NotiHolder(private val binding: ItemNotiBinding) : RecyclerView.ViewHolder(binding.root) {
+
+        init {
+            binding.root setOnDebounceClickListener {
+                onItemClick(currentList[layoutPosition])
+            }
+        }
+
         fun bind(item: NotificationResponse) {
             binding.setVariable(BR.item, item)
             binding.executePendingBindings()
 
             val cal = DateParsingUtil.parseString(item.date)
-            binding.date.text = "%02d월 %02일".format(cal[Calendar.MONTH] + 1,cal[Calendar.DAY_OF_MONTH])
+            binding.date.text = "%02d월 %02d일".format(cal[Calendar.MONTH] + 1,cal[Calendar.DAY_OF_MONTH])
             binding.name.text = item.storeInfo.name + "(이/가)"
             binding.progress.text = when(item.storeInfo.fundStatus) {
                 FundStatus.SUCCESS-> buildSpannedString {

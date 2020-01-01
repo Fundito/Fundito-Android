@@ -7,9 +7,10 @@ import java.util.*
  * Created by mj on 26, December, 2019
  */
 object DateParsingUtil {
-
     private val simpleDateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.KOREA)
     private val fallbackFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ",Locale.KOREA)
+    private val fallback2Format = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'",Locale.KOREA)
+    private val fallback3Format = SimpleDateFormat("yyyy-MM-dd HH:mm",Locale.KOREA)
 
     fun parseToYMD(src : Calendar, separator : String = ".") : String {
         val year = src[Calendar.YEAR]
@@ -26,8 +27,22 @@ object DateParsingUtil {
     }
 
     fun parseString(raw : String) : Calendar {
-        val date = try{simpleDateFormat.parse(raw) ?: throw RuntimeException()}catch(t:Throwable) {
-            fallbackFormat.parse(raw) ?: Date()
+        val date = try{
+            simpleDateFormat.parse(raw)
+        }catch(t:Throwable) {
+            try {
+                fallbackFormat.parse(raw)
+            }catch(t : Throwable) {
+                try {
+                    fallback2Format.parse(raw)
+                }catch (t: Throwable) {
+                    try {
+                        fallback3Format.parse(raw)
+                    }catch(t: Throwable) {
+                        throw RuntimeException()
+                    }
+                }
+            }
         }
 
         return Calendar.getInstance().apply { time = date }
@@ -49,7 +64,8 @@ object DateParsingUtil {
         return when {
             dayDiff > 0 -> "${dayDiff}일전"
             hourDiff > 0 ->"${hourDiff}시간전"
-            else -> "${diffMin}분전"
+            diffMin > 0 -> "${diffMin}분전"
+            else -> "마감"
         }
     }
 

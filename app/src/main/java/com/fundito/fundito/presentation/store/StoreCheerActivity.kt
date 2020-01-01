@@ -45,7 +45,8 @@ class StoreCheerActivity : AppCompatActivity() {
         }
         cheerButton setOnDebounceClickListener {
             val content = ShareLinkContent.Builder()
-                .setContentUrl(Uri.parse("https://developers.facebook.com"))
+                .setContentUrl(Uri.parse("https://fundito.page.link/XktS"))
+                .setQuote("펀디토 망해라")
                 .build()
             shareDialog.show(content,ShareDialog.Mode.AUTOMATIC)
         }

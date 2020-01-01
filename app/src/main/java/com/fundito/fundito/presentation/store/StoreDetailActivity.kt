@@ -19,7 +19,9 @@ import com.fundito.fundito.common.loadUrlAsync
 import com.fundito.fundito.common.util.startActivity
 import com.fundito.fundito.common.util.toMoney
 import com.fundito.fundito.common.widget.LinearItemDecoration
+import com.fundito.fundito.common.widget.hideLoading
 import com.fundito.fundito.common.widget.setOnDebounceClickListener
+import com.fundito.fundito.common.widget.showLoading
 import com.fundito.fundito.data.enumerator.RefundType
 import com.fundito.fundito.databinding.ActivityStoreDetailBinding
 import com.fundito.fundito.presentation.funding.FundingActivity
@@ -114,6 +116,10 @@ class StoreDetailActivity : AppCompatActivity(), HasDefaultViewModelProviderFact
             addItemDecoration(LinearItemDecoration(12))
         }
 
+        mBinding.content.more setOnDebounceClickListener {
+            ProfitInfoDialog().show(supportFragmentManager,null)
+        }
+
         mBinding.fund setOnDebounceClickListener {
             startActivity(FundingActivity::class)
         }
@@ -129,12 +135,15 @@ class StoreDetailActivity : AppCompatActivity(), HasDefaultViewModelProviderFact
             adapter = StoreDetailAdapter()
         }
 
-//        ProfitInfoDialog().show(supportFragmentManager,null)
-
     }
 
     private fun observeViewModel() {
         mViewModel.apply {
+
+            loading.observe(this@StoreDetailActivity) {
+                if(it) showLoading() else hideLoading()
+            }
+
             store.observe(this@StoreDetailActivity) {store->
 
 
