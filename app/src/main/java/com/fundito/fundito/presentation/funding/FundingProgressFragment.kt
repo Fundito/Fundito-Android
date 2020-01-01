@@ -13,13 +13,10 @@ import com.fundito.fundito.R
 class FundingProgressFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return LayoutInflater.from(context).inflate(R.layout.fragment_funding_progress,container,false)
+        return LayoutInflater.from(context).inflate(R.layout.fragment_funding_progress, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-
-//        dialView.onInvestmentValueChangedListener = {number->
-//            fundingPriceProgress.text = "${number.toLong().toMoney()}"
-//        }
+        
     }
 }

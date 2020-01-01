@@ -12,6 +12,8 @@ import retrofit2.http.*
 /**
  * Created by mj on 29, December, 2019
  */
+
+
 interface UserService {
 
     //1
@@ -98,6 +100,5 @@ data class FunditoMoneyResponse(
     @Expose(serialize = true, deserialize = true)
     val point: Int
 ) : Parcelable
-
 
 

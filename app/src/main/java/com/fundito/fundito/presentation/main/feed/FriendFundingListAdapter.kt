@@ -33,8 +33,10 @@ class FriendFundingListAdapter(private val context: Context) : RecyclerView.Adap
 
         holder.cardView.setOnClickListener {
 
-            context.startActivity(Intent(context, FeedFriendDetailActivity::class.java)
-                .putExtra("key", data[position].profileName))
+            context.startActivity(
+                Intent(context, FeedFriendDetailActivity::class.java)
+                    .putExtra("key", data[position].profileName)
+            )
 
 
         }

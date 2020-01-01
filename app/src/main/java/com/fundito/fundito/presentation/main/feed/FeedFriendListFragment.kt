@@ -12,10 +12,17 @@ import androidx.lifecycle.observe
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.fundito.fundito.R
+import com.fundito.fundito.common.util.startActivity
 import com.fundito.fundito.common.widget.LinearItemDecoration
+import com.fundito.fundito.common.widget.setOnDebounceClickListener
 import com.fundito.fundito.data.model.FriendFunding
+import com.fundito.fundito.presentation.charge.ChargeActivity
 import com.fundito.fundito.presentation.main.MainActivity
+import kotlinx.android.synthetic.main.activity_card_register.*
 import kotlinx.android.synthetic.main.fragment_feed_friend_list.*
+import kotlinx.android.synthetic.main.fragment_feed_friend_list.constraintLayout1
+import kotlinx.android.synthetic.main.fragment_feed_friend_list.constraintLayout2
+import kotlinx.android.synthetic.main.fragment_feed_friend_list.scrollView
 import kotlinx.coroutines.launch
 
 /**
@@ -57,6 +64,7 @@ class FeedFriendListFragment : Fragment() {
         friendFundingRecyclerView.addItemDecoration(LinearItemDecoration(10))
 
 
+
         friendFundingListadapter.notifyDataSetChanged()
 
         scrollView.setOnScrollChangeListener { v: NestedScrollView?, _: Int, _: Int, _: Int, _: Int ->
@@ -64,6 +72,7 @@ class FeedFriendListFragment : Fragment() {
         }
 
         adjustSystemUI()
+        initview()
     }
 
     private fun loadData() {
@@ -78,6 +87,17 @@ class FeedFriendListFragment : Fragment() {
                 requireActivity().window.statusBarColor = Color.parseColor("#f6f5f5")
             }
         }
+    }
+    private fun initview(){
+        constraintLayout1.setOnDebounceClickListener {
+            startActivity(FeedFriendDetailActivity::class)
+        }
+        constraintLayout2.setOnDebounceClickListener {
+            startActivity(FeedFriendDetailActivity::class)
+        }
+//        constraintLayout3.setOnDebounceClickListener {
+//            startActivity(FeedFriendDetailActivity::class)
+//        }
     }
 
 
