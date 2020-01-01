@@ -162,15 +162,12 @@ class KeyboardDialogFragment : BottomSheetDialogFragment() {
         }
 
         adjustCircleImages()
-        startBounceAnim(password.length)
 
         onPasswordChanged?.invoke(password)
-
     }
 
     private fun adjustCircleImages() {
         circleContainer.children.forEachIndexed { index, view ->
-            //            view.setBackgroundResource(if(password.length > index) R.drawable.white_circle else R.drawable.white_circle_stroke)
             view.isActivated = password.length > index
         }
     }
@@ -184,15 +181,6 @@ class KeyboardDialogFragment : BottomSheetDialogFragment() {
         }
     }
 
-    private fun startBounceAnim(circleIdx: Int) {
-        /*val circleView = circleContainer.getChildAt(circleIdx)
-        ObjectAnimator.ofFloat(circleView,"translationY",0f,-150f).apply {
-            duration = 100L
-            repeatCount = 1
-            repeatMode = ObjectAnimator.REVERSE
-            start()
-        }*/
-    }
 
     fun onPasswordMatchFailed() {
         startShakeAnim()

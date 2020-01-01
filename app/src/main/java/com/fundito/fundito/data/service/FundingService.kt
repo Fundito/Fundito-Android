@@ -57,6 +57,9 @@ data class MaxInterestRateResponse(
 @SuppressLint("ParcelCreator")
 @Parcelize
 data class CurrentFundingResponse(
+    @SerializedName("storeIdx")
+    @Expose
+    val storeIdx: Int,
     @SerializedName("storeName")
     @Expose(serialize = true, deserialize = true)
     val storeName: String,
@@ -71,6 +74,9 @@ data class CurrentFundingResponse(
 @SuppressLint("ParcelCreator")
 @Parcelize
 data class CompleteFundingResponse(
+    @SerializedName("storeIdx")
+    @Expose
+    val storeIdx: Int,
     @SerializedName("storeName")
     @Expose(serialize = true, deserialize = true)
     val storeName: String,

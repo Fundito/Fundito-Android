@@ -14,7 +14,7 @@ import com.fundito.fundito.databinding.ItemFundingOngoingBinding
 /**
  * Created by mj on 28, December, 2019
  */
-class FundingOnGoingAdapter(private val onItemClick : () -> Unit) : ListAdapter<CurrentFundingResponse, FundingOnGoingAdapter.FundingOnGoingHolder>(DIFF) {
+class FundingOnGoingAdapter(private val onItemClick : (CurrentFundingResponse) -> Unit) : ListAdapter<CurrentFundingResponse, FundingOnGoingAdapter.FundingOnGoingHolder>(DIFF) {
 
     companion object {
         private val DIFF = object : DiffUtil.ItemCallback<CurrentFundingResponse>() {
@@ -48,7 +48,7 @@ class FundingOnGoingAdapter(private val onItemClick : () -> Unit) : ListAdapter<
 
         init {
             binding.root setOnDebounceClickListener {
-                onItemClick()
+                onItemClick(currentList[layoutPosition])
             }
         }
 

@@ -69,7 +69,7 @@ class LoginActivity : AppCompatActivity() {
                                 startActivity(LoginNicknameActivity::class)
                             }else {
                                 AuthUtil.logout()
-                                showAlert(it.localizedMessage ?: "")
+                                showAlert("로그인 실패")
                             }
                         }
                         hideLoading()

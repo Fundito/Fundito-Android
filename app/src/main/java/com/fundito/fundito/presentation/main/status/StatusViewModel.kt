@@ -1,11 +1,9 @@
 package com.fundito.fundito.presentation.main.status
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.liveData
+import androidx.lifecycle.*
 import com.fundito.fundito.common.widget.Once
 import com.fundito.fundito.data.service.NetworkClient
+import kotlinx.coroutines.async
 import javax.inject.Inject
 
 /**
@@ -80,7 +78,13 @@ class StatusViewModel @Inject constructor() : ViewModel() {
         }
     }
 
+    val selectedShopIdx = MutableLiveData<Int>()
 
+    val selectedShopData = selectedShopIdx.map {idx->
+        viewModelScope.async {
+            NetworkClient.storeInfoService.getStoreInfo(idx)
+        }
+    }
 
 
 

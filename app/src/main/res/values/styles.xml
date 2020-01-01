@@ -80,7 +80,7 @@
         <item name="rippleColor">@color/dark_navy</item>
     </style>
     <style name="KeyboardButtonTextAppearance" parent="TextAppearance.MaterialComponents.Button">
-        <item name="android:textSize">18sp</item>
+        <item name="android:textSize">25sp</item>
     </style>
     <style name="DialogAnimation">
         <item name="android:windowEnterAnimation">@anim/slide_up</item>

@@ -11,13 +11,14 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.fundito.fundito.common.util.DateParsingUtil
 import com.fundito.fundito.common.util.toMoney
+import com.fundito.fundito.common.widget.setOnDebounceClickListener
 import com.fundito.fundito.data.service.CompleteFundingResponse
 import com.fundito.fundito.databinding.ItemFundingCompleteBinding
 
 /**
  * Created by mj on 28, December, 2019
  */
-class FundingCompleteAdapter : ListAdapter<CompleteFundingResponse, FundingCompleteAdapter.FundingCompleteHolder>(DIFF) {
+class FundingCompleteAdapter(private val onItemClick : (CompleteFundingResponse) -> Unit) : ListAdapter<CompleteFundingResponse, FundingCompleteAdapter.FundingCompleteHolder>(DIFF) {
 
     companion object {
         private val DIFF = object : DiffUtil.ItemCallback<CompleteFundingResponse>() {
@@ -48,6 +49,13 @@ class FundingCompleteAdapter : ListAdapter<CompleteFundingResponse, FundingCompl
 
 
     inner class FundingCompleteHolder(private val binding: ItemFundingCompleteBinding) : RecyclerView.ViewHolder(binding.root) {
+
+        init {
+            binding.root setOnDebounceClickListener {
+                onItemClick(currentList[layoutPosition])
+            }
+        }
+
         fun bind(item: CompleteFundingResponse) {
             binding.setVariable(BR.item, item)
             binding.executePendingBindings()

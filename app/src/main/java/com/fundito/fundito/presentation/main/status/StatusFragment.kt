@@ -212,13 +212,16 @@ class StatusFragment : DaggerFragment(), HasDefaultViewModelProviderFactory {
 
         scene1Binding.onGoingRecyclerView.apply {
             adapter = FundingOnGoingAdapter {
+
                 mViewModel.sceneIndex.value = 1
             }
             addItemDecoration(LinearItemDecoration(15))
         }
 
         scene1Binding.completeRecyclerView.apply {
-            adapter = FundingCompleteAdapter()
+            adapter = FundingCompleteAdapter {
+                startActivity(StoreDetailActivity.newIntent(requireContext(),it.storeIdx))
+            }
             addItemDecoration(LinearItemDecoration(15))
         }
 

@@ -25,7 +25,7 @@ import timber.log.Timber
  */
 object NetworkClient {
 
-    private const val BASE_URL = "http://15.165.109.29:3000"
+    private const val BASE_URL = "http://15.164.37.160:3000"
 
     private val loggingInterceptor = HttpLoggingInterceptor(HttpLoggingInterceptor.Logger.DEFAULT).apply {
         this.level = HttpLoggingInterceptor.Level.BODY
