@@ -5,10 +5,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager.widget.ViewPager
 import com.fundito.fundito.R
 import com.fundito.fundito.common.setVisibilityBinding
-import com.fundito.fundito.common.util.toMoney
 import com.fundito.fundito.common.widget.setOnDebounceClickListener
 import kotlinx.android.synthetic.main.activity_funding.*
-import kotlinx.android.synthetic.main.fragment_funding_input.*
 import kotlinx.android.synthetic.main.layout_toolbar.*
 
 /**
@@ -22,6 +20,9 @@ class FundingActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_funding)
         toolbartitle.text = "투자금액"
+        backButton setOnDebounceClickListener {
+            onBackPressedDispatcher.onBackPressed()
+        }
         adaptViewPager()
         initView()
     }

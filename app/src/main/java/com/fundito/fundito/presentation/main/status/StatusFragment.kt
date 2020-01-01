@@ -239,7 +239,8 @@ class StatusFragment : DaggerFragment(), HasDefaultViewModelProviderFactory {
         }
 
         scene2Binding.detail setOnDebounceClickListener {
-            startActivity(StoreDetailActivity::class)
+            val idx = mViewModel.selectedShopData.value?.first?.storeIdx ?: return@setOnDebounceClickListener
+            startActivity(StoreDetailActivity.newIntent(requireContext(),idx))
         }
 
         //endregion
@@ -248,8 +249,6 @@ class StatusFragment : DaggerFragment(), HasDefaultViewModelProviderFactory {
         MainActivity.menu.observe(viewLifecycleOwner) {
             adjustSystemUIs()
         }
-
-
 
     }
 
@@ -350,8 +349,12 @@ class StatusFragment : DaggerFragment(), HasDefaultViewModelProviderFactory {
                 if(it) showLoading() else hideLoading()
             }
 
-            selectedShopData.observe(viewLifecycleOwner) {
-
+            selectedShopData.observe(viewLifecycleOwner) {(store, funding)->
+                scene2Binding.name.text = store.name
+                scene2Binding.fundingPrice.text = funding.fundingMoney.toMoney() +" 원"
+                scene2Binding.maximumReturnPrice.text = funding.rewardMoney.toMoney()+ " 원"
+                scene2Binding.recentFundingLabel.text = store.name+" 투자내역"
+//                (scene2Binding.recyclerView.adapter as? RecentFundingAdapter)?.submitItems(fundingList)
             }
         }
     }
@@ -362,7 +365,6 @@ class StatusFragment : DaggerFragment(), HasDefaultViewModelProviderFactory {
                 mBinding.bottomSheet1.remain.text = e.toMoney() + " 원"
             }
         }
-
     }
 
     private fun adjustSystemUIs() {

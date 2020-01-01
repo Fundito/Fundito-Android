@@ -2,6 +2,7 @@ package com.fundito.fundito.presentation.main.status
 
 import androidx.lifecycle.*
 import com.fundito.fundito.common.widget.Once
+import com.fundito.fundito.data.model.Funding
 import com.fundito.fundito.data.model.Store
 import com.fundito.fundito.data.service.NetworkClient
 import kotlinx.coroutines.launch
@@ -79,7 +80,7 @@ class StatusViewModel @Inject constructor() : ViewModel() {
         }
     }
 
-    val selectedShopData = MutableLiveData<Store>()
+    val selectedShopData = MutableLiveData<Pair<Store, Funding>>()
 
     private val _loading : MutableLiveData<Boolean> = MutableLiveData()
     val loading : LiveData<Boolean> = _loading
@@ -99,15 +100,19 @@ class StatusViewModel @Inject constructor() : ViewModel() {
 
     fun onSelectStore(storeIdx : Int) {
         viewModelScope.launch {
-            _loading.value = false
+            _loading.value = true
+
             kotlin.runCatching {
-                NetworkClient.storeInfoService.getStoreInfo(storeIdx)
+                val fundings = NetworkClient.fundingService.getMyFundingHistories()
+                val funding = fundings.first { it.storeIdx == storeIdx }
+
+                Pair(NetworkClient.storeInfoService.getStoreInfo(storeIdx),funding)
             }.onSuccess {
                 selectedShopData.value = it
             }.onFailure {
 
             }
-            _loading.value = true
+            _loading.value = false
 
         }
     }
