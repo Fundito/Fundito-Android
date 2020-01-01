@@ -92,7 +92,7 @@ class LoginNicknameActivity : AppCompatActivity() {
             kotlin.runCatching {
                 var a = NetworkClient.userService.getUser()
                 Timber.e("1")
-                name.text =a.name
+                  name.text =a.name
                 Timber.e("2")
                 nickName.text = a.nickname
                 Timber.e("3")

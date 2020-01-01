@@ -5,20 +5,14 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
-import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
-import com.facebook.login.Login
 import com.fundito.fundito.R
 import com.fundito.fundito.data.service.NetworkClient
 import com.fundito.fundito.presentation.main.MainActivity
-import com.google.gson.annotations.SerializedName
 import kotlinx.android.synthetic.main.activity_card_register.*
 import kotlinx.android.synthetic.main.activity_login_nickname.*
-import kotlinx.android.synthetic.main.fragment_funding_complete.*
-import kotlinx.android.synthetic.main.fragment_funding_progress.*
-import kotlinx.android.synthetic.main.item_search.view.*
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
@@ -35,8 +29,8 @@ class CardRegisterActivity : AppCompatActivity() {
 
 
         makeController()
-       // initview()
-                /**
+        // initview()
+        /**
          * Formatting a credit card number: ####-####-####-####
          */
         cardNumberEditText.addTextChangedListener(object : TextWatcher {
@@ -101,7 +95,7 @@ class CardRegisterActivity : AppCompatActivity() {
 
         //전체선택
         checkbox_all.setOnClickListener {
-//            checkbox_all.toggle()
+            //            checkbox_all.toggle()
 //            checkbox2.toggle()
 //            checkbox3.toggle()
 //            checkbox5.toggle()
@@ -149,30 +143,30 @@ class CardRegisterActivity : AppCompatActivity() {
         }
 
     }
-        private fun initview(){
-            lifecycleScope.launch {
-                kotlin.runCatching {
+    private fun initview(){
+        lifecycleScope.launch {
+            kotlin.runCatching {
 
-                    var a = NetworkClient.cardService.createCard(
-                        "국민",
-                        cardnameEditText.text.toString(),
-                        cardNumberEditText.text.toString(),
-                        expirydateEditText.text.toString(),
-                        passwordEditText.text.toString())
-                        name.text =a.userName
+                var a = NetworkClient.cardService.createCard(
+                    "국민",
+                    cardnameEditText.text.toString(),
+                    cardNumberEditText.text.toString(),
+                    expirydateEditText.text.toString(),
+                    passwordEditText.text.toString())
+                name.text =a.userName
 
-                }
-                    .onSuccess {
-                        Timber.e("success")
-                    }
-                    .onFailure {
-                        Timber.e("Fail")
-                        Timber.e(it.message.toString())
-                    }
             }
+                .onSuccess {
+                    Timber.e("success")
+                }
+                .onFailure {
+                    Timber.e("Fail")
+                    Timber.e(it.message.toString())
+                }
         }
-
     }
+
+}
 
 
 
