@@ -1,10 +1,9 @@
 package com.fundito.fundito.presentation.funding
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.liveData
+import androidx.lifecycle.*
+import com.fundito.fundito.common.widget.Once
 import com.fundito.fundito.data.service.NetworkClient
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 import javax.inject.Named
 
@@ -13,7 +12,9 @@ import javax.inject.Named
  */
 class FundingViewModel @Inject constructor(
     @Named("FundingActivity_storeIdx")
-    private val storeIdx: Int
+    private val storeIdx: Int,
+    @Named("FundingActivity_refundPercent")
+    val refundPercent: Int
 ) : ViewModel() {
 
     private val _loading : MutableLiveData<Boolean> = MutableLiveData(false)
@@ -37,4 +38,38 @@ class FundingViewModel @Inject constructor(
 
     val inputMoney = MutableLiveData<Int>()
 
+    val refundMoney = inputMoney.map {
+        it * (refundPercent - 100f) * 0.01f
+    }
+
+    val totalMoney = refundMoney.map {
+        it + (inputMoney.value ?: 0)
+    }
+
+    val store = liveData {
+        kotlin.runCatching {
+            NetworkClient.storeInfoService.getStoreInfo(storeIdx)
+        }.onSuccess {
+            emit(it)
+        }
+    }
+
+    val password = MutableLiveData<String>("")
+
+    private val _fundResult : MutableLiveData<Once<Boolean>> = MutableLiveData()
+    val fundResult : LiveData<Once<Boolean>> = _fundResult
+
+    fun onCheckPasswordMatch() {
+        val password = password.value ?: return
+        val inputMoney = inputMoney.value ?: return
+        viewModelScope.launch {
+            kotlin.runCatching {
+                NetworkClient.fundingService.fundWithPassword(password,storeIdx,inputMoney)
+            }.onSuccess {
+                _fundResult.value = Once(true)
+            }.onFailure {
+                _fundResult.value = Once(false)
+            }
+        }
+    }
 }

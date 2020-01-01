@@ -40,9 +40,11 @@ class LoginActivity : AppCompatActivity() {
         setContentView(R.layout.activity_login)
 
         facebookLoginButton.apply {
+
             setPermissions("public_profile","email")
 
             registerCallback(callbackManager, object : FacebookCallback<LoginResult> {
+
                 override fun onSuccess(result: LoginResult?) {
                     lifecycleScope.launch {
 
@@ -57,7 +59,6 @@ class LoginActivity : AppCompatActivity() {
 
                         showLoading()
                         kotlin.runCatching {
-                          //  NetworkClient.userService.signIn(AccessToken.getCurrentAccessToken().token ?: "EAAGhMO97yxABAHZBg9Pn6DCoAwhsZCEQrZCGZAGNNYCdxRqCjZAkaD1SiI6CSJVTdtF9U8N1Nm9qfnksZApdH5ORCNiwPAM93FuZCUuFVspF2cZB8knk0OyZAskuFWqZBorom1TCCVnvF4xjRR9ownDIFFUFSFbzD4HTvUuMYFfaNYoWDbZCHWLt9gJ2YtioxCiNZCgcWqMCfHFj8NqVh24UG1U2OQ2ubFdmTZCL612nyZBdSOuEJ58pKhT9eA")
                             NetworkClient.userService.signIn(
                                 AccessToken.getCurrentAccessToken().token ?: "",
                                 fcmToken

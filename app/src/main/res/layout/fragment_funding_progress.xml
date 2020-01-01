@@ -1,41 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools">
+    android:layout_height="match_parent">
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guide"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_begin="30dp"
-        />
+        app:layout_constraintGuide_begin="30dp" />
 
     <TextView
         android:id="@+id/fundingPriceProgress"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginRight="5dp"
         android:fontFamily="@font/spoqa_han_sans_regular"
         android:gravity="center_horizontal"
         android:lineSpacingExtra="15sp"
-        tools:text="5,000"
-        android:layout_marginRight="5dp"
         android:textColor="@color/black"
         android:textSize="32sp"
         app:layout_constraintRight_toLeftOf="@id/won"
-        app:layout_constraintTop_toTopOf="@+id/guide" />
+        app:layout_constraintTop_toTopOf="@+id/guide"
+        tools:text="5,000" />
 
     <TextView
         android:id="@+id/won"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginRight="16dp"
         android:fontFamily="@font/spoqa_han_sans_regular"
         android:text="원"
         android:textColor="@color/black"
         android:textSize="32sp"
-        android:layout_marginRight="16dp"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="@+id/guide" />
 
@@ -45,84 +44,79 @@
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
         android:lineSpacingExtra="6sp"
-        tools:text="펀디토 머니:  48,000원"
         android:textColor="#5c5c5c"
         android:textSize="12sp"
         app:layout_constraintRight_toRightOf="@id/won"
+        app:layout_constraintTop_toBottomOf="@+id/fundingPriceProgress"
 
-        app:layout_constraintTop_toBottomOf="@+id/fundingPriceProgress" />
+        tools:text="펀디토 머니:  48,000원" />
 
     <!--    플러스 이미지 / 구분선 이미지 -->
 
     <ImageView
-        android:layout_marginRight="30dp"
-        app:layout_constraintBottom_toTopOf="@id/underline"
-        app:layout_constraintRight_toLeftOf="@id/underline"
         android:id="@+id/imageView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginRight="30dp"
         android:src="@drawable/plus_img"
-        />
+        app:layout_constraintBottom_toTopOf="@id/underline"
+        app:layout_constraintRight_toLeftOf="@id/underline" />
 
     <TextView
-        android:layout_marginRight="22dp"
-        android:layout_marginBottom="16dp"
-        app:layout_constraintRight_toLeftOf="@id/linewon"
-        app:layout_constraintBottom_toTopOf="@id/underline"
         android:id="@+id/refundPercent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="136dp"
+        android:layout_marginRight="22dp"
+        android:layout_marginBottom="16dp"
         android:gravity="end"
         android:lineSpacingExtra="8sp"
         android:textColor="#312f86"
         android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@id/underline"
+        app:layout_constraintRight_toLeftOf="@id/linewon"
 
-        android:text="170% 이율" />
+        tools:text="170% 이율" />
 
     <TextView
-        android:layout_marginRight="16dp"
         android:id="@+id/linewon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="45dp"
+        android:layout_marginRight="16dp"
         android:gravity="end"
         android:lineSpacingExtra="15sp"
-        android:text="3,500 원"
+        tools:text="3,500 원"
         android:textColor="@color/black"
         android:textSize="32sp"
-        app:layout_constraintTop_toBottomOf="@id/funditoMoneyShowing"
         app:layout_constraintRight_toRightOf="parent"
-        />
+        app:layout_constraintTop_toBottomOf="@id/funditoMoneyShowing" />
 
     <View
-        android:layout_marginRight="16dp"
         android:id="@+id/underline"
         android:layout_width="0dp"
         android:layout_height="0.5dp"
         android:layout_marginStart="116dp"
         android:layout_marginTop="12dp"
+        android:layout_marginRight="16dp"
         android:background="@color/brown_grey"
-        app:layout_constraintTop_toBottomOf="@id/linewon"
         app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/linewon"
         app:layout_constraintWidth_percent="0.65" />
 
     <TextView
-        android:layout_marginTop="8dp"
         android:id="@+id/fundingTotal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginRight="16dp"
         android:gravity="end"
         android:lineSpacingExtra="15sp"
+        tools:text="8,500 원"
         android:textColor="@color/black"
         android:textSize="32sp"
-        android:textStyle="bold"
-        app:layout_constraintTop_toBottomOf="@id/underline"
-        android:layout_marginRight="16dp"
         app:layout_constraintRight_toRightOf="parent"
-        android:text="8,500 원" />
-
-
+        app:layout_constraintTop_toBottomOf="@id/underline" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

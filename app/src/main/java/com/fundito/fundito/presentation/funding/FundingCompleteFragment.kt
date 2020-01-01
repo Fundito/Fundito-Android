@@ -5,14 +5,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.observe
 import com.fundito.fundito.R
-import com.fundito.fundito.data.service.NetworkClient
+import com.fundito.fundito.common.util.toMoney
 import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.fragment_funding_complete.*
-import kotlinx.android.synthetic.main.fragment_funding_progress.*
-import kotlinx.coroutines.launch
-import timber.log.Timber
+import kotlin.math.roundToInt
 
 /**
  * Created by mj on 26, December, 2019

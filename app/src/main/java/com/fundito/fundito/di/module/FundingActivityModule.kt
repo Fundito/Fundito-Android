@@ -42,4 +42,9 @@ class FundingActivityProvideModule {
     @Named("FundingActivity_storeIdx")
     @ActivityScope
     fun provideStoreIndex(activity: FundingActivity) = activity.storeId
+
+    @Provides
+    @Named("FundingActivity_refundPercent")
+    @ActivityScope
+    fun provideRefundPercent(activity: FundingActivity) = activity.refundPercent
 }
