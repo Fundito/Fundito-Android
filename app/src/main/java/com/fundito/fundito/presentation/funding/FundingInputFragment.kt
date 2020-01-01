@@ -28,6 +28,4 @@ class FundingInputFragment : Fragment() {
             fundinginput_txt.text = "${number.toLong().toMoney()}"
         }
     }
-
-    
 }

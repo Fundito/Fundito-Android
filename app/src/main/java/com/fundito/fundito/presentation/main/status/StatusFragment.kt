@@ -18,10 +18,12 @@ import androidx.core.view.updateLayoutParams
 import androidx.core.widget.NestedScrollView
 import androidx.lifecycle.HasDefaultViewModelProviderFactory
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.observe
 import androidx.transition.Scene
 import androidx.transition.TransitionManager
 import com.fundito.fundito.R
+import com.fundito.fundito.broadcast.Broadcast
 import com.fundito.fundito.common.fadeIn
 import com.fundito.fundito.common.post
 import com.fundito.fundito.common.startMoneyAnimation
@@ -42,6 +44,7 @@ import com.fundito.fundito.presentation.store.StoreDetailActivity
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.tabs.TabLayout
 import dagger.android.support.DaggerFragment
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 import kotlin.math.roundToInt
 import kotlin.math.roundToLong
@@ -124,6 +127,7 @@ class StatusFragment : DaggerFragment(), HasDefaultViewModelProviderFactory {
         initBottomSheets()
         initView()
         observeViewModel()
+        listenBroadcast()
         backPressedDispatcher.addCallback(viewLifecycleOwner,backPressedCallback)
     }
 
@@ -208,13 +212,16 @@ class StatusFragment : DaggerFragment(), HasDefaultViewModelProviderFactory {
 
         scene1Binding.onGoingRecyclerView.apply {
             adapter = FundingOnGoingAdapter {
+
                 mViewModel.sceneIndex.value = 1
             }
             addItemDecoration(LinearItemDecoration(15))
         }
 
         scene1Binding.completeRecyclerView.apply {
-            adapter = FundingCompleteAdapter()
+            adapter = FundingCompleteAdapter {
+                startActivity(StoreDetailActivity.newIntent(requireContext(),it.storeIdx))
+            }
             addItemDecoration(LinearItemDecoration(15))
         }
 
@@ -339,6 +346,15 @@ class StatusFragment : DaggerFragment(), HasDefaultViewModelProviderFactory {
                 mBinding.bottomSheet1.remain.text = it.toMoney() + " 원"
             }
         }
+    }
+
+    private fun listenBroadcast() {
+        lifecycleScope.launch {
+            for(e in Broadcast.chargeCompleteEvent.openSubscription()) {
+                mBinding.bottomSheet1.remain.text = e.toMoney() + " 원"
+            }
+        }
+
     }
 
     private fun adjustSystemUIs() {

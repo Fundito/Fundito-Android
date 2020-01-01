@@ -31,7 +31,7 @@
                 android:textColor="@color/black"
                 android:lineSpacingExtra="8sp"
                 android:gravity="end"
-                android:text="황호댁"
+                tools:text="황호댁"
                 />
 
             <TextView
@@ -46,10 +46,11 @@
                 android:textColor="@color/blueberry_two"
                 android:lineSpacingExtra="8sp"
                 android:gravity="end"
-                android:text="3일 남음"
+                tools:text="3일 남음"
                 />
 
             <TextView
+                android:id="@+id/progress"
                 android:layout_marginTop="11dp"
                 android:layout_marginRight="16dp"
                 android:textStyle="bold"
@@ -61,10 +62,11 @@
                 android:textColor="@color/blueberry_two"
                 android:lineSpacingExtra="8sp"
                 android:gravity="end"
-                android:text=" 83% 달성중"
+                tools:text=" 83% 달성중"
                 />
 
             <com.fundito.fundito.common.view.FundingProgressView
+                android:id="@+id/progressView"
                 android:layout_marginLeft="45dp"
                 android:layout_marginRight="16dp"
                 app:layout_constraintTop_toTopOf="@id/remainDay"

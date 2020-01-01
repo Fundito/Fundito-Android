@@ -7,6 +7,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <ImageView
+        android:scaleType="centerCrop"
+        android:src="@drawable/home_background_img"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/toolbar"
@@ -53,7 +59,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="25dp"
+                android:layout_marginTop="24dp"
                 android:lineSpacingExtra="8sp"
                 android:text="이 달의 디토"
                 android:textColor="@color/dark_navy"
@@ -77,8 +83,9 @@
 
 
             <androidx.cardview.widget.CardView
+                app:cardBackgroundColor="#94ffffff"
                 app:cardCornerRadius="8dp"
-                app:cardElevation="12dp"
+                app:cardElevation="0dp"
                 android:id="@+id/card1"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
@@ -163,8 +170,9 @@
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
+                app:cardBackgroundColor="#94ffffff"
                 app:cardCornerRadius="8dp"
-                app:cardElevation="12dp"
+                app:cardElevation="0dp"
                 android:clipChildren="false"
                 android:id="@+id/card2"
                 android:layout_width="0dp"
@@ -250,8 +258,9 @@
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
+                app:cardBackgroundColor="#94ffffff"
                 app:cardCornerRadius="8dp"
-                app:cardElevation="12dp"
+                app:cardElevation="0dp"
                 android:clipChildren="false"
                 android:id="@+id/card3"
                 android:layout_width="0dp"

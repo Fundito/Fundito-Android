@@ -1,11 +1,9 @@
 package com.fundito.fundito.presentation.main.status
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.liveData
+import androidx.lifecycle.*
 import com.fundito.fundito.common.widget.Once
 import com.fundito.fundito.data.service.NetworkClient
+import kotlinx.coroutines.async
 import javax.inject.Inject
 
 /**
@@ -29,13 +27,6 @@ class StatusViewModel @Inject constructor() : ViewModel() {
     val sceneIndex : MutableLiveData<Int> = MutableLiveData(0)
 
 
-    private val _onGoingFundingItems : MutableLiveData<List<String>> = MutableLiveData(listOf("","","",""))
-    val onGoingFundingItems : LiveData<List<String>> = _onGoingFundingItems
-
-    private val _completeFundingItem : MutableLiveData<List<String>> = MutableLiveData(listOf("","","",""))
-    val completeFundingItem : LiveData<List<String>> = _completeFundingItem
-
-    
     private val _dispatchBackPressEvent : MutableLiveData<Once<Unit>> = MutableLiveData()
     val dispatchBackPressEvent : LiveData<Once<Unit>> = _dispatchBackPressEvent
 
@@ -70,6 +61,31 @@ class StatusViewModel @Inject constructor() : ViewModel() {
             emit(it)
         }
     }
+
+    val currentFundingStores = liveData {
+        kotlin.runCatching {
+            NetworkClient.fundingService.listCurrentFundingStore()
+        }.onSuccess {
+            emit(it)
+        }
+    }
+
+    val completeFundingStores = liveData {
+        kotlin.runCatching {
+            NetworkClient.fundingService.listCompleteFundingStore()
+        }.onSuccess {
+            emit(it)
+        }
+    }
+
+    val selectedShopIdx = MutableLiveData<Int>()
+
+    val selectedShopData = selectedShopIdx.map {idx->
+        viewModelScope.async {
+            NetworkClient.storeInfoService.getStoreInfo(idx)
+        }
+    }
+
 
 
 

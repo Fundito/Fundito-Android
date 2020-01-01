@@ -70,25 +70,15 @@ class HomeFragment : DaggerFragment(), HasDefaultViewModelProviderFactory {
     }
 
     private fun adjustSystemUI() {
-
         MainActivity.menu.observe(viewLifecycleOwner) {
             if(MainActivity.menu.value == MainActivity.MainMenu.HOME) {
                 requireActivity().window.statusBarColor = Color.parseColor("#f6f5f5")
-//            View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or View.SYSTEM_UI_FLAG_FULLSCREEN or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
-            }else if(it != MainActivity.MainMenu.STATUS) {
-                requireActivity().window.statusBarColor = Color.WHITE
-//            View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
             }
         }
-
-
     }
 
     private fun observeViewModel() {
         mViewModel.apply {
-
-
-
             userData.observe(viewLifecycleOwner) {user->
 
                 val lightTypeface = ResourcesCompat.getFont(requireContext(), R.font.spoqa_han_sans_light)

@@ -13,6 +13,7 @@
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:animateLayoutChanges="true"
         android:clickable="true"
         android:focusable="true"
         android:background="@color/white"
@@ -23,6 +24,9 @@
 
 
         <TextView
+            tools:visibility="visible"
+            android:visibility="gone"
+            android:id="@+id/info"
             android:layout_marginBottom="20dp"
             app:layout_constraintLeft_toLeftOf="parent"
 
@@ -32,7 +36,7 @@
             android:textSize="20sp"
             android:textColor="@color/black"
             android:lineSpacingExtra="12sp"
-            android:text="지원님\n10,000원 충전완료."
+            tools:text="지원님\n10,000원 충전완료."
             />
 
         <View
@@ -45,6 +49,8 @@
             android:layout_height="1dp"/>
 
         <TextView
+            tools:visibility="visible"
+            android:visibility="gone"
             android:id="@+id/cardNumberLabel"
             android:layout_marginBottom="22dp"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -54,10 +60,12 @@
             android:textSize="16sp"
             android:textColor="@color/dark_navy"
             android:lineSpacingExtra="8sp"
-            android:text="국민 9490-**"
+            tools:text="국민 9490-**"
             />
 
         <TextView
+            tools:visibility="visible"
+            android:visibility="gone"
             app:layout_constraintTop_toTopOf="@id/cardNumberLabel"
             app:layout_constraintBottom_toBottomOf="@id/cardNumberLabel"
             app:layout_constraintRight_toRightOf="parent"
@@ -67,10 +75,12 @@
             android:textSize="16sp"
             android:textColor="@color/dark_navy"
             android:lineSpacingExtra="8sp"
-            android:text="홍지원"
+            tools:text="홍지원"
             />
 
         <TextView
+            tools:visibility="visible"
+            android:visibility="gone"
             android:id="@+id/totalMoneyLabel"
             android:layout_marginBottom="80dp"
             app:layout_constraintBottom_toTopOf="@id/okButton"
@@ -84,6 +94,8 @@
             />
 
         <TextView
+            tools:visibility="visible"
+            android:visibility="gone"
             android:id="@+id/totalMoney"
             app:layout_constraintTop_toTopOf="@id/totalMoneyLabel"
             app:layout_constraintBottom_toBottomOf="@id/totalMoneyLabel"
@@ -94,7 +106,7 @@
             android:textColor="@color/black"
             android:lineSpacingExtra="8sp"
             android:gravity="end"
-            android:text="48,000 원"
+            tools:text="48,000 원"
             />
 
         <com.google.android.material.button.MaterialButton

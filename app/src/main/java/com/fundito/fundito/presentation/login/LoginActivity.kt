@@ -10,13 +10,21 @@ import com.facebook.FacebookCallback
 import com.facebook.FacebookException
 import com.facebook.login.LoginResult
 import com.fundito.fundito.R
+import com.fundito.fundito.common.showAlert
+import com.fundito.fundito.common.util.AuthUtil
 import com.fundito.fundito.common.util.SPUtil
+import com.fundito.fundito.common.util.startActivity
+import com.fundito.fundito.common.widget.hideLoading
 import com.fundito.fundito.common.widget.setOnDebounceClickListener
+import com.fundito.fundito.common.widget.showLoading
 import com.fundito.fundito.data.service.NetworkClient
 import com.fundito.fundito.presentation.main.MainActivity
+import com.google.firebase.iid.FirebaseInstanceId
 import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.coroutines.launch
-import timber.log.Timber
+import kotlinx.coroutines.suspendCancellableCoroutine
+import retrofit2.HttpException
+import kotlin.coroutines.resume
 
 
 /**
@@ -38,24 +46,44 @@ class LoginActivity : AppCompatActivity() {
                 override fun onSuccess(result: LoginResult?) {
                     lifecycleScope.launch {
 
+                        val fcmToken = suspendCancellableCoroutine<String> {continuation->
+                            FirebaseInstanceId.getInstance().instanceId
+                                .addOnSuccessListener {
+                                    continuation.resume(it.token)
+                                }.addOnFailureListener {
+                                    continuation.cancel(it)
+                                }
+                        }
+
+                        showLoading()
                         kotlin.runCatching {
                             NetworkClient.userService.signIn(AccessToken.getCurrentAccessToken().token ?: "EAAGhMO97yxABAHZBg9Pn6DCoAwhsZCEQrZCGZAGNNYCdxRqCjZAkaD1SiI6CSJVTdtF9U8N1Nm9qfnksZApdH5ORCNiwPAM93FuZCUuFVspF2cZB8knk0OyZAskuFWqZBorom1TCCVnvF4xjRR9ownDIFFUFSFbzD4HTvUuMYFfaNYoWDbZCHWLt9gJ2YtioxCiNZCgcWqMCfHFj8NqVh24UG1U2OQ2ubFdmTZCL612nyZBdSOuEJ58pKhT9eA")
+                            NetworkClient.userService.signIn(
+                                AccessToken.getCurrentAccessToken().token ?: "",
+                                fcmToken
+                            )
                         }.onSuccess {
                             SPUtil.accessToken = it.token
-                            Timber.e( "success")
                             val intent = Intent(this@LoginActivity, MainActivity::class.java)
                             startActivity(intent)
                         }.onFailure {
-                            Timber.e( "fail")
-                            Timber.e(it.message.toString())
+                            if((it as? HttpException)?.code() == 401) {
+                                startActivity(LoginNicknameActivity::class)
+                            }else {
+                                AuthUtil.logout()
+                                showAlert("로그인 실패")
+                            }
                         }
+                        hideLoading()
                     }
                 }
 
                 override fun onCancel() {
+                    showAlert("페이스북 로그인 취소")
                 }
 
                 override fun onError(error: FacebookException?) {
+                    showAlert(error?.localizedMessage ?: "페이스북 로그인 실패")
                 }
             })
         }

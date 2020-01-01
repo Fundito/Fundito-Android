@@ -6,8 +6,10 @@ import android.view.LayoutInflater
 import androidx.core.animation.doOnStart
 import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.observe
 import com.fundito.fundito.R
+import com.fundito.fundito.broadcast.Broadcast
 import com.fundito.fundito.common.util.addCharForMoneyRepresentation
 import com.fundito.fundito.common.util.removeLatestMoneyCharacter
 import com.fundito.fundito.common.util.toMoney
@@ -17,6 +19,7 @@ import com.fundito.fundito.common.widget.KeyboardDialogFragment.Companion.PASSWO
 import com.fundito.fundito.databinding.ActivityChargeBinding
 import com.fundito.fundito.di.module.ViewModelFactory
 import dagger.android.support.DaggerAppCompatActivity
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 /**
@@ -104,6 +107,13 @@ class ChargeActivity : DaggerAppCompatActivity() {
                  */
                 if (matched) {
                     showCompleteScreen()
+                    lifecycleScope.launch {
+
+                        val totalMoney = (mViewModel.funditoMoney.value ?: 0) + (mViewModel.chargeMoney.value?.toInt() ?: 0)
+
+                        Broadcast.chargeCompleteEvent.send(totalMoney)
+                    }
+
                 }
                 /**
                  * 패스워드 매칭 실패
@@ -127,7 +137,14 @@ class ChargeActivity : DaggerAppCompatActivity() {
         supportFragmentManager
             .beginTransaction()
             .setCustomAnimations(R.anim.fade_in,R.anim.fade_out)
-            .add(mBinding.completeFragmentContainer.id, ChargeCompleteFragment.newInstance(), "CompleteScreen")
+            .add(
+                mBinding.completeFragmentContainer.id, ChargeCompleteFragment.newInstance(
+                    mViewModel.cardData.value?.userName ?: "",
+                    mViewModel.cardData.value?.cardNickname ?: "",
+                    mViewModel.chargeMoney.value?.toInt() ?: 0,
+                    (mViewModel.funditoMoney.value ?: 0) + (mViewModel.chargeMoney.value?.toInt() ?: 0)
+                ), "CompleteScreen"
+            )
             .commit()
         mBinding.completeFragmentContainer.isVisible = true
     }
