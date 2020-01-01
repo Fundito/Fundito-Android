@@ -12,7 +12,9 @@ import androidx.lifecycle.observe
 import com.fundito.fundito.R
 import com.fundito.fundito.common.util.toMoney
 import dagger.android.support.DaggerFragment
+import kotlinx.android.synthetic.main.activity_funding.*
 import kotlinx.android.synthetic.main.fragment_funding_input.*
+import timber.log.Timber
 
 
 /**
@@ -43,6 +45,17 @@ class FundingInputFragment : DaggerFragment() {
                 fundinginput_txt.setTextColor(Color.BLACK)
                 fundinginput_txt.text = it.toMoney()
                 adjustTexts()
+
+                Timber.e(it.toString())
+                if(it > 0) {
+                    requireActivity().completeButton.isClickable = true
+                    requireActivity().completeButton.setBackgroundColor(resources.getColor(R.color.colorPrimary))
+                    requireActivity().completeButton.setTextColor(Color.WHITE)
+                }else {
+                    requireActivity().completeButton.isClickable = false
+                    requireActivity().completeButton.setBackgroundColor(Color.WHITE)
+                    requireActivity().completeButton.setTextColor(resources.getColor(R.color.dark_navy))
+                }
             }
 
             funditoMyMoney.observe(viewLifecycleOwner) {
