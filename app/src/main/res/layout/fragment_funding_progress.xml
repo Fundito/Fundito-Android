@@ -10,34 +10,33 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.2"
+        app:layout_constraintGuide_begin="30dp"
         />
 
     <TextView
         android:id="@+id/fundingPriceProgress"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="240dp"
         android:fontFamily="@font/spoqa_han_sans_regular"
         android:gravity="center_horizontal"
         android:lineSpacingExtra="15sp"
-        android:text="5,000"
+        tools:text="5,000"
+        android:layout_marginRight="5dp"
         android:textColor="@color/black"
         android:textSize="32sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.261"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/won"
         app:layout_constraintTop_toTopOf="@+id/guide" />
 
     <TextView
+        android:id="@+id/won"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
         android:fontFamily="@font/spoqa_han_sans_regular"
         android:text="원"
         android:textColor="@color/black"
         android:textSize="32sp"
-        app:layout_constraintStart_toEndOf="@+id/fundingPriceProgress"
+        android:layout_marginRight="16dp"
+        app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="@+id/guide" />
 
     <TextView
@@ -46,27 +45,30 @@
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
         android:lineSpacingExtra="6sp"
-        android:text="펀디토 머니:  48,000원"
+        tools:text="펀디토 머니:  48,000원"
         android:textColor="#5c5c5c"
         android:textSize="12sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.911"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintRight_toRightOf="@id/won"
+
         app:layout_constraintTop_toBottomOf="@+id/fundingPriceProgress" />
 
     <!--    플러스 이미지 / 구분선 이미지 -->
 
     <ImageView
+        android:layout_marginRight="30dp"
+        app:layout_constraintBottom_toTopOf="@id/underline"
+        app:layout_constraintRight_toLeftOf="@id/underline"
         android:id="@+id/imageView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="60dp"
-        android:layout_marginTop="144dp"
         android:src="@drawable/plus_img"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guide" />
+        />
 
     <TextView
+        android:layout_marginRight="22dp"
+        android:layout_marginBottom="16dp"
+        app:layout_constraintRight_toLeftOf="@id/linewon"
+        app:layout_constraintBottom_toTopOf="@id/underline"
         android:id="@+id/refundPercent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -75,69 +77,50 @@
         android:lineSpacingExtra="8sp"
         android:textColor="#312f86"
         android:textSize="16sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.504"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guide"
+
         android:text="170% 이율" />
 
     <TextView
+        android:layout_marginRight="16dp"
         android:id="@+id/linewon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="120dp"
+        android:layout_marginTop="45dp"
         android:gravity="end"
         android:lineSpacingExtra="15sp"
         android:text="3,500 원"
         android:textColor="@color/black"
         android:textSize="32sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/refundPercent"
-        app:layout_constraintTop_toTopOf="@+id/guide" />
+        app:layout_constraintTop_toBottomOf="@id/funditoMoneyShowing"
+        app:layout_constraintRight_toRightOf="parent"
+        />
 
     <View
+        android:layout_marginRight="16dp"
         android:id="@+id/underline"
         android:layout_width="0dp"
         android:layout_height="0.5dp"
         android:layout_marginStart="116dp"
         android:layout_marginTop="12dp"
         android:background="@color/brown_grey"
-        app:layout_constraintRight_toRightOf="@+id/linewon"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linewon"
+        app:layout_constraintTop_toBottomOf="@id/linewon"
+        app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintWidth_percent="0.65" />
 
     <TextView
+        android:layout_marginTop="8dp"
         android:id="@+id/fundingTotal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="192dp"
         android:gravity="end"
         android:lineSpacingExtra="15sp"
         android:textColor="@color/black"
         android:textSize="32sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.333"
-        app:layout_constraintStart_toEndOf="@+id/textView7"
-        app:layout_constraintTop_toTopOf="@+id/guide"
+        app:layout_constraintTop_toBottomOf="@id/underline"
+        android:layout_marginRight="16dp"
+        app:layout_constraintRight_toRightOf="parent"
         android:text="8,500 원" />
-
-    <TextView
-        android:id="@+id/textView7"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="216dp"
-        android:layout_marginTop="192dp"
-        android:gravity="end"
-        android:lineSpacingExtra="15sp"
-        android:textColor="@color/black"
-        android:textSize="32sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.042"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guide"
-        android:text="총" />
 
 
 

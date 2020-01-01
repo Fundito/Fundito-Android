@@ -47,16 +47,15 @@
 
 
 
-    <com.fundito.fundito.common.view.NoScrollViewPager
+    <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/fundingViewpager"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginBottom="32dp"
         app:layout_constraintBottom_toTopOf="@+id/completeButton"
         app:layout_constraintTop_toBottomOf="@id/imageContainer"
-        >
+        />
 
-    </com.fundito.fundito.common.view.NoScrollViewPager>
 
 
     <com.google.android.material.button.MaterialButton
