@@ -24,37 +24,5 @@ class FundingProgressFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         var percent : Double
         fundingPriceProgress.text = fundinginput_txt.text
-        lifecycleScope.launch {
-            kotlin.runCatching {
-                var a = NetworkClient.fundingService.getMaxInterestRate()
-                refundPercent.text = "${a.refundPercent}%이율"
-                percent = (a.refundPercent-100)*0.01
-
-                linewon.text = "${(Integer.parseInt(fundingPriceProgress.text.toString())*percent)}원"
-
-                fundingTotal.text="${Integer.parseInt(fundingPriceProgress.text.toString())*percent + Integer.parseInt(fundingPriceProgress.text.toString())}원"
-            }
-                .onSuccess {
-                    Timber.e("success")
-                }
-                .onFailure {
-                    Timber.e("Fail")
-                    Timber.e(it.message.toString())
-                }
-        }
-        lifecycleScope.launch{
-            kotlin.runCatching {
-                NetworkClient.userService.getFunditoMoney()
-            }
-                .onSuccess {
-                    it.getOrNull(0)?.let{
-                        funditoMoneyShowing.text = "펀디토머니:${it}원"
-                    }
-                }
-                .onFailure {
-                    Timber.e("fail")
-                    Timber.e(it.message.toString())
-                }
-        }
     }
 }

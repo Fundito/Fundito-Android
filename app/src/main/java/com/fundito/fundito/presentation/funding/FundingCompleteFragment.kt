@@ -23,23 +23,6 @@ class FundingCompleteFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        lifecycleScope.launch {
-            kotlin.runCatching {
-                var a = NetworkClient.storeInfoService.listStoreInfo()
-                storeName.text =a[1].name
-                completeCost.text = fundingPriceProgress.text
-                completeCost2.text = "${fundingPriceProgress.text}원"
-                additionalCost.text = linewon.text
-                totalCost.text = "${fundingTotal.text}원"
-            }
-                .onSuccess {
-                    Timber.e("success")
-                }
-                .onFailure {
-                    Timber.e("Fail")
-                    Timber.e(it.message.toString())
-                }
-        }
     }
 
 }

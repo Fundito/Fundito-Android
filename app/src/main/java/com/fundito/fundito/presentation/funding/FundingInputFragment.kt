@@ -30,58 +30,6 @@ class FundingInputFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
-        lifecycleScope.launch {
-            kotlin.runCatching {
-                NetworkClient.cardService.getCard()
-            }
-                .onSuccess {
-                    val cardnumber : String = it.cardNickname
-                    fundingCardNumber.text = cardnumber
-                }
-                .onFailure {
-                    Timber.e("fail")
-                    Timber.e(it.message.toString())
-                }
-        }
-
-        lifecycleScope.launch{
-            kotlin.runCatching {
-                NetworkClient.userService.getFunditoMoney()
-            }
-                .onSuccess {
-                    it.getOrNull(0)?.let{
-                        funditoMoney.text = "펀디토머니:${it}원/부족금액은 자동충전됨"
-                        requiredChargingCost = it.toString()
-                        requiredChargingNum = Integer.parseInt(requiredChargingCost)
-                    }
-                }
-                .onFailure {
-                    Timber.e("fail")
-                    Timber.e(it.message.toString())
-                }
-        }
-
-        if(fundinginput_txt.text ==""){
-            requiredCharging.setVisibilityBinding(false)
-            fundingCardNumber.setVisibilityBinding(false)
-            funditoMoney.setVisibilityBinding(true)
-        }
-        else{
-            requiredCharging.setVisibilityBinding(true)
-            fundingCardNumber.setVisibilityBinding(true)
-            funditoMoney.setVisibilityBinding(false)
-        }
-        dialView.onInvestmentValueChangedListener = {number->
-            fundinginput_txt.setTextColor(Color.BLACK)
-            fundinginput_txt.text = "${number.toLong().toMoney()}"
-            if(requiredChargingNum - number >0){
-                requiredCharging.text = "충전:0원"
-            }
-            else{
-                requiredCharging.text = "충전:${number - requiredChargingNum}원"
-            }
-        }
-
 
     }
 }
