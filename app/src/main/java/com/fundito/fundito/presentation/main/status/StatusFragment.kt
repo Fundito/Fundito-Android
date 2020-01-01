@@ -41,6 +41,7 @@ import com.fundito.fundito.presentation.store.StoreDetailActivity
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.tabs.TabLayout
 import dagger.android.support.DaggerFragment
+import kotlinx.coroutines.channels.consumeEach
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 import kotlin.math.roundToInt
@@ -148,7 +149,7 @@ class StatusFragment : DaggerFragment(), HasDefaultViewModelProviderFactory {
             override fun onSlide(bottomSheet: View, slideOffset: Float) {
                 mBinding.bottomSheet1.remain.text = "${((mViewModel.funditoMoney.value?:0) * slideOffset).roundToLong().toMoney()} 원"
                 mBinding.bottomSheet1.funding.text = "${((mViewModel.fundingData.value?.totalFundedMoney?:0) * slideOffset).roundToLong().toMoney()} 원"
-                mBinding.bottomSheet1.maxReturnPrice.text = "${((mViewModel.fundingData.value?.totalRewardPercent?:0) * slideOffset).roundToLong().toMoney()} 원"
+                mBinding.bottomSheet1.maxReturnPrice.text = "${((mViewModel.fundingData.value?.totalGetMoney ?: 0) * slideOffset).roundToLong().toMoney()} 원"
             }
 
             override fun onStateChanged(bottomSheet: View, newState: Int) {
@@ -361,9 +362,10 @@ class StatusFragment : DaggerFragment(), HasDefaultViewModelProviderFactory {
 
     private fun listenBroadcast() {
         lifecycleScope.launch {
-            for(e in Broadcast.chargeCompleteEvent.openSubscription()) {
+            Broadcast.chargeCompleteEvent.openSubscription().consumeEach {
+
                 mViewModel.getFunditoMoney()
-                mBinding.bottomSheet1.remain.text = e.toMoney() + " 원"
+                mBinding.bottomSheet1.remain.text = it.toMoney() + " 원"
             }
         }
     }

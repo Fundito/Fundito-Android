@@ -59,7 +59,7 @@ class RecentFundingAdapter : ListAdapter<RecentFundingItem, RecentFundingAdapter
             binding.money.text = item.second.fundingMoney.toMoney() + "원"
             binding.refundMoney.text = buildSpannedString {
                 append("회수금액 ")
-                color(GlobalApp.getColor(R.color.colorPrimary)){ append("${item.second.rewardMoney.toMoney()}원 (${item.second.rewardPercent}%)") }
+                color(GlobalApp.getColor(R.color.blueberry_two)){ append("${item.second.rewardMoney.toMoney()}원 (${item.second.rewardPercent}%)") }
             }
             binding.time.text = "${cal[Calendar.HOUR_OF_DAY]}:${cal[Calendar.MINUTE]}"
 

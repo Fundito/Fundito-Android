@@ -5,6 +5,7 @@ import com.fundito.fundito.broadcast.Broadcast
 import com.fundito.fundito.common.widget.Once
 import com.fundito.fundito.data.service.NetworkClient
 import kotlinx.coroutines.launch
+import timber.log.Timber
 import javax.inject.Inject
 import javax.inject.Named
 
@@ -83,6 +84,7 @@ class FundingViewModel @Inject constructor(
                     try {
                         NetworkClient.userService.chargeFunditoMoney(-diff, password)
                         Broadcast.chargeCompleteEvent.send(-diff)
+                        Timber.e("send charge")
                     }catch(t: Throwable) {
                         _chargeFail.value = Once(Unit)
                         return@runCatching
@@ -91,6 +93,7 @@ class FundingViewModel @Inject constructor(
 
                 NetworkClient.fundingService.fundWithPassword(password,storeIdx,inputMoney)
                 Broadcast.fundEvent.send(storeIdx to inputMoney)
+                Timber.e("fund send")
             }.onSuccess {
                 _fundResult.value = Once(true)
             }.onFailure {

@@ -41,7 +41,7 @@ object NetworkClient {
                 .addHeader("token", SPUtil.accessToken).build()
 
 //            Timber.e("TOKEN : ${SPUtil.accessToken}")
-
+            Timber.e("${newRequest.method} - ${newRequest.url} \n{\n\t${newRequest.body?.toString()}\n}\n" )
 
             /**
              * 2) General Response from Server (Unwrapping data)

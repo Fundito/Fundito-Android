@@ -5,12 +5,16 @@ import com.fundito.fundito.broadcast.Broadcast
 import com.fundito.fundito.data.model.Funding
 import com.fundito.fundito.data.service.NetworkClient
 import com.fundito.fundito.data.service.WifiStoreResponse
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.channels.consumeEach
 import kotlinx.coroutines.launch
+import timber.log.Timber
 import javax.inject.Inject
 
 /**
  * Created by mj on 31, December, 2019
  */
+@UseExperimental(ExperimentalCoroutinesApi::class)
 class HomeViewModel @Inject constructor() : ViewModel() {
 
     val userData = liveData {
@@ -56,10 +60,11 @@ class HomeViewModel @Inject constructor() : ViewModel() {
 
     init {
         viewModelScope.launch {
-            for(e in Broadcast.fundEvent.openSubscription()) {
-                if(e.first == connectedStoreData.value?.storeIdx) {
+            Broadcast.fundEvent.openSubscription().consumeEach {
+                Timber.e("밤ㄴ이ㅓㅁ")
+                if(it.first == connectedStoreData.value?.storeIdx) {
                     kotlin.runCatching {
-                        NetworkClient.storeInfoService.listStoreFundingTimeLine(e.first)[0]
+                        NetworkClient.storeInfoService.listStoreFundingTimeLine(it.first)[0]
                     }.onSuccess {
                         _connectedStoreTimeLineItem.value = it
                     }
