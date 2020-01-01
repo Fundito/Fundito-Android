@@ -5,8 +5,11 @@ import android.graphics.Color
 import android.os.Bundle
 import android.view.Gravity
 import android.view.LayoutInflater
+import androidx.core.text.bold
+import androidx.core.text.buildSpannedString
 import androidx.lifecycle.HasDefaultViewModelProviderFactory
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.observe
 import androidx.recyclerview.widget.RecyclerView
 import com.fundito.fundito.common.util.startActivity
 import com.fundito.fundito.common.widget.LinearItemDecoration
@@ -42,14 +45,15 @@ class FeedFriendDetailActivity : DaggerAppCompatActivity(), HasDefaultViewModelP
         mBinding.vm = mViewModel
 
         initView()
+        observeViewModel()
     }
 
     private fun initView() {
         mBinding.name.gravity = Gravity.LEFT
         mBinding.recyclerView.apply {
-            adapter = FundingOnGoingAdapter {
+            adapter = FundingOnGoingAdapter({
                 startActivity(StoreDetailActivity::class)
-            }
+            },false)
             addItemDecoration(LinearItemDecoration(1))
             addItemDecoration(object : RecyclerView.ItemDecoration() {
                 override fun onDraw(c: Canvas, parent: RecyclerView, state: RecyclerView.State) {
@@ -60,6 +64,18 @@ class FeedFriendDetailActivity : DaggerAppCompatActivity(), HasDefaultViewModelP
 
         mBinding.toolbar.backButton setOnDebounceClickListener {
             onBackPressedDispatcher.onBackPressed()
+        }
+    }
+
+    private fun observeViewModel() {
+        mViewModel.apply {
+            userData.observe(this@FeedFriendDetailActivity) {
+                mBinding.toolbar.toolbartitle.text = "${it.name} 님의 투자현황"
+                mBinding.name.text = buildSpannedString {
+                    bold{ append(it.name) }
+                    append(" 님")
+                }
+            }
         }
     }
 

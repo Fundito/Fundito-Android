@@ -164,7 +164,6 @@
             <androidx.recyclerview.widget.RecyclerView
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                app:recyclerview_RecentFunding_items="@{vm.recentFundingHistories}"
                 android:id="@+id/recyclerView"
                 tools:itemCount="1"
                 tools:listitem="@layout/item_recent_funding"

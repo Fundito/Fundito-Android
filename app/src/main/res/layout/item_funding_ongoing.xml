@@ -10,7 +10,8 @@
     </data>
 
     <androidx.cardview.widget.CardView
-        app:cardElevation="@dimen/cardElevation"
+        app:cardElevation="0dp"
+        app:cardBackgroundColor="#ccffffff"
         app:cardCornerRadius="0dp"
         android:clipChildren="false"
         android:layout_width="match_parent"

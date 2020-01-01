@@ -16,6 +16,8 @@ import timber.log.Timber
 class StoreDetailViewModel(private val storeIdx : Int) : ViewModel() {
 
 
+    private val _loading : MutableLiveData<Boolean> = MutableLiveData()
+    val loading : LiveData<Boolean> = _loading
 
 
     //region DATA
@@ -52,6 +54,7 @@ class StoreDetailViewModel(private val storeIdx : Int) : ViewModel() {
 
     init {
         viewModelScope.launch {
+            _loading.value = true
             kotlin.runCatching {
                 NetworkClient.storeInfoService.getStoreInfo(storeIdx)
             }.onSuccess {
@@ -59,6 +62,7 @@ class StoreDetailViewModel(private val storeIdx : Int) : ViewModel() {
             }.onFailure {
                 Timber.e(it)
             }
+            _loading.value = false
         }
 
         viewModelScope.launch {

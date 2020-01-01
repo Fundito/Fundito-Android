@@ -135,10 +135,14 @@
                 android:background="@{vm.visiblePlaceHolder ? @color/brown_grey : @color/colorPrimary}"/>
 
             <TextView
+                android:layout_marginLeft="16dp"
+
+                app:layout_constraintHorizontal_bias="1"
+                app:layout_constraintLeft_toLeftOf="parent"
                 android:id="@+id/beforeAmmount"
-                android:layout_width="160dp"
+                android:layout_width="0dp"
                 android:layout_height="19dp"
-                android:gravity="center_horizontal"
+                android:gravity="right"
                 android:lineSpacingExtra="6sp"
                 android:textColor="#5c5c5c"
                 android:textSize="12sp"

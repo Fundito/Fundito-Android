@@ -2,31 +2,40 @@ package com.fundito.fundito.presentation.main.status
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.text.buildSpannedString
+import androidx.core.text.color
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.fundito.fundito.R
+import com.fundito.fundito.application.MainApplication.Companion.GlobalApp
+import com.fundito.fundito.common.util.DateParsingUtil
+import com.fundito.fundito.common.util.toMoney
 import com.fundito.fundito.data.model.Funding
+import com.fundito.fundito.data.model.Store
 import com.fundito.fundito.databinding.ItemRecentFundingBinding
+import java.util.*
 
 /**
  * Created by mj on 28, December, 2019
  */
-class RecentFundingAdapter : ListAdapter<Funding, RecentFundingAdapter.RecentFundingHolder>(DIFF) {
+typealias RecentFundingItem = Pair<Store,Funding>
+class RecentFundingAdapter : ListAdapter<RecentFundingItem, RecentFundingAdapter.RecentFundingHolder>(DIFF) {
     
     companion object {
-        private val DIFF = object : DiffUtil.ItemCallback<Funding>() {
-            override fun areItemsTheSame(oldItem: Funding, newItem: Funding): Boolean {
+        private val DIFF = object : DiffUtil.ItemCallback<RecentFundingItem>() {
+            override fun areItemsTheSame(oldItem: RecentFundingItem, newItem: RecentFundingItem): Boolean {
                 return oldItem == newItem
             }
 
-            override fun areContentsTheSame(oldItem: Funding, newItem: Funding): Boolean {
+            override fun areContentsTheSame(oldItem: RecentFundingItem, newItem: RecentFundingItem): Boolean {
                 return oldItem == newItem
             }
         }
     }
 
-    fun submitItems(items : List<Funding>) {
+    fun submitItems(items : List<RecentFundingItem>) {
         submitList(items)
     }
 
@@ -43,14 +52,23 @@ class RecentFundingAdapter : ListAdapter<Funding, RecentFundingAdapter.RecentFun
 
 
     inner class RecentFundingHolder(private val binding: ItemRecentFundingBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(item: Funding) {
+        fun bind(item: RecentFundingItem) {
+            val cal = DateParsingUtil.parseString(item.second.fundingTime)
+            binding.date.text = "${cal[Calendar.MONTH] + 1}월 ${cal[Calendar.DAY_OF_MONTH]}일"
+            binding.name.text = item.first.name
+            binding.money.text = item.second.fundingMoney.toMoney() + "원"
+            binding.refundMoney.text = buildSpannedString {
+                append("회수금액 ")
+                color(GlobalApp.getColor(R.color.colorPrimary)){ append("${item.second.rewardMoney.toMoney()}원 (${item.second.rewardPercent}%)") }
+            }
+            binding.time.text = "${cal[Calendar.HOUR_OF_DAY]}:${cal[Calendar.MINUTE]}"
 
         }
     }
 }
 
 @BindingAdapter("app:recyclerview_RecentFunding_items")
-fun RecyclerView.setItems(items: List<Funding>?) {
+fun RecyclerView.setItems(items: List<RecentFundingItem>?) {
      if(items == null) return
     (adapter as? RecentFundingAdapter)?.run {
         this.submitItems(items)

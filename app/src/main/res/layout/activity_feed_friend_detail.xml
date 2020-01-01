@@ -17,8 +17,14 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <ImageView
+            android:scaleType="centerCrop"
+            android:src="@drawable/home_background_img"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
         <include
-            title='@{"강영우님의 투자현황"}'
+            title='@{""}'
             android:id="@+id/toolbar"
             app:layout_constraintTop_toTopOf="parent"
             layout="@layout/layout_toolbar"/>
@@ -34,7 +40,7 @@
             android:textSize="16sp"
             android:textColor="@color/dark_navy"
             android:lineSpacingExtra="12sp"
-            android:text="강영우 님"
+            tools:text="강영우 님"
             />
         <TextView
             android:layout_marginLeft="16dp"
@@ -48,7 +54,7 @@
             android:textSize="14sp"
             android:textColor="#707070"
             android:lineSpacingExtra="6sp"
-            android:text="총 3개의 지점 투자 중 "
+            tools:text="총 3개의 지점 투자 중 "
             />
 
         <androidx.recyclerview.widget.RecyclerView

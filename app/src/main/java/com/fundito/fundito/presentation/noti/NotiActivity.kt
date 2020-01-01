@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.fundito.fundito.common.widget.setOnDebounceClickListener
 import com.fundito.fundito.databinding.ActivityNotiBinding
 import com.fundito.fundito.di.module.ViewModelFactory
+import com.fundito.fundito.presentation.store.StoreDetailActivity
 import dagger.android.support.DaggerAppCompatActivity
 import javax.inject.Inject
 
@@ -56,7 +57,9 @@ class NotiActivity : DaggerAppCompatActivity(),HasDefaultViewModelProviderFactor
         }
 
         mBinding.recyclerView.apply {
-            adapter = NotiAdapter()
+            adapter = NotiAdapter {
+                startActivity(StoreDetailActivity.newIntent(this@NotiActivity,it.storeIdx))
+            }
             addOnScrollListener(object : RecyclerView.OnScrollListener() {
                 override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                     super.onScrolled(recyclerView, dx, dy)
