@@ -95,9 +95,9 @@ class FeedFriendListFragment : Fragment() {
         constraintLayout2.setOnDebounceClickListener {
             startActivity(FeedFriendDetailActivity::class)
         }
-        constraintLayout3.setOnDebounceClickListener {
-            startActivity(FeedFriendDetailActivity::class)
-        }
+//        constraintLayout3.setOnDebounceClickListener {
+//            startActivity(FeedFriendDetailActivity::class)
+//        }
     }
 
 
