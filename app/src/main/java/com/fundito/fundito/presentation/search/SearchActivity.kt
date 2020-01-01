@@ -1,6 +1,7 @@
 package com.fundito.fundito.presentation.search
 
 import android.content.Context
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.inputmethod.InputMethodManager
@@ -35,6 +36,8 @@ class SearchActivity : DaggerAppCompatActivity(),HasDefaultViewModelProviderFact
 
     private val mViewModel : SearchViewModel by lazy { ViewModelProvider(this)[SearchViewModel::class.java] }
 
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         mBinding = ActivitySearchBinding.inflate(LayoutInflater.from(this))
@@ -42,6 +45,8 @@ class SearchActivity : DaggerAppCompatActivity(),HasDefaultViewModelProviderFact
 
         mBinding.lifecycleOwner = this
         mBinding.vm = mViewModel
+
+        window.statusBarColor = Color.parseColor("#f7f8fa")
 
         initView()
         observeViewModel()
@@ -57,7 +62,6 @@ class SearchActivity : DaggerAppCompatActivity(),HasDefaultViewModelProviderFact
         mBinding.textField.apply {
             textChanges()
                 .debounce(300L)
-//                .distinctUntilChanged()
                 .onEach {
                     mViewModel.onQueryChanged()
                 }

@@ -2,10 +2,12 @@ package com.fundito.fundito.data.service
 
 import android.os.Parcelable
 import com.fundito.fundito.data.model.Friend
+import com.fundito.fundito.data.model.Funding
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 import kotlinx.android.parcel.Parcelize
 import retrofit2.http.GET
+import retrofit2.http.Path
 
 
 /**
@@ -16,7 +18,13 @@ interface FriendService {
     suspend fun listFriends() : List<Friend>
 
     @GET("friend/fund/{friendIdx}")
-    suspend fun listFriendFundings() : FriendFundingDetailResponse
+    suspend fun listFriendFundings(
+        @Path("friendIdx") friendIdx: Int
+    ) : FriendFundingDetailResponse
+
+    @GET("friend/fund")
+    suspend fun monthlyDitoList() : List<MonthlyDitoResponse>
+
 }
 @Parcelize
 data class FriendFundingDetailResponse(
@@ -59,3 +67,22 @@ data class FriendFundingDetailResponse(
         val refundMoney: Int
     ) : Parcelable
 }
+
+@Parcelize
+data class MonthlyDitoResponse(
+    @SerializedName("user_idx")
+    @Expose(serialize = true, deserialize = true)
+    val userIdx: Int,
+    @SerializedName("id")
+    @Expose(serialize = true, deserialize = true)
+    val id: String,
+    @SerializedName("name")
+    @Expose(serialize = true, deserialize = true)
+    val name: String,
+    @SerializedName("nickname")
+    @Expose(serialize = true, deserialize = true)
+    val nickname: String,
+    @SerializedName("fund")
+    @Expose(serialize = true, deserialize = true)
+    val fund: List<Funding>
+) : Parcelable

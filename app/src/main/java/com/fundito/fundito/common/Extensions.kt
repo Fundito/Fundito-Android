@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.animation.doOnEnd
 import androidx.core.animation.doOnStart
 import androidx.core.view.isVisible
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.MutableLiveData
 import com.fundito.fundito.R
 import com.fundito.fundito.common.util.toMoney
@@ -56,7 +57,9 @@ fun TextView.startMoneyAnimation(money : Int,suffix : String) {
 infix fun <T> MutableLiveData<T>.post(value : T) {
     this.postValue(value)
 }
-
+fun Fragment.showAlert(message : String) {
+    (requireActivity() as? AppCompatActivity)?.showAlert(message)
+}
 fun AppCompatActivity.showAlert(message : String) {
     AlertDialog.Builder(this)
         .setTitle(message)

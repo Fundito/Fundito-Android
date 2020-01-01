@@ -107,10 +107,8 @@
                         android:id="@+id/profileLeftImageView"
                         android:layout_width="match_parent"
                         android:layout_height="48dp"
-                        android:layout_alignParentRight="true"
-                        android:layout_marginHorizontal="20dp"
                         android:layout_marginTop="16dp"
-                        android:src="@drawable/profile4"
+                        android:src="@drawable/basic_profil_img"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -130,7 +128,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
                         android:fontFamily="@font/spoqa_han_sans_regular"
-                        android:text="망원피바지"
+                        tools:text="망원피바지"
                         android:textColor="@color/black"
                         android:textSize="12sp"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -144,7 +142,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="6dp"
                         android:fontFamily="@font/spoqa_han_sans_regular"
-                        android:text="3개 지점 "
+                        tools:text="3개 지점 "
                         android:textColor="@color/blueberry_two"
                         android:textSize="12sp"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -152,17 +150,19 @@
                         app:layout_constraintTop_toBottomOf="@+id/profileLeftTextView" />
 
                     <TextView
+                        android:layout_marginBottom="14dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
                         android:id="@+id/fundingSuccessLeftTextView"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="6dp"
                         android:text="투자성공"
-                        android:textColor="@color/blueberry_two"
+                        android:textColor="@color/dark"
                         android:textSize="14sp"
                         android:textStyle="bold"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/storenumberLeftTextView" />
+                        />
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
             </androidx.cardview.widget.CardView>
@@ -197,9 +197,9 @@
                         android:layout_width="match_parent"
                         android:layout_height="48dp"
                         android:layout_alignParentRight="true"
-                        android:layout_marginHorizontal="20dp"
                         android:layout_marginTop="16dp"
-                        android:src="@drawable/profile2"
+                        android:src="@drawable/basic_profil_img"
+
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -220,7 +220,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
                         android:fontFamily="@font/spoqa_han_sans_regular"
-                        android:text="진수"
+                        tools:text="진수"
                         android:textColor="@color/black"
                         android:textSize="12sp"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -233,7 +233,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="6dp"
                         android:fontFamily="@font/spoqa_han_sans_regular"
-                        android:text="4개 지점"
+                        tools:text="4개 지점"
                         android:textColor="@color/blueberry_two"
                         android:textSize="12sp"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -241,17 +241,19 @@
                         app:layout_constraintTop_toBottomOf="@+id/profileCenterTextView" />
 
                     <TextView
-                        android:id="@+id/textView16"
+                        android:layout_marginBottom="14dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        android:id="@+id/fundingSuccessCenterTextView"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="6dp"
                         android:text="투자성공"
-                        android:textColor="@color/blueberry_two"
+                        android:textColor="@color/dark"
                         android:textSize="14sp"
                         android:textStyle="bold"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/storenumberCenterTextView" />
+                        />
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.cardview.widget.CardView>
 
@@ -281,10 +283,9 @@
                         android:id="@+id/profileRightImageView"
                         android:layout_width="match_parent"
                         android:layout_height="48dp"
-                        android:layout_alignParentRight="true"
-                        android:layout_marginHorizontal="20dp"
                         android:layout_marginTop="16dp"
-                        android:src="@drawable/profile3"
+                        android:src="@drawable/basic_profil_img"
+
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -306,7 +307,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
                         android:fontFamily="@font/spoqa_han_sans_regular"
-                        android:text="영우공쥬"
+                        tools:text="영우공쥬"
                         android:textColor="@color/black"
                         android:textSize="12sp"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -319,7 +320,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="6dp"
                         android:fontFamily="@font/spoqa_han_sans_regular"
-                        android:text="2개 지점"
+                        tools:text="2개 지점"
                         android:textColor="@color/blueberry_two"
                         android:textSize="12sp"
 
@@ -328,18 +329,19 @@
                         app:layout_constraintTop_toBottomOf="@+id/profileRightTextView" />
 
                     <TextView
+                        android:layout_marginBottom="14dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
                         android:id="@+id/fundingSuccessRightTextView"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="6dp"
-                        android:fontFamily="@font/spoqa_han_sans_bold"
                         android:text="투자성공"
-                        android:textColor="@color/blueberry_two"
+                        android:textColor="@color/dark"
                         android:textSize="14sp"
                         android:textStyle="bold"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/storenumberRightTextView" />
+                        />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.cardview.widget.CardView>

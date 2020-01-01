@@ -5,8 +5,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import androidx.lifecycle.HasDefaultViewModelProviderFactory
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.observe
 import androidx.recyclerview.widget.RecyclerView
+import com.fundito.fundito.common.widget.hideLoading
 import com.fundito.fundito.common.widget.setOnDebounceClickListener
+import com.fundito.fundito.common.widget.showLoading
 import com.fundito.fundito.databinding.ActivityNotiBinding
 import com.fundito.fundito.di.module.ViewModelFactory
 import com.fundito.fundito.presentation.store.StoreDetailActivity
@@ -71,7 +74,9 @@ class NotiActivity : DaggerAppCompatActivity(),HasDefaultViewModelProviderFactor
 
     private fun observeViewModel() {
         mViewModel.apply {
-
+            loading.observe(this@NotiActivity) {
+                if(it) showLoading() else hideLoading()
+            }
 
         }
     }
