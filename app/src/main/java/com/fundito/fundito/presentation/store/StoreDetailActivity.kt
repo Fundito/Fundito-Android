@@ -121,7 +121,10 @@ class StoreDetailActivity : AppCompatActivity(), HasDefaultViewModelProviderFact
         }
 
         mBinding.fund setOnDebounceClickListener {
-            startActivity(FundingActivity::class)
+            mViewModel.store.value?.storeIdx?.let {
+                startActivity(FundingActivity.newIntent(this@StoreDetailActivity,it,mViewModel.store.value?.refundPercent ?: 0))
+            }
+
         }
 
         mBinding.cheer setOnDebounceClickListener {
@@ -145,8 +148,6 @@ class StoreDetailActivity : AppCompatActivity(), HasDefaultViewModelProviderFact
             }
 
             store.observe(this@StoreDetailActivity) {store->
-
-
 
                 mBinding.header.coverImage.loadUrlAsync(store.thumbnail)
 

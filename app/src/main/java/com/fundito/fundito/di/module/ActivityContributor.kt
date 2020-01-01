@@ -2,6 +2,7 @@ package com.fundito.fundito.di.module
 
 import com.fundito.fundito.di.ActivityScope
 import com.fundito.fundito.presentation.charge.ChargeActivity
+import com.fundito.fundito.presentation.funding.FundingActivity
 import com.fundito.fundito.presentation.login.LoginPasswordActivity
 import com.fundito.fundito.presentation.main.MainActivity
 import com.fundito.fundito.presentation.main.feed.FeedFriendDetailActivity
@@ -39,4 +40,8 @@ abstract class ActivityContributor {
     @ContributesAndroidInjector(modules = [LoginPasswordActivityModule::class])
     @ActivityScope
     abstract fun contributesLoginPassword() : LoginPasswordActivity
+
+    @ContributesAndroidInjector(modules = [FundingActivityModule::class,FundingActivityProvideModule::class])
+    @ActivityScope
+    abstract fun contributesFundingActivity() : FundingActivity
 }

@@ -4,57 +4,55 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
-import androidx.lifecycle.lifecycleScope
+import androidx.core.text.bold
+import androidx.core.text.buildSpannedString
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.observe
 import com.fundito.fundito.R
-import com.fundito.fundito.data.service.NetworkClient
-import kotlinx.android.synthetic.main.fragment_funding_input.*
+import com.fundito.fundito.common.util.toMoney
+import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.fragment_funding_progress.*
-import kotlinx.coroutines.launch
-import timber.log.Timber
+import kotlin.math.roundToInt
 
 /**
  * Created by mj on 26, December, 2019
  */
-class FundingProgressFragment : Fragment() {
+class FundingProgressFragment : DaggerFragment() {
+
+    private val mViewModel: FundingViewModel by lazy{ ViewModelProvider(requireActivity())[FundingViewModel::class.java]}
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return LayoutInflater.from(context).inflate(R.layout.fragment_funding_progress, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        var percent : Double
-        fundingPriceProgress.text = fundinginput_txt.text
-        lifecycleScope.launch {
-            kotlin.runCatching {
-                var a = NetworkClient.fundingService.getMaxInterestRate()
-                refundPercent.text = "${a.refundPercent}%이율"
-                percent = (a.refundPercent-100)*0.01
 
-                linewon.text = "${(Integer.parseInt(fundingPriceProgress.text.toString())*percent)}원"
+        refundPercent.text =  "${mViewModel.refundPercent}% 이율"
+        observeViewModel()
+    }
 
-                fundingTotal.text="${Integer.parseInt(fundingPriceProgress.text.toString())*percent + Integer.parseInt(fundingPriceProgress.text.toString())}원"
+    private fun observeViewModel() {
+        mViewModel.apply {
+            inputMoney.observe(viewLifecycleOwner) {
+                fundingPriceProgress.text = it.toMoney()
             }
-                .onSuccess {
-                    Timber.e("success")
-                }
-                .onFailure {
-                    Timber.e("Fail")
-                    Timber.e(it.message.toString())
-                }
-        }
-        lifecycleScope.launch{
-            kotlin.runCatching {
-                NetworkClient.userService.getFunditoMoney()
+
+            funditoMyMoney.observe(viewLifecycleOwner) {
+                funditoMoneyShowing.text = "펀디토 머니: ${it.toMoney()}원"
             }
-                .onSuccess {
-                    it.getOrNull(0)?.let{
-                        funditoMoneyShowing.text = "펀디토머니:${it}원"
-                    }
+
+            refundMoney.observe(viewLifecycleOwner) {
+                val int = it.roundToInt()
+                linewon.text = "${int.toMoney()} 원"
+            }
+            totalMoney.observe(viewLifecycleOwner) {
+                val int = it.roundToInt()
+                fundingTotal.text = buildSpannedString {
+                    append("총 ")
+                    bold { append("${int.toMoney()} 원") }
                 }
-                .onFailure {
-                    Timber.e("fail")
-                    Timber.e(it.message.toString())
-                }
+            }
         }
     }
+
 }

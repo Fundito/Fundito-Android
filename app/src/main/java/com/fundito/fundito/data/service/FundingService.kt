@@ -6,10 +6,7 @@ import com.fundito.fundito.data.model.Funding
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 import kotlinx.android.parcel.Parcelize
-import retrofit2.http.Field
-import retrofit2.http.FormUrlEncoded
-import retrofit2.http.GET
-import retrofit2.http.POST
+import retrofit2.http.*
 
 
 /**
@@ -23,7 +20,7 @@ interface FundingService {
 
     //2
     @GET("funding/{storeIdx}")
-    suspend fun getMaxInterestRate() : MaxInterestRateResponse
+    suspend fun getMaxInterestRate(@Path("storeIdx") storeIdx: Int) : MaxInterestRateResponse
 
     //3
     @POST("funding")

@@ -48,31 +48,33 @@
 
 
 
-    <com.fundito.fundito.common.view.NoScrollViewPager
+    <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/fundingViewpager"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginBottom="32dp"
         app:layout_constraintBottom_toTopOf="@+id/completeButton"
         app:layout_constraintTop_toBottomOf="@id/imageContainer"
-        >
+        />
 
-    </com.fundito.fundito.common.view.NoScrollViewPager>
 
 
     <com.google.android.material.button.MaterialButton
+        android:elevation="24dp"
+        android:backgroundTint="@color/white"
+        android:textColor="@color/brown_grey"
+
         android:id="@+id/completeButton"
         android:layout_width="0dp"
         android:layout_height="58dp"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
         android:layout_marginBottom="6dp"
-        android:backgroundTint="@color/colorPrimary"
         android:text="입력 완료"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:strokeColor="@color/brown_grey" />
+         />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
