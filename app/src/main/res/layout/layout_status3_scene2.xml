@@ -29,7 +29,7 @@
                 android:textColor="@color/black"
                 android:lineSpacingExtra="15sp"
                 android:gravity="end"
-                android:text="황호댁"
+                tools:text="황호댁"
                 />
 
             <TextView
@@ -99,7 +99,7 @@
                 android:textColor="#2c2c2c"
                 android:lineSpacingExtra="15sp"
                 android:gravity="end"
-                android:text="30,000 원"
+                android:text="0 원"
                 />
 
             <TextView
@@ -125,7 +125,7 @@
                 android:textColor="#2c2c2c"
                 android:lineSpacingExtra="15sp"
                 android:gravity="end"
-                android:text="58,500 원"
+                android:text="0 원"
                 />
 
             <View
@@ -154,7 +154,7 @@
                     android:textColor="@color/black"
                     android:lineSpacingExtra="8sp"
                     android:gravity="center_horizontal"
-                    android:text="황호댁 투자내역"
+                    tools:text="황호댁 투자내역"
                     />
 
 

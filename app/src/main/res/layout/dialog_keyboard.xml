@@ -118,6 +118,10 @@
                 app:layout_constraintStart_toEndOf="@+id/materialButton2" />
 
             <com.google.android.material.button.MaterialButton
+                app:icon="@drawable/cancel_ic"
+                app:iconGravity="textEnd"
+                app:iconTint="@color/brown_grey"
+
                 android:id="@+id/buttonBack"
                 style="@style/KeyboardButtonStyle"
                 android:layout_width="0dp"

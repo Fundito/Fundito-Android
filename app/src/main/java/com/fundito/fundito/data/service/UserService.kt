@@ -12,6 +12,8 @@ import retrofit2.http.*
 /**
  * Created by mj on 29, December, 2019
  */
+
+
 interface UserService {
 
     //1
@@ -25,7 +27,8 @@ interface UserService {
     //2
     @GET("auth/signin")
     suspend fun signIn(
-        @Header("access_token") facebookAccessToken : String
+        @Header("access_token") facebookAccessToken : String,
+        @Header("firebase_token") firebaseFCMToken:String
     ):TokenResponse
 
     //3
@@ -97,6 +100,5 @@ data class FunditoMoneyResponse(
     @Expose(serialize = true, deserialize = true)
     val point: Int
 ) : Parcelable
-
 
 

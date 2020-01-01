@@ -4,10 +4,13 @@ import android.animation.ObjectAnimator
 import android.animation.ValueAnimator
 import android.view.View
 import android.widget.TextView
+import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.animation.doOnEnd
 import androidx.core.animation.doOnStart
 import androidx.core.view.isVisible
 import androidx.lifecycle.MutableLiveData
+import com.fundito.fundito.R
 import com.fundito.fundito.common.util.toMoney
 
 /**
@@ -52,4 +55,12 @@ fun TextView.startMoneyAnimation(money : Int,suffix : String) {
 
 infix fun <T> MutableLiveData<T>.post(value : T) {
     this.postValue(value)
+}
+
+fun AppCompatActivity.showAlert(message : String) {
+    AlertDialog.Builder(this)
+        .setTitle(message)
+        .setIcon(R.drawable.fundito_app_logo)
+        .setPositiveButton("예") { _, _ ->}
+        .show()
 }

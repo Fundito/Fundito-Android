@@ -18,20 +18,19 @@ import androidx.core.view.updateLayoutParams
 import androidx.core.widget.NestedScrollView
 import androidx.lifecycle.HasDefaultViewModelProviderFactory
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.observe
 import androidx.transition.Scene
 import androidx.transition.TransitionManager
 import com.fundito.fundito.R
+import com.fundito.fundito.broadcast.Broadcast
 import com.fundito.fundito.common.fadeIn
 import com.fundito.fundito.common.post
 import com.fundito.fundito.common.startMoneyAnimation
 import com.fundito.fundito.common.util.startActivity
 import com.fundito.fundito.common.util.toMoney
 import com.fundito.fundito.common.util.toPixel
-import com.fundito.fundito.common.widget.LinearItemDecoration
-import com.fundito.fundito.common.widget.LockableBottomSheetBehavior
-import com.fundito.fundito.common.widget.observeOnce
-import com.fundito.fundito.common.widget.setOnDebounceClickListener
+import com.fundito.fundito.common.widget.*
 import com.fundito.fundito.databinding.FragmentStatusBinding
 import com.fundito.fundito.databinding.LayoutStatus3Scene1Binding
 import com.fundito.fundito.databinding.LayoutStatus3Scene2Binding
@@ -42,6 +41,7 @@ import com.fundito.fundito.presentation.store.StoreDetailActivity
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.tabs.TabLayout
 import dagger.android.support.DaggerFragment
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 import kotlin.math.roundToInt
 import kotlin.math.roundToLong
@@ -124,6 +124,7 @@ class StatusFragment : DaggerFragment(), HasDefaultViewModelProviderFactory {
         initBottomSheets()
         initView()
         observeViewModel()
+        listenBroadcast()
         backPressedDispatcher.addCallback(viewLifecycleOwner,backPressedCallback)
     }
 
@@ -208,13 +209,16 @@ class StatusFragment : DaggerFragment(), HasDefaultViewModelProviderFactory {
 
         scene1Binding.onGoingRecyclerView.apply {
             adapter = FundingOnGoingAdapter {
+                mViewModel.onSelectStore(it.storeIdx)
                 mViewModel.sceneIndex.value = 1
             }
             addItemDecoration(LinearItemDecoration(15))
         }
 
         scene1Binding.completeRecyclerView.apply {
-            adapter = FundingCompleteAdapter()
+            adapter = FundingCompleteAdapter {
+                startActivity(StoreDetailActivity.newIntent(requireContext(),it.storeIdx))
+            }
             addItemDecoration(LinearItemDecoration(15))
         }
 
@@ -235,7 +239,8 @@ class StatusFragment : DaggerFragment(), HasDefaultViewModelProviderFactory {
         }
 
         scene2Binding.detail setOnDebounceClickListener {
-            startActivity(StoreDetailActivity::class)
+            val idx = mViewModel.selectedShopData.value?.first?.storeIdx ?: return@setOnDebounceClickListener
+            startActivity(StoreDetailActivity.newIntent(requireContext(),idx))
         }
 
         //endregion
@@ -244,8 +249,6 @@ class StatusFragment : DaggerFragment(), HasDefaultViewModelProviderFactory {
         MainActivity.menu.observe(viewLifecycleOwner) {
             adjustSystemUIs()
         }
-
-
 
     }
 
@@ -317,7 +320,9 @@ class StatusFragment : DaggerFragment(), HasDefaultViewModelProviderFactory {
             userData.observe(viewLifecycleOwner) {
                 mBinding.info.text = "${it.name}님이 현재 얻을 수 있는 금액은?"
             }
+
             fundingData.observe(viewLifecycleOwner) {
+
                 mBinding.info2.text = buildSpannedString {
                     append("원금대비 ")
                     bold {
@@ -335,8 +340,29 @@ class StatusFragment : DaggerFragment(), HasDefaultViewModelProviderFactory {
                 mBinding.bottomSheet1.funding.text = it.totalFundedMoney.toMoney() + " 원"
                 mBinding.bottomSheet1.maxReturnPrice.text = it.totalRewardMoney.toMoney()+ " 원"
             }
+
             funditoMoney.observe(viewLifecycleOwner) {
                 mBinding.bottomSheet1.remain.text = it.toMoney() + " 원"
+            }
+
+            loading.observe(viewLifecycleOwner) {
+                if(it) showLoading() else hideLoading()
+            }
+
+            selectedShopData.observe(viewLifecycleOwner) {(store, funding)->
+                scene2Binding.name.text = store.name
+                scene2Binding.fundingPrice.text = funding.fundingMoney.toMoney() +" 원"
+                scene2Binding.maximumReturnPrice.text = funding.rewardMoney.toMoney()+ " 원"
+                scene2Binding.recentFundingLabel.text = store.name+" 투자내역"
+//                (scene2Binding.recyclerView.adapter as? RecentFundingAdapter)?.submitItems(fundingList)
+            }
+        }
+    }
+
+    private fun listenBroadcast() {
+        lifecycleScope.launch {
+            for(e in Broadcast.chargeCompleteEvent.openSubscription()) {
+                mBinding.bottomSheet1.remain.text = e.toMoney() + " 원"
             }
         }
     }

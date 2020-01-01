@@ -207,7 +207,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/expirydateEditText" />
 
             <EditText
-                android:id="@+id/nicknameEditText"
+                android:id="@+id/cardnameEditText"
                 android:layout_width="159dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
@@ -238,7 +238,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/nicknameEditText" />
+                app:layout_constraintTop_toBottomOf="@+id/cardnameEditText" />
             // &#160; 줄바꿈후 띄어쓰기
 
             <TextView

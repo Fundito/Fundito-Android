@@ -56,6 +56,7 @@ class TimeLineAdapter : ListAdapter<Funding, TimeLineAdapter.TimeLineHolder>(DIF
 
             binding.timeBefore.text = DateParsingUtil.calculateDiffWithCurrent(item.fundingTime)
 
+
         }
     }
 }

@@ -17,7 +17,7 @@ class RecentFundingAdapter : ListAdapter<Funding, RecentFundingAdapter.RecentFun
     companion object {
         private val DIFF = object : DiffUtil.ItemCallback<Funding>() {
             override fun areItemsTheSame(oldItem: Funding, newItem: Funding): Boolean {
-                return oldItem.fundingIdx == newItem.fundingIdx
+                return oldItem == newItem
             }
 
             override fun areContentsTheSame(oldItem: Funding, newItem: Funding): Boolean {
@@ -44,8 +44,7 @@ class RecentFundingAdapter : ListAdapter<Funding, RecentFundingAdapter.RecentFun
 
     inner class RecentFundingHolder(private val binding: ItemRecentFundingBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(item: Funding) {
-//            binding.setVariable(BR.item, item)
-            binding.executePendingBindings()
+
         }
     }
 }

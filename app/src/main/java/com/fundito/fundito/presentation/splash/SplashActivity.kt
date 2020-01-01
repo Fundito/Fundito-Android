@@ -11,8 +11,11 @@ import com.fundito.fundito.common.util.startActivity
 import com.fundito.fundito.data.service.NetworkClient
 import com.fundito.fundito.presentation.login.LoginActivity
 import com.fundito.fundito.presentation.main.MainActivity
+import com.google.firebase.iid.FirebaseInstanceId
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.suspendCancellableCoroutine
 import timber.log.Timber
+import kotlin.coroutines.resume
 
 
 /**
@@ -35,7 +38,17 @@ class SplashActivity : AppCompatActivity() {
 
             lifecycleScope.launch {
                 kotlin.runCatching {
-                    NetworkClient.userService.signIn(accessToken.token)
+
+                    val fcmToken = suspendCancellableCoroutine<String> {continuation->
+                        FirebaseInstanceId.getInstance().instanceId
+                            .addOnSuccessListener {
+                                continuation.resume(it.token)
+                            }.addOnFailureListener {
+                                continuation.cancel(it)
+                            }
+                    }
+
+                    NetworkClient.userService.signIn(accessToken.token,fcmToken)
                 }.onSuccess {
                     Timber.e(it.toString())
                     SPUtil.accessToken = it.token
@@ -45,7 +58,6 @@ class SplashActivity : AppCompatActivity() {
                     startActivity(LoginActivity::class, Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
                 }
             }
-
 
         }else {
             startActivity(LoginActivity::class, Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)

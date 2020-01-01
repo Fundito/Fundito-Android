@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<layout>
+<layout xmlns:tools="http://schemas.android.com/tools">
     <data>
         <variable
             name="item"
@@ -32,7 +32,40 @@
                 android:textSize="15sp"
                 android:textColor="@color/black"
                 android:lineSpacingExtra="7sp"
-                android:text="5000원 투자"
+                tools:text="5000원 투자"
+                />
+
+            <ImageView
+                android:id="@+id/upArrow"
+                android:layout_marginLeft="15dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/uparrow_img"
+                app:layout_constraintLeft_toRightOf="@id/fundingMoney"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toTopOf="parent"/>
+
+            <TextView
+                android:scrollHorizontally="true"
+                app:selected_binding="@{true}"
+                android:ellipsize="marquee"
+                android:fadingEdge="horizontal"
+                android:marqueeRepeatLimit="marquee_forever"
+                android:singleLine="true"
+                android:layout_marginRight="16dp"
+                app:layout_constraintRight_toLeftOf="@id/timeBefore"
+                android:layout_marginLeft="16dp"
+                app:layout_constraintLeft_toRightOf="@id/upArrow"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:id="@+id/nickName"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textSize="15sp"
+                android:textColor="@color/black"
+                android:lineSpacingExtra="7sp"
+                android:text="@{item.nickname}"
+                tools:text="말똥이"
                 />
 
             <TextView
@@ -48,7 +81,7 @@
                 android:textSize="12sp"
                 android:textColor="@color/black"
                 android:lineSpacingExtra="6sp"
-                android:text="1분전"
+                tools:text="1분전"
                 />
 
         </androidx.constraintlayout.widget.ConstraintLayout>

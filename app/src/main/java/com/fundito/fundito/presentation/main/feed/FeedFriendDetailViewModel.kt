@@ -1,7 +1,5 @@
 package com.fundito.fundito.presentation.main.feed
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import javax.inject.Inject
 
@@ -10,7 +8,5 @@ import javax.inject.Inject
  */
 class FeedFriendDetailViewModel @Inject constructor() : ViewModel() {
 
-    private val _items : MutableLiveData<List<String>> = MutableLiveData(listOf("","","",""))
-    val items : LiveData<List<String>> = _items
 
 }

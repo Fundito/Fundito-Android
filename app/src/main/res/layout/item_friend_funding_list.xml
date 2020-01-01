@@ -10,15 +10,18 @@
     </data>
 
     <androidx.cardview.widget.CardView
+        app:cardBackgroundColor="#b3ffffff"
         android:id="@+id/friendFundingCardView"
         android:clipChildren="false"
-        app:cardElevation="@dimen/cardElevation"
+        app:cardElevation="0dp"
         app:cardCornerRadius="8dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="64dp">
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="66dp">
+            android:layout_height="66dp"
+            android:background="@android:color/transparent"
+            >
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:layout_marginLeft="16dp"

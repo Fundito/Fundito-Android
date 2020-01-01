@@ -7,6 +7,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <ImageView
+        android:scaleType="centerCrop"
+        android:src="@drawable/feed_bgr_img"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/toolbar"
@@ -44,16 +50,15 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="wrap_content">
 
-            >
 
             <TextView
                 android:id="@+id/monthTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="59dp"
+                android:layout_marginTop="24dp"
                 android:lineSpacingExtra="8sp"
                 android:text="이 달의 디토"
                 android:textColor="@color/dark_navy"
@@ -77,8 +82,9 @@
 
 
             <androidx.cardview.widget.CardView
+                app:cardBackgroundColor="#94ffffff"
                 app:cardCornerRadius="8dp"
-                app:cardElevation="12dp"
+                app:cardElevation="0dp"
                 android:id="@+id/card1"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
@@ -94,7 +100,6 @@
                     android:layout_height="match_parent"
                     android:layout_width="match_parent"
                     android:id="@+id/constraintLayout1"
-
                     android:background="@drawable/background_darknavy_stroke">
 
 
@@ -110,18 +115,27 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
+                    <ImageView
+                        android:id="@+id/medalLeftImageView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:src="@drawable/monthrydito_goldmedal_red_img"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/profileLeftImageView" />
                     <TextView
                         android:id="@+id/profileLeftTextView"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="16dp"
+                        android:layout_marginTop="10dp"
                         android:fontFamily="@font/spoqa_han_sans_regular"
                         android:text="망원피바지"
                         android:textColor="@color/black"
-                        android:textSize="16sp"
+                        android:textSize="12sp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/profileLeftImageView" />
+                        app:layout_constraintTop_toBottomOf="@+id/medalLeftImageView" />
 
 
                     <TextView
@@ -154,8 +168,9 @@
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
+                app:cardBackgroundColor="#94ffffff"
                 app:cardCornerRadius="8dp"
-                app:cardElevation="12dp"
+                app:cardElevation="0dp"
                 android:clipChildren="false"
                 android:id="@+id/card2"
                 android:layout_width="0dp"
@@ -189,18 +204,28 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
+                    <ImageView
+                        android:id="@+id/medalCenterImageView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:src="@drawable/monthrydito_goldmedal_red_img"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/profileCenterImageView" />
+
                     <TextView
                         android:id="@+id/profileCenterTextView"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="16dp"
+                        android:layout_marginTop="10dp"
                         android:fontFamily="@font/spoqa_han_sans_regular"
                         android:text="진수"
                         android:textColor="@color/black"
-                        android:textSize="16sp"
+                        android:textSize="12sp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/profileCenterImageView" />
+                        app:layout_constraintTop_toBottomOf="@+id/medalCenterImageView" />
 
                     <TextView
                         android:id="@+id/storenumberCenterTextView"
@@ -231,8 +256,9 @@
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
+                app:cardBackgroundColor="#94ffffff"
                 app:cardCornerRadius="8dp"
-                app:cardElevation="12dp"
+                app:cardElevation="0dp"
                 android:clipChildren="false"
                 android:id="@+id/card3"
                 android:layout_width="0dp"
@@ -247,10 +273,9 @@
 
                 <androidx.constraintlayout.widget.ConstraintLayout
 
-                    android:id="@+id/fundingSuccessCenterTextView"
+                    android:id="@+id/constraintLayout3"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-
                     android:background="@drawable/background_darknavy_stroke"
                     >
 
@@ -265,19 +290,29 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
+                    <ImageView
+                        android:id="@+id/medalRightImageView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:src="@drawable/monthrydito_goldmedal_red_img"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/profileRightImageView" />
+
 
                     <TextView
                         android:id="@+id/profileRightTextView"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="16dp"
+                        android:layout_marginTop="10dp"
                         android:fontFamily="@font/spoqa_han_sans_regular"
                         android:text="영우공쥬"
                         android:textColor="@color/black"
-                        android:textSize="16sp"
+                        android:textSize="12sp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/profileRightImageView" />
+                        app:layout_constraintTop_toBottomOf="@+id/medalRightImageView" />
 
                     <TextView
                         android:id="@+id/storenumberRightTextView"
@@ -321,7 +356,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="21dp"
+                android:layout_marginTop="43dp"
                 android:lineSpacingExtra="8sp"
                 android:text="친구 투자 내역"
                 android:textColor="#707070"
@@ -331,13 +366,13 @@
                 app:layout_constraintTop_toBottomOf="@+id/card1" />
 
             <androidx.recyclerview.widget.RecyclerView
+                android:background="@color/transparent"
                 android:id="@+id/friendFundingRecyclerView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="29dp"
                 android:clipToPadding="false"
                 android:paddingLeft="16dp"
-                android:paddingTop="12dp"
+                android:paddingTop="26dp"
                 android:paddingRight="16dp"
                 android:paddingBottom="12dp"
                 app:layout_constraintBottom_toBottomOf="parent"

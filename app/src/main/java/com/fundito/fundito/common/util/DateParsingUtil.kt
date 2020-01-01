@@ -39,6 +39,7 @@ object DateParsingUtil {
 
     fun calculateDiffWithCurrent(timeMs : Long, isFuture : Boolean = false) : String {
         var diff = System.currentTimeMillis() - timeMs
+
         if(isFuture) diff = -diff
         val diffMin = diff / 1000 / 60
 

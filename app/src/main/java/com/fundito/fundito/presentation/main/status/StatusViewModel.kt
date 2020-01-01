@@ -1,11 +1,11 @@
 package com.fundito.fundito.presentation.main.status
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.liveData
+import androidx.lifecycle.*
 import com.fundito.fundito.common.widget.Once
+import com.fundito.fundito.data.model.Funding
+import com.fundito.fundito.data.model.Store
 import com.fundito.fundito.data.service.NetworkClient
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 /**
@@ -29,13 +29,6 @@ class StatusViewModel @Inject constructor() : ViewModel() {
     val sceneIndex : MutableLiveData<Int> = MutableLiveData(0)
 
 
-    private val _onGoingFundingItems : MutableLiveData<List<String>> = MutableLiveData(listOf("","","",""))
-    val onGoingFundingItems : LiveData<List<String>> = _onGoingFundingItems
-
-    private val _completeFundingItem : MutableLiveData<List<String>> = MutableLiveData(listOf("","","",""))
-    val completeFundingItem : LiveData<List<String>> = _completeFundingItem
-
-    
     private val _dispatchBackPressEvent : MutableLiveData<Once<Unit>> = MutableLiveData()
     val dispatchBackPressEvent : LiveData<Once<Unit>> = _dispatchBackPressEvent
 
@@ -71,6 +64,26 @@ class StatusViewModel @Inject constructor() : ViewModel() {
         }
     }
 
+    val currentFundingStores = liveData {
+        kotlin.runCatching {
+            NetworkClient.fundingService.listCurrentFundingStore()
+        }.onSuccess {
+            emit(it)
+        }
+    }
+
+    val completeFundingStores = liveData {
+        kotlin.runCatching {
+            NetworkClient.fundingService.listCompleteFundingStore()
+        }.onSuccess {
+            emit(it)
+        }
+    }
+
+    val selectedShopData = MutableLiveData<Pair<Store, Funding>>()
+
+    private val _loading : MutableLiveData<Boolean> = MutableLiveData()
+    val loading : LiveData<Boolean> = _loading
 
 
     fun onClickBack() {
@@ -83,5 +96,24 @@ class StatusViewModel @Inject constructor() : ViewModel() {
             return
         }
 
+    }
+
+    fun onSelectStore(storeIdx : Int) {
+        viewModelScope.launch {
+            _loading.value = true
+
+            kotlin.runCatching {
+                val fundings = NetworkClient.fundingService.getMyFundingHistories()
+                val funding = fundings.first { it.storeIdx == storeIdx }
+
+                Pair(NetworkClient.storeInfoService.getStoreInfo(storeIdx),funding)
+            }.onSuccess {
+                selectedShopData.value = it
+            }.onFailure {
+
+            }
+            _loading.value = false
+
+        }
     }
 }

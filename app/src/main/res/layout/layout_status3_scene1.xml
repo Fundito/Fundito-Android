@@ -33,7 +33,7 @@
         </com.google.android.material.tabs.TabLayout>
         <androidx.recyclerview.widget.RecyclerView
             android:visibility="@{vm.sheet2TabIndex == 0}"
-            app:recyclerview_FundingOnGoing_items="@{vm.onGoingFundingItems}"
+            app:recyclerview_FundingOnGoing_items="@{vm.currentFundingStores}"
             android:id="@+id/onGoingRecyclerView"
             tools:visibility="gone"
             tools:itemCount="4"
@@ -50,7 +50,7 @@
             android:layout_height="0dp"/>
         <androidx.recyclerview.widget.RecyclerView
             android:visibility="@{vm.sheet2TabIndex == 1}"
-            app:recyclerview_FundingComplete_items="@{vm.completeFundingItem}"
+            app:recyclerview_FundingComplete_items="@{vm.completeFundingStores}"
             android:id="@+id/completeRecyclerView"
             tools:itemCount="4"
 

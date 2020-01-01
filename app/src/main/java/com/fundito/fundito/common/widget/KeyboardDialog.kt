@@ -20,12 +20,13 @@ import kotlinx.android.synthetic.main.dialog_keyboard.*
  * Created by mj on 26, December, 2019
  */
 
-fun AppCompatActivity.showKeyboard(isPasswordCheck: Boolean = false, onNumberClick: (Int) -> Unit, onPasswordChanged: ((String) -> Unit)? = null) {
-    if(supportFragmentManager.findFragmentByTag("KeyboardDialog") != null) return
+fun AppCompatActivity.showKeyboard(isPasswordCheck: Boolean = false, onNumberClick: (Int) -> Unit, onPasswordChanged: ((String) -> Unit)? = null) : KeyboardDialogFragment? {
+    if(supportFragmentManager.findFragmentByTag("KeyboardDialog") != null) return null
     val dialog = KeyboardDialogFragment.newInstance(isPasswordCheck)
     dialog.onNumberClick = onNumberClick
     dialog.onPasswordChanged = onPasswordChanged
     dialog.show(supportFragmentManager,"KeyboardDialog")
+    return dialog
 }
 
 fun AppCompatActivity.hideKeyboard() {
@@ -161,15 +162,12 @@ class KeyboardDialogFragment : BottomSheetDialogFragment() {
         }
 
         adjustCircleImages()
-        startBounceAnim(password.length)
 
         onPasswordChanged?.invoke(password)
-
     }
 
     private fun adjustCircleImages() {
         circleContainer.children.forEachIndexed { index, view ->
-            //            view.setBackgroundResource(if(password.length > index) R.drawable.white_circle else R.drawable.white_circle_stroke)
             view.isActivated = password.length > index
         }
     }
@@ -183,14 +181,10 @@ class KeyboardDialogFragment : BottomSheetDialogFragment() {
         }
     }
 
-    private fun startBounceAnim(circleIdx: Int) {
-        /*val circleView = circleContainer.getChildAt(circleIdx)
-        ObjectAnimator.ofFloat(circleView,"translationY",0f,-150f).apply {
-            duration = 100L
-            repeatCount = 1
-            repeatMode = ObjectAnimator.REVERSE
-            start()
-        }*/
+
+    fun onPasswordMatchFailed() {
+        startShakeAnim()
+        mBinding.passwordInfoLabel.text = "비밀번호가 일치하지 않습니다."
     }
 
 

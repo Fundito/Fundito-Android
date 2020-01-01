@@ -163,6 +163,11 @@ dependencies {
      * Firebase
      */
     implementation ("com.google.firebase:firebase-auth:19.2.0")
+    implementation ("com.google.firebase:firebase-messaging:20.1.0")
+
+    /**
+     * Facebook
+     */
     implementation ("com.facebook.android:facebook-android-sdk:5.13.0")
     implementation("com.facebook.android:facebook-share:5.13.0")
 
