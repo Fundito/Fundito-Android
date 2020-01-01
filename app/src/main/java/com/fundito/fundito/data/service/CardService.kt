@@ -17,9 +17,9 @@ interface CardService {
         @Field("cardCompany") cardCompany : String,
         @Field("cardNickname") cardNickname : String,
         @Field("cardNumber") cardNumber : String,
-        @Field("cvc") cvc : String,
+        @Field("cardExpirationDate") cardExpiratioinDate : String,
         @Field("cardPassword") cardPassword : String
-    )
+    ) :CardResponse
 
     @GET("mypage/card")
     suspend fun getCard() : CardResponse
@@ -34,5 +34,18 @@ data class CardResponse(
     val userName: String,
     @SerializedName("cardNickname")
     @Expose(serialize = true, deserialize = true)
-    val cardNickname: String
+    var cardNickname: String,
+
+    @SerializedName("cardNumber")
+    @Expose(serialize = true, deserialize = true)
+    var cardNumber: String,
+
+    @SerializedName("cardExpirationDate")
+    @Expose(serialize = true, deserialize = true)
+    var cardExpirationDate: String,
+
+    @SerializedName("cardPassword")
+    @Expose(serialize = true, deserialize = true)
+    var cardPassword: String
+
 ) : Parcelable

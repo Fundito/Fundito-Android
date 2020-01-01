@@ -31,7 +31,7 @@
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
             android:lineSpacingExtra="9sp"
-            android:text="계좌 등록"
+            android:text="카드 등록"
             android:textColor="@color/black"
             android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="parent"

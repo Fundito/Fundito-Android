@@ -7,10 +7,14 @@ import android.text.TextWatcher
 import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
 import com.fundito.fundito.R
+import com.fundito.fundito.data.service.NetworkClient
 import com.fundito.fundito.presentation.main.MainActivity
 import kotlinx.android.synthetic.main.activity_card_register.*
-import kotlinx.android.synthetic.main.item_search.view.*
+import kotlinx.android.synthetic.main.activity_login_nickname.*
+import kotlinx.coroutines.launch
+import timber.log.Timber
 
 
 /**
@@ -25,7 +29,8 @@ class CardRegisterActivity : AppCompatActivity() {
 
 
         makeController()
-                /**
+        // initview()
+        /**
          * Formatting a credit card number: ####-####-####-####
          */
         cardNumberEditText.addTextChangedListener(object : TextWatcher {
@@ -83,10 +88,14 @@ class CardRegisterActivity : AppCompatActivity() {
                 }
             }
         })
+        backButton.setOnClickListener(){
+            val intent = Intent(this@CardRegisterActivity, LoginNicknameActivity::class.java)
+            startActivity(intent)
+        }
 
         //전체선택
         checkbox_all.setOnClickListener {
-//            checkbox_all.toggle()
+            //            checkbox_all.toggle()
 //            checkbox2.toggle()
 //            checkbox3.toggle()
 //            checkbox5.toggle()
@@ -117,15 +126,14 @@ class CardRegisterActivity : AppCompatActivity() {
             val date = expirydateEditText.text.toString()
             val pw = passwordEditText.text.toString()
             val cardname = cardnameEditText.text.toString()
-            val checkboxAll  = checkbox_all
+            val checkboxAll = checkbox_all
 
             // 빈 칸이 있으면 안되므로 빈 칸 체크
             if (cardnumber.isEmpty() || date.isEmpty() || pw.isEmpty() || cardname.isEmpty()) {
                 Toast.makeText(this, "빈칸을 채워주세요.", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
 
-            }
-            else if (checkboxAll.isSelected == false){
+            } else if (checkboxAll.isSelected == false) {
 
                 Toast.makeText(this, "약관동의를 선택해주세요.", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
@@ -134,8 +142,32 @@ class CardRegisterActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
+    }
+    private fun initview(){
+        lifecycleScope.launch {
+            kotlin.runCatching {
+
+                var a = NetworkClient.cardService.createCard(
+                    "국민",
+                    cardnameEditText.text.toString(),
+                    cardNumberEditText.text.toString(),
+                    expirydateEditText.text.toString(),
+                    passwordEditText.text.toString())
+                name.text =a.userName
+
+            }
+                .onSuccess {
+                    Timber.e("success")
+                }
+                .onFailure {
+                    Timber.e("Fail")
+                    Timber.e(it.message.toString())
+                }
         }
     }
+
+}
+
 
 
 

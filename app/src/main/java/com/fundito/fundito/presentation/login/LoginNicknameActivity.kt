@@ -8,11 +8,18 @@ import android.text.TextWatcher
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
 import com.fundito.fundito.R
+import com.fundito.fundito.data.service.NetworkClient
 import com.fundito.fundito.presentation.main.MainActivity
 import kotlinx.android.synthetic.main.activity_card_register.*
 import kotlinx.android.synthetic.main.activity_login_nickname.*
 import kotlinx.android.synthetic.main.activity_login_nickname.nicknameEditText
+import kotlinx.android.synthetic.main.fragment_funding_complete.*
+import kotlinx.android.synthetic.main.fragment_funding_progress.*
+import kotlinx.android.synthetic.main.fragment_home.*
+import kotlinx.coroutines.launch
+import timber.log.Timber
 import java.util.regex.Pattern
 
 class LoginNicknameActivity : AppCompatActivity() {
@@ -24,6 +31,7 @@ class LoginNicknameActivity : AppCompatActivity() {
         setContentView(R.layout.activity_login_nickname)
 
         makeController()
+        initview()
 
 
 
@@ -79,7 +87,27 @@ class LoginNicknameActivity : AppCompatActivity() {
         }
         return chkFlag
     }
+    private fun initview(){
+        lifecycleScope.launch {
+            kotlin.runCatching {
+                var a = NetworkClient.userService.getUser()
+                Timber.e("1")
+                  name.text =a.name
+                Timber.e("2")
+                nickName.text = a.nickname
+                Timber.e("3")
+            }
+                .onSuccess {
+                    Timber.e("success")
+                    val intent = Intent(this@LoginNicknameActivity, CardRegisterActivity::class.java)
+                    startActivity(intent)
+                }
+                .onFailure {
+                    Timber.e("Fail")
+                    Timber.e(it.message.toString())
+                }
+        }
+    }
 }
-
 
 

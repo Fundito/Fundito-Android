@@ -21,7 +21,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/nameTextView"
+        android:id="@+id/name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="34dp"
@@ -45,7 +45,7 @@
         android:textColor="@color/charcoal_grey"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/nameTextView" />
+        app:layout_constraintTop_toBottomOf="@+id/name" />
 
     <EditText
         android:id="@+id/nicknameEditText"
@@ -53,6 +53,8 @@
         android:layout_height="wrap_content"
         android:maxLength="5"
         android:layout_marginHorizontal="20dp"
+        android:lines="1"
+        android:inputType="text"
         android:layout_marginTop="108dp"
         android:backgroundTint="@color/dark_navy"
         app:layout_constraintEnd_toEndOf="parent"

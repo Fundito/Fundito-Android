@@ -1,23 +1,46 @@
 package com.fundito.fundito.presentation.funding
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
-import androidx.viewpager.widget.ViewPager
+import androidx.lifecycle.observe
+import androidx.viewpager2.widget.ViewPager2
 import com.fundito.fundito.R
 import com.fundito.fundito.common.setVisibilityBinding
+import com.fundito.fundito.common.widget.hideLoading
 import com.fundito.fundito.common.widget.setOnDebounceClickListener
-import com.fundito.fundito.common.widget.showKeyboard
+import com.fundito.fundito.common.widget.showLoading
 import com.fundito.fundito.data.service.NetworkClient
+import dagger.android.support.DaggerAppCompatActivity
 import kotlinx.android.synthetic.main.activity_funding.*
 import kotlinx.android.synthetic.main.layout_toolbar.*
 import kotlinx.coroutines.launch
-import timber.log.Timber
+import javax.inject.Inject
 
 /**
  * Created by mj on 26, December, 2019
  */
-class FundingActivity : AppCompatActivity() {
+class FundingActivity : DaggerAppCompatActivity() {
+
+    @Inject
+    lateinit var viewModelFactory : ViewModelProvider.Factory
+    private val mViewModel by lazy { ViewModelProvider(this,viewModelFactory)[FundingViewModel::class.java] }
+
+    companion object {
+
+        private const val ARG_STORE_IDX = "ARG_STORE_IDX"
+
+        fun newIntent(context: Context, storeIdx: Int): Intent {
+            return Intent(context, FundingActivity::class.java).apply {
+                putExtra(ARG_STORE_IDX, storeIdx)
+            }
+        }
+    }
+
+    val storeId: Int
+        get() = intent?.getIntExtra(ARG_STORE_IDX, -1) ?: -1
 
     private var currentPage : Int = 0
 
@@ -28,22 +51,17 @@ class FundingActivity : AppCompatActivity() {
         backButton setOnDebounceClickListener {
             onBackPressedDispatcher.onBackPressed()
         }
-        adaptViewPager()
+
         initView()
-        finish()
+        adaptViewPager()
+        observeViewModel()
     }
 
     private fun adaptViewPager(){
-        fundingViewpager.adapter = FundingPagerAdapter(supportFragmentManager,3)
+        fundingViewpager.adapter = FundingPagerAdapter(this)
         fundingViewpager.offscreenPageLimit = 2
-
-        fundingViewpager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
-            override fun onPageScrollStateChanged(state: Int) {
-            }
-
-            override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
-            }
-
+        fundingViewpager.isUserInputEnabled = false
+        fundingViewpager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
                 currentPage = position
 
@@ -60,7 +78,6 @@ class FundingActivity : AppCompatActivity() {
                 }
             }
         })
-
     }
 
     private fun initView() {
@@ -69,9 +86,19 @@ class FundingActivity : AppCompatActivity() {
                 0-> {
                     fundingViewpager.currentItem = 1
                     toolbartitle.text = "나의 투자현황"
+                    progressFirstImg.setVisibilityBinding(false)
+                    progressSecondImg.setVisibilityBinding(true)
                 }
                 1-> {
+                    lifecycleScope.launch {
+                        kotlin.runCatching {
+                            var a = NetworkClient.storeInfoService.listStoreInfo()
+                            toolbartitle.text = "목표도달까지 ${a[1].currentGoalPercent}% 남음"
+                        }
+                    }
                     fundingViewpager.currentItem = 2
+                    progressSecondImg.setVisibilityBinding(false)
+                    progressThirdImg.setVisibilityBinding(true)
                 }
                 2-> {
 
@@ -80,4 +107,29 @@ class FundingActivity : AppCompatActivity() {
         }
     }
 
+    private fun observeViewModel() {
+        mViewModel.apply {
+            loading.observe(this@FundingActivity) {
+                if(it) showLoading() else hideLoading()
+            }
+        }
+    }
+
+    override fun onBackPressed() {
+
+        when(currentPage) {
+            1-> {
+                fundingViewpager.setCurrentItem(0,true)
+            }
+            2-> {
+                fundingViewpager.setCurrentItem(1,true)
+            }
+            else-> {
+                super.onBackPressed()
+            }
+        }
+
+
+
+    }
 }
