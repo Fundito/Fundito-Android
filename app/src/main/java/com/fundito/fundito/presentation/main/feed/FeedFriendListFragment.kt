@@ -88,7 +88,7 @@ class FeedFriendListFragment : Fragment() {
             }
         }
     }
-    private fun initview(){
+    private fun initview() {
         card1.setOnDebounceClickListener {
             startActivity(FeedFriendDetailActivity::class)
         }
@@ -98,5 +98,5 @@ class FeedFriendListFragment : Fragment() {
         card3.setOnDebounceClickListener {
             startActivity(FeedFriendDetailActivity::class)
         }
-
+    }
 } // end class
