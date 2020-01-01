@@ -1,5 +1,7 @@
 package com.fundito.fundito.presentation.main.feed
 
+import android.content.Context
+import android.content.Intent
 import android.graphics.Canvas
 import android.graphics.Color
 import android.os.Bundle
@@ -14,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.fundito.fundito.common.util.startActivity
 import com.fundito.fundito.common.widget.LinearItemDecoration
 import com.fundito.fundito.common.widget.setOnDebounceClickListener
+import com.fundito.fundito.data.service.CurrentFundingResponse
 import com.fundito.fundito.databinding.ActivityFeedFriendDetailBinding
 import com.fundito.fundito.di.module.ViewModelFactory
 import com.fundito.fundito.presentation.main.status.FundingOnGoingAdapter
@@ -26,15 +29,29 @@ import javax.inject.Inject
  */
 class FeedFriendDetailActivity : DaggerAppCompatActivity(), HasDefaultViewModelProviderFactory {
 
+    companion object {
+        private const val ARG_FRIEND_IDX = "ARG_FRIEND_IDX"
+
+        fun newIntent(context: Context, friendIdx: Int): Intent {
+            return Intent(context, FeedFriendDetailActivity::class.java).apply {
+                putExtra(ARG_FRIEND_IDX, friendIdx)
+            }
+        }
+    }
+
     private lateinit var mBinding : ActivityFeedFriendDetailBinding
 
     @Inject
     lateinit var viewModelFactory : ViewModelFactory
     override fun getDefaultViewModelProviderFactory() = viewModelFactory
 
+    val friendIdx: Int
+        get() = intent?.getIntExtra(ARG_FRIEND_IDX, -1) ?: -1
+
     private val mViewModel : FeedFriendDetailViewModel by lazy {
         ViewModelProvider(this,viewModelFactory)[FeedFriendDetailViewModel::class.java]
     }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,6 +60,8 @@ class FeedFriendDetailActivity : DaggerAppCompatActivity(), HasDefaultViewModelP
         setContentView(mBinding.root)
         mBinding.lifecycleOwner = this
         mBinding.vm = mViewModel
+
+        window.statusBarColor = Color.parseColor("#f2f2f2")
 
         initView()
         observeViewModel()
@@ -75,6 +94,13 @@ class FeedFriendDetailActivity : DaggerAppCompatActivity(), HasDefaultViewModelP
                     bold{ append(it.name) }
                     append(" 님")
                 }
+            }
+
+            items.observe(this@FeedFriendDetailActivity) {
+                (mBinding.recyclerView.adapter as? FundingOnGoingAdapter)?.submitItems(
+                    it.proceeding.map { CurrentFundingResponse(-1, it.storeName, it.remainingDays, it.progressPercent) }
+                            + it.fail.map { CurrentFundingResponse(-1, it.storeName, -1, -1) }
+                )
             }
         }
     }

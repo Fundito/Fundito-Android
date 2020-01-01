@@ -28,7 +28,7 @@
                 android:id="@+id/profileImageView"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
-                tools:src="@tools:sample/avatars[0]"
+                android:src="@drawable/basic_profil_img"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
@@ -45,23 +45,22 @@
                 android:lineSpacingExtra="6sp"
                 android:textColor="@color/black"
                 android:textSize="14sp"
-                android:text="이름"
+                tools:text="이름"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/profileImageView"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:textStyle="bold"
                 android:id="@+id/fundingnumberTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
-                android:fontFamily="@font/spoqa_han_sans_bold"
+                android:fontFamily="@font/spoqa_han_sans_light"
                 android:gravity="end"
                 android:lineSpacingExtra="6sp"
-                android:textColor="#707070"
+                android:textColor="@color/blueberry_two"
                 android:textSize="12sp"
-                android:text="12개 지점 투자중"
+                tools:text="12개 지점 투자중"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />

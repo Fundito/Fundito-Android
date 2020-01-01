@@ -73,6 +73,7 @@ class FundingActivity : AppCompatActivity() {
                     progressThirdImg.setVisibilityBinding(true)
                 }
                 2-> {
+
                 }
             }
         }
