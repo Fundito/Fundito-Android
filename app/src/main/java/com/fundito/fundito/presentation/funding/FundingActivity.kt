@@ -2,12 +2,15 @@ package com.fundito.fundito.presentation.funding
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
 import androidx.viewpager.widget.ViewPager
 import com.fundito.fundito.R
 import com.fundito.fundito.common.setVisibilityBinding
 import com.fundito.fundito.common.widget.setOnDebounceClickListener
+import com.fundito.fundito.data.service.NetworkClient
 import kotlinx.android.synthetic.main.activity_funding.*
 import kotlinx.android.synthetic.main.layout_toolbar.*
+import kotlinx.coroutines.launch
 
 /**
  * Created by mj on 26, December, 2019
@@ -25,6 +28,7 @@ class FundingActivity : AppCompatActivity() {
         }
         adaptViewPager()
         initView()
+        finish()
     }
 
     private fun adaptViewPager(){
@@ -67,7 +71,12 @@ class FundingActivity : AppCompatActivity() {
                     progressSecondImg.setVisibilityBinding(true)
                 }
                 1-> {
-                    toolbartitle.text = "목표도달까지 17% 남음"
+                    lifecycleScope.launch {
+                        kotlin.runCatching {
+                            var a = NetworkClient.storeInfoService.listStoreInfo()
+                            toolbartitle.text = "목표도달까지 ${a[1].currentGoalPercent}% 남음"
+                        }
+                    }
                     fundingViewpager.currentItem = 2
                     progressSecondImg.setVisibilityBinding(false)
                     progressThirdImg.setVisibilityBinding(true)

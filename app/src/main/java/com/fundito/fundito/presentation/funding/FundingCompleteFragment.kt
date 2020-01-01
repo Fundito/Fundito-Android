@@ -5,7 +5,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import com.fundito.fundito.R
+import com.fundito.fundito.data.service.NetworkClient
+import kotlinx.android.synthetic.main.fragment_funding_complete.*
+import kotlinx.android.synthetic.main.fragment_funding_progress.*
+import kotlinx.coroutines.launch
+import timber.log.Timber
 
 /**
  * Created by mj on 26, December, 2019
@@ -17,6 +23,23 @@ class FundingCompleteFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-
+        lifecycleScope.launch {
+            kotlin.runCatching {
+                var a = NetworkClient.storeInfoService.listStoreInfo()
+                storeName.text =a[1].name
+                completeCost.text = fundingPriceProgress.text
+                completeCost2.text = "${fundingPriceProgress.text}원"
+                additionalCost.text = linewon.text
+                totalCost.text = "${fundingTotal.text}원"
+            }
+                .onSuccess {
+                    Timber.e("success")
+                }
+                .onFailure {
+                    Timber.e("Fail")
+                    Timber.e(it.message.toString())
+                }
+        }
     }
+
 }
