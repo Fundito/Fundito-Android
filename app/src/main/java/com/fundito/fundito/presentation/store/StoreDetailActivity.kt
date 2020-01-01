@@ -16,8 +16,8 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.observe
 import com.fundito.fundito.R
 import com.fundito.fundito.common.loadUrlAsync
-import com.fundito.fundito.common.util.startActivity
 import com.fundito.fundito.common.util.toMoney
+import com.fundito.fundito.common.view.WithdrawDialog
 import com.fundito.fundito.common.widget.LinearItemDecoration
 import com.fundito.fundito.common.widget.hideLoading
 import com.fundito.fundito.common.widget.setOnDebounceClickListener
@@ -25,6 +25,7 @@ import com.fundito.fundito.common.widget.showLoading
 import com.fundito.fundito.data.enumerator.RefundType
 import com.fundito.fundito.databinding.ActivityStoreDetailBinding
 import com.fundito.fundito.presentation.funding.FundingActivity
+import timber.log.Timber
 
 /**
  * Created by mj on 26, December, 2019
@@ -124,20 +125,23 @@ class StoreDetailActivity : AppCompatActivity(), HasDefaultViewModelProviderFact
             mViewModel.store.value?.storeIdx?.let {
                 startActivity(FundingActivity.newIntent(this@StoreDetailActivity,it,mViewModel.store.value?.refundPercent ?: 0))
             }
-
         }
 
         mBinding.cheer setOnDebounceClickListener {
-            startActivity(StoreCheerActivity::class)
+            startActivity(StoreCheerActivity.newIntent(this@StoreDetailActivity,mViewModel.store.value?.name ?: ""))
         }
 
         mBinding.content.menuRecyclerView.apply {
             adapter = StoreDetailAdapter()
         }
+
         mBinding.content.etcRecyclerView.apply {
             adapter = StoreDetailAdapter()
         }
 
+        WithdrawDialog.show(supportFragmentManager,5000,3500,"문명주") {
+            Timber.e("hi")
+        }
     }
 
     private fun observeViewModel() {

@@ -64,8 +64,8 @@ class NotiAdapter(private val onItemClick: (NotificationResponse) -> Unit) : and
 
             val cal = DateParsingUtil.parseString(item.date)
             binding.date.text = "%02d월 %02d일".format(cal[Calendar.MONTH] + 1,cal[Calendar.DAY_OF_MONTH])
-            binding.name.text = item.storeInfo.name + "(이/가)"
-            binding.progress.text = when(item.storeInfo.fundStatus) {
+            binding.name.text = (item.storeInfo?.name ?: "") + "(이/가)"
+            binding.progress.text = when(item.storeInfo?.fundStatus ?: null) {
                 FundStatus.SUCCESS-> buildSpannedString {
                     append("목표매출 ")
                     color(GlobalApp.resources.getColor(R.color.dark_navy)){append("도달!")}

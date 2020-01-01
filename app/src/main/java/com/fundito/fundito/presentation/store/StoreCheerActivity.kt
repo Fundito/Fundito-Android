@@ -65,7 +65,7 @@ class StoreCheerActivity : AppCompatActivity() {
                 .build()
             shareDialog.show(content,ShareDialog.Mode.AUTOMATIC)
         }
-        
+
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

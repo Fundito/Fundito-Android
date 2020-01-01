@@ -260,6 +260,7 @@ class StatusFragment : DaggerFragment(), HasDefaultViewModelProviderFactory {
         }
 
         mBinding.price.startMoneyAnimation(mViewModel.fundingData.value?.totalGetMoney ?: 0," 원")
+
     }
 
     private fun observeViewModel() {

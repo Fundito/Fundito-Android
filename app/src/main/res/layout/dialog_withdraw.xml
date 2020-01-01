@@ -1,6 +1,74 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
 
-</LinearLayout>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    >
+
+    <data>
+
+    </data>
+
+    <androidx.cardview.widget.CardView
+        app:cardCornerRadius="7dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:background="@drawable/fundwithdaw_coin_img"
+            tools:layout_width="300dp"
+            tools:layout_height="400dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:fontFamily="@font/spoqa_han_sans_light"
+                android:layout_marginBottom="16dp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintBottom_toTopOf="@id/info2"
+                android:id="@+id/info1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:textColor="@color/dark"
+                android:lineSpacingExtra="8sp"
+                android:gravity="center_horizontal"
+                tools:text="투자금액 8000 원   이윤 5500원"
+                />
+
+            <TextView
+                android:id="@+id/info2"
+                android:layout_marginBottom="16dp"
+                app:layout_constraintBottom_toTopOf="@id/withdrawButton"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="24sp"
+                android:textColor="@color/dark"
+                android:lineSpacingExtra="6sp"
+                android:gravity="center_horizontal"
+                tools:text="박경은 님이 받을 수 있는\n13,500 원이 있어요!"
+
+                />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/withdrawButton"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                android:layout_marginLeft="44dp"
+                android:layout_marginRight="44dp"
+                android:layout_marginBottom="24dp"
+                android:text="회수하기"
+
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+
+
+
+</layout>
