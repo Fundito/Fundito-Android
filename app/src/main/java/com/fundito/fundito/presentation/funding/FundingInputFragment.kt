@@ -14,14 +14,12 @@ import com.fundito.fundito.common.util.toMoney
 import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.activity_funding.*
 import kotlinx.android.synthetic.main.fragment_funding_input.*
-import timber.log.Timber
 
 
 /**
  * Created by mj on 26, December, 2019
  */
 class FundingInputFragment : DaggerFragment() {
-
 
     private val mViewModel: FundingViewModel by lazy{ ViewModelProvider(requireActivity())[FundingViewModel::class.java]}
 
@@ -46,13 +44,10 @@ class FundingInputFragment : DaggerFragment() {
                 fundinginput_txt.text = it.toMoney()
                 adjustTexts()
 
-                Timber.e(it.toString())
                 if(it > 0) {
-                    requireActivity().completeButton.isClickable = true
                     requireActivity().completeButton.setBackgroundColor(resources.getColor(R.color.colorPrimary))
                     requireActivity().completeButton.setTextColor(Color.WHITE)
                 }else {
-                    requireActivity().completeButton.isClickable = false
                     requireActivity().completeButton.setBackgroundColor(Color.WHITE)
                     requireActivity().completeButton.setTextColor(resources.getColor(R.color.dark_navy))
                 }
@@ -80,15 +75,12 @@ class FundingInputFragment : DaggerFragment() {
             fundingCardNumber.isVisible = true
             requiredCharging.isVisible = true
             requiredCharging.text = "충전: ${(-diff).toMoney()}원"
-
             funditoMoney.isVisible = false
 
         }else {
 
             fundingCardNumber.isVisible = false
             requiredCharging.isVisible =false
-
-
             funditoMoney.isVisible = true
         }
 

@@ -5,14 +5,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.observe
 import com.fundito.fundito.R
-import com.fundito.fundito.data.service.NetworkClient
+import com.fundito.fundito.common.util.toMoney
 import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.fragment_funding_complete.*
-import kotlinx.android.synthetic.main.fragment_funding_progress.*
-import kotlinx.coroutines.launch
-import timber.log.Timber
+import kotlin.math.roundToInt
 
 /**
  * Created by mj on 26, December, 2019
@@ -26,22 +24,23 @@ class FundingCompleteFragment : DaggerFragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        lifecycleScope.launch {
-            kotlin.runCatching {
-                var a = NetworkClient.storeInfoService.listStoreInfo()
-                storeName.text =a[1].name
-                completeCost.text = fundingPriceProgress.text
-                completeCost2.text = "${fundingPriceProgress.text}원"
-                additionalCost.text = linewon.text
-                totalCost.text = "${fundingTotal.text}원"
+        observeViewModel()
+    }
+
+    private fun observeViewModel() {
+        mViewModel.apply {
+            store.observe(viewLifecycleOwner) {
+                storeName.text = it.name
             }
-                .onSuccess {
-                    Timber.e("success")
-                }
-                .onFailure {
-                    Timber.e("Fail")
-                    Timber.e(it.message.toString())
-                }
+
+            inputMoney.observe(viewLifecycleOwner) {
+                completeCost.text = it.toMoney()
+                completeCost2.text = "${it.toMoney()} 원"
+            }
+
+            refundMoney.observe(viewLifecycleOwner) {
+                additionalCost.text = "(+${it.roundToInt().toMoney()} 원) ${mViewModel.totalMoney.value!!} 원"
+            }
         }
     }
 

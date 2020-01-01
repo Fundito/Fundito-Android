@@ -122,7 +122,7 @@ class StoreDetailActivity : AppCompatActivity(), HasDefaultViewModelProviderFact
 
         mBinding.fund setOnDebounceClickListener {
             mViewModel.store.value?.storeIdx?.let {
-                startActivity(FundingActivity.newIntent(this@StoreDetailActivity,it))
+                startActivity(FundingActivity.newIntent(this@StoreDetailActivity,it,mViewModel.store.value?.refundPercent ?: 0))
             }
 
         }

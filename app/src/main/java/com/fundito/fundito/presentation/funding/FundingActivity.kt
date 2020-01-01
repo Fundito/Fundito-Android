@@ -4,19 +4,14 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.observe
 import androidx.viewpager2.widget.ViewPager2
 import com.fundito.fundito.R
 import com.fundito.fundito.common.setVisibilityBinding
-import com.fundito.fundito.common.widget.hideLoading
-import com.fundito.fundito.common.widget.setOnDebounceClickListener
-import com.fundito.fundito.common.widget.showLoading
-import com.fundito.fundito.data.service.NetworkClient
+import com.fundito.fundito.common.widget.*
 import dagger.android.support.DaggerAppCompatActivity
 import kotlinx.android.synthetic.main.activity_funding.*
 import kotlinx.android.synthetic.main.layout_toolbar.*
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 /**
@@ -25,31 +20,39 @@ import javax.inject.Inject
 class FundingActivity : DaggerAppCompatActivity() {
 
     @Inject
-    lateinit var viewModelFactory : ViewModelProvider.Factory
-    private val mViewModel by lazy { ViewModelProvider(this,viewModelFactory)[FundingViewModel::class.java] }
+    lateinit var viewModelFactory: ViewModelProvider.Factory
+    private val mViewModel by lazy { ViewModelProvider(this, viewModelFactory)[FundingViewModel::class.java] }
 
     companion object {
 
         private const val ARG_STORE_IDX = "ARG_STORE_IDX"
+        private const val ARG_REFUND_PERCENT = "ARG_REFUND_PERCENT"
 
-        fun newIntent(context: Context, storeIdx: Int): Intent {
+        fun newIntent(context: Context, storeIdx: Int, refundPercent: Int): Intent {
             return Intent(context, FundingActivity::class.java).apply {
                 putExtra(ARG_STORE_IDX, storeIdx)
+                putExtra(ARG_REFUND_PERCENT, refundPercent)
             }
         }
     }
 
+    private var keyboardDialog: KeyboardDialogFragment? = null
+
     val storeId: Int
         get() = intent?.getIntExtra(ARG_STORE_IDX, -1) ?: -1
 
-    private var currentPage : Int = 0
+    val refundPercent: Int
+        get() = intent?.getIntExtra(ARG_REFUND_PERCENT, -1) ?: -1
+
+    private var currentPage: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_funding)
         toolbartitle.text = "투자금액"
+
         backButton setOnDebounceClickListener {
-            onBackPressedDispatcher.onBackPressed()
+            onBackPressed()
         }
 
         initView()
@@ -57,7 +60,7 @@ class FundingActivity : DaggerAppCompatActivity() {
         observeViewModel()
     }
 
-    private fun adaptViewPager(){
+    private fun adaptViewPager() {
         fundingViewpager.adapter = FundingPagerAdapter(this)
         fundingViewpager.offscreenPageLimit = 2
         fundingViewpager.isUserInputEnabled = false
@@ -65,14 +68,14 @@ class FundingActivity : DaggerAppCompatActivity() {
             override fun onPageSelected(position: Int) {
                 currentPage = position
 
-                when(currentPage) {
+                when (currentPage) {
                     0 -> {
                         completeButton.text = "입력 완료"
                     }
-                    1-> {
+                    1 -> {
                         completeButton.text = "투자하기"
                     }
-                    2-> {
+                    2 -> {
                         completeButton.text = "완료"
                     }
                 }
@@ -82,26 +85,33 @@ class FundingActivity : DaggerAppCompatActivity() {
 
     private fun initView() {
         completeButton.setOnDebounceClickListener {
-            when(currentPage) {
-                0-> {
+            when (currentPage) {
+                0 -> {
+                    if(mViewModel.inputMoney.value == null)
+                        return@setOnDebounceClickListener
+
                     fundingViewpager.currentItem = 1
                     toolbartitle.text = "나의 투자현황"
                     progressFirstImg.setVisibilityBinding(false)
                     progressSecondImg.setVisibilityBinding(true)
                 }
-                1-> {
-                    lifecycleScope.launch {
-                        kotlin.runCatching {
-                            var a = NetworkClient.storeInfoService.listStoreInfo()
-                            toolbartitle.text = "목표도달까지 ${a[1].currentGoalPercent}% 남음"
-                        }
-                    }
-                    fundingViewpager.currentItem = 2
-                    progressSecondImg.setVisibilityBinding(false)
-                    progressThirdImg.setVisibilityBinding(true)
-                }
-                2-> {
+                1 -> {
 
+                    keyboardDialog = showKeyboard(true,{}, {
+                        mViewModel.password.value = it
+
+                        if(it.length == KeyboardDialogFragment.PASSWORD_MAX_LEN) {
+                            mViewModel.onCheckPasswordMatch()
+                        }
+                    })
+
+
+
+
+                }
+                2 -> {
+//                    startActivity(Intent(this@FundingActivity,MainActivity::class.java).apply { flags = Intent.FLAG_ACTIVITY_CLEAR_TOP })
+                    finish()
                 }
             }
         }
@@ -110,25 +120,34 @@ class FundingActivity : DaggerAppCompatActivity() {
     private fun observeViewModel() {
         mViewModel.apply {
             loading.observe(this@FundingActivity) {
-                if(it) showLoading() else hideLoading()
+                if (it) showLoading() else hideLoading()
+            }
+
+            fundResult.observeOnce(this@FundingActivity) {
+                if(it) {
+                    hideKeyboard()
+                    keyboardDialog = null
+
+                    fundingViewpager.setCurrentItem(2, true)
+                    progressSecondImg.setVisibilityBinding(false)
+                    progressThirdImg.setVisibilityBinding(true)
+                }else {
+                    keyboardDialog?.onPasswordMatchFailed()
+                }
             }
         }
     }
 
     override fun onBackPressed() {
 
-        when(currentPage) {
-            1-> {
-                fundingViewpager.setCurrentItem(0,true)
+        when (currentPage) {
+            1 -> {
+                fundingViewpager.setCurrentItem(0, true)
             }
-            2-> {
-                fundingViewpager.setCurrentItem(1,true)
-            }
-            else-> {
+            else -> {
                 super.onBackPressed()
             }
         }
-
 
 
     }

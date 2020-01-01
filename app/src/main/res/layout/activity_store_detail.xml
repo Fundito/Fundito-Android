@@ -55,7 +55,6 @@
             <com.google.android.material.button.MaterialButton
                 android:elevation="24dp"
 
-
                 android:clickable="@{vm.investmentActive}"
                 android:backgroundTint="@{vm.investmentActive ? @color/colorPrimary : @color/white}"
                 android:textColor="@{vm.investmentActive ? @color/white : @color/brown_grey}"
