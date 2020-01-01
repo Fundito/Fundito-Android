@@ -133,6 +133,7 @@ class FundingActivity : DaggerAppCompatActivity() {
                     fundingViewpager.setCurrentItem(2, true)
                     progressSecondImg.setVisibilityBinding(false)
                     progressThirdImg.setVisibilityBinding(true)
+                    toolbartitle.text = "투자완료"
                 }else {
                     keyboardDialog?.onPasswordMatchFailed()
                 }
