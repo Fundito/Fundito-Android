@@ -21,24 +21,28 @@ import com.fundito.fundito.databinding.DialogLoadingBinding
  * Created by mj on 24, December, 2019
  */
 fun Fragment.showLoading() {
+    if(childFragmentManager.findFragmentByTag("Loading") != null) return
+
     val dialog = LoadingDialog()
     dialog.show(childFragmentManager, "Loading")
 }
 
 fun AppCompatActivity.showLoading() {
+    if(supportFragmentManager.findFragmentByTag("Loading") != null) return
+
     val dialog = LoadingDialog()
     dialog.show(supportFragmentManager, "Loading")
 }
 
 fun Fragment.hideLoading() {
     childFragmentManager.findFragmentByTag("Loading")?.let {
-        childFragmentManager.beginTransaction().remove(it).commit()
+        (it as? LoadingDialog)?.dismiss()
     }
 }
 
 fun AppCompatActivity.hideLoading() {
     supportFragmentManager.findFragmentByTag("Loading")?.let {
-        supportFragmentManager.beginTransaction().remove(it).commit()
+        (it as? LoadingDialog)?.dismiss()
     }
 }
 

@@ -39,7 +39,7 @@ class FundingCompleteFragment : DaggerFragment() {
             }
 
             refundMoney.observe(viewLifecycleOwner) {
-                additionalCost.text = "(+${it.roundToInt().toMoney()} 원) ${mViewModel.totalMoney.value!!} 원"
+                additionalCost.text = "(+${it.roundToInt().toMoney()} 원) ${mViewModel.totalMoney.value!!.roundToInt().toMoney()} 원"
             }
         }
     }

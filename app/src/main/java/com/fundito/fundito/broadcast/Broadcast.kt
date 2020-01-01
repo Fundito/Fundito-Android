@@ -8,4 +8,6 @@ import kotlinx.coroutines.channels.Channel
  */
 object Broadcast {
     val chargeCompleteEvent : BroadcastChannel<Int> = BroadcastChannel(Channel.CONFLATED)
+
+    val fundEvent : BroadcastChannel<Pair<Int,Int>> = BroadcastChannel(Channel.CONFLATED)
 }

@@ -8,6 +8,7 @@ import androidx.lifecycle.observe
 import androidx.viewpager2.widget.ViewPager2
 import com.fundito.fundito.R
 import com.fundito.fundito.common.setVisibilityBinding
+import com.fundito.fundito.common.showAlert
 import com.fundito.fundito.common.widget.*
 import dagger.android.support.DaggerAppCompatActivity
 import kotlinx.android.synthetic.main.activity_funding.*
@@ -105,9 +106,6 @@ class FundingActivity : DaggerAppCompatActivity() {
                         }
                     })
 
-
-
-
                 }
                 2 -> {
 //                    startActivity(Intent(this@FundingActivity,MainActivity::class.java).apply { flags = Intent.FLAG_ACTIVITY_CLEAR_TOP })
@@ -117,9 +115,13 @@ class FundingActivity : DaggerAppCompatActivity() {
         }
     }
 
+    private var isLoading = false
     private fun observeViewModel() {
         mViewModel.apply {
             loading.observe(this@FundingActivity) {
+                if(isLoading == it) return@observe
+                isLoading = it
+
                 if (it) showLoading() else hideLoading()
             }
 
@@ -134,6 +136,10 @@ class FundingActivity : DaggerAppCompatActivity() {
                 }else {
                     keyboardDialog?.onPasswordMatchFailed()
                 }
+            }
+
+            chargeFail.observeOnce(this@FundingActivity) {
+                showAlert("펀디토 머니 충전 실패")
             }
         }
     }

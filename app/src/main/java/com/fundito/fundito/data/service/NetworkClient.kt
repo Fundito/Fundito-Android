@@ -40,7 +40,7 @@ object NetworkClient {
             val newRequest = chain.request().newBuilder()
                 .addHeader("token", SPUtil.accessToken).build()
 
-            Timber.e("TOKEN : ${SPUtil.accessToken}")
+//            Timber.e("TOKEN : ${SPUtil.accessToken}")
 
 
             /**
@@ -53,7 +53,7 @@ object NetworkClient {
              */
             val rawJson = response.body?.string() ?: "{}"
 
-            Timber.e(rawJson)
+//            Timber.e(rawJson)
 
             /**
              * 4) Wrap body with gson
