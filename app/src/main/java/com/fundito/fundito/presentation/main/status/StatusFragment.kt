@@ -30,10 +30,7 @@ import com.fundito.fundito.common.startMoneyAnimation
 import com.fundito.fundito.common.util.startActivity
 import com.fundito.fundito.common.util.toMoney
 import com.fundito.fundito.common.util.toPixel
-import com.fundito.fundito.common.widget.LinearItemDecoration
-import com.fundito.fundito.common.widget.LockableBottomSheetBehavior
-import com.fundito.fundito.common.widget.observeOnce
-import com.fundito.fundito.common.widget.setOnDebounceClickListener
+import com.fundito.fundito.common.widget.*
 import com.fundito.fundito.databinding.FragmentStatusBinding
 import com.fundito.fundito.databinding.LayoutStatus3Scene1Binding
 import com.fundito.fundito.databinding.LayoutStatus3Scene2Binding
@@ -212,7 +209,7 @@ class StatusFragment : DaggerFragment(), HasDefaultViewModelProviderFactory {
 
         scene1Binding.onGoingRecyclerView.apply {
             adapter = FundingOnGoingAdapter {
-
+                mViewModel.onSelectStore(it.storeIdx)
                 mViewModel.sceneIndex.value = 1
             }
             addItemDecoration(LinearItemDecoration(15))
@@ -324,7 +321,9 @@ class StatusFragment : DaggerFragment(), HasDefaultViewModelProviderFactory {
             userData.observe(viewLifecycleOwner) {
                 mBinding.info.text = "${it.name}님이 현재 얻을 수 있는 금액은?"
             }
+
             fundingData.observe(viewLifecycleOwner) {
+
                 mBinding.info2.text = buildSpannedString {
                     append("원금대비 ")
                     bold {
@@ -342,8 +341,17 @@ class StatusFragment : DaggerFragment(), HasDefaultViewModelProviderFactory {
                 mBinding.bottomSheet1.funding.text = it.totalFundedMoney.toMoney() + " 원"
                 mBinding.bottomSheet1.maxReturnPrice.text = it.totalRewardMoney.toMoney()+ " 원"
             }
+
             funditoMoney.observe(viewLifecycleOwner) {
                 mBinding.bottomSheet1.remain.text = it.toMoney() + " 원"
+            }
+
+            loading.observe(viewLifecycleOwner) {
+                if(it) showLoading() else hideLoading()
+            }
+
+            selectedShopData.observe(viewLifecycleOwner) {
+
             }
         }
     }
