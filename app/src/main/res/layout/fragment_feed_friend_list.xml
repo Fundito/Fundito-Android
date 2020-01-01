@@ -9,7 +9,7 @@
 
     <ImageView
         android:scaleType="centerCrop"
-        android:src="@drawable/home_background_img"
+        android:src="@drawable/feed_bgr_img"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 
@@ -50,8 +50,7 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/cherryontop">
+            android:layout_height="wrap_content">
 
 
             <TextView
@@ -101,7 +100,6 @@
                     android:layout_height="match_parent"
                     android:layout_width="match_parent"
                     android:id="@+id/constraintLayout1"
-
                     android:background="@drawable/background_darknavy_stroke">
 
 
