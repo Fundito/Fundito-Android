@@ -29,7 +29,7 @@ class CardRegisterActivity : AppCompatActivity() {
 
 
         makeController()
-        // initview()
+        initview()
         /**
          * Formatting a credit card number: ####-####-####-####
          */
