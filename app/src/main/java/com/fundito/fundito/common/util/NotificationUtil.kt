@@ -1,5 +1,6 @@
 package com.fundito.fundito.common.util
 
+import android.app.Notification
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.content.Context
@@ -39,7 +40,8 @@ class NotificationUtil @Inject constructor(private val context: Context) {
     fun showNotification(message: String) {
         val noti = NotificationCompat.Builder(context, NOTI_CHANNEL_ID)
             .setContentTitle("펀디토")
-            .setContentText("하이하이")
+            .setContentText("message")
+            .setPriority(Notification.PRIORITY_MAX)
             .build()
 
         nm.notify(NOTI_ID,noti)

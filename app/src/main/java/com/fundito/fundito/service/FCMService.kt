@@ -20,8 +20,6 @@ class FCMService : FirebaseMessagingService() {
     override fun onNewToken(p0: String) {
         super.onNewToken(p0)
 
-        Timber.e(p0)
-
         /**
          * If signinned, Update FCM Token
          */
@@ -38,6 +36,7 @@ class FCMService : FirebaseMessagingService() {
     }
 
     override fun onMessageReceived(p0: RemoteMessage) {
+        Timber.e(p0.toString())
         notiUtil.showNotification("하이")
     }
 }

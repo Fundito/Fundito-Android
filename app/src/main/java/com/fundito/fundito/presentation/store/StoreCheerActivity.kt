@@ -42,6 +42,8 @@ class StoreCheerActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_store_cheer)
 
+        shopName.text = storeName
+
         shareDialog = ShareDialog(this)
         shareDialog.registerCallback(callbackManager,object : FacebookCallback<Sharer.Result> {
             override fun onSuccess(result: Sharer.Result?) {
