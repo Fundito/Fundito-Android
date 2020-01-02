@@ -27,7 +27,8 @@ class CardRegisterActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_card_register)
 
-        usernameTextView.text ="${userName}"
+        val intent = getIntent()
+        usernameTextView.text =intent.getStringExtra("${username}")
 
         makeController()
         initview()
@@ -154,6 +155,9 @@ class CardRegisterActivity : AppCompatActivity() {
                     cardNumberEditText.text.toString(),
                     expirydateEditText.text.toString(),
                     passwordEditText.text.toString())
+                Timber.e("Faill")
+
+                intent.getStringExtra("name")
 
             }
                 .onSuccess {
