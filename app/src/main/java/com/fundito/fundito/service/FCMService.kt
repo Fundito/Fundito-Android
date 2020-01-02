@@ -38,7 +38,6 @@ class FCMService : FirebaseMessagingService() {
     }
 
     override fun onMessageReceived(p0: RemoteMessage) {
-        Timber.e("hi")
         notiUtil.showNotification("하이")
     }
 }

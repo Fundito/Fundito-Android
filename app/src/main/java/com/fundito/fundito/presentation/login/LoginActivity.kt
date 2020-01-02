@@ -70,7 +70,6 @@ class LoginActivity : AppCompatActivity() {
                             val intent = Intent(this@LoginActivity, MainActivity::class.java)
                             startActivity(intent)
 
-
                         }.onFailure {
                             if((it as? HttpException)?.code() == 401) {
                                 val userName = it.message?.dropWhile { it != '[' }?.dropLastWhile { it != ']' }?.filter { it != '[' && it != ']' } ?: ""

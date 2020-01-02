@@ -3,19 +3,17 @@ package com.fundito.fundito.presentation.login
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
-import android.view.View
+import android.text.InputFilter
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.text.buildSpannedString
+import androidx.core.text.color
 import androidx.lifecycle.lifecycleScope
 import com.fundito.fundito.R
-import com.fundito.fundito.data.service.NetworkClient
+import com.fundito.fundito.common.widget.setOnDebounceClickListener
 import kotlinx.android.synthetic.main.activity_login_nickname.*
-import kotlinx.android.synthetic.main.fragment_home.*
-import kotlinx.coroutines.launch
-import retrofit2.HttpException
-import timber.log.Timber
+import kotlinx.coroutines.flow.collect
+import reactivecircus.flowbinding.android.widget.textChanges
 import java.util.regex.Pattern
 
 class LoginNicknameActivity : AppCompatActivity() {
@@ -28,55 +26,32 @@ class LoginNicknameActivity : AppCompatActivity() {
             return Intent(context, LoginNicknameActivity::class.java).apply {
                 putExtra(ARG_NAME, name)
             }
-
         }
     }
 
     private val userName: String
         get() = intent?.getStringExtra(ARG_NAME) ?: ""
 
-    val nicknamePattern: String = "^[A-Za-z[0-9]]{2,5}$" // 영문, 숫자
-    var chkFlag: Boolean = false
+    private val nicknamePattern: String = "^[A-Za-z[0-9]]{2,12}$" // 영문, 숫자
 
     override fun onCreate(savedInstanceState: Bundle?) {
+
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login_nickname)
 
-
-        username.text = "${userName}"
+        username.text = buildSpannedString {
+            append("안녕하세요 ")
+            color(resources.getColor(R.color.dark_navy)){append(userName)}
+            append("님!")
+        }
 
         makeController()
         initview()
 
 
-        nicknameEditText.addTextChangedListener(object : TextWatcher {
-
-            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
-                button.visibility = View.VISIBLE
-                if (nickNameCheckPattern(nicknameEditText.text.toString())) {
-                    confirmTextView.setText("사용 가능합니다.")
-                } else {
-                    confirmTextView.setText("2-5글자 사이로만 입력해주세요")
-                }
-                // 입력되는 텍스트에 변화가 있을 때
-            }
-
-            override fun afterTextChanged(arg0: Editable) {
-                // 입력이 끝났을 때
-            }
-
-
-            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {
-
-                // 입력하기 전에
-
-            }
-
-        })
-
     }
 
-    fun makeController() {
+    private fun makeController() {
         // 이번에는 kotlin extensions를 이용해서 개발 진행
         button.setOnClickListener {
             val nickname = nicknameEditText.text.toString()
@@ -84,54 +59,49 @@ class LoginNicknameActivity : AppCompatActivity() {
             if (nickname.isEmpty()) {
                 Toast.makeText(this, "닉네임을 입력해주세요.", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
-
             }
             val intent = Intent(this@LoginNicknameActivity, CardRegisterActivity::class.java)
             startActivity(intent)
         }
     }
 
-    fun nickNameCheckPattern(nickName: String): Boolean {
-
+    private fun nickNameCheckPattern(nickName: String): Boolean {
         val match = Pattern.compile(nicknamePattern).matcher(nickName)
-        chkFlag = match.find()
-        return chkFlag
+        return match.matches()
     }
 
     private fun initview() {
-        lifecycleScope.launch {
-            kotlin.runCatching {
-                var a = NetworkClient.userService.getUser()
-                Timber.e("1")
-                username.text = a.name
-                Timber.e("2")
-                nickName.text = a.nickname
-                nicknameEditText
 
-            }
-                .onSuccess {
-                    Timber.e("success")
-                    val intent = Intent(this@LoginNicknameActivity, CardRegisterActivity::class.java)
-                    startActivity(intent)
-                }
-                .onFailure {
-                    Timber.e("Fail")
-                    Timber.e(it.message.toString())
-                    if ((it as? HttpException)?.code() == 401) {
-                        val userName = it.message?.dropWhile { it != '[' }?.dropLastWhile { it != ']' }?.filter { it != '[' && it != ']' } ?: ""
-                        Timber.e("유저 이름 : $userName")
+        nicknameEditText.filters = arrayOf(
+            InputFilter.LengthFilter(12)
+        )
 
-                        val intent = Intent(
-                            this@LoginNicknameActivity, CardRegisterActivity::class.java)
-                        intent.putExtra("name","value")
-
-                        startActivity(intent)
-
-
-
+        lifecycleScope.launchWhenStarted {
+            nicknameEditText
+                .textChanges()
+                .collect {nickname->
+                    if(nickNameCheckPattern(nickname.toString())) {
+                        confirmTextView.text = "사용 가능합니다"
+                        confirmTextView.setTextColor(resources.getColor(R.color.blueberry_two))
+                    }else {
+                        confirmTextView.text = "2-12글자 사이로만 입력해주세요"
+                        confirmTextView.setTextColor(resources.getColor(R.color.coral))
                     }
                 }
         }
+
+        button setOnDebounceClickListener {
+            lifecycleScope.launchWhenStarted {
+                kotlin.runCatching {
+                    //TODO
+                }.onSuccess {
+                    startActivity(CardRegisterActivity.newIntent(this@LoginNicknameActivity,userName,nicknameEditText.text.toString()))
+                }.onFailure {
+
+                }
+            }
+        }
+
     }
 }
 

@@ -53,7 +53,7 @@ object NetworkClient {
              */
             val rawJson = response.body?.string() ?: "{}"
 
-//            Timber.e(rawJson)
+            Timber.e(rawJson)
 
             /**
              * 4) Wrap body with gson

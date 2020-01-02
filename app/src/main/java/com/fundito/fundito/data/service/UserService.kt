@@ -2,7 +2,6 @@ package com.fundito.fundito.data.service
 
 import android.annotation.SuppressLint
 import android.os.Parcelable
-import com.fundito.fundito.data.model.User
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 import kotlinx.android.parcel.Parcelize
@@ -17,12 +16,13 @@ import retrofit2.http.*
 interface UserService {
 
     //1
-    @PUT("auth/signuup")
+    @POST("auth/signup")
+    @FormUrlEncoded
     suspend fun signUp(
         @Header("access_token") facebookAccessToken : String,
         @Field("nickname") nickname: String,
         @Field("pay_password") pay_password: String
-    ):User
+    ):TokenResponse
 
     //2
     @GET("auth/signin")

@@ -19,7 +19,7 @@ interface CardService {
         @Field("cardNumber") cardNumber : String,
         @Field("cardExpirationDate") cardExpiratioinDate : String,
         @Field("cardPassword") cardPassword : String
-    ) :CardResponse
+    )
 
     @GET("mypage/card")
     suspend fun getCard() : CardResponse
