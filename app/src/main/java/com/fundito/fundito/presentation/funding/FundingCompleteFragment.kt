@@ -24,6 +24,24 @@ class FundingCompleteFragment : DaggerFragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        observeViewModel()
+    }
+
+    private fun observeViewModel() {
+        mViewModel.apply {
+            store.observe(viewLifecycleOwner) {
+                storeName.text = it.name
+            }
+
+            inputMoney.observe(viewLifecycleOwner) {
+                completeCost.text = it.toMoney()
+                completeCost2.text = "${it.toMoney()} 원"
+            }
+
+            refundMoney.observe(viewLifecycleOwner) {
+                additionalCost.text = "(+${it.roundToInt().toMoney()} 원) ${mViewModel.totalMoney.value!!.roundToInt().toMoney()} 원"
+            }
+        }
     }
 
 }

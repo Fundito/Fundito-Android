@@ -74,7 +74,7 @@ class StoreDetailViewModel(private val storeIdx : Int) : ViewModel() {
                 }.onFailure {
                     Timber.e(it)
                 }
-                delay(5000L)
+                delay(30000L)
             }
         }
     }

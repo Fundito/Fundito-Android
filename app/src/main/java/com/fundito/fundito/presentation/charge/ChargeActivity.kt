@@ -99,8 +99,16 @@ class ChargeActivity : DaggerAppCompatActivity() {
         }
     }
 
+    private var isLoading = false
     private fun observeViewModel() {
         mViewModel.apply {
+
+            loading.observe(this@ChargeActivity) {
+                if(isLoading == it) return@observe
+                isLoading = it
+                if(it) showLoading() else hideLoading()
+            }
+
             passwordMatch.observeOnce(this@ChargeActivity) { matched ->
 
                 /**

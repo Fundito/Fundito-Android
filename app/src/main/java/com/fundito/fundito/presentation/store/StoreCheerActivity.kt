@@ -1,5 +1,6 @@
 package com.fundito.fundito.presentation.store
 
+import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -19,6 +20,20 @@ import kotlinx.android.synthetic.main.activity_store_cheer.*
  * Created by mj on 26, December, 2019
  */
 class StoreCheerActivity : AppCompatActivity() {
+
+    companion object {
+        private const val ARG_STORE_NAME = "ARG_STORE_NAME"
+
+        fun newIntent(context: Context, storeName: String) : Intent {
+            return Intent(context,StoreCheerActivity::class.java).apply {
+                putExtra(ARG_STORE_NAME,storeName)
+            }
+        }
+    }
+
+    private val storeName: String
+    get() = intent?.getStringExtra(ARG_STORE_NAME) ?: ""
+
 
     private lateinit var shareDialog :ShareDialog
     private val callbackManager = CallbackManager.Factory.create()
@@ -46,7 +61,7 @@ class StoreCheerActivity : AppCompatActivity() {
         cheerButton setOnDebounceClickListener {
             val content = ShareLinkContent.Builder()
                 .setContentUrl(Uri.parse("https://fundito.page.link/XktS"))
-                .setQuote("펀디토 망해라")
+                .setQuote("$storeName 에 투자하세요! \n#Fundito")
                 .build()
             shareDialog.show(content,ShareDialog.Mode.AUTOMATIC)
         }
