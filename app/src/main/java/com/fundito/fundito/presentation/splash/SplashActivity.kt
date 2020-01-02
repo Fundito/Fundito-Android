@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.facebook.AccessToken
 import com.fundito.fundito.R
+import com.fundito.fundito.common.util.AuthUtil
 import com.fundito.fundito.common.util.SPUtil
 import com.fundito.fundito.common.util.startActivity
 import com.fundito.fundito.data.service.NetworkClient
@@ -55,6 +56,7 @@ class SplashActivity : AppCompatActivity() {
                     startActivity(MainActivity::class, Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
                 }.onFailure {
                     Timber.e(it)
+                    AuthUtil.logout()
                     startActivity(LoginActivity::class, Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
                 }
             }

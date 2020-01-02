@@ -73,8 +73,8 @@ class LoginActivity : AppCompatActivity() {
 
                         }.onFailure {
                             if((it as? HttpException)?.code() == 401) {
-                                val userName = it.message?.dropWhile { it == '[' }?.dropLastWhile { it == ']' }?.filter { it != '[' && it != ']' } ?: ""
-                                Timber.e(userName)
+                                val userName = it.message?.dropWhile { it != '[' }?.dropLastWhile { it != ']' }?.filter { it != '[' && it != ']' } ?: ""
+                                Timber.e("유저 이름 : $userName")
                                 startActivity(LoginNicknameActivity.newIntent(this@LoginActivity,userName))
                             }else {
                                 AuthUtil.logout()
