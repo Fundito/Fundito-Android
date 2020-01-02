@@ -21,12 +21,14 @@ import timber.log.Timber
  * Created by mj on 26, December, 2019
  */
 class CardRegisterActivity : AppCompatActivity() {
+    private val userName = String
     private val TAG = "CardRegisterActivity"
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_card_register)
 
+        val intent = getIntent()
+        usernameTextView.text =intent.getStringExtra("${username}")
 
         makeController()
         initview()
@@ -153,7 +155,9 @@ class CardRegisterActivity : AppCompatActivity() {
                     cardNumberEditText.text.toString(),
                     expirydateEditText.text.toString(),
                     passwordEditText.text.toString())
-                name.text =a.userName
+                Timber.e("Faill")
+
+                intent.getStringExtra("name")
 
             }
                 .onSuccess {

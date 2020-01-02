@@ -14,6 +14,7 @@ import com.fundito.fundito.data.service.NetworkClient
 import kotlinx.android.synthetic.main.activity_login_nickname.*
 import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.coroutines.launch
+import retrofit2.HttpException
 import timber.log.Timber
 import java.util.regex.Pattern
 
@@ -23,15 +24,16 @@ class LoginNicknameActivity : AppCompatActivity() {
 
         private const val ARG_NAME = "ARG_NAME"
 
-        fun newIntent(context: Context, name: String) : Intent {
+        fun newIntent(context: Context, name: String): Intent {
             return Intent(context, LoginNicknameActivity::class.java).apply {
-                putExtra(ARG_NAME,name)
+                putExtra(ARG_NAME, name)
             }
+
         }
     }
 
     private val userName: String
-    get() = intent?.getStringExtra(ARG_NAME) ?: ""
+        get() = intent?.getStringExtra(ARG_NAME) ?: ""
 
     val nicknamePattern: String = "^[A-Za-z[0-9]]{2,5}$" // 영문, 숫자
     var chkFlag: Boolean = false
@@ -40,9 +42,11 @@ class LoginNicknameActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login_nickname)
 
+
+        username.text = "${userName}"
+
         makeController()
         initview()
-
 
 
         nicknameEditText.addTextChangedListener(object : TextWatcher {
@@ -75,13 +79,13 @@ class LoginNicknameActivity : AppCompatActivity() {
     fun makeController() {
         // 이번에는 kotlin extensions를 이용해서 개발 진행
         button.setOnClickListener {
-           val nickname = nicknameEditText.text.toString()
+            val nickname = nicknameEditText.text.toString()
             // 빈 칸이 있으면 안되므로 빈 칸 체크
             if (nickname.isEmpty()) {
                 Toast.makeText(this, "닉네임을 입력해주세요.", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
 
-        }
+            }
             val intent = Intent(this@LoginNicknameActivity, CardRegisterActivity::class.java)
             startActivity(intent)
         }
@@ -89,18 +93,21 @@ class LoginNicknameActivity : AppCompatActivity() {
 
     fun nickNameCheckPattern(nickName: String): Boolean {
 
-        val match = Pattern.compile(nicknamePattern).matcher(nickName);
+        val match = Pattern.compile(nicknamePattern).matcher(nickName)
         chkFlag = match.find()
         return chkFlag
     }
-    private fun initview(){
+
+    private fun initview() {
         lifecycleScope.launch {
             kotlin.runCatching {
                 var a = NetworkClient.userService.getUser()
                 Timber.e("1")
-                name.text =a.name
+                username.text = a.name
                 Timber.e("2")
                 nickName.text = a.nickname
+                nicknameEditText
+
             }
                 .onSuccess {
                     Timber.e("success")
@@ -110,6 +117,19 @@ class LoginNicknameActivity : AppCompatActivity() {
                 .onFailure {
                     Timber.e("Fail")
                     Timber.e(it.message.toString())
+                    if ((it as? HttpException)?.code() == 401) {
+                        val userName = it.message?.dropWhile { it != '[' }?.dropLastWhile { it != ']' }?.filter { it != '[' && it != ']' } ?: ""
+                        Timber.e("유저 이름 : $userName")
+
+                        val intent = Intent(
+                            this@LoginNicknameActivity, CardRegisterActivity::class.java)
+                        intent.putExtra("name","value")
+
+                        startActivity(intent)
+
+
+
+                    }
                 }
         }
     }
