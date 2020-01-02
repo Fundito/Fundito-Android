@@ -54,7 +54,8 @@ class FriendFundingListAdapter(private val onItemClick : (MonthlyDitoResponse) -
             binding.executePendingBindings()
 
             binding.profileNameTextView.text = item.name
-            binding.fundingnumberTextView.text = "${item.fund}개 지점 투자 중"
+            binding.fundingnumberTextView.text = "${item.fund.size}개 지점 투자 중"
+//            binding.profileImageView.loadUrlAsync(item)
         }
     }
 }

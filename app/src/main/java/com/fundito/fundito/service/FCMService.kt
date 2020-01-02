@@ -15,8 +15,6 @@ import timber.log.Timber
  */
 class FCMService : FirebaseMessagingService() {
 
-    private val notiUtil = NotificationUtil(this)
-
     override fun onNewToken(p0: String) {
         super.onNewToken(p0)
 
@@ -36,6 +34,7 @@ class FCMService : FirebaseMessagingService() {
     }
 
     override fun onMessageReceived(p0: RemoteMessage) {
+        val notiUtil = NotificationUtil(applicationContext)
         Timber.e(p0.toString())
         notiUtil.showNotification("하이")
     }

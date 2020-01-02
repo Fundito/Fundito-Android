@@ -31,25 +31,30 @@ class FeedFriendDetailActivity : DaggerAppCompatActivity(), HasDefaultViewModelP
 
     companion object {
         private const val ARG_FRIEND_IDX = "ARG_FRIEND_IDX"
+        private const val ARG_FRIEND_NAME = "ARG_FRIEND_NAME"
 
-        fun newIntent(context: Context, friendIdx: Int): Intent {
+        fun newIntent(context: Context, friendIdx: Int, friendName: String): Intent {
             return Intent(context, FeedFriendDetailActivity::class.java).apply {
                 putExtra(ARG_FRIEND_IDX, friendIdx)
+                putExtra(ARG_FRIEND_NAME, friendName)
             }
         }
     }
 
-    private lateinit var mBinding : ActivityFeedFriendDetailBinding
+    private lateinit var mBinding: ActivityFeedFriendDetailBinding
 
     @Inject
-    lateinit var viewModelFactory : ViewModelFactory
+    lateinit var viewModelFactory: ViewModelFactory
+
     override fun getDefaultViewModelProviderFactory() = viewModelFactory
 
     val friendIdx: Int
         get() = intent?.getIntExtra(ARG_FRIEND_IDX, -1) ?: -1
+    val friendName: String
+    get() = intent?.getStringExtra(ARG_FRIEND_NAME) ?: ""
 
-    private val mViewModel : FeedFriendDetailViewModel by lazy {
-        ViewModelProvider(this,viewModelFactory)[FeedFriendDetailViewModel::class.java]
+    private val mViewModel: FeedFriendDetailViewModel by lazy {
+        ViewModelProvider(this, viewModelFactory)[FeedFriendDetailViewModel::class.java]
     }
 
 
@@ -72,7 +77,7 @@ class FeedFriendDetailActivity : DaggerAppCompatActivity(), HasDefaultViewModelP
         mBinding.recyclerView.apply {
             adapter = FundingOnGoingAdapter({
                 startActivity(StoreDetailActivity::class)
-            },false)
+            }, false)
             addItemDecoration(LinearItemDecoration(1))
             addItemDecoration(object : RecyclerView.ItemDecoration() {
                 override fun onDraw(c: Canvas, parent: RecyclerView, state: RecyclerView.State) {
@@ -84,17 +89,16 @@ class FeedFriendDetailActivity : DaggerAppCompatActivity(), HasDefaultViewModelP
         mBinding.toolbar.backButton setOnDebounceClickListener {
             onBackPressedDispatcher.onBackPressed()
         }
+
+        mBinding.toolbar.toolbartitle.text = "$friendName 님의 투자현황"
+        mBinding.name.text = buildSpannedString {
+            bold { append(friendName) }
+            append("$friendName 님")
+        }
     }
 
     private fun observeViewModel() {
         mViewModel.apply {
-            userData.observe(this@FeedFriendDetailActivity) {
-                mBinding.toolbar.toolbartitle.text = "${it.name} 님의 투자현황"
-                mBinding.name.text = buildSpannedString {
-                    bold{ append(it.name) }
-                    append(" 님")
-                }
-            }
 
             items.observe(this@FeedFriendDetailActivity) {
                 (mBinding.recyclerView.adapter as? FundingOnGoingAdapter)?.submitItems(

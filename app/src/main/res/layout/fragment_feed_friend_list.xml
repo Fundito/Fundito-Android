@@ -137,6 +137,7 @@
 
 
                     <TextView
+                        app:layout_constraintBottom_toTopOf="@id/fundingSuccessLeftTextView"
                         android:id="@+id/storenumberLeftTextView"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -228,6 +229,7 @@
                         app:layout_constraintTop_toBottomOf="@+id/medalCenterImageView" />
 
                     <TextView
+                        app:layout_constraintBottom_toTopOf="@id/fundingSuccessCenterTextView"
                         android:id="@+id/storenumberCenterTextView"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -315,6 +317,7 @@
                         app:layout_constraintTop_toBottomOf="@+id/medalRightImageView" />
 
                     <TextView
+                        app:layout_constraintBottom_toTopOf="@id/fundingSuccessRightTextView"
                         android:id="@+id/storenumberRightTextView"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"

@@ -19,24 +19,6 @@ class FeedFriendDetailViewModel@Inject constructor(
     private val _loading : MutableLiveData<Boolean> = MutableLiveData()
     val loading : LiveData<Boolean> = _loading
 
-    val userData = liveData {
-        kotlin.runCatching {
-            NetworkClient.userService.getUser()
-        }.onSuccess {
-            emit(it)
-        }
-    }
-
-    val monthlyDitos = liveData {
-        _loading.value = true
-        kotlin.runCatching {
-            NetworkClient.friendService.monthlyDitoList()
-        }.onSuccess {
-            emit(it)
-        }
-        _loading.value = false
-    }
-
     val items = liveData {
         _loading.value = true
         kotlin.runCatching {

@@ -44,7 +44,7 @@ class FeedFriendListFragment : Fragment() {
 
 
         val adapter = FriendFundingListAdapter {
-            startActivity(FeedFriendDetailActivity.newIntent(requireContext(),it.userIdx))
+            startActivity(FeedFriendDetailActivity.newIntent(requireContext(),it.userIdx,it.name))
         }
 
         friendFundingRecyclerView.layoutManager = LinearLayoutManager(activity?.baseContext, LinearLayoutManager.VERTICAL, false)
@@ -73,21 +73,21 @@ class FeedFriendListFragment : Fragment() {
 
                 it.getOrNull(0)?.let {res->
                     card1.setOnDebounceClickListener {
-                        startActivity(FeedFriendDetailActivity.newIntent(requireContext(),res.userIdx))
+                        startActivity(FeedFriendDetailActivity.newIntent(requireContext(),res.userIdx,res.name))
                     }
                     profileLeftTextView.text = res.nickname
                     storenumberLeftTextView.text = "${res.fund.size}개 지점"
                 }
                 it.getOrNull(1)?.let {res->
                     card2.setOnDebounceClickListener {
-                        startActivity(FeedFriendDetailActivity.newIntent(requireContext(),res.userIdx))
+                        startActivity(FeedFriendDetailActivity.newIntent(requireContext(),res.userIdx,res.name))
                     }
                     profileCenterTextView.text = res.nickname
                     storenumberCenterTextView.text = "${res.fund.size}개 지점"
                 }
                 it.getOrNull(2)?.let {res->
                     card3.setOnDebounceClickListener {
-                        startActivity(FeedFriendDetailActivity.newIntent(requireContext(),res.userIdx))
+                        startActivity(FeedFriendDetailActivity.newIntent(requireContext(),res.userIdx,res.name))
                     }
                     profileRightTextView.text = res.nickname
                     storenumberRightTextView.text = "${res.fund.size}개 지점"
