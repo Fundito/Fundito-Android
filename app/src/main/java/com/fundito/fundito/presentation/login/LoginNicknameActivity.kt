@@ -10,8 +10,11 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.fundito.fundito.R
+import com.fundito.fundito.common.util.toMoney
 import com.fundito.fundito.data.service.NetworkClient
+import kotlinx.android.synthetic.main.activity_card_register.*
 import kotlinx.android.synthetic.main.activity_login_nickname.*
+import kotlinx.android.synthetic.main.fragment_funding_input.*
 import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.coroutines.launch
 import timber.log.Timber
@@ -27,6 +30,7 @@ class LoginNicknameActivity : AppCompatActivity() {
             return Intent(context, LoginNicknameActivity::class.java).apply {
                 putExtra(ARG_NAME,name)
             }
+
         }
     }
 
@@ -40,9 +44,11 @@ class LoginNicknameActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login_nickname)
 
+
+        username.text = "${userName}"
+
         makeController()
         initview()
-
 
 
         nicknameEditText.addTextChangedListener(object : TextWatcher {
@@ -89,18 +95,21 @@ class LoginNicknameActivity : AppCompatActivity() {
 
     fun nickNameCheckPattern(nickName: String): Boolean {
 
-        val match = Pattern.compile(nicknamePattern).matcher(nickName);
+        val match = Pattern.compile(nicknamePattern).matcher(nickName)
         chkFlag = match.find()
         return chkFlag
     }
+
     private fun initview(){
         lifecycleScope.launch {
             kotlin.runCatching {
                 var a = NetworkClient.userService.getUser()
                 Timber.e("1")
-                name.text =a.name
+                username.text =a.name
                 Timber.e("2")
                 nickName.text = a.nickname
+                nicknameEditText
+
             }
                 .onSuccess {
                     Timber.e("success")
@@ -110,6 +119,9 @@ class LoginNicknameActivity : AppCompatActivity() {
                 .onFailure {
                     Timber.e("Fail")
                     Timber.e(it.message.toString())
+                    val intent = Intent(
+                        this@LoginNicknameActivity, CardRegisterActivity::class.java)
+
                 }
         }
     }
