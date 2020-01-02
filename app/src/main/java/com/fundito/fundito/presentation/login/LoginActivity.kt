@@ -2,7 +2,6 @@ package com.fundito.fundito.presentation.login
 
 import android.content.Intent
 import android.os.Bundle
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.facebook.AccessToken
@@ -14,7 +13,6 @@ import com.fundito.fundito.R
 import com.fundito.fundito.common.showAlert
 import com.fundito.fundito.common.util.AuthUtil
 import com.fundito.fundito.common.util.SPUtil
-import com.fundito.fundito.common.util.startActivity
 import com.fundito.fundito.common.widget.hideLoading
 import com.fundito.fundito.common.widget.setOnDebounceClickListener
 import com.fundito.fundito.common.widget.showLoading
@@ -25,6 +23,7 @@ import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.suspendCancellableCoroutine
 import retrofit2.HttpException
+import timber.log.Timber
 import kotlin.coroutines.resume
 
 
@@ -47,6 +46,7 @@ class LoginActivity : AppCompatActivity() {
             registerCallback(callbackManager, object : FacebookCallback<LoginResult> {
 
                 override fun onSuccess(result: LoginResult?) {
+
                     lifecycleScope.launch {
 
                         val fcmToken = suspendCancellableCoroutine<String> {continuation->
@@ -73,7 +73,9 @@ class LoginActivity : AppCompatActivity() {
 
                         }.onFailure {
                             if((it as? HttpException)?.code() == 401) {
-                                startActivity(LoginNicknameActivity::class)
+                                val userName = it.message?.dropWhile { it == '[' }?.dropLastWhile { it == ']' }?.filter { it != '[' && it != ']' } ?: ""
+                                Timber.e(userName)
+                                startActivity(LoginNicknameActivity.newIntent(this@LoginActivity,userName))
                             }else {
                                 AuthUtil.logout()
                                 showAlert("로그인 실패")

@@ -1,7 +1,7 @@
 package com.fundito.fundito.presentation.login
 
+import android.content.Context
 import android.content.Intent
-import android.graphics.Color
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -11,18 +11,28 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.fundito.fundito.R
 import com.fundito.fundito.data.service.NetworkClient
-import com.fundito.fundito.presentation.main.MainActivity
-import kotlinx.android.synthetic.main.activity_card_register.*
 import kotlinx.android.synthetic.main.activity_login_nickname.*
-import kotlinx.android.synthetic.main.activity_login_nickname.nicknameEditText
-import kotlinx.android.synthetic.main.fragment_funding_complete.*
-import kotlinx.android.synthetic.main.fragment_funding_progress.*
 import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.coroutines.launch
 import timber.log.Timber
 import java.util.regex.Pattern
 
 class LoginNicknameActivity : AppCompatActivity() {
+
+    companion object {
+
+        private const val ARG_NAME = "ARG_NAME"
+
+        fun newIntent(context: Context, name: String) : Intent {
+            return Intent(context, LoginNicknameActivity::class.java).apply {
+                putExtra(ARG_NAME,name)
+            }
+        }
+    }
+
+    private val userName: String
+    get() = intent?.getStringExtra(ARG_NAME) ?: ""
+
     val nicknamePattern: String = "^[A-Za-z[0-9]]{2,5}$" // 영문, 숫자
     var chkFlag: Boolean = false
 
@@ -79,12 +89,8 @@ class LoginNicknameActivity : AppCompatActivity() {
 
     fun nickNameCheckPattern(nickName: String): Boolean {
 
-        var match = Pattern.compile(nicknamePattern).matcher(nickName);
-        if (match.find()) {
-            chkFlag = true
-        } else {
-            chkFlag = false
-        }
+        val match = Pattern.compile(nicknamePattern).matcher(nickName);
+        chkFlag = match.find()
         return chkFlag
     }
     private fun initview(){
