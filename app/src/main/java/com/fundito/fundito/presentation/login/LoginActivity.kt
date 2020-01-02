@@ -2,6 +2,7 @@ package com.fundito.fundito.presentation.login
 
 import android.content.Intent
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.facebook.AccessToken
@@ -65,8 +66,11 @@ class LoginActivity : AppCompatActivity() {
                             )
                         }.onSuccess {
                             SPUtil.accessToken = it.token
+
                             val intent = Intent(this@LoginActivity, MainActivity::class.java)
                             startActivity(intent)
+
+
                         }.onFailure {
                             if((it as? HttpException)?.code() == 401) {
                                 startActivity(LoginNicknameActivity::class)

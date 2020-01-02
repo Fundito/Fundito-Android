@@ -33,7 +33,8 @@ interface UserService {
 
     //3
     @GET("auth/user")
-    suspend fun getUser():UserResponse
+    suspend fun getUser(
+        ):UserResponse
 
     //5
     @PUT("mypage/point")
