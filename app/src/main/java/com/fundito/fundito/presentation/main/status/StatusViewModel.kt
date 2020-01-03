@@ -5,6 +5,7 @@ import com.fundito.fundito.broadcast.Broadcast
 import com.fundito.fundito.common.widget.Once
 import com.fundito.fundito.data.model.Funding
 import com.fundito.fundito.data.model.Store
+import com.fundito.fundito.data.service.CompleteFundingResponse
 import com.fundito.fundito.data.service.CurrentFundingResponse
 import com.fundito.fundito.data.service.CurrentFundingStatus
 import com.fundito.fundito.data.service.NetworkClient
@@ -64,15 +65,9 @@ class StatusViewModel @Inject constructor() : ViewModel() {
     private val _currentFundingStores: MutableLiveData<List<CurrentFundingResponse>> = MutableLiveData(listOf())
     val currentFundingStores: LiveData<List<CurrentFundingResponse>> = _currentFundingStores
 
-    val completeFundingStores = liveData {
-        _loading.value = true
-        kotlin.runCatching {
-            NetworkClient.fundingService.listCompleteFundingStore()
-        }.onSuccess {
-            emit(it)
-        }
-        _loading.value = false
-    }
+    private val _completeFundingStores : MutableLiveData<List<CompleteFundingResponse>> = MutableLiveData(listOf())
+    val completeFundingStores : LiveData<List<CompleteFundingResponse>> = _completeFundingStores
+    
 
     val selectedShopData = MutableLiveData<Triple<Store, Funding, List<Funding>>>()
 
@@ -84,14 +79,15 @@ class StatusViewModel @Inject constructor() : ViewModel() {
         getFundingData()
         getRecentFundingHistories()
         getCurrentFundings()
+        getCompleteFundings()
 
         viewModelScope.launch {
             Broadcast.chargeCompleteEvent.asFlow().collect {
-                Timber.e("충전 완료 $it")
                 getFunditoMoney()
                 getFundingData()
                 getRecentFundingHistories()
                 getCurrentFundings()
+                getCompleteFundings()
             }
         }
         viewModelScope.launch {
@@ -100,13 +96,14 @@ class StatusViewModel @Inject constructor() : ViewModel() {
                 getFundingData()
                 getRecentFundingHistories()
                 getCurrentFundings()
+                getCompleteFundings()
             }
         }
 
 
     }
 
-    fun getFunditoMoney() {
+    private fun getFunditoMoney() {
         viewModelScope.launch {
             _loading.value = true
             kotlin.runCatching {
@@ -153,6 +150,16 @@ class StatusViewModel @Inject constructor() : ViewModel() {
             Timber.e(it)
         }
         _loading.value = false
+    }
+
+    private fun getCompleteFundings() = viewModelScope.launch {
+        kotlin.runCatching {
+            NetworkClient.fundingService.listCompleteFundingStore()
+        }.onSuccess {
+            _completeFundingStores.value = it
+        }.onFailure {
+            Timber.e(it)
+        }
     }
 
 

@@ -27,9 +27,9 @@ android {
     signingConfigs {
         create("release") {
             storeFile = file("/Users/mj/Library/Mobile Documents/com~apple~CloudDocs/KEYSTORE/FUNDITO/FUNDITO")
-            storePassword = "ㅋㅋ"
+            storePassword = "ㅋ"
             keyAlias = "FUNDITO"
-            keyPassword = "ㅋㅋㅋ"
+            keyPassword = "ㅋ"
         }
     }
     buildTypes {
@@ -60,11 +60,6 @@ android {
         }
     }
 
-    externalNativeBuild {
-        cmake {
-            setPath("src/main/jni/CMakeLists.txt")
-        }
-    }
 
     tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile::class.java).all {
         kotlinOptions {

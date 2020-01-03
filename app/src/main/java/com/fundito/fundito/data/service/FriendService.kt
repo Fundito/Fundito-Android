@@ -31,15 +31,18 @@ data class FriendFundingDetailResponse(
     @SerializedName("proceeding")
     @Expose(serialize = true, deserialize = true)
     val proceeding: List<Proceeding>,
-//    @SerializedName("success")
-//    @Expose(serialize = true, deserialize = true)
-//    val success: List<Any>,
+    @SerializedName("success")
+    @Expose(serialize = true, deserialize = true)
+    val success: List<Success>,
     @SerializedName("fail")
     @Expose(serialize = true, deserialize = true)
     val fail: List<Fail>
 ) : Parcelable {
     @Parcelize
     data class Proceeding(
+        @SerializedName("storeIdx")
+        @Expose
+        val storeIdx: Int,
         @SerializedName("storeName")
         @Expose(serialize = true, deserialize = true)
         val storeName: String,
@@ -48,11 +51,31 @@ data class FriendFundingDetailResponse(
         val remainingDays: Int,
         @SerializedName("progressPercent")
         @Expose(serialize = true, deserialize = true)
-        val progressPercent: Int
+        val progressPercent: Double
     ) : Parcelable
-
+    @Parcelize
+    data class Success(
+        @SerializedName("storeIdx")
+        @Expose
+        val storeIdx: Int,
+        @SerializedName("storeName")
+        @Expose(serialize = true, deserialize = true)
+        val storeName: String,
+        @SerializedName("dueDate")
+        @Expose(serialize = true, deserialize = true)
+        val dueDate: String,
+        @SerializedName("fundingMoney")
+        @Expose(serialize = true, deserialize = true)
+        val fundingMoney: Int,
+        @SerializedName("refundMoney")
+        @Expose(serialize = true, deserialize = true)
+        val refundMoney: Int
+    ) : Parcelable
     @Parcelize
     data class Fail(
+        @SerializedName("storeIdx")
+        @Expose
+        val storeIdx: Int,
         @SerializedName("storeName")
         @Expose(serialize = true, deserialize = true)
         val storeName: String,

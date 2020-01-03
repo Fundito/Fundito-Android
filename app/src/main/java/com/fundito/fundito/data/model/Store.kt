@@ -89,7 +89,7 @@ data class FundingInStore(
     val fundingTime: String,
     @SerializedName("is_withdraw")
     @Expose(serialize = true, deserialize = true)
-    val isWithdraw: Int,
+    val isWithdraw: Int? = -1,
     @SerializedName("user_name")
     @Expose(serialize = true, deserialize = true)
     val userName: String
