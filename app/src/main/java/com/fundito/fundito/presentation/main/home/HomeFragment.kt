@@ -145,7 +145,7 @@ class HomeFragment : DaggerFragment(), HasDefaultViewModelProviderFactory {
             }
             Timber.e(ssid)
 //            mViewModel.onWifiStateChanged(ssid)
-            mViewModel.onWifiStateChanged("roro11")
+            mViewModel.onWifiStateChanged("bokdeok")
         }
     }
 
