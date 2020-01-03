@@ -65,7 +65,7 @@ object DateParsingUtil {
             dayDiff > 0 -> "${dayDiff}일전"
             hourDiff > 0 ->"${hourDiff}시간전"
             diffMin > 0 -> "${diffMin}분전"
-            else -> "마감"
+            else -> if(!isFuture) "방금 전" else "마감"
         }
     }
 

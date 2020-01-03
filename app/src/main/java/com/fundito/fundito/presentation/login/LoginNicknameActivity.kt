@@ -86,9 +86,9 @@ class LoginNicknameActivity : AppCompatActivity() {
                     confirmTextView.text = ""
                     startActivity(CardRegisterActivity.newIntent(this@LoginNicknameActivity,userName,nicknameEditText.text.toString()))
                 }.onFailure {
-                    confirmTextView.text = ""
-                    startActivity(CardRegisterActivity.newIntent(this@LoginNicknameActivity,userName,nicknameEditText.text.toString()))
-//                    confirmTextView.text = "중복되는 닉네임입니다"
+//                    confirmTextView.text = ""
+//                    startActivity(CardRegisterActivity.newIntent(this@LoginNicknameActivity,userName,nicknameEditText.text.toString()))
+                    confirmTextView.text = "중복되는 닉네임입니다"
                 }
             }
         }

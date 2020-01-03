@@ -13,7 +13,6 @@ import androidx.lifecycle.HasDefaultViewModelProviderFactory
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.observe
 import androidx.recyclerview.widget.RecyclerView
-import com.fundito.fundito.common.util.startActivity
 import com.fundito.fundito.common.widget.LinearItemDecoration
 import com.fundito.fundito.common.widget.setOnDebounceClickListener
 import com.fundito.fundito.data.service.CurrentFundingResponse
@@ -76,7 +75,7 @@ class FeedFriendDetailActivity : DaggerAppCompatActivity(), HasDefaultViewModelP
         mBinding.name.gravity = Gravity.LEFT
         mBinding.recyclerView.apply {
             adapter = FundingOnGoingAdapter({
-                startActivity(StoreDetailActivity::class)
+                startActivity(StoreDetailActivity.newIntent(this@FeedFriendDetailActivity,it.storeIdx))
             }, false)
             addItemDecoration(LinearItemDecoration(1))
             addItemDecoration(object : RecyclerView.ItemDecoration() {
@@ -102,8 +101,10 @@ class FeedFriendDetailActivity : DaggerAppCompatActivity(), HasDefaultViewModelP
 
             items.observe(this@FeedFriendDetailActivity) {
                 (mBinding.recyclerView.adapter as? FundingOnGoingAdapter)?.submitItems(
-                    it.proceeding.map { CurrentFundingResponse(-1, it.storeName, it.remainingDays, it.progressPercent.toDouble()) }
-                            + it.fail.map { CurrentFundingResponse(-1, it.storeName, -1, -1.0) }
+
+                    it.proceeding.map { CurrentFundingResponse(it.storeIdx, it.storeName, it.remainingDays, it.progressPercent.toDouble()) }
+                            + it.success.map { CurrentFundingResponse(it.storeIdx,it.storeName,-1,1.0)  }
+                            + it.fail.map { CurrentFundingResponse(it.storeIdx, it.storeName, -1, -1.0) }
                 )
             }
         }

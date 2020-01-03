@@ -67,12 +67,17 @@ class FundingOnGoingAdapter(private val onItemClick : (CurrentFundingResponse) -
             binding.name.text = item.storeName
 
             if(item.remainingDays < 0 && item.progressPercent < 0) {
-                binding.root.alpha = 0.5f
+                (binding.root as CardView)?.getChildAt(0)?.alpha = 0.5f
                 binding.remainDay.text = "마감"
                 binding.progress.text = "목표 실패"
+                binding.progressView.progress = 0
+            }else if(item.remainingDays < 0 && item.progressPercent > 0) {
+                (binding.root as CardView)?.getChildAt(0)?.alpha = 0.5f
+                binding.remainDay.text = "마감"
+                binding.progress.text = "목표 달성"
                 binding.progressView.progress = 100
-            }else {
-                binding.root.alpha = 1.0f
+            } else {
+                (binding.root as CardView)?.getChildAt(0)?.alpha = 1.0f
                 binding.remainDay.text = "${item.remainingDays}일 남음"
                 binding.progress.text = "${item.progressPercent}% 달성중"
                 binding.progressView.progress = item.progressPercent

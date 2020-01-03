@@ -22,10 +22,10 @@ import com.fundito.fundito.common.widget.LinearItemDecoration
 import com.fundito.fundito.common.widget.hideLoading
 import com.fundito.fundito.common.widget.setOnDebounceClickListener
 import com.fundito.fundito.common.widget.showLoading
+import com.fundito.fundito.data.enumerator.FundStatus
 import com.fundito.fundito.data.enumerator.RefundType
 import com.fundito.fundito.databinding.ActivityStoreDetailBinding
 import com.fundito.fundito.presentation.funding.FundingActivity
-import timber.log.Timber
 
 /**
  * Created by mj on 26, December, 2019
@@ -110,7 +110,6 @@ class StoreDetailActivity : AppCompatActivity(), HasDefaultViewModelProviderFact
             it.pivotX = it.width.toFloat()
             it.pivotY = it.height.toFloat()
         }
-
 
         mBinding.content.timeLineRecyclerView.apply {
             adapter = TimeLineAdapter()
@@ -204,9 +203,8 @@ class StoreDetailActivity : AppCompatActivity(), HasDefaultViewModelProviderFact
                 mBinding.content.graph3.startAnimation()
 
 
-                Timber.e(store.funding.toString())
-                store.funding?.let {funding->
-                    if(funding.isWithdraw == 0) {
+                store.funding?.let { funding->
+                    if(funding.isWithdraw == 0 && (store.fundStatus == FundStatus.SUCCESS || store.fundStatus == FundStatus.FAIL)) {
                         WithdrawDialog.show(supportFragmentManager,funding.fundingMoney,funding.profitMoney,store.name) {
                             mViewModel.onWithDraw(funding.storeIdx,funding.rewardMoney)
                         }
