@@ -24,7 +24,14 @@ android {
         }
     }
 
-    
+    signingConfigs {
+        create("release") {
+            storeFile = file("/Users/mj/Library/Mobile Documents/com~apple~CloudDocs/KEYSTORE/FUNDITO/FUNDITO")
+            storePassword = "ㅋ"
+            keyAlias = "FUNDITO"
+            keyPassword = "ㅋ"
+        }
+    }
     buildTypes {
         getByName("release") {
             signingConfig = signingConfigs.getByName("release")

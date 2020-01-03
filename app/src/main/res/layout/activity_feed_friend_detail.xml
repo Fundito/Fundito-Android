@@ -23,10 +23,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
 
-        <include
-            android:id="@+id/toolbar"
-            app:layout_constraintTop_toTopOf="parent"
-            layout="@layout/layout_toolbar"/>
+
 
         <TextView
             android:id="@+id/name"
@@ -73,6 +70,10 @@
             tools:layout_editor_absoluteX="0dp"
             tools:listitem="@layout/item_funding_ongoing" />
 
+        <include
+            android:id="@+id/toolbar"
+            app:layout_constraintTop_toTopOf="parent"
+            layout="@layout/layout_toolbar"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
     
