@@ -3,12 +3,15 @@ package com.fundito.fundito.common.util
 import android.app.Notification
 import android.app.NotificationChannel
 import android.app.NotificationManager
+import android.app.PendingIntent
 import android.content.Context
+import android.content.Intent
 import android.os.Build
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import com.fundito.fundito.R
 import com.fundito.fundito.di.AppScope
+import com.fundito.fundito.presentation.splash.SplashActivity
 import javax.inject.Inject
 
 /**
@@ -44,6 +47,10 @@ class NotificationUtil @Inject constructor(private val context: Context) {
             .setContentText(message)
             .setSmallIcon(R.drawable.logo_img)
             .setPriority(Notification.PRIORITY_MAX)
+            .setAutoCancel(true)
+            .setContentIntent(
+                PendingIntent.getActivity(context,200, Intent(context,SplashActivity::class.java),0)
+            )
             .build()
 
         nm.notify(NOTI_ID,noti)

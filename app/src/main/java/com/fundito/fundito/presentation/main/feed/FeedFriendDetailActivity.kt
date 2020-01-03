@@ -93,7 +93,7 @@ class FeedFriendDetailActivity : DaggerAppCompatActivity(), HasDefaultViewModelP
         mBinding.toolbar.toolbartitle.text = "$friendName 님의 투자현황"
         mBinding.name.text = buildSpannedString {
             bold { append(friendName) }
-            append("$friendName 님")
+            append(" 님")
         }
     }
 
