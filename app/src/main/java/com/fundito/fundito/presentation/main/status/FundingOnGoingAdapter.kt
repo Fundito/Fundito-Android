@@ -66,7 +66,7 @@ class FundingOnGoingAdapter(private val onItemClick : (CurrentFundingResponse) -
             binding.executePendingBindings()
             binding.name.text = item.storeName
 
-            if(item.remainingDays == -1 && item.progressPercent == -1) {
+            if(item.remainingDays < 0 && item.progressPercent < 0) {
                 binding.root.alpha = 0.5f
                 binding.remainDay.text = "마감"
                 binding.progress.text = "목표 실패"

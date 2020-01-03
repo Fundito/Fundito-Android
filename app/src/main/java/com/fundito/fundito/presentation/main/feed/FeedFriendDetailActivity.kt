@@ -102,8 +102,8 @@ class FeedFriendDetailActivity : DaggerAppCompatActivity(), HasDefaultViewModelP
 
             items.observe(this@FeedFriendDetailActivity) {
                 (mBinding.recyclerView.adapter as? FundingOnGoingAdapter)?.submitItems(
-                    it.proceeding.map { CurrentFundingResponse(-1, it.storeName, it.remainingDays, it.progressPercent) }
-                            + it.fail.map { CurrentFundingResponse(-1, it.storeName, -1, -1) }
+                    it.proceeding.map { CurrentFundingResponse(-1, it.storeName, it.remainingDays, it.progressPercent.toDouble()) }
+                            + it.fail.map { CurrentFundingResponse(-1, it.storeName, -1, -1.0) }
                 )
             }
         }

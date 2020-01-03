@@ -95,6 +95,7 @@ class HomeFragment : DaggerFragment(), HasDefaultViewModelProviderFactory {
         MainActivity.menu.observe(viewLifecycleOwner) {
             if(MainActivity.menu.value == MainActivity.MainMenu.HOME) {
                 requireActivity().window.statusBarColor = Color.parseColor("#f6f5f5")
+                requireActivity().window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
             }
         }
     }
@@ -145,7 +146,7 @@ class HomeFragment : DaggerFragment(), HasDefaultViewModelProviderFactory {
             }
             Timber.e(ssid)
 //            mViewModel.onWifiStateChanged(ssid)
-            mViewModel.onWifiStateChanged("234")
+            mViewModel.onWifiStateChanged("roro11")
         }
     }
 

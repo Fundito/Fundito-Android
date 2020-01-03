@@ -103,6 +103,7 @@ class FeedFriendListFragment : Fragment() {
         MainActivity.menu.observe(viewLifecycleOwner) {
             if (MainActivity.menu.value == MainActivity.MainMenu.FEED) {
                 requireActivity().window.statusBarColor = Color.parseColor("#f6f5f5")
+                requireActivity().window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
             }
         }
     }

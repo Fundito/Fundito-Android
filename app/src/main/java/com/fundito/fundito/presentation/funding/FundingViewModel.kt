@@ -87,7 +87,7 @@ class FundingViewModel @Inject constructor(
                         Timber.e("send charge")
                     }catch(t: Throwable) {
                         _chargeFail.value = Once(Unit)
-                        return@runCatching
+                        throw RuntimeException()
                     }
                 }
 

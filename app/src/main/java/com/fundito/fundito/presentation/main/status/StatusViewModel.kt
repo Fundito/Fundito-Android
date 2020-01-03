@@ -148,7 +148,10 @@ class StatusViewModel @Inject constructor() : ViewModel() {
         kotlin.runCatching {
             NetworkClient.fundingService.listCurrentFundingStore()
         }.onSuccess {
+            Timber.e("ASDSAD : $it")
             _currentFundingStores.value = it
+        }.onFailure {
+            Timber.e(it)
         }
         _loading.value = false
     }

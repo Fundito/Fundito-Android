@@ -45,7 +45,7 @@ class NotificationUtil @Inject constructor(private val context: Context) {
         val noti = NotificationCompat.Builder(context, NOTI_CHANNEL_ID)
             .setContentTitle("Fundito")
             .setContentText(message)
-            .setSmallIcon(R.drawable.logo_img)
+            .setSmallIcon(R.drawable.small_logo)
             .setPriority(Notification.PRIORITY_MAX)
             .setAutoCancel(true)
             .setContentIntent(

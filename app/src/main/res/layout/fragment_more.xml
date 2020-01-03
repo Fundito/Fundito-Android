@@ -146,6 +146,27 @@
             android:background="@color/brown_grey"
             android:layout_marginLeft="16dp"
             />
+        <com.google.android.material.button.MaterialButton
+            android:paddingLeft="16dp"
+            android:id="@+id/logoutButton"
+            android:gravity="start|center_vertical"
+            app:layout_constraintTop_toBottomOf="@id/underline"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            style="@style/Widget.MaterialComponents.Button.TextButton"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:textSize="16sp"
+            android:textColor="@color/dark"
+            android:lineSpacingExtra="8sp"
+            android:text="로그아웃"
+            />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@color/brown_grey"
+            android:layout_marginLeft="16dp"
+            />
 
     </LinearLayout>
 

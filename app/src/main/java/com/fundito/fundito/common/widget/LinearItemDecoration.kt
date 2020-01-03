@@ -11,7 +11,7 @@ import kotlin.math.roundToInt
  */
 class LinearItemDecoration(private val spaceDp : Int) : RecyclerView.ItemDecoration() {
     override fun getItemOffsets(outRect: Rect, view: View, parent: RecyclerView, state: RecyclerView.State) {
-        val idx = parent.indexOfChild(view)
+        val idx = parent.getChildLayoutPosition(view)
         if(idx != 0)
             outRect.top = spaceDp.toPixel().roundToInt()
     }

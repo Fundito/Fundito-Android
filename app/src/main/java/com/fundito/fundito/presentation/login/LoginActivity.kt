@@ -1,9 +1,12 @@
 package com.fundito.fundito.presentation.login
 
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.children
 import androidx.lifecycle.lifecycleScope
+import androidx.viewpager2.widget.ViewPager2
 import com.facebook.AccessToken
 import com.facebook.CallbackManager
 import com.facebook.FacebookCallback
@@ -38,6 +41,27 @@ class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
+
+        window.statusBarColor = Color.parseColor("#f9f8f8")
+
+        pager.apply {
+            adapter = LoginGuidePagerAdapter().apply {
+                submitItems(listOf(
+                    Triple("먹어보고","내 입맛에 맞는지 직접 판단하세요.",R.drawable.guide1),
+                    Triple("펀딩하고","가게가 목표매출에 도달할 수\n있도록 자유롭게 홍보하세요.",R.drawable.guide3),
+                    Triple("돌려받자 !","초기 투자로 최대 200%까지\n돌려 받으세요.",R.drawable.guide2)
+                ))
+            }
+
+            registerOnPageChangeCallback(object :ViewPager2.OnPageChangeCallback() {
+                override fun onPageSelected(position: Int) {
+                    for(v in pageIndicatorContainer.children) {
+                        v.isActivated = false
+                    }
+                    pageIndicatorContainer.getChildAt(position).isActivated = true
+                }
+            })
+        }
 
         facebookLoginButton.apply {
 

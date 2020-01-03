@@ -374,11 +374,11 @@ class StatusFragment : DaggerFragment(), HasDefaultViewModelProviderFactory {
     private fun adjustSystemUIs() {
 
         if(mViewModel.sceneIndex.value == 1 && MainActivity.menu.value == MainActivity.MainMenu.STATUS) {
-            requireActivity().window.statusBarColor = resources.getColor(R.color.blueberry_two)
-            View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or View.SYSTEM_UI_FLAG_FULLSCREEN or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+            requireActivity().window.statusBarColor = resources.getColor(R.color.gray_white)
+            requireActivity().window.decorView.systemUiVisibility =  View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or View.SYSTEM_UI_FLAG_FULLSCREEN or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
         }else if(MainActivity.menu.value == MainActivity.MainMenu.STATUS){
             requireActivity().window.statusBarColor = Color.WHITE
-            View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+            requireActivity().window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
         }
     }
 

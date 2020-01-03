@@ -3,6 +3,7 @@ package com.fundito.fundito.common
 import android.graphics.drawable.Drawable
 import android.view.View
 import android.widget.ImageView
+import androidx.annotation.DrawableRes
 import androidx.core.view.isVisible
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
@@ -25,6 +26,10 @@ fun ImageView.loadUrlAsync(url : String?, placeholder : Drawable? = null) {
             .error(R.drawable.logo_img)
             .into(this)
     }
+}
+@BindingAdapter("srcResId")
+fun ImageView.loadResId(@DrawableRes id: Int) {
+    Glide.with(this).load(id).into(this)
 }
 
 @BindingAdapter("android:visibility")

@@ -7,6 +7,7 @@ import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 import kotlinx.android.parcel.Parcelize
 import retrofit2.http.*
+import kotlin.math.roundToInt
 
 
 /**
@@ -65,8 +66,13 @@ data class CurrentFundingResponse(
     val remainingDays: Int,
     @SerializedName("progressPercent")
     @Expose(serialize = true, deserialize = true)
+    val progressPercentFromServer: Double
+
+
+) : Parcelable {
     val progressPercent: Int
-) : Parcelable
+    get() = progressPercentFromServer.roundToInt()
+}
 
 @SuppressLint("ParcelCreator")
 @Parcelize

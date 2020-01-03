@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout>
+    <data>
+        
+        <variable
+            name="info1"
+            type="String" />
+        <variable
+            name="info2"
+            type="String" />
+        <variable
+            name="image"
+            type="Integer" />
+
+    </data>
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        xmlns:tools="http://schemas.android.com/tools"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+
+        <ImageView
+            srcResId="@{image}"
+            tools:src="@drawable/guide1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"/>
+        <TextView
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:text="@{info1}"
+            android:id="@+id/info1"
+            android:textStyle="bold"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="32sp"
+            android:textColor="@color/black"
+            android:lineSpacingExtra="15sp"
+            tools:text="먹어보고"
+            />
+
+        <TextView
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:text="@{info2}"
+            app:fontFamily="@font/spoqa_han_sans_light"
+            app:layout_constraintRight_toRightOf="parent"
+            android:layout_marginTop="20dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/info1"
+            android:id="@+id/info2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:textColor="@color/black"
+            android:lineSpacingExtra="9sp"
+            tools:text="내 입맛에 맞는지 직접 판단하세요."
+            />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

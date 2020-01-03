@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<animated-selector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:enterFadeDuration="200"
+    android:exitFadeDuration="200">
+    <item
+        android:state_activated="true"
+        android:drawable="@drawable/primary_circle">
+    </item>
+    <item
+        android:state_activated="false"
+        android:drawable="@drawable/gray_circle">
+    </item>
+
+</animated-selector>

@@ -8,7 +8,6 @@ import com.fundito.fundito.data.service.WifiStoreResponse
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.channels.consumeEach
 import kotlinx.coroutines.launch
-import timber.log.Timber
 import javax.inject.Inject
 
 /**
@@ -61,7 +60,6 @@ class HomeViewModel @Inject constructor() : ViewModel() {
     init {
         viewModelScope.launch {
             Broadcast.fundEvent.openSubscription().consumeEach {
-                Timber.e("밤ㄴ이ㅓㅁ")
                 if(it.first == connectedStoreData.value?.storeIdx) {
                     kotlin.runCatching {
                         NetworkClient.storeInfoService.listStoreFundingTimeLine(it.first)[0]

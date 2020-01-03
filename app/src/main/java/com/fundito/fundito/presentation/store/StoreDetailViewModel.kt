@@ -1,11 +1,14 @@
 package com.fundito.fundito.presentation.store
 
 import androidx.lifecycle.*
+import com.fundito.fundito.broadcast.Broadcast
 import com.fundito.fundito.data.enumerator.FundStatus
 import com.fundito.fundito.data.model.Funding
 import com.fundito.fundito.data.model.Store
 import com.fundito.fundito.data.service.NetworkClient
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.asFlow
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
 import timber.log.Timber
@@ -74,9 +77,24 @@ class StoreDetailViewModel(private val storeIdx : Int) : ViewModel() {
                 }.onFailure {
                     Timber.e(it)
                 }
-                delay(30000L)
+                delay(10000L)
             }
         }
+
+        viewModelScope.launch {
+            Broadcast.fundEvent.asFlow().collect {
+                _loading.value = true
+                kotlin.runCatching {
+                    NetworkClient.storeInfoService.getStoreInfo(storeIdx)
+                }.onSuccess {
+                    _store.value = it
+                }.onFailure {
+                    Timber.e(it)
+                }
+                _loading.value = false
+            }
+        }
+
     }
 
 

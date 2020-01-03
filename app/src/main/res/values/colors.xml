@@ -21,4 +21,6 @@
     <color name="blueberry_two">#312f86</color>
     <color name="brown_grey">#afafaf</color>
     <color name="dark_navy">#000839</color>
+
+    <color name="gray_white">#f2f2f2</color>
 </resources>

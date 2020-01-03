@@ -28,7 +28,7 @@ data class Store(
     val thumbnail : String?,
     @SerializedName("menu")
     val menus : List<Menu>,
-    @SerializedName("goal_money")
+    @SerializedName("goal_sales")
     val goalMoney : Int,
     @SerializedName("current_goal_percent")
     val currentGoalPercent : Int,
