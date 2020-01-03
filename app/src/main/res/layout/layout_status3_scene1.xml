@@ -66,6 +66,17 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"/>
 
+        <View
+            android:id="@+id/shadow"
+            android:layout_width="match_parent"
+            android:layout_height="4dp"
+            android:alpha="0"
+            android:background="@drawable/status_sheet_toolbar_shadow"
+            android:stateListAnimator="@animator/shadow_selector_animator"
+            app:layout_constraintTop_toBottomOf="@id/tabLayout"
+            />
+
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
 

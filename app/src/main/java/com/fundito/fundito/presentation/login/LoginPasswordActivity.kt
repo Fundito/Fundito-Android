@@ -13,6 +13,7 @@ import com.fundito.fundito.R
 import com.fundito.fundito.common.showAlert
 import com.fundito.fundito.common.util.startActivity
 import com.fundito.fundito.common.widget.observeOnce
+import com.fundito.fundito.data.service.CardCreateRequest
 import com.fundito.fundito.databinding.ActivityLoginPasswordBinding
 import com.fundito.fundito.presentation.main.MainActivity
 import dagger.android.support.DaggerAppCompatActivity
@@ -27,10 +28,12 @@ class LoginPasswordActivity : DaggerAppCompatActivity(), HasDefaultViewModelProv
     companion object {
         private const val ARG_NAME = "ARG_NAME"
         private const val ARG_NICKNAME = "ARG_NICKNAME"
+        private const val ARG_CARD = "ARG_CARD"
 
-        fun newIntent(context: Context, name: String, nickname: String) = Intent(context, LoginPasswordActivity::class.java).apply {
+        fun newIntent(context: Context, name: String, nickname: String, card: CardCreateRequest) = Intent(context, LoginPasswordActivity::class.java).apply {
             putExtra(ARG_NAME, name)
             putExtra(ARG_NICKNAME, nickname)
+            putExtra(ARG_CARD, card)
         }
     }
 
@@ -38,6 +41,8 @@ class LoginPasswordActivity : DaggerAppCompatActivity(), HasDefaultViewModelProv
         get() = intent?.getStringExtra(ARG_NAME) ?: ""
     private val nickName: String
         get() = intent?.getStringExtra(ARG_NICKNAME) ?: ""
+    private val card: CardCreateRequest
+        get() = intent?.getParcelableExtra(ARG_CARD)!!
 
     private lateinit var mBinding: ActivityLoginPasswordBinding
 
@@ -60,6 +65,7 @@ class LoginPasswordActivity : DaggerAppCompatActivity(), HasDefaultViewModelProv
 
         mViewModel.name = userName
         mViewModel.nickName = nickName
+        mViewModel.card = card
 
         observeViewModel()
         initKeyboard()

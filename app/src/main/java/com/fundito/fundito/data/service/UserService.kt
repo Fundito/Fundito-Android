@@ -53,6 +53,18 @@ interface UserService {
     @GET("mypage/point")
     suspend fun getFunditoMoney(): List<FunditoMoneyResponse>
 
+    @PUT("mypage/point/withdraw")
+    @FormUrlEncoded
+    suspend fun withdrawFunditoMoney(
+        @Field("storeIdx") storeIdx:Int,
+        @Field("rewardMoney") rewardMoney: Int
+    )
+
+    @POST("auth/signup/nickname")
+    @FormUrlEncoded
+    suspend fun checkDuplicateNickname(
+        @Field("nickname")nickName: String
+    )
 
 
 }

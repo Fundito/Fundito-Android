@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="44dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -55,6 +55,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:animateLayoutChanges="true"
             app:layout_constraintBottom_toBottomOf="@+id/title"
             app:layout_constraintEnd_toStartOf="parent">
 
@@ -65,11 +66,11 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="10dp"
-                tools:text="홍지원"
                 android:textColor="@color/dark_navy"
                 android:textSize="12sp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="홍지원" />
 
             <TextView
                 android:id="@+id/textView2"
@@ -90,30 +91,49 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="33dp"
-                app:fontFamily="@font/spoqa_han_sans_bold"
                 android:lineSpacingExtra="8sp"
                 android:text="카드번호"
                 android:textColor="#444649"
                 android:textSize="16sp"
+                app:fontFamily="@font/spoqa_han_sans_bold"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
-            <EditText
-                android:id="@+id/cardNumberEditText"
-                android:layout_width="243dp"
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.Dense"
+                android:id="@+id/cardNumberLayout"
+                android:layout_width="0dp"
+
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="10dp"
-                android:backgroundTint="@color/dark_navy"
-                android:hint="본인명의 카드번호를 ”-”없이 입력하세요."
-                android:inputType="number"
-                android:lineSpacingExtra="6sp"
-                android:maxLength="19"
-                android:textColor="#a0a1a2"
-                android:textCursorDrawable="@drawable/cursor"
-                android:textSize="12sp"
+                android:layout_marginTop="0dp"
+                app:boxBackgroundColor="@color/transparent"
+                app:counterEnabled="true"
+                app:counterMaxLength="19"
+                app:errorTextAppearance="@style/TextAppearance.AppCompat.Fundito.BottomNavigation"
+
+                app:hintEnabled="false"
+
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView3" />
+                app:layout_constraintTop_toBottomOf="@+id/textView3"
+                app:layout_constraintWidth_percent="0.7">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:paddingTop="16dp"
+                    android:id="@+id/cardNumberEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="카드번호를 ”-”없이 입력하세요."
+                    android:inputType="number"
+                    android:lines="1"
+                    android:maxLength="19"
+                    android:maxLines="1"
+                    android:singleLine="true"
+                    android:textColor="@color/black"
+                    android:textCursorDrawable="@drawable/cursor"
+                    android:textSize="12sp" />
+
+            </com.google.android.material.textfield.TextInputLayout>
 
 
             <TextView
@@ -122,62 +142,96 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="29dp"
-                android:textStyle="bold"
                 android:lineSpacingExtra="8sp"
                 android:text="유효기간"
                 android:textColor="#444649"
                 android:textSize="16sp"
+                android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/cardNumberEditText" />
+                app:layout_constraintTop_toBottomOf="@+id/cardNumberLayout" />
 
-            <EditText
-                android:id="@+id/expirydateEditText"
-                android:layout_width="150dp"
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/expirydateLayout"
+                android:layout_width="0dp"
+
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="8dp"
-                android:hint="MM/YY"
-                android:inputType="number"
-                android:backgroundTint="@color/dark_navy"
-                android:maxLength="5"
-                android:textCursorDrawable="@drawable/cursor"
-                android:textSize="12dp"
+                app:boxBackgroundColor="@color/transparent"
+
+                app:counterEnabled="true"
+                app:counterMaxLength="5"
+                style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.Dense"
+                app:errorTextAppearance="@style/TextAppearance.AppCompat.Fundito.BottomNavigation"
+                app:hintEnabled="false"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView4" />
+                app:layout_constraintTop_toBottomOf="@+id/textView4"
+                app:layout_constraintWidth_percent="0.35">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:paddingTop="16dp"
+                    android:id="@+id/expirydateEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="MM/YY"
+                    android:inputType="number"
+                    android:lines="1"
+                    android:maxLength="5"
+                    android:textColor="@color/black"
+                    android:maxLines="1"
+                    android:singleLine="true"
+                    android:textCursorDrawable="@drawable/cursor"
+                    android:textSize="12dp" />
+            </com.google.android.material.textfield.TextInputLayout>
 
             <TextView
                 android:id="@+id/textView5"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="132dp"
-                android:textStyle="bold"
                 android:lineSpacingExtra="8sp"
                 android:text="비밀번호"
                 android:textColor="#444649"
-
                 android:textSize="16sp"
-                app:layout_constraintStart_toEndOf="@+id/textView4"
+
+                android:textStyle="bold"
+                app:layout_constraintLeft_toLeftOf="@id/passwordLayout"
                 app:layout_constraintTop_toTopOf="@+id/textView4" />
 
-            <EditText
-                android:id="@+id/passwordEditText"
-                android:layout_width="150dp"
+            <com.google.android.material.textfield.TextInputLayout
+
+                android:id="@+id/passwordLayout"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="40dp"
-                android:layout_marginTop="8dp"
-                android:hint="비밀번호 앞 2자리"
-                android:inputType="numberPassword"
-                android:backgroundTint="@color/dark_navy"
-                android:lineSpacingExtra="6sp"
-                android:maxLength="2"
-                android:textColor="#a0a1a2"
-                android:textCursorDrawable="@drawable/cursor"
-                android:textSize="12sp"
-                app:layout_constraintStart_toEndOf="@+id/expirydateEditText"
-                app:layout_constraintTop_toBottomOf="@+id/textView5" />
+                app:boxBackgroundColor="@color/transparent"
+
+                app:counterEnabled="true"
+                app:counterMaxLength="2"
+
+                app:errorTextAppearance="@style/TextAppearance.AppCompat.Fundito.BottomNavigation"
+
+                app:hintEnabled="false"
+                app:layout_constraintStart_toEndOf="@+id/expirydateLayout"
+                app:layout_constraintTop_toBottomOf="@+id/textView5"
+                style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.Dense"
+                app:layout_constraintWidth_percent="0.35">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:paddingTop="16dp"
+                    android:id="@+id/passwordEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:hint="비밀번호 앞 2자리"
+                    android:textColor="@color/black"
+                    android:inputType="numberPassword"
+                    android:lines="1"
+                    android:maxLength="2"
+                    android:maxLines="1"
+                    android:singleLine="true"
+                    android:textCursorDrawable="@drawable/cursor"
+                    android:textSize="12sp" />
+            </com.google.android.material.textfield.TextInputLayout>
 
             <TextView
-                android:textStyle="bold"
                 android:id="@+id/textView6"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -187,36 +241,43 @@
                 android:text="카드별칭"
                 android:textColor="#444649"
                 android:textSize="16sp"
+                android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/expirydateEditText" />
+                app:layout_constraintTop_toBottomOf="@+id/expirydateLayout" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="44dp"
-                android:lineSpacingExtra="6sp"
-                android:text="(선택사항)"
-                android:textColor="#a0a1a2"
-                android:textSize="12sp"
-                app:layout_constraintStart_toEndOf="@+id/textView6"
-                app:layout_constraintTop_toBottomOf="@+id/expirydateEditText" />
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/cardnameLayout"
+                android:layout_width="0dp"
 
-            <EditText
-                android:id="@+id/cardnameEditText"
-                android:layout_width="159dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="8dp"
-                android:hint="6자 이내"
-                android:backgroundTint="@color/dark_navy"
-                android:lineSpacingExtra="6sp"
-                android:maxLength="6"
-                android:textColor="#a0a1a2"
-                android:textCursorDrawable="@drawable/cursor"
-                android:textSize="12sp"
+                app:boxBackgroundColor="@color/transparent"
+                app:counterEnabled="true"
+                app:counterMaxLength="6"
+
+                app:errorTextAppearance="@style/TextAppearance.AppCompat.Fundito.BottomNavigation"
+                app:hintEnabled="false"
+
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView6" />
+
+                style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.Dense"
+                app:layout_constraintTop_toBottomOf="@+id/textView6"
+                app:layout_constraintWidth_percent="0.35">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:paddingTop="16dp"
+                    android:id="@+id/cardnameEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:hint="6자 이내"
+                    android:lines="1"
+                    android:maxLength="6"
+                    android:maxLines="1"
+                    android:textColor="@color/black"
+                    android:singleLine="true"
+                    android:textCursorDrawable="@drawable/cursor"
+                    android:textSize="12sp" />
+            </com.google.android.material.textfield.TextInputLayout>
 
 
             <TextView
@@ -232,11 +293,9 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/cardnameEditText" />
-            // &#160; 줄바꿈후 띄어쓰기
+                app:layout_constraintTop_toBottomOf="@+id/cardnameLayout" />
 
             <TextView
-                android:textStyle="bold"
                 android:id="@+id/textView10"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -246,10 +305,9 @@
                 android:text="약관동의"
                 android:textColor="#444649"
                 android:textSize="16sp"
+                android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView8" />
-            <!-- 체크박스 -->
-            <!-- //체크박스 -->
 
             <CheckBox
                 android:id="@+id/checkbox_all"
@@ -262,26 +320,13 @@
                 android:drawableLeft="@drawable/checkbox"
                 android:drawablePadding="8dp"
                 android:paddingLeft="12dp"
-                android:textStyle="bold"
                 android:text="전체약관의 동의"
+                android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView10" />
 
-            <TextView
-                android:id="@+id/textView9"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:textStyle="bold"
-                android:lineSpacingExtra="8sp"
-                android:textColor="#444649"
-                android:textSize="16sp"
-                android:visibility="gone"
-                app:layout_constraintStart_toEndOf="@+id/checkbox_all"
-                app:layout_constraintTop_toBottomOf="@+id/textView10"
-                tools:text="전체 약관에 동의" />
-
             <androidx.constraintlayout.widget.ConstraintLayout
+
                 android:id="@+id/constraintLayout1"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
@@ -429,7 +474,6 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <TextView
-                android:textStyle="bold"
                 android:id="@+id/textView11"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -439,6 +483,7 @@
                 android:text="안내사항"
                 android:textColor="#444649"
                 android:textSize="16sp"
+                android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/constraintLayout4" />
 
@@ -467,22 +512,34 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <Button
-                app:layout_constraintBottom_toBottomOf="parent"
-                android:layout_marginBottom="16dp"
                 android:id="@+id/registerButton"
                 android:layout_width="match_parent"
                 android:layout_height="58dp"
                 android:layout_marginHorizontal="16dp"
                 android:layout_marginTop="21dp"
+                android:layout_marginBottom="16dp"
                 android:background="@drawable/background_login"
                 android:gravity="center"
                 android:text="등록하기"
                 android:textColor="#fefffe"
                 android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/constraintLayout5" />
 
 
+
+
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
+    <View
+
+        android:id="@+id/shadow"
+        android:layout_width="match_parent"
+        android:layout_height="4dp"
+        android:alpha="0"
+        android:background="@drawable/status_sheet_toolbar_shadow"
+        android:stateListAnimator="@animator/shadow_selector_animator"
+        app:layout_constraintTop_toBottomOf="@id/toolbar"
+        />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -8,6 +8,7 @@ import com.facebook.AccessToken
 import com.fundito.fundito.common.util.SPUtil
 import com.fundito.fundito.common.widget.KeyboardDialogFragment
 import com.fundito.fundito.common.widget.Once
+import com.fundito.fundito.data.service.CardCreateRequest
 import com.fundito.fundito.data.service.NetworkClient
 import com.google.firebase.iid.FirebaseInstanceId
 import kotlinx.coroutines.launch
@@ -28,6 +29,8 @@ class LoginPasswordViewModel @Inject constructor() : ViewModel() {
     val passwordCheck : LiveData<String> = _passwordCheck
 
 
+
+
     private val _phase : MutableLiveData<Int> = MutableLiveData(0)
     val phase : LiveData<Int> = _phase
 
@@ -42,7 +45,7 @@ class LoginPasswordViewModel @Inject constructor() : ViewModel() {
 
     var name = ""
     var nickName = ""
-
+    lateinit var card: CardCreateRequest
 
     fun onTypedPassword(num : Int) {
 
@@ -98,7 +101,7 @@ class LoginPasswordViewModel @Inject constructor() : ViewModel() {
 
                         val token = NetworkClient.userService.signUp(accessToken,this@LoginPasswordViewModel.nickName,this@LoginPasswordViewModel.password.value!!)
                         SPUtil.accessToken = token.token
-                        NetworkClient.cardService.createCard("국민","펀디토 카드","5389200019200333","02/23","1234")
+                        NetworkClient.cardService.createCard(card)
                         NetworkClient.userService.signIn(accessToken,fcmToken)
 
                     }.onSuccess {

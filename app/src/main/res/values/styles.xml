@@ -90,6 +90,7 @@
     <style name="TextAppearance.AppCompat.Fundito"/>
 
 
+
     <style name="TextAppearance.AppCompat.Fundito.BottomNavigation">
         <item name="android:textSize">10sp</item>
     </style>

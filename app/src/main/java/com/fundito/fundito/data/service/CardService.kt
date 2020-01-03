@@ -4,7 +4,10 @@ import android.os.Parcelable
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 import kotlinx.android.parcel.Parcelize
-import retrofit2.http.*
+import retrofit2.http.Body
+import retrofit2.http.DELETE
+import retrofit2.http.GET
+import retrofit2.http.POST
 
 
 /**
@@ -12,13 +15,8 @@ import retrofit2.http.*
  */
 interface CardService {
     @POST("mypage/card")
-    @FormUrlEncoded
     suspend fun createCard(
-        @Field("cardCompany") cardCompany : String,
-        @Field("cardNickname") cardNickname : String,
-        @Field("cardNumber") cardNumber : String,
-        @Field("cardExpirationDate") cardExpiratioinDate : String,
-        @Field("cardPassword") cardPassword : String
+        @Body request : CardCreateRequest
     )
 
     @GET("mypage/card")
@@ -27,6 +25,21 @@ interface CardService {
     @DELETE("mypage/card")
     suspend fun deleteCard()
 }
+
+@Parcelize
+data class CardCreateRequest(
+    @SerializedName("cardCompany")
+    val cardCompany : String,
+    @SerializedName("cardNickname")
+    val cardNickname : String,
+    @SerializedName("cardNumber")
+    val cardNumber : String,
+    @SerializedName("cardExpirationDate")
+    val cardExpiratioinDate : String,
+    @SerializedName("cardPassword")
+    val cardPassword : String
+): Parcelable
+
 @Parcelize
 data class CardResponse(
     @SerializedName("userName")

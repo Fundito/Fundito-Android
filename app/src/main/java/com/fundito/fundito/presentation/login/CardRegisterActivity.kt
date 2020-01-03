@@ -5,9 +5,12 @@ import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isVisible
 import com.fundito.fundito.R
+import com.fundito.fundito.common.showAlert
+import com.fundito.fundito.common.widget.setOnDebounceClickListener
+import com.fundito.fundito.data.service.CardCreateRequest
 import kotlinx.android.synthetic.main.activity_card_register.*
 
 
@@ -37,6 +40,10 @@ class CardRegisterActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_card_register)
 
+        scrollView.setOnScrollChangeListener { v, _, _, _, _ ->
+            shadow.isActivated = v.canScrollVertically(-1)
+        }
+
         usernameTextView.text = userName
 
         makeController()
@@ -53,24 +60,24 @@ class CardRegisterActivity : AppCompatActivity() {
                 //숫자 4개 입력할때마다 - 생김
                 if (start == 3 && start + added == 4 && p0?.contains('-') == false) {
                     cardNumberEditText.setText("$p0-")
-                    cardNumberEditText.setSelection(cardNumberEditText.text.length)
+                    cardNumberEditText.setSelection(cardNumberEditText.text?.length ?: 0)
                 } else if (start == 8 && start + added == 9 && p0?.contains('-') == true) {
                     cardNumberEditText.setText("$p0-")
-                    cardNumberEditText.setSelection(cardNumberEditText.text.length)
+                    cardNumberEditText.setSelection(cardNumberEditText.text?.length ?: 0)
                 } else if (start == 13 && start + added == 14 && p0?.contains('-') == true) {
                     cardNumberEditText.setText("$p0-")
-                    cardNumberEditText.setSelection(cardNumberEditText.text.length)
+                    cardNumberEditText.setSelection(cardNumberEditText.text?.length ?: 0)
                 }
                 // /다음 숫자 지우면 /까지 사라짐
                 else if (start == 4 && start - removed == 3 && p0?.contains('/') == true) {
                     cardNumberEditText.setText(p0.toString().replace("/", ""))
-                    cardNumberEditText.setSelection(cardNumberEditText.text.length)
+                    cardNumberEditText.setSelection(cardNumberEditText.text?.length ?: 0)
                 } else if (start == 9 && start - removed == 8 && p0?.contains('/') == true) {
                     cardNumberEditText.setText(p0.toString().replace("/", ""))
-                    cardNumberEditText.setSelection(cardNumberEditText.text.length)
+                    cardNumberEditText.setSelection(cardNumberEditText.text?.length ?: 0)
                 } else if (start == 14 && start - removed == 13 && p0?.contains('/') == true) {
                     cardNumberEditText.setText(p0.toString().replace("/", ""))
-                    cardNumberEditText.setSelection(cardNumberEditText.text.length)
+                    cardNumberEditText.setSelection(cardNumberEditText.text?.length ?: 0)
                 }
             }
         })
@@ -88,57 +95,82 @@ class CardRegisterActivity : AppCompatActivity() {
 
                 if (start == 1 && start + added == 2 && p0?.contains('/') == false) {
                     expirydateEditText.setText("$p0/")
-                    expirydateEditText.setSelection(expirydateEditText.text.length)
+                    expirydateEditText.setSelection(expirydateEditText.text?.length ?: 0)
                 } else if (start == 3 && start - removed == 2 && p0?.contains('/') == true) {
                     expirydateEditText.setText(p0.toString().replace("/", ""))
-                    expirydateEditText.setSelection(expirydateEditText.text.length)
+                    expirydateEditText.setSelection(expirydateEditText.text?.length ?: 0)
                 }
             }
         })
-        backButton.setOnClickListener() {
-            val intent = Intent(this@CardRegisterActivity, LoginNicknameActivity::class.java)
-            startActivity(intent)
+        backButton setOnDebounceClickListener  {
+            finish()
         }
 
         //전체선택
-        checkbox_all.setOnClickListener {
-            checkbox_all.isSelected = true
-            checkbox2.isSelected = true
-            checkbox3.isSelected = true
-            checkbox4.isSelected = true
-            checkbox5.isSelected = true
-            if (checkbox_all.isChecked == false) {
-                checkbox_all.isSelected = false
-                checkbox2.isSelected = false
-                checkbox3.isSelected = false
-                checkbox4.isSelected = false
-                checkbox5.isSelected = false
-            }
+        checkbox_all.setOnCheckedChangeListener { _, isChecked ->
+            checkbox2.isChecked = isChecked
+            checkbox3.isChecked = isChecked
+            checkbox4.isChecked = isChecked
+            checkbox5.isChecked = isChecked
+            constraintLayout1.isVisible = !isChecked
+            constraintLayout2.isVisible = !isChecked
+            constraintLayout3.isVisible = !isChecked
+            constraintLayout4.isVisible = !isChecked
         }
-
 
     }
 
     private fun makeController() {
 
-        registerButton.setOnClickListener {
+        registerButton setOnDebounceClickListener  {
             val cardnumber = cardNumberEditText.text.toString()
             val date = expirydateEditText.text.toString()
             val pw = passwordEditText.text.toString()
             val cardname = cardnameEditText.text.toString()
             val checkboxAll = checkbox_all
 
-            // 빈 칸이 있으면 안되므로 빈 칸 체크
-            if (cardnumber.isEmpty() || date.isEmpty() || pw.isEmpty() || cardname.isEmpty()) {
-                Toast.makeText(this, "빈칸을 채워주세요.", Toast.LENGTH_SHORT).show()
-                return@setOnClickListener
+            cardNumberLayout.error = null
+            expirydateLayout.error = null
+            passwordLayout.error = null
+            cardnameLayout.error = null
 
-            } else if (!checkboxAll.isSelected) {
+            when {
+                cardnumber.length != 19 -> {
+                    cardNumberLayout.error = "카드번호 미입력"
+                    return@setOnDebounceClickListener
+                }
+                date.isBlank() -> {
+                    expirydateLayout.error = "만료기한 미입력"
+                    return@setOnDebounceClickListener
+                }
+                pw.length != 2-> {
+                    passwordLayout.error = "비밀번호 미입력"
+                    return@setOnDebounceClickListener
+                }
+                cardname.isBlank()-> {
+                    cardnameLayout.error = "카드이름 미입력"
+                    return@setOnDebounceClickListener
+                }
+                !checkboxAll.isChecked-> {
+                    showAlert("약관 동의가 필요합니다")
+                    return@setOnDebounceClickListener
+                }
+                else-> {
+                    startActivity(LoginPasswordActivity.newIntent(this@CardRegisterActivity,userName,nickName,
+                        CardCreateRequest(
+                            "국민",
+                            cardname,
+                            cardnumber,
+                            date,
+                            pw
+                        )
+                    ))
+                }
 
-                Toast.makeText(this, "약관동의를 선택해주세요.", Toast.LENGTH_SHORT).show()
-                return@setOnClickListener
             }
-            startActivity(LoginPasswordActivity.newIntent(this@CardRegisterActivity,userName,nickName))
+
+
+
         }
 
     }

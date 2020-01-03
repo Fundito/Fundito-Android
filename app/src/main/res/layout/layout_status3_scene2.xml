@@ -177,7 +177,19 @@
                 android:clipToPadding="false"
                 android:layout_height="wrap_content"/>
 
+
+            <View
+
+                android:id="@+id/shadow"
+                android:layout_width="match_parent"
+                android:layout_height="4dp"
+                android:alpha="0"
+                android:background="@drawable/status_sheet_toolbar_shadow"
+                android:stateListAnimator="@animator/shadow_selector_animator"
+                app:layout_constraintTop_toTopOf="parent"
+                />
         </androidx.constraintlayout.widget.ConstraintLayout>
+
 
     </androidx.core.widget.NestedScrollView>
 </layout>

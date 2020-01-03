@@ -18,12 +18,11 @@ import androidx.core.view.updateLayoutParams
 import androidx.core.widget.NestedScrollView
 import androidx.lifecycle.HasDefaultViewModelProviderFactory
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.observe
+import androidx.recyclerview.widget.RecyclerView
 import androidx.transition.Scene
 import androidx.transition.TransitionManager
 import com.fundito.fundito.R
-import com.fundito.fundito.broadcast.Broadcast
 import com.fundito.fundito.common.fadeIn
 import com.fundito.fundito.common.post
 import com.fundito.fundito.common.startMoneyAnimation
@@ -41,8 +40,6 @@ import com.fundito.fundito.presentation.store.StoreDetailActivity
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.tabs.TabLayout
 import dagger.android.support.DaggerFragment
-import kotlinx.coroutines.channels.consumeEach
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 import kotlin.math.roundToInt
 import kotlin.math.roundToLong
@@ -125,7 +122,6 @@ class StatusFragment : DaggerFragment(), HasDefaultViewModelProviderFactory {
         initBottomSheets()
         initView()
         observeViewModel()
-        listenBroadcast()
         backPressedDispatcher.addCallback(viewLifecycleOwner,backPressedCallback)
     }
 
@@ -214,6 +210,15 @@ class StatusFragment : DaggerFragment(), HasDefaultViewModelProviderFactory {
                 mViewModel.sceneIndex.value = 1
             },true)
             addItemDecoration(LinearItemDecoration(15))
+
+            addOnScrollListener(object:RecyclerView.OnScrollListener() {
+                override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+
+                    if(mViewModel.sheet2TabIndex.value == 0) {
+                        scene1Binding.shadow.isActivated = recyclerView.canScrollVertically(-1)
+                    }
+                }
+            })
         }
 
         scene1Binding.completeRecyclerView.apply {
@@ -221,13 +226,24 @@ class StatusFragment : DaggerFragment(), HasDefaultViewModelProviderFactory {
                 startActivity(StoreDetailActivity.newIntent(requireContext(),it.storeIdx))
             }
             addItemDecoration(LinearItemDecoration(15))
+
+            addOnScrollListener(object:RecyclerView.OnScrollListener() {
+                override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+
+                    if(mViewModel.sheet2TabIndex.value == 1) {
+                        scene1Binding.shadow.isActivated = recyclerView.canScrollVertically(-1)
+                    }
+                }
+            })
         }
 
         scene1Binding.tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabReselected(tab: TabLayout.Tab?) {
+
             }
 
             override fun onTabUnselected(tab: TabLayout.Tab?) {
+
             }
 
             override fun onTabSelected(tab: TabLayout.Tab?) {
@@ -260,7 +276,6 @@ class StatusFragment : DaggerFragment(), HasDefaultViewModelProviderFactory {
         }
 
         mBinding.price.startMoneyAnimation(mViewModel.fundingData.value?.totalGetMoney ?: 0," 원")
-
     }
 
     private fun observeViewModel() {
@@ -309,6 +324,12 @@ class StatusFragment : DaggerFragment(), HasDefaultViewModelProviderFactory {
             sheet2TabIndex.observe(viewLifecycleOwner) {index->
                 if (scene1Binding.tabLayout?.selectedTabPosition != index)
                     scene1Binding.tabLayout.getTabAt(index)?.select()
+
+                if(mViewModel.sheet2TabIndex.value == 0) {
+                    scene1Binding.shadow.isActivated = scene1Binding.onGoingRecyclerView.canScrollVertically(-1)
+                }else {
+                    scene1Binding.shadow.isActivated = scene1Binding.completeRecyclerView.canScrollVertically(-1)
+                }
             }
 
             sceneIndex.observe(viewLifecycleOwner) { index ->
@@ -361,24 +382,13 @@ class StatusFragment : DaggerFragment(), HasDefaultViewModelProviderFactory {
         }
     }
 
-    private fun listenBroadcast() {
-        lifecycleScope.launch {
-            Broadcast.chargeCompleteEvent.openSubscription().consumeEach {
-
-                mViewModel.getFunditoMoney()
-                mBinding.bottomSheet1.remain.text = it.toMoney() + " 원"
-            }
-        }
-    }
 
     private fun adjustSystemUIs() {
 
         if(mViewModel.sceneIndex.value == 1 && MainActivity.menu.value == MainActivity.MainMenu.STATUS) {
-            requireActivity().window.statusBarColor = resources.getColor(R.color.gray_white)
-            requireActivity().window.decorView.systemUiVisibility =  View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or View.SYSTEM_UI_FLAG_FULLSCREEN or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+            requireActivity().window.statusBarColor = /* resources.getColor(R.color.gray_white) */ Color.TRANSPARENT
         }else if(MainActivity.menu.value == MainActivity.MainMenu.STATUS){
             requireActivity().window.statusBarColor = Color.WHITE
-            requireActivity().window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
         }
     }
 

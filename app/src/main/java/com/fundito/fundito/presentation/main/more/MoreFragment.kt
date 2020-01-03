@@ -42,7 +42,6 @@ class MoreFragment : Fragment() {
         MainActivity.menu.observe(viewLifecycleOwner) {
             if(MainActivity.menu.value == MainActivity.MainMenu.MORE) {
                 requireActivity().window.statusBarColor = Color.WHITE
-                requireActivity().window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
             }
         }
     }

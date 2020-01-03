@@ -11,10 +11,8 @@ import androidx.core.text.color
 import androidx.lifecycle.lifecycleScope
 import com.fundito.fundito.R
 import com.fundito.fundito.common.widget.setOnDebounceClickListener
+import com.fundito.fundito.data.service.NetworkClient
 import kotlinx.android.synthetic.main.activity_login_nickname.*
-import kotlinx.coroutines.flow.collect
-import reactivecircus.flowbinding.android.widget.textChanges
-import java.util.regex.Pattern
 
 class LoginNicknameActivity : AppCompatActivity() {
 
@@ -31,8 +29,6 @@ class LoginNicknameActivity : AppCompatActivity() {
 
     private val userName: String
         get() = intent?.getStringExtra(ARG_NAME) ?: ""
-
-    private val nicknamePattern: String = "^[A-Za-z[0-9]]{2,12}$" // 영문, 숫자
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -65,10 +61,6 @@ class LoginNicknameActivity : AppCompatActivity() {
         }
     }
 
-    private fun nickNameCheckPattern(nickName: String): Boolean {
-        val match = Pattern.compile(nicknamePattern).matcher(nickName)
-        return match.matches()
-    }
 
     private fun initview() {
 
@@ -76,28 +68,27 @@ class LoginNicknameActivity : AppCompatActivity() {
             InputFilter.LengthFilter(12)
         )
 
-        lifecycleScope.launchWhenStarted {
-            nicknameEditText
-                .textChanges()
-                .collect {nickname->
-                    if(nickNameCheckPattern(nickname.toString())) {
-                        confirmTextView.text = "사용 가능합니다"
-                        confirmTextView.setTextColor(resources.getColor(R.color.blueberry_two))
-                    }else {
-                        confirmTextView.text = "2-12글자 사이로만 입력해주세요"
-                        confirmTextView.setTextColor(resources.getColor(R.color.coral))
-                    }
-                }
-        }
 
         button setOnDebounceClickListener {
+
+            val nickname = nicknameEditText.text.toString()
+
+            if(nickname.isBlank()) {
+                confirmTextView.text = "닉네임을 입력해주세요"
+                return@setOnDebounceClickListener
+            }
+
+
             lifecycleScope.launchWhenStarted {
                 kotlin.runCatching {
-                    //TODO
+                    NetworkClient.userService.checkDuplicateNickname(nickname)
                 }.onSuccess {
+                    confirmTextView.text = ""
                     startActivity(CardRegisterActivity.newIntent(this@LoginNicknameActivity,userName,nicknameEditText.text.toString()))
                 }.onFailure {
-
+                    confirmTextView.text = ""
+                    startActivity(CardRegisterActivity.newIntent(this@LoginNicknameActivity,userName,nicknameEditText.text.toString()))
+//                    confirmTextView.text = "중복되는 닉네임입니다"
                 }
             }
         }
