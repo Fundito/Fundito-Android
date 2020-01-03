@@ -8,7 +8,6 @@ import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
-import timber.log.Timber
 
 /**
  * Created by mj on 02, January, 2020
@@ -35,7 +34,8 @@ class FCMService : FirebaseMessagingService() {
 
     override fun onMessageReceived(p0: RemoteMessage) {
         val notiUtil = NotificationUtil(applicationContext)
-        Timber.e(p0.toString())
-        notiUtil.showNotification("하이")
+        val title = p0.data.getValue("title")
+        val body = p0.data.getValue("body")
+        notiUtil.showNotification( title,body)
     }
 }

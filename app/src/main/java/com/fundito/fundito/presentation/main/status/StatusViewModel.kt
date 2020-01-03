@@ -96,7 +96,6 @@ class StatusViewModel @Inject constructor() : ViewModel() {
         }
         viewModelScope.launch {
             Broadcast.fundEvent.asFlow().collect {
-                Timber.e("펀딩 완료 ${it.first} - ${it.second}")
                 getFunditoMoney()
                 getFundingData()
                 getRecentFundingHistories()

@@ -40,11 +40,11 @@ class NotificationUtil @Inject constructor(private val context: Context) {
         }
     }
 
-    fun showNotification(message: String) {
+    fun showNotification(title: String?, body: String?) {
         val nm = NotificationManagerCompat.from(context)
         val noti = NotificationCompat.Builder(context, NOTI_CHANNEL_ID)
-            .setContentTitle("Fundito")
-            .setContentText(message)
+            .setContentTitle(title ?: "Fundito")
+            .setContentText(body ?: "New Notification")
             .setSmallIcon(R.drawable.small_logo)
             .setPriority(Notification.PRIORITY_MAX)
             .setAutoCancel(true)

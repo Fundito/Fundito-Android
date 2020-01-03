@@ -24,17 +24,28 @@ android {
         }
     }
 
+    signingConfigs {
+        create("release") {
+            storeFile = file("/Users/mj/Library/Mobile Documents/com~apple~CloudDocs/KEYSTORE/FUNDITO/FUNDITO")
+            storePassword = "ansaudwn123"
+            keyAlias = "FUNDITO"
+            keyPassword = "ansaudwn123"
+        }
+    }
     buildTypes {
         getByName("release") {
-            isMinifyEnabled = false
-            isShrinkResources = false
-            isDebuggable = true
+            signingConfig = signingConfigs.getByName("release")
+            isMinifyEnabled = true
+            isShrinkResources = true
+            isDebuggable = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
         }
     }
+
+
 
     testOptions {
         unitTests.isReturnDefaultValues = true
@@ -99,12 +110,6 @@ dependencies {
     implementation("androidx.room:room-ktx:2.2.3")
     testImplementation("androidx.room:room-testing:2.2.3")
 
-
-    //WorkManager
-    implementation("androidx.work:work-runtime-ktx:2.2.0")
-    implementation("androidx.work:work-rxjava2:2.2.0")
-    androidTestImplementation("androidx.work:work-testing:2.2.0")
-    //endregion
 
     //region 3rd party Libraries
 

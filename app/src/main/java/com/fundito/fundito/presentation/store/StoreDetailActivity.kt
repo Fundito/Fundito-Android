@@ -17,6 +17,7 @@ import androidx.lifecycle.observe
 import com.fundito.fundito.R
 import com.fundito.fundito.common.loadUrlAsync
 import com.fundito.fundito.common.util.toMoney
+import com.fundito.fundito.common.view.WithdrawDialog
 import com.fundito.fundito.common.widget.LinearItemDecoration
 import com.fundito.fundito.common.widget.hideLoading
 import com.fundito.fundito.common.widget.setOnDebounceClickListener
@@ -24,6 +25,7 @@ import com.fundito.fundito.common.widget.showLoading
 import com.fundito.fundito.data.enumerator.RefundType
 import com.fundito.fundito.databinding.ActivityStoreDetailBinding
 import com.fundito.fundito.presentation.funding.FundingActivity
+import timber.log.Timber
 
 /**
  * Created by mj on 26, December, 2019
@@ -201,6 +203,15 @@ class StoreDetailActivity : AppCompatActivity(), HasDefaultViewModelProviderFact
                 mBinding.content.graph2.startAnimation()
                 mBinding.content.graph3.startAnimation()
 
+
+                Timber.e(store.funding.toString())
+                store.funding?.let {funding->
+                    if(funding.isWithdraw == 0) {
+                        WithdrawDialog.show(supportFragmentManager,funding.fundingMoney,funding.profitMoney,store.name) {
+                            mViewModel.onWithDraw(funding.storeIdx,funding.rewardMoney)
+                        }
+                    }
+                }
 
             }
         }

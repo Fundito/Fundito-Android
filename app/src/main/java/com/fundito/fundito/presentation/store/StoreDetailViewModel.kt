@@ -56,6 +56,8 @@ class StoreDetailViewModel(private val storeIdx : Int) : ViewModel() {
     //endregion
 
     init {
+
+
         viewModelScope.launch {
             _loading.value = true
             kotlin.runCatching {
@@ -97,5 +99,14 @@ class StoreDetailViewModel(private val storeIdx : Int) : ViewModel() {
 
     }
 
+    fun onWithDraw(storeIdx: Int, rewardMoney: Int) = viewModelScope.launch {
+        kotlin.runCatching {
+            NetworkClient.userService.withdrawFunditoMoney(storeIdx,rewardMoney)
+        }.onSuccess {
+            Broadcast.fundEvent.send(-1 to -1)
+        }.onFailure {
+
+        }
+    }
 
 }

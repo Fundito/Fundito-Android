@@ -1,8 +1,10 @@
 package com.fundito.fundito.data.model
 
+import android.annotation.SuppressLint
 import android.os.Parcelable
 import com.fundito.fundito.data.enumerator.FundStatus
 import com.fundito.fundito.data.enumerator.FundStatusSerializer
+import com.google.gson.annotations.Expose
 import com.google.gson.annotations.JsonAdapter
 import com.google.gson.annotations.SerializedName
 import kotlinx.android.parcel.Parcelize
@@ -42,7 +44,11 @@ data class Store(
     val dueDate : String,
     @SerializedName("fund_status")
     @JsonAdapter(FundStatusSerializer::class)
-    val fundStatus : FundStatus
+    val fundStatus : FundStatus,
+
+    @SerializedName("funding")
+    val funding: FundingInStore?
+
 ) : Parcelable {
     @Parcelize
     data class Menu(
@@ -53,3 +59,38 @@ data class Store(
     ) : Parcelable
 
 }
+
+@SuppressLint("ParcelCreator")
+@Parcelize
+data class FundingInStore(
+    @SerializedName("funding_idx")
+    @Expose(serialize = true, deserialize = true)
+    val fundingIdx: Int,
+    @SerializedName("user_idx")
+    @Expose(serialize = true, deserialize = true)
+    val userIdx: Int,
+    @SerializedName("store_idx")
+    @Expose(serialize = true, deserialize = true)
+    val storeIdx: Int,
+    @SerializedName("funding_money")
+    @Expose(serialize = true, deserialize = true)
+    val fundingMoney: Int,
+    @SerializedName("refund_percent")
+    @Expose(serialize = true, deserialize = true)
+    val refundPercent: Int,
+    @SerializedName("reward_money")
+    @Expose(serialize = true, deserialize = true)
+    val rewardMoney: Int,
+    @SerializedName("profit_money")
+    @Expose(serialize = true, deserialize = true)
+    val profitMoney: Int,
+    @SerializedName("funding_time")
+    @Expose(serialize = true, deserialize = true)
+    val fundingTime: String,
+    @SerializedName("is_withdraw")
+    @Expose(serialize = true, deserialize = true)
+    val isWithdraw: Int,
+    @SerializedName("user_name")
+    @Expose(serialize = true, deserialize = true)
+    val userName: String
+) : Parcelable

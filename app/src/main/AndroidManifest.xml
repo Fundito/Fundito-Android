@@ -61,34 +61,34 @@
 
         <activity
             android:name=".presentation.login.LoginNicknameActivity"
-            android:exported="true" />
+            android:configChanges="screenLayout|orientation|fontScale|locale|screenSize"
+            android:screenOrientation="portrait"
+             />
         <activity
             android:name=".presentation.login.CardRegisterActivity"
             android:configChanges="screenLayout|orientation|fontScale|locale|screenSize"
-            android:exported="true"
+
             android:screenOrientation="portrait" />
 
         <activity
             android:name=".presentation.login.LoginActivity"
             android:configChanges="screenLayout|orientation|fontScale|locale|screenSize"
-            android:exported="true"
+
             android:screenOrientation="portrait" />
 
 
         <activity
             android:name=".presentation.main.MainActivity"
             android:configChanges="screenLayout|orientation|fontScale|locale|screenSize"
-            android:exported="true"
+
             android:screenOrientation="portrait" />
         <activity
             android:name=".presentation.store.StoreDetailActivity"
             android:configChanges="screenLayout|orientation|fontScale|locale|screenSize"
-            android:exported="true"
             android:screenOrientation="portrait" />
         <activity
             android:name=".presentation.store.StoreCheerActivity"
             android:configChanges="screenLayout|orientation|fontScale|locale|screenSize"
-            android:exported="true"
             android:screenOrientation="portrait"
 
             />
@@ -99,27 +99,27 @@
         <activity
             android:name=".presentation.main.feed.FeedFriendDetailActivity"
             android:configChanges="screenLayout|orientation|fontScale|locale|screenSize"
-            android:exported="true"
+
             android:screenOrientation="portrait" />
         <activity
             android:name=".presentation.search.SearchActivity"
             android:configChanges="screenLayout|orientation|fontScale|locale|screenSize"
-            android:exported="true"
+
             android:screenOrientation="portrait" />
         <activity
             android:name=".presentation.noti.NotiActivity"
             android:configChanges="screenLayout|orientation|fontScale|locale|screenSize"
-            android:exported="true"
+
             android:screenOrientation="portrait" />
         <activity
             android:name=".presentation.funding.FundingActivity"
             android:configChanges="screenLayout|orientation|fontScale|locale|screenSize"
-            android:exported="true"
+
             android:screenOrientation="portrait" />
         <activity
             android:name=".presentation.login.LoginPasswordActivity"
             android:configChanges="screenLayout|orientation|fontScale|locale|screenSize"
-            android:exported="true"
+
             android:screenOrientation="portrait" />
         <service
             android:name=".service.FCMService"
