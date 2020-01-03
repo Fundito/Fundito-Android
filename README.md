@@ -119,7 +119,7 @@ MVVM using Dagger, AAC ViewModel, Data Binding
 
 ## [Custom View + Edge Feature]
 
-<img src="1.gif" width=200/> <img src="2.gif" width=200/> <img src="3.gif" width=200/> <img src="4.gif" width=200/>
+<img src="auth.gif" width=200/> <img src="funding.gif" width=200/> <img src="feed.gif" width=200/> <img src="charge.gif" width=200/> <img src="search.gif" width=200/>
 
 ### FundingProgressView
 
