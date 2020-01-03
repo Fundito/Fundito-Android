@@ -27,9 +27,9 @@ android {
     signingConfigs {
         create("release") {
             storeFile = file("/Users/mj/Library/Mobile Documents/com~apple~CloudDocs/KEYSTORE/FUNDITO/FUNDITO")
-            storePassword = "ㅋ"
+            storePassword = "ㅋㅋ"
             keyAlias = "FUNDITO"
-            keyPassword = "ㅋ"
+            keyPassword = "ㅋㅋㅋ"
         }
     }
     buildTypes {
