@@ -12,11 +12,13 @@ object DateParsingUtil {
     private val fallback2Format = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'",Locale.KOREA)
     private val fallback3Format = SimpleDateFormat("yyyy-MM-dd HH:mm",Locale.KOREA)
 
+
     fun parseToYMD(src : Calendar, separator : String = ".") : String {
         val year = src[Calendar.YEAR]
         val month = src[Calendar.MONTH] + 1
         val date = src[Calendar.DATE]
         return String.format("%04d",year) + separator + String.format("%02d",month) + separator + String.format("%02d",date)
+        return String.format("%04d")
     }
 
     fun parseToYMDHM(src : Calendar, ymdSeparator: String = ".", timeSeparator : String = ":") : String {

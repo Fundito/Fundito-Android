@@ -15,6 +15,7 @@ import kotlin.math.min
 infix fun String.addCharForMoneyRepresentation(nextNumber : Int) : String {
     return addCharForMoneyRepresentation((nextNumber + '0'.toInt()).toChar())
 }
+
 infix fun String.addCharForMoneyRepresentation(nextChar : Char) : String {
     if(nextChar !in '0'..'9')
         throw IllegalArgumentException("nextChar can be only a number ASCI character")

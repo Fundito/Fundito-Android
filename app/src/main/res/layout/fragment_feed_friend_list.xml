@@ -362,6 +362,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/card1" />
 
             <androidx.recyclerview.widget.RecyclerView
+                tools:listitem="@layout/item_friend_funding_list"
                 android:background="@color/transparent"
                 android:id="@+id/friendFundingRecyclerView"
                 android:layout_width="match_parent"
@@ -375,7 +376,7 @@
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/friendFundingTextView"
-                tools:listitem="@layout/item_friend_funding_list" />
+               />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
